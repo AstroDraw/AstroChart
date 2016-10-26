@@ -1,0 +1,29 @@
+{
+  "name": "astrochart",
+  "version": "0.0.0",
+  "description": "A free and open-source JavaScript library for generating SVG charts to display planets in astrology.",
+  "keywords": [
+    "astrology",
+    "chart",
+    "horoscope"    
+  ],
+  "author": {
+    "name": "Tomas Jurman",
+    "email": "tomasjurman@gmail.com"    
+  },  
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kibo/AstroChart.git"
+  }, 
+  "dependencies": {},
+  "devDependencies": {                                
+    "grunt": "^0.4.4",    
+	"grunt-contrib-jshint": "~0.6.3",
+	"grunt-contrib-uglify": "~0.2.2",
+	"grunt-contrib-concat": "^0.4.0",
+	"grunt-contrib-qunit": "^0.4.0",
+	"grunt-contrib-watch": "~0.6.1",
+	"load-grunt-tasks": "~0.4.0" 
+  }
+}
