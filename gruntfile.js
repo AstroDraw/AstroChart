@@ -8,7 +8,7 @@ module.exports = function( grunt ) {
 							       
         concat : {
 			dist : {
-				src : ['project/src/constants.js', 'project/src/chart.js','project/src/utils.js'],
+				src : ['project/src/constants.js', 'project/src/svg.js', 'project/src/chart.js','project/src/utils.js'],
 				dest : 'project/build/<%= pkg.name %>.js'
 			}
 		},

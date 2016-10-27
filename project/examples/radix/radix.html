@@ -2,118 +2,18 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Radix</title>
-        
-        <style media="screen">
-            #paper {                
-            	background:#eee;            	
-            	width:1024px;
-            	height:800px;          	
-            }                               
-        </style>        
+        <title>Radix</title>                     
     </head>
     <body>
         <div id="paper"></div>
-                              
-        <script src="vendor/raphael/raphael_2_2_1.min.js"></script>
-        <script src="js/data.js"></script>
-        <script type="text/javascript">
-        	const ELEMENT_ID = "paper";
-        	
-        	// http://www.rapidtables.com/web/color/html-color-codes.htm
-        	const ARIES_COLOR = "#FF0000";
-        	const TAURUS_COLOR = "#A0522D";
-        	const GEMINI_COLOR = "#87CEEB"; // skyblue
-        	const CANCER_COLOR = "#C0C0C0"; // silver
-        	const LEO_COLOR = "#FFD700"; // gold
-        	const VIRGO_COLOR = "#DAA520"; //goldenrod
-        	const LIBRA_COLOR = "#0000CD"; // medium blue 
-        	const SCORPIO_COLOR = "#000000"; // black 
-        	const SAGITTARIUS_COLOR = "#FFA500"; // orange
-        	const CAPRICORN_COLOR = "#D2B48C"; // tan
-        	const AQUARIUS_COLOR = "#483D8B"; // darkslateblue
-        	const PISCES_COLOR = "#708090"; // slategray
-        	
-        	const RED_COLOR = "#FF0000";
-        	const GREEN_COLOR = "#006400";
-        	const BLUE_COLOR = "#87CEEB";
-        	const BROWN_COLOR = "#8B4513";
-        	        	
-        	const COLORS_SIGNS = [ARIES_COLOR, TAURUS_COLOR, GEMINI_COLOR, CANCER_COLOR, LEO_COLOR, VIRGO_COLOR, LIBRA_COLOR, SCORPIO_COLOR, SAGITTARIUS_COLOR, CAPRICORN_COLOR, AQUARIUS_COLOR, PISCES_COLOR];
-        	const COLORS_ELEMENTS = [RED_COLOR, BROWN_COLOR, BLUE_COLOR, GREEN_COLOR, RED_COLOR, BROWN_COLOR, BLUE_COLOR, GREEN_COLOR, RED_COLOR, BROWN_COLOR, BLUE_COLOR, GREEN_COLOR];
-        	        	        	        	        	                	   
-            window.onload = function () {
-            	var paperWidth = document.getElementById(ELEMENT_ID).getBoundingClientRect().width;
-				var paperHeight = document.getElementById(ELEMENT_ID).getBoundingClientRect().height;            	
-            	var paper = new Raphael(ELEMENT_ID, paperWidth, paperHeight);
-            	             	 
-            	/**
-            	 * Draw circular sector
-            	 * 
-            	 * @param {int} x - x center position
-            	 * @param {int} y - y center position
-            	 * @param {int} radius
-            	 * @param {int} a1 - x end point
-            	 * @param {int} a2 - y end point
-            	 * @color {String} color - HTML rgb
-            	 *  
-            	 * @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
-            	 */              	
-            	paper.customAttributes.segment = function (x, y, radius, a1, a2, color) {
-            	 	const SHIFT_IN_DEGREES = 180;
-            	 	            	 	
-            	 	const LARGE_ARC_FLAG = 0;
-            	 	const SWEET_FLAG = 0;
-            	 	                
-                    a1 = ((SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
-                    a2 = ((SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;
-                                                                              
-                    return {
-                        path: [["M", x, y], ["l", radius * Math.cos(a1), radius * Math.sin(a1)], ["A", radius, radius, 0, LARGE_ARC_FLAG, SWEET_FLAG, x + radius * ( Math.cos(a2)), y + radius * (Math.sin(a2))], ["z"]],
-                        fill:color,
-                        "stroke-width":0,
-                        opacity:0.9                                             
-                    };
-                };
-                              
-                var universe = paper.set();                
-                var step = 30;
-                for( var i = 0, start = 0, len = COLORS_ELEMENTS.length; i < len; i++ ){
-                	
-                	universe.push(                	                                	               
-                		paper.path().attr({				    				  				   
-				    		segment: [paperWidth/3, paperHeight/2, paperHeight/3, start, start+step, COLORS_ELEMENTS[i]]
-						})
-					);                	
-					
-					start += step;
-                }
-                                
-                var position = getPointPosition( paperWidth/3, paperHeight/2, paperHeight/3 + 10, 270.132465, "o");                
-                var circle = paper.circle( position.x, position.y, 5 );
-                circle.attr({
-                	fill:"#000000",
-                	"stroke-width":0
-                });                            																	            													            	            	       	   
+                                      
+        <script src="../../build/astrochart.js"></script>
+        <script type="text/javascript">                	        	        	        	                	  
+        	window.onload = function () {
+            	var chart = new astrology.Chart( 'paper', 800, 800, "#eee" );
+				chart.setData( {} );
+				chart.radix();																											            													            	            	       	
 			};
-						
-			/**
-			 * Calculate position of the point on the circle.
-			 * 
-			 * @param {int} cx - center x 
-			 * @param {int} cy - center y
-			 * @param {int} radius
-			 * @param {double} angle - degree			
-			 * 
-			 * @return {Object} - {x:123, y:456}
-			 */			
-			function getPointPosition( cx, cy, radius, angle ){
-				const SHIFT_IN_DEGREES = 180;				
-				var angleInRadius = (SHIFT_IN_DEGREES - angle) * Math.PI / 180;
-				var xPos = cx + radius * Math.cos( angleInRadius );
-				var yPos = cy + radius * Math.sin( angleInRadius );					
-				return {x:xPos, y:yPos};
-			}																		
-        </script>              
+		</script>		    
     </body>
 </html>

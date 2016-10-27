@@ -7,19 +7,20 @@
 	 * @class
 	 * @public
 	 * @constructor
-	 * @param {Object} data 
+ 	 * @param {String} elementId - root DOMElement 
+	 * @param {int} width
+	 * @param {int} height
+	 * @param {String} background
 	 */
-	astrology.Chart = function( data ){	
-	
-		if (!document.getElementById( astrology.ELEMENT_ID )){
+	astrology.Chart = function( elementId, width, height, background ){
+		
+		if (elementId && !document.getElementById( elementId )){
 			var paper = document.createElement('div');
-			paper.id = astrology.ELEMENT_ID;
+			paper.id = elementId;
 			document.body.appendChild( paper );
 		}
-		
-		if( !_isDataValid( data ) ) {
-			throw new Error( "Source Data is not valid." );
-		}
+										
+		this.paper = new astrology.SVG( elementId, width, height, background ); 
 			
 		return this;
 	};
@@ -41,11 +42,36 @@
 		var yPos = cy + radius * Math.sin( angleInRadius );					
 		return {x:Math.round(xPos), y:Math.round(yPos)};
 	};	
+		
+	/**
+	 * Set source
+	 * 	 
+	 * @param {Object} data			
+	 * @throws {InvalidDataException} 
+	 */
+	astrology.Chart.prototype.setData = function( data ){
+		
+		if( !_isDataValid( data ) ) {
+			throw new Error( "Source Data is not valid." );
+		}
+		
+		this.data = data;
+	};
+	
+	/**
+	 * Set source
+	 * 	 
+	 * @param {Object} data			
+	 * @throws {InvalidDataException} 
+	 */
+	astrology.Chart.prototype.radix = function(){
+		this.paper.universe( this.paper.width/2, this.paper.height/2, this.paper.height/2.5); // TODO	
+	};
 	
 	/*
 	 * Checks a source data
 	 * @private
-	 * @function
+	 * 
 	 * @param {Object} data
 	 * @return {boolean}
 	 */

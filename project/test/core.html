@@ -10,7 +10,7 @@
 		<script>
 			window.onload = function( ) {							
 				test( "getPointPosition", function( ) {						
-					var chart = new astrology.Chart({});												
+					var chart = new astrology.Chart("paper", 1024, 800, "#eee");												
 					deepEqual(chart.getPointPosition(10,10,10,0), 	{x:0, y:10});	
 					deepEqual(chart.getPointPosition(10,10,10,90), 	{x:10, y:20});
 					deepEqual(chart.getPointPosition(10,10,10,180), {x:20, y:10});
