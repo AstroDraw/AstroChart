@@ -1,5 +1,10 @@
 // ## CONSTANTS #############################
 (function( astrology ) {
+	
+	// 0 degree is on the West 
+	astrology.SHIFT_IN_DEGREES = 180;
+		 
+	astrology.SYMBOL_SCALE = 1;
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
 	astrology.COLOR_ARIES = "#FF0000";

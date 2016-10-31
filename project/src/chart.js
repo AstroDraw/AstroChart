@@ -35,9 +35,8 @@
 	 * 
 	 * @return {Object} - {x:10, y:20}
 	 */	
-	astrology.Chart.prototype.getPointPosition = function( cx, cy, radius, angle ){
-		var SHIFT_IN_DEGREES = 180;				
-		var angleInRadius = (SHIFT_IN_DEGREES - angle) * Math.PI / 180;
+	astrology.Chart.prototype.getPointPosition = function( cx, cy, radius, angle ){		
+		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
 		var xPos = cx + radius * Math.cos( angleInRadius );
 		var yPos = cy + radius * Math.sin( angleInRadius );					
 		return {x:Math.round(xPos), y:Math.round(yPos)};
@@ -59,13 +58,10 @@
 	};
 	
 	/**
-	 * Set source
-	 * 	 
-	 * @param {Object} data			
-	 * @throws {InvalidDataException} 
+	 * Display radix horoscope	 
 	 */
 	astrology.Chart.prototype.radix = function(){
-		this.paper.universe( this.paper.width/2, this.paper.height/2, this.paper.height/2.5); // TODO	
+		this.paper.universe( this.paper.width/2, this.paper.height/2, this.paper.height/2.5);	
 	};
 	
 	/*
