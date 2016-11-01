@@ -4,7 +4,14 @@
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
 		 
+	//Scale of symbols	 
 	astrology.SYMBOL_SCALE = 1;
+	
+	// Font color of planet's symbols
+	astrology.COLOR_PLANETS = "#000";
+	
+	// Planets
+	astrology.SYMBOL_VENUS = "Venus";
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
 	astrology.COLOR_ARIES = "#FF0000";
@@ -77,26 +84,44 @@
 			start += step;
         }
         
-		this.root.appendChild( universe );	
+		this.root.appendChild( universe );						
+	};
+	
+	/**
+	 * Draw a required symbol. 
+	 * 
+	 * @param {String} name
+	 * @param {int} x
+	 * @param {int} y
+	 * 	 
+	 */
+	astrology.SVG.prototype.drawSymbol = function( name, x, y ){
 		
-		this.root.appendChild( this.venus(50, 50 ) );				
+		switch(name) {
+		    case astrology.SYMBOL_VENUS:		        
+		        this.root.appendChild( venus( x, y) );		        
+		        break;		  
+		    default:
+		    	return "default symbol"; // TODO		 
+		}			
 	};
 		
-	/**
-	 * Draw Venus
+	/*
+	 * Venus path
+	 * @private
 	 * 
 	 * @param {int} x
 	 * @param {int} y	 
 	 * 
 	 * @return {SVGPathElement} path
 	 */
-	astrology.SVG.prototype.venus = function( x, y ){						
+	function venus( x, y ){						
 		var venus = document.createElementNS( context.root.namespaceURI, "path");
-		venus.setAttribute("d", "m" + x + ", " + y + " -4.567361,-0.02503 m 2.345644,2.645991 -0.0451,-5.710434 c -2.427173,-0.01994 -4.379549,-2.002187 -4.362795,-4.428067 0.01675,-2.425755 1.996164,-4.377297 4.423,-4.363997 2.426837,0.0133 4.384738,1.986422 4.374902,4.412214 -0.0098,2.425919 -1.983822,4.386653 -4.411069,4.379982");
-		venus.setAttribute("stroke", "#000");		 
-		venus.setAttribute("stroke-width", 1.2);
-		venus.setAttribute("fill", "none");		
-		venus.setAttribute("transform", "scale(" + astrology.SYMBOL_SCALE + ")"); // TODO						
+		venus.setAttribute("d", "m" + x + ", " + y + " -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0");
+		venus.setAttribute("stroke", astrology.COLOR_PLANETS);		 
+		venus.setAttribute("stroke-width", 1.8);
+		venus.setAttribute("fill", "none");			
+		venus.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
 		return venus;
 	};
 		
@@ -155,27 +180,13 @@
 		}
 										
 		this.paper = new astrology.SVG( elementId, width, height, background ); 
+		this.cx = this.paper.width/2;
+		this.cy = this.paper.height/2;
+		this.radius = this.paper.height/2.5;
 			
 		return this;
 	};
-	
-	/**
-	 * Calculate position of the point on the circle.
-	 * 
-	 * @param {int} cx - center x 
-	 * @param {int} cy - center y
-	 * @param {int} radius
-	 * @param {double} angle - degree			
-	 * 
-	 * @return {Object} - {x:10, y:20}
-	 */	
-	astrology.Chart.prototype.getPointPosition = function( cx, cy, radius, angle ){		
-		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
-		var xPos = cx + radius * Math.cos( angleInRadius );
-		var yPos = cy + radius * Math.sin( angleInRadius );					
-		return {x:Math.round(xPos), y:Math.round(yPos)};
-	};	
-		
+			
 	/**
 	 * Set source
 	 * 	 
@@ -195,7 +206,31 @@
 	 * Display radix horoscope	 
 	 */
 	astrology.Chart.prototype.radix = function(){
-		this.paper.universe( this.paper.width/2, this.paper.height/2, this.paper.height/2.5);	
+		this.paper.universe( this.cx, this.cy, this.radius);
+							
+		for (var planet in this.data.radix.points) {
+ 		   if (this.data.radix.points.hasOwnProperty( planet )) {
+        		var position = this.getPointPosition( this.cx, this.cy, this.radius, this.data.radix.points[planet].position);
+        		this.paper.drawSymbol(astrology.SYMBOL_VENUS, position.x, position.y);        	        
+    		}
+		}		
+	};
+	
+	/**
+	 * Calculate position of the point on the circle.
+	 * 
+	 * @param {int} cx - center x 
+	 * @param {int} cy - center y
+	 * @param {int} radius
+	 * @param {double} angle - degree			
+	 * 
+	 * @return {Object} - {x:10, y:20}
+	 */	
+	astrology.Chart.prototype.getPointPosition = function( cx, cy, radius, angle ){		
+		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
+		var xPos = cx + radius * Math.cos( angleInRadius );
+		var yPos = cy + radius * Math.sin( angleInRadius );					
+		return {x:Math.round(xPos), y:Math.round(yPos)};
 	};
 	
 	/*

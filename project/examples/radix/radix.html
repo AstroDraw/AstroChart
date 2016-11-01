@@ -8,10 +8,19 @@
         <div id="paper"></div>
                                       
         <script src="../../build/astrochart.js"></script>
-        <script type="text/javascript">                	        	        	        	                	  
+        <script type="text/javascript">  
+        
+        	var data = {
+				"radix":{
+					"timestamp":"TODO",
+					"cups":{"todo":"todo"},
+					"points":{"Venus":{"position":90}}
+					}
+			};
+			                              	        	        	        	                
         	window.onload = function () {
             	var chart = new astrology.Chart( 'paper', 800, 800, "#eee" );
-				chart.setData( {} );
+				chart.setData( data );
 				chart.radix();																											            													            	            	       	
 			};
 		</script>		    

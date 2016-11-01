@@ -4,7 +4,14 @@
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
 		 
+	//Scale of symbols	 
 	astrology.SYMBOL_SCALE = 1;
+	
+	// Font color of planet's symbols
+	astrology.COLOR_PLANETS = "#000";
+	
+	// Planets
+	astrology.SYMBOL_VENUS = "Venus";
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
 	astrology.COLOR_ARIES = "#FF0000";

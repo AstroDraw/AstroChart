@@ -30,12 +30,12 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 {
     'radix':{
     	'timeStamp':132456789, 
-    	'points':{'Sun':0, 'Moon':90, 'Mercury':180, 'Venus':270, ... },
+    	'points':{'Sun':{"position":0}, 'Moon':{"position":90}, 'Mercury':{"position":180}, 'Venus':{"position":270}, ... },
     	'cups':[30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 0]
     },
     'transit':{
     	'timeStamp':654987321, 
-    	'points':{'Sun':10, 'Moon':100, 'Mercury':190, 'Venus':280, ...},
+    	'points':{'Sun':{"position":20}, 'Moon':{"position":110}, 'Mercury':200, 'Venus':290, ...},
     	'cups':[30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 0]    	 
     }
 }

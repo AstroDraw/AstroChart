@@ -46,26 +46,44 @@
 			start += step;
         }
         
-		this.root.appendChild( universe );	
+		this.root.appendChild( universe );						
+	};
+	
+	/**
+	 * Draw a required symbol. 
+	 * 
+	 * @param {String} name
+	 * @param {int} x
+	 * @param {int} y
+	 * 	 
+	 */
+	astrology.SVG.prototype.drawSymbol = function( name, x, y ){
 		
-		this.root.appendChild( this.venus(50, 50 ) );				
+		switch(name) {
+		    case astrology.SYMBOL_VENUS:		        
+		        this.root.appendChild( venus( x, y) );		        
+		        break;		  
+		    default:
+		    	return "default symbol"; // TODO		 
+		}			
 	};
 		
-	/**
-	 * Draw Venus
+	/*
+	 * Venus path
+	 * @private
 	 * 
 	 * @param {int} x
 	 * @param {int} y	 
 	 * 
 	 * @return {SVGPathElement} path
 	 */
-	astrology.SVG.prototype.venus = function( x, y ){						
+	function venus( x, y ){						
 		var venus = document.createElementNS( context.root.namespaceURI, "path");
-		venus.setAttribute("d", "m" + x + ", " + y + " -4.567361,-0.02503 m 2.345644,2.645991 -0.0451,-5.710434 c -2.427173,-0.01994 -4.379549,-2.002187 -4.362795,-4.428067 0.01675,-2.425755 1.996164,-4.377297 4.423,-4.363997 2.426837,0.0133 4.384738,1.986422 4.374902,4.412214 -0.0098,2.425919 -1.983822,4.386653 -4.411069,4.379982");
-		venus.setAttribute("stroke", "#000");		 
-		venus.setAttribute("stroke-width", 1.2);
-		venus.setAttribute("fill", "none");		
-		venus.setAttribute("transform", "scale(" + astrology.SYMBOL_SCALE + ")"); // TODO						
+		venus.setAttribute("d", "m" + x + ", " + y + " -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0");
+		venus.setAttribute("stroke", astrology.COLOR_PLANETS);		 
+		venus.setAttribute("stroke-width", 1.8);
+		venus.setAttribute("fill", "none");			
+		venus.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
 		return venus;
 	};
 		
