@@ -52,7 +52,7 @@
 		for (var planet in this.data.radix.points) {
  		   if (this.data.radix.points.hasOwnProperty( planet )) {
         		var position = this.getPointPosition( this.cx, this.cy, this.radius, this.data.radix.points[planet].position);
-        		this.paper.drawSymbol(astrology.SYMBOL_VENUS, position.x, position.y);        	        
+        		this.paper.drawSymbol(planet, position.x, position.y);        	        
     		}
 		}		
 	};

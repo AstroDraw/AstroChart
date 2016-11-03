@@ -10,7 +10,13 @@
 	// Font color of planet's symbols
 	astrology.COLOR_PLANETS = "#000";
 	
+	// Astrology circle element ID
+	astrology.UNIVERSE_ID = "universe";
+	
 	// Planets
+	astrology.SYMBOL_SUN = "Sun";
+	astrology.SYMBOL_MOON = "Moon";
+	astrology.SYMBOL_MERCURY = "Mercury";
 	astrology.SYMBOL_VENUS = "Venus";
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm

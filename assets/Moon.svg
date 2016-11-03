@@ -1,0 +1,21 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"
+	 width="50px" height="50px" viewBox="0 0 50 50">
+  <title>Moon Symbol</title>
+<defs>
+    <style type="text/css"><![CDATA[
+      #crescent {
+        fill: none;
+        stroke: black;
+        stroke-width: 3;
+        stroke-linejoin: round;
+      }
+    ]]></style>
+  </defs>
+  <path id="crescent" 
+  d="
+  	M 12.5,3.5 
+  	a 22.5,22.5 0 0,1 0,43 
+  	a 22.5,22.5 0 1,0 0,-43 z" 
+  />
+</svg>

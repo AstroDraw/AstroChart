@@ -10,7 +10,13 @@
 	// Font color of planet's symbols
 	astrology.COLOR_PLANETS = "#000";
 	
+	// Astrology circle element ID
+	astrology.UNIVERSE_ID = "universe";
+	
 	// Planets
+	astrology.SYMBOL_SUN = "Sun";
+	astrology.SYMBOL_MOON = "Moon";
+	astrology.SYMBOL_MERCURY = "Mercury";
 	astrology.SYMBOL_VENUS = "Venus";
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
@@ -73,10 +79,12 @@
  	 * @param {int} cx
  	 * @param {int} cy
  	 * @param {int} radius
+ 	 * 
+ 	 * @return {SVGPathElement} universe
 	 */
 	astrology.SVG.prototype.universe = function( cx, cy, radius ){		
 		var universe = document.createElementNS(this.root.namespaceURI, "g");
-		universe.setAttribute('id', 'universe');
+		universe.setAttribute('id', astrology.UNIVERSE_ID);
 		
 		var step = 30;
         for( var i = 0, start = 0, len = astrology.COLORS_ELEMENTS.length; i < len; i++ ){        	                	
@@ -97,13 +105,102 @@
 	 */
 	astrology.SVG.prototype.drawSymbol = function( name, x, y ){
 		
+		var universe = this.root.getElementById( astrology.UNIVERSE_ID );
+		
 		switch(name) {
+			case astrology.SYMBOL_SUN:		        
+		        universe.appendChild( sun( x, y) );		        
+		        break;
+		    case astrology.SYMBOL_MOON:		        
+		        universe.appendChild( moon( x, y) );		        
+		        break;
+		   case astrology.SYMBOL_MERCURY:		        
+		        universe.appendChild( mercury( x, y) );		        
+		        break;     
 		    case astrology.SYMBOL_VENUS:		        
-		        this.root.appendChild( venus( x, y) );		        
+		        universe.appendChild( venus( x, y) );		        
 		        break;		  
 		    default:
 		    	return "default symbol"; // TODO		 
 		}			
+	};
+	
+	/*
+	 * Sun path
+	 * @private
+	 * 
+	 * @param {int} x
+	 * @param {int} y	 
+	 * 
+	 * @return {SVGPathElement} path
+	 */
+	function sun( x, y ){
+		
+		// center symbol
+		var xShift = 4; //px						
+		var yShift = 6; //px		
+		x =  x + (xShift * astrology.SYMBOL_SCALE);
+		y =  y + (yShift * astrology.SYMBOL_SCALE);
+				
+		var node = document.createElementNS( context.root.namespaceURI, "path");
+		node.setAttribute("d", "m" + x + ", " + y + " a 7.5000145,7.5000145 0 1 1 0,0.04167 z m 1.250003,0 a 6.2500121,6.2500121 0 1 0 0,-0.04167 z m 4.583342,0 a 1.6666699,1.6666699 0 1 0 0,-0.04167 z");				
+		//node.setAttribute("stroke", astrology.COLOR_PLANETS);		 
+		//node.setAttribute("stroke-width", 1);
+		node.setAttribute("fill", astrology.COLOR_PLANETS);			
+		node.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
+		return node;
+	};
+	
+	/*
+	 * Mooon path
+	 * @private
+	 * 
+	 * @param {int} x
+	 * @param {int} y	 
+	 * 
+	 * @return {SVGPathElement} path
+	 */
+	function moon( x, y ){
+		
+		// center symbol
+		var xShift = 4; //px						
+		var yShift = 6; //px		
+		x =  x + (xShift * astrology.SYMBOL_SCALE);
+		y =  y + (yShift * astrology.SYMBOL_SCALE);
+				
+		var node = document.createElementNS( context.root.namespaceURI, "path");
+		node.setAttribute("d", "m" + x + ", " + y + " -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0");				
+		node.setAttribute("stroke", astrology.COLOR_PLANETS);		 
+		node.setAttribute("stroke-width", 1.8);
+		node.setAttribute("fill", "none");			
+		node.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
+		return node;
+	};
+	
+	/*
+	 * Mercury path
+	 * @private
+	 * 
+	 * @param {int} x
+	 * @param {int} y	 
+	 * 
+	 * @return {SVGPathElement} path
+	 */
+	function mercury( x, y ){
+		
+		// center symbol
+		var xShift = 4; //px						
+		var yShift = 6; //px		
+		x =  x + (xShift * astrology.SYMBOL_SCALE);
+		y =  y + (yShift * astrology.SYMBOL_SCALE);
+				
+		var node = document.createElementNS( context.root.namespaceURI, "path");
+		node.setAttribute("d", "m" + x + ", " + y + " -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0");				
+		node.setAttribute("stroke", astrology.COLOR_PLANETS);		 
+		node.setAttribute("stroke-width", 1.8);
+		node.setAttribute("fill", "none");			
+		node.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
+		return node;
 	};
 		
 	/*
@@ -115,16 +212,23 @@
 	 * 
 	 * @return {SVGPathElement} path
 	 */
-	function venus( x, y ){						
-		var venus = document.createElementNS( context.root.namespaceURI, "path");
-		venus.setAttribute("d", "m" + x + ", " + y + " -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0");
-		venus.setAttribute("stroke", astrology.COLOR_PLANETS);		 
-		venus.setAttribute("stroke-width", 1.8);
-		venus.setAttribute("fill", "none");			
-		venus.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
-		return venus;
-	};
+	function venus( x, y ){
 		
+		// center symbol
+		var xShift = 4; //px						
+		var yShift = 6; //px		
+		x =  x + (xShift * astrology.SYMBOL_SCALE);
+		y =  y + (yShift * astrology.SYMBOL_SCALE);
+				
+		var node = document.createElementNS( context.root.namespaceURI, "path");
+		node.setAttribute("d", "m" + x + ", " + y + " -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0");				
+		node.setAttribute("stroke", astrology.COLOR_PLANETS);		 
+		node.setAttribute("stroke-width", 1.8);
+		node.setAttribute("fill", "none");			
+		node.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");									
+		return node;
+	};
+			
 	/*
 	 * Draw circular sector
 	 * @private
@@ -211,7 +315,7 @@
 		for (var planet in this.data.radix.points) {
  		   if (this.data.radix.points.hasOwnProperty( planet )) {
         		var position = this.getPointPosition( this.cx, this.cy, this.radius, this.data.radix.points[planet].position);
-        		this.paper.drawSymbol(astrology.SYMBOL_VENUS, position.x, position.y);        	        
+        		this.paper.drawSymbol(planet, position.x, position.y);        	        
     		}
 		}		
 	};
