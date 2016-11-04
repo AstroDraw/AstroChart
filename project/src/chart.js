@@ -48,11 +48,17 @@
 	 */
 	astrology.Chart.prototype.radix = function(){
 		this.paper.universe( this.cx, this.cy, this.radius);
-							
+		
+		// Planets can not be displayed on the same radius.
+		// Gaps between indoor circle and outdoor circle / count of planets
+		var margin = 10;
+		var radiusStep = Math.round((( (this.radius - this.radius/8) - margin) - (this.radius/2)) / (Object.keys(this.data.radix.points).length) );
+		var planetRadius = this.radius/2 + margin;							
 		for (var planet in this.data.radix.points) {
  		   if (this.data.radix.points.hasOwnProperty( planet )) {
-        		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/4 , this.data.radix.points[planet].position);
-        		this.paper.drawSymbol(planet, position.x, position.y);        	        
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius , this.data.radix.points[planet].position);
+        		this.paper.drawSymbol(planet, position.x, position.y);
+        		planetRadius += radiusStep;
     		}
 		}		
 	};

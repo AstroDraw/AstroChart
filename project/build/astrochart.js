@@ -100,15 +100,26 @@
         	universe.appendChild( segment( cx, cy, radius, start, start+step, radius/2, astrology.COLORS_ELEMENTS[i]));        	        	        	               		
 			start += step;
         }
+         
+        //outdoor circle
+        universe.appendChild( circle( cx, cy, radius, "#666"));
+       	
+       	//inner circle
+        universe.appendChild( circle( cx, cy, radius-radius/8, "#666") );
+        
+        //indoor circle
+       	universe.appendChild( circle( cx, cy, radius/2, "#666"));
         
         // lines
-        var lineLength = 2;
+        var lineLength = 3;
         for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
             var startPosition = astrology.utils.getPointPosition( cx, cy, radius, start );
         	var endPosition = astrology.utils.getPointPosition( cx, cy, radius + lineLength, start );
        		universe.appendChild( line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, "#666"));
        		start += step;
        	}
+       	
+       	
         
 		this.root.appendChild( universe );						
 	};
@@ -166,7 +177,9 @@
 		        universe.appendChild( nnode( x, y) );		        
 		        break;                                  	  
 		    default:
-		    	return "default symbol"; // TODO		 
+		    	var unknownPoint = circle(x, y, 8, "#ffff00");
+		    	unknownPoint.setAttribute("fill", "#ff0000");
+		    	return universe.appendChild( unknownPoint );	 
 		}			
 	};
 	
@@ -552,13 +565,35 @@
   	    line.setAttribute("x2", x2);
 		line.setAttribute("y2", y2);				
 		line.setAttribute("stroke", color);		 
-		line.setAttribute("stroke-width", 1.8);
+		line.setAttribute("stroke-width", 1);
 		
 		if(style){
 			line.setAttribute("stroke-dasharray", style);
 		}
 				
 		return line;
+	};
+	
+	/*
+	 * Draw a circle
+	 * @private
+	 * 
+	 * @param {int} cx
+	 * @param {int} cy
+	 * @param {int} radius
+	 * @param {String} color - HTML rgb
+	 * 
+	 * @return {SVGElement} circle
+	 */  
+	function circle( cx, cy, radius, color){						            	 	            		
+		var circle = document.createElementNS( context.root.namespaceURI, "circle");
+		circle.setAttribute("cx", cx);	
+  	    circle.setAttribute("cy", cy);
+		circle.setAttribute("r", radius);				
+		circle.setAttribute("stroke", color);		 
+		circle.setAttribute("stroke-width", 1);
+		circle.setAttribute("fill", "none");
+		return circle;
 	};
 	
 								    	 
@@ -613,11 +648,17 @@
 	 */
 	astrology.Chart.prototype.radix = function(){
 		this.paper.universe( this.cx, this.cy, this.radius);
-							
+		
+		// Planets can not be displayed on the same radius.
+		// Gaps between indoor circle and outdoor circle / count of planets
+		var margin = 10;
+		var radiusStep = Math.round((( (this.radius - this.radius/8) - margin) - (this.radius/2)) / (Object.keys(this.data.radix.points).length) );
+		var planetRadius = this.radius/2 + margin;							
 		for (var planet in this.data.radix.points) {
  		   if (this.data.radix.points.hasOwnProperty( planet )) {
-        		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/4 , this.data.radix.points[planet].position);
-        		this.paper.drawSymbol(planet, position.x, position.y);        	        
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius , this.data.radix.points[planet].position);
+        		this.paper.drawSymbol(planet, position.x, position.y);
+        		planetRadius += radiusStep;
     		}
 		}		
 	};
