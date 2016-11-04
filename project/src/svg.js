@@ -42,11 +42,20 @@
 		var universe = document.createElementNS(this.root.namespaceURI, "g");
 		universe.setAttribute('id', astrology.UNIVERSE_ID);
 		
-		var step = 30;
-        for( var i = 0, start = 0, len = astrology.COLORS_ELEMENTS.length; i < len; i++ ){        	                	
+		// signs
+        for( var i = 0, step = 30, start = 0, len = astrology.COLORS_ELEMENTS.length; i < len; i++ ){        	        	                	
         	universe.appendChild( segment( cx, cy, radius, start, start+step, radius/2, astrology.COLORS_ELEMENTS[i]));        	        	        	               		
 			start += step;
         }
+        
+        // lines
+        var lineLength = 2;
+        for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
+            var startPosition = astrology.utils.getPointPosition( cx, cy, radius, start );
+        	var endPosition = astrology.utils.getPointPosition( cx, cy, radius + lineLength, start );
+       		universe.appendChild( line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, "#666"));
+       		start += step;
+       	}
         
 		this.root.appendChild( universe );						
 	};
@@ -442,13 +451,13 @@
 	 * Draw circular sector
 	 * @private
 	 * 
-	 * @param {int} x - x center position
-	 * @param {int} y - y center position
-	 * @param {int} radius in px
+	 * @param {int} x - circle x center position
+	 * @param {int} y - circle y center position
+	 * @param {int} radius - circle radius in px
 	 * @param {int} a1 - angleFrom in degree
 	 * @param {int} a2 - angleTo in degree
-	 * @color {int} thickness - from outside to center in px  
-	 * @color {String} color - HTML rgb
+	 * @param {int} thickness - from outside to center in px  
+	 * @param {String} color - HTML rgb
 	 * 
 	 * @return {SVGElement} segment
 	 *  
@@ -468,5 +477,36 @@
 		segment.setAttribute("fill", color);		 
 		return segment;
 	};
+	
+	/*
+	 * Draw line in circle
+	 * @private
+	 * 
+	 * @param {int} x1
+	 * @param {int} y2
+	 * @param {int} x2
+	 * @param {int} y2 
+	 * @param {String} color - HTML rgb
+	 * @param {String} style - line style
+	 * 
+	 * @return {SVGElement} line
+	 */  
+	function line( x1, y1, x2, y2, color, style){
+									            	 	            		
+		var line = document.createElementNS( context.root.namespaceURI, "line");
+		line.setAttribute("x1", x1);
+		line.setAttribute("y1", y1);	
+  	    line.setAttribute("x2", x2);
+		line.setAttribute("y2", y2);				
+		line.setAttribute("stroke", color);		 
+		line.setAttribute("stroke-width", 1.8);
+		
+		if(style){
+			line.setAttribute("stroke-dasharray", style);
+		}
+				
+		return line;
+	};
+	
 								    	 
 }( window.astrology = window.astrology || {}));
