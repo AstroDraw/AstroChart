@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,10 +13,9 @@
    height="50"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.44"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docbase="C:\Documents and Settings\Owner\Desktop\SVG work\Symbols"
-   sodipodi:docname="Pluto's astrological symbol.svg">
+   sodipodi:docname="Pluto.svg">
   <defs
      id="defs4" />
   <sodipodi:namedview
@@ -29,14 +29,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="180.30625"
+     inkscape:cx="119.05625"
      inkscape:cy="-6.8740917"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="1280"
-     inkscape:window-height="744"
-     inkscape:window-x="173"
-     inkscape:window-y="142" />
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     showgrid="false"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -54,35 +56,9 @@
      id="layer1"
      transform="translate(-258.5991,-387.1767)">
     <path
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       d="M 275.59914,423.24813 L 291.59914,423.24813"
-       id="path6794" />
-    <path
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       d="M 283.59914,431.24813 L 283.59914,414.24813"
-       id="path6796" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       id="path6798"
-       sodipodi:cx="165"
-       sodipodi:cy="184"
-       sodipodi:rx="7"
-       sodipodi:ry="7"
-       d="M 172 184 A 7 7 0 1 1  158,184 A 7 7 0 1 1  172 184 z"
-       transform="translate(118.5991,218.2481)" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:2.9000001;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
        id="path6800"
-       sodipodi:cx="165"
-       sodipodi:cy="184"
-       sodipodi:rx="12"
-       sodipodi:ry="12"
-       d="M 177,184 A 12,12 0 1 1 153,184"
-       sodipodi:start="0"
-       sodipodi:end="3.1415927"
-       sodipodi:open="true"
-       transform="translate(118.5991,218.2481)" />
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:1.71466553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
+       d="m 290.69427,406.7442 c 0,3.91856 -3.17662,7.09517 -7.09517,7.09517 -3.91855,0 -7.09517,-3.17661 -7.09517,-7.09517 0,0 0,0 0,0 m 11.23402,0 c 0,2.28582 -1.85303,4.13885 -4.13885,4.13885 -2.28582,0 -4.13885,-1.85303 -4.13885,-4.13885 0,-2.28582 1.85303,-4.13884 4.13885,-4.13884 2.28582,0 4.13885,1.85302 4.13885,4.13884 z m -4.13883,17.14667 0,-10.05148 m -4.73011,5.32137 9.46023,0"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,10 +13,9 @@
    height="50"
    id="svg34864"
    sodipodi:version="0.32"
-   inkscape:version="0.44"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docbase="C:\Documents and Settings\Owner\Desktop\SVG work\Symbols"
-   sodipodi:docname="Jupiter symbol.svg">
+   sodipodi:docname="Jupiter.svg">
   <defs
      id="defs34866" />
   <sodipodi:namedview
@@ -29,14 +29,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="40.112546"
+     inkscape:cx="9.487546"
      inkscape:cy="23.612944"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="853"
-     inkscape:window-height="573"
-     inkscape:window-x="236"
-     inkscape:window-y="145" />
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     showgrid="false"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata34869">
     <rdf:RDF>
@@ -54,17 +56,9 @@
      id="layer1"
      transform="translate(-348.7552,-478.0905)">
     <path
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       d="M 382.83736,486.87888 L 382.83736,519.93338"
-       id="path6576" />
-    <path
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       d="M 388.2865,511.45787 L 361.949,511.45787"
-       id="path6578" />
-    <path
-       style="opacity:1;color:black;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       d="M 364.67357,498.7446 C 363.76538,498.7446 361.949,497.89705 361.949,494.50684 C 361.949,491.11663 365.58176,487.72643 369.21452,487.72643 C 372.84728,487.72643 376.48003,490.26908 376.48003,496.20194 C 376.48003,502.1348 371.93909,511.45787 362.85719,511.45787"
        id="path6580"
-       sodipodi:nodetypes="czzzz" />
+       style="color:#000000;fill:none;stroke:#000000;stroke-width:1.53384471;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
+       d="m 369.77783,501.02277 c -0.46434,0 -1.39302,-0.43333 -1.39302,-2.16668 0,-1.73335 1.85737,-3.4667 3.71473,-3.4667 1.85736,0 3.71472,1.30001 3.71472,4.33337 0,3.03336 -2.3217,7.80007 -6.96511,7.80007 m 13.00154,0 -13.46588,0 m 10.67984,-12.56678 0,16.90016"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

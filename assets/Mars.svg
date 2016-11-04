@@ -9,12 +9,12 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="50"
    height="50"
-   id="svg2"
+   id="svg3998"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Sun.svg">
+   sodipodi:docname="Mars.svg">
   <metadata
-     id="metadata10">
+     id="metadata4006">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -25,7 +25,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs8" />
+     id="defs4004" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -37,17 +37,19 @@
      inkscape:pageshadow="2"
      inkscape:window-width="1366"
      inkscape:window-height="719"
-     id="namedview6"
+     id="namedview4002"
      showgrid="false"
-     inkscape:zoom="15.201251"
-     inkscape:cx="2.5250318"
-     inkscape:cy="23.618557"
+     inkscape:zoom="4.72"
+     inkscape:cx="-11.334746"
+     inkscape:cy="25"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg2" />
+     inkscape:current-layer="svg3998" />
   <path
-     d="m 15.999965,25.025 a 9.0000174,9.0000174 0 1 1 0,0.05 z m 1.500004,0 a 7.5000145,7.5000145 0 1 0 0,-0.05 z m 5.50001,0 a 2.0000038,2.0000038 0 1 0 0,-0.05 z"
-     id="path4"
-     inkscape:connector-curvature="0" />
+     d="m 28.330973,23.528404 c -2.75164,-2.176497 -7.181367,-1.789289 -9.512803,0.830396 -2.331437,2.619685 -2.199707,7.061512 0.280906,9.542124 2.480612,2.480613 6.922439,2.612343 9.542124,0.280906 2.619685,-2.331436 3.006893,-6.761163 0.830396,-9.512803 z m 0,0 0.570311,0.570312 6.273428,-6.273428 m -5.132804,0 5.132804,0 0,5.132804"
+     id="path4000"
+     inkscape:connector-curvature="0"
+     style="fill:none;stroke:#000000;stroke-width:1.88202834"
+     sodipodi:nodetypes="cssscccccccc" />
 </svg>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
+
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:cc="http://creativecommons.org/ns#"
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
@@ -12,10 +13,9 @@
    height="50"
    id="svg34864"
    sodipodi:version="0.32"
-   inkscape:version="0.44"
+   inkscape:version="0.48.4 r9939"
    version="1.0"
-   sodipodi:docbase="C:\Documents and Settings\Owner\Desktop\SVG work\Symbols"
-   sodipodi:docname="Mercury symbol.svg">
+   sodipodi:docname="Mercury.svg">
   <defs
      id="defs34866" />
   <sodipodi:namedview
@@ -29,14 +29,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="40.112546"
+     inkscape:cx="9.487546"
      inkscape:cy="23.612944"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="853"
-     inkscape:window-height="573"
-     inkscape:window-x="110"
-     inkscape:window-y="145" />
+     inkscape:window-width="1366"
+     inkscape:window-height="719"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     showgrid="false"
+     inkscape:window-maximized="1" />
   <metadata
      id="metadata34869">
     <rdf:RDF>
@@ -54,35 +56,9 @@
      id="layer1"
      transform="translate(-348.7552,-478.0905)">
     <path
-       sodipodi:type="arc"
-       style="opacity:1;color:black;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:3.125;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       id="path3058"
-       sodipodi:cx="100.5"
-       sodipodi:cy="36.5"
-       sodipodi:rx="11.5"
-       sodipodi:ry="11.5"
-       d="M 112 36.5 A 11.5 11.5 0 1 1  89,36.5 A 11.5 11.5 0 1 1  112 36.5 z"
-       transform="matrix(0.96,0,0,0.96,277.357,466.9525)" />
-    <path
-       sodipodi:type="arc"
-       style="opacity:1;color:black;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:black;stroke-width:3.70043731;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
-       id="path3060"
-       sodipodi:cx="100.5"
-       sodipodi:cy="36.5"
-       sodipodi:rx="11.5"
-       sodipodi:ry="11.5"
-       d="M 111.9469,37.603862 A 11.5,11.5 0 0 1 89.052015,37.592533"
-       transform="matrix(0.810715,0,0,0.810715,292.4483,451.9429)"
-       sodipodi:start="0.096136028"
-       sodipodi:end="3.0464463"
-       sodipodi:open="true" />
-    <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 373.83706,512.99267 L 373.83706,524.99267"
-       id="path3062" />
-    <path
-       style="fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:black;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       d="M 368.83706,519.99267 L 378.83706,519.99267"
-       id="path3937" />
+       id="path3937"
+       style="fill:none;stroke:#000000;stroke-width:1.7942884;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="m 370.84656,513.44708 5.98096,0 m -2.99048,-4.18668 0,7.17716 m 5.60312,-25.45723 c -0.29561,3.06543 -3.02026,5.31081 -6.08568,5.0152 -2.65855,-0.25638 -4.76198,-2.36189 -5.01572,-5.02069 m 12.10122,11.7064 c 0,3.64673 -2.95626,6.60298 -6.60298,6.60298 -3.64672,0 -6.60298,-2.95625 -6.60298,-6.60298 0,-3.64672 2.95626,-6.60298 6.60298,-6.60298 3.64672,0 6.60298,2.95626 6.60298,6.60298 z"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>

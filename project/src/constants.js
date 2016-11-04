@@ -5,7 +5,7 @@
 	astrology.SHIFT_IN_DEGREES = 180;
 		 
 	//Scale of symbols	 
-	astrology.SYMBOL_SCALE = 1;
+	astrology.RADIX_SYMBOL_SCALE = 1;
 	
 	// Font color of planet's symbols
 	astrology.COLOR_PLANETS = "#000";
@@ -18,6 +18,15 @@
 	astrology.SYMBOL_MOON = "Moon";
 	astrology.SYMBOL_MERCURY = "Mercury";
 	astrology.SYMBOL_VENUS = "Venus";
+	astrology.SYMBOL_MARS = "Mars";
+	astrology.SYMBOL_JUPITER = "Jupiter";
+	astrology.SYMBOL_SATURN = "Saturn";
+	astrology.SYMBOL_URANUS = "Uranus";
+	astrology.SYMBOL_NEPTUNE = "Neptune";
+	astrology.SYMBOL_PLUTO = "Pluto";
+	astrology.SYMBOL_CHIRON = "Chiron";
+	astrology.SYMBOL_LILITH = "Lilith";
+	astrology.SYMBOL_NNODE = "NNode";
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
 	astrology.COLOR_ARIES = "#FF0000";
