@@ -29,7 +29,8 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 ``` 
 {
 	"points":{"Moon":0, "Sun":30, "Mercury":60, ... },
-	"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
+	"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
+	"aspects":[ [5,95,"#f00"], [20,140,"#f0f"], ... ]
 }
 ```
 
