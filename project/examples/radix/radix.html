@@ -2,7 +2,12 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Radix</title>                     
+        <title>Radix</title>  
+        <style>
+        	#paper{
+        		background:#eee;
+        	}
+        </style>                   
     </head>
     <body>
         <div id="paper"></div>
@@ -11,17 +16,13 @@
         <script type="text/javascript">  
         
         	var data = {
-				"radix":{
-					"timestamp":"TODO",
-					"cups":{"todo":"todo"},
-					"points":{"Lilith":{"position":0}, "Chiron":{"position":30}, "Pluto":{"position":60}, "Neptune":{"position":90}, "Uranus":{"position":120}, "Saturn":{"position":150}, "Jupiter":{"position":180}, "Mars":{"position":210}, "Moon":{"position":240}, "Sun":{"position":330}, "Mercury":{"position":300}, "Venus":{"position":270}, "NNode":{"position":345}}
-					}
+				"points":{"Lilith":{"position":0}, "Chiron":{"position":30}, "Pluto":{"position":60}, "Neptune":{"position":90}, "Uranus":{"position":120}, "Saturn":{"position":150}, "Jupiter":{"position":180}, "Mars":{"position":210}, "Moon":{"position":240}, "Sun":{"position":330}, "Mercury":{"position":300}, "Venus":{"position":270}, "NNode":{"position":345}},
+				"cups":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
 			};
 			                              	        	        	        	                
         	window.onload = function () {
-            	var chart = new astrology.Chart( 'paper', 800, 800, "#eee" );
-				chart.setData( data );
-				chart.radix();																											            													            	            	       	
+            	var chart = new astrology.Chart( 'paper', 800, 800);
+				chart.radix(data);																											            													            	            	       	
 			};
 		</script>		    
     </body>

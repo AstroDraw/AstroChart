@@ -16,9 +16,9 @@ A free and open-source JavaScript library for generating SVG charts to display p
 <script src="js/astrochart.min.js"></script>
 <script>
 	window.onload = function(){	
-		var chart = new astrology.Chart( 'paper', 800, 600, "#eee" );
-		chart.setData( {...} );
-		chart.radix();				
+		var chart = new astrology.Chart( 'paper', 800, 800);
+		chart.radix( data );
+		chart.transit( data );				
 	};			
 </script>
 ```
@@ -28,17 +28,16 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 ### Data example
 ``` 
 {
-    'radix':{
-    	'timeStamp':132456789, 
-    	'points':{'Sun':{"position":0}, 'Moon':{"position":90}, 'Mercury':{"position":180}, 'Venus':{"position":270}, ... },
-    	'cups':[30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 0]
-    },
-    'transit':{
-    	'timeStamp':654987321, 
-    	'points':{'Sun':{"position":20}, 'Moon':{"position":110}, 'Mercury':200, 'Venus':290, ...},
-    	'cups':[30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 0]    	 
-    }
+	"points":{"Moon":{"position":0}, "Sun":{"position":30}, "Mercury":{"position":60}, ... },
+	"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
 }
+```
+
+### Settings
+Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/project/src/settings.js)
+```
+var settings = {RADIX_SYMBOL_SCALE:2};
+var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
 
 ### It might interest you

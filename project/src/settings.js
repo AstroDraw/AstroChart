@@ -1,4 +1,4 @@
-// ## CONSTANTS #############################
+// ## Settings #############################
 (function( astrology ) {
 	
 	// 0 degree is on the West 
@@ -10,8 +10,11 @@
 	// Font color of planet's symbols
 	astrology.COLOR_PLANETS = "#000";
 	
-	// Astrology circle element ID
-	astrology.UNIVERSE_ID = "universe";
+	// Radix chart element ID
+	astrology.RADIX_ID = "radix";
+	
+	// Radix chart element ID
+	astrology.TRANSIT_ID = "transit";
 	
 	// Planets
 	astrology.SYMBOL_SUN = "Sun";

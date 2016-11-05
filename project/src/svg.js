@@ -11,12 +11,11 @@
 	 * @constructor
 	 * @param {String} elementId - root DOM Element 
 	 * @param {int} width
-	 * @param {int} height
-	 * @param {String} background 
+	 * @param {int} height 
 	 */
-	astrology.SVG = function( elementId, width, height, background ){		
+	astrology.SVG = function( elementId, width, height){		
 		var svg = document.createElementNS( "http://www.w3.org/2000/svg", "svg");
-		svg.setAttribute('style', 'background-color:' + background + "; position: relative; overflow: hidden;");		
+		svg.setAttribute('style', "position: relative; overflow: hidden;");		
 		svg.setAttribute('version', "1.1");						 				
 		svg.setAttribute('width', width);
 		svg.setAttribute('height', height);			
@@ -31,16 +30,14 @@
 	};	
 		
 	/**
-	 * Draw Universe
+	 * Draw radix Universe
  	 * @param {int} cx
  	 * @param {int} cy
  	 * @param {int} radius
- 	 * 
- 	 * @return {SVGPathElement} universe
 	 */
-	astrology.SVG.prototype.universe = function( cx, cy, radius ){		
+	astrology.SVG.prototype.radixUniverse = function( cx, cy, radius ){		
 		var universe = document.createElementNS(this.root.namespaceURI, "g");
-		universe.setAttribute('id', astrology.UNIVERSE_ID);
+		universe.setAttribute('id', astrology.RADIX_ID);
 		
 		// signs
         for( var i = 0, step = 30, start = 0, len = astrology.COLORS_ELEMENTS.length; i < len; i++ ){        	        	                	
@@ -66,9 +63,7 @@
        		start += step;
        	}
        	
-       	
-        
-		this.root.appendChild( universe );						
+       	this.root.appendChild( universe );						
 	};
 	
 	/**
@@ -77,11 +72,9 @@
 	 * @param {String} name
 	 * @param {int} x
 	 * @param {int} y
-	 * 	 
+	 * @param {GroupSVGElement} universe
 	 */
-	astrology.SVG.prototype.drawSymbol = function( name, x, y ){
-		
-		var universe = this.root.getElementById( astrology.UNIVERSE_ID );
+	astrology.SVG.prototype.drawSymbol = function( name, x, y, universe){		
 		
 		switch(name) {
 			case astrology.SYMBOL_SUN:		        
