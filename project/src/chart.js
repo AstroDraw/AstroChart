@@ -38,7 +38,7 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":{"position":0}, "Sun":{"position":30},  ... },
+	 *		"points":{"Moon":0, "Sun":30,  ... },
 	 *		"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
 	 *	} 
 	 */
@@ -53,12 +53,12 @@
 		
 		// Planets can not be displayed on the same radius.
 		// The gap between indoor circle and outdoor circle / count of planets
-		var margin = 10 * astrology.RADIX_SYMBOL_SCALE;
+		var margin = 10 * astrology.SYMBOL_SCALE;
 		var radiusStep = Math.round((( (this.radius - this.radius/8) - margin) - (this.radius/2)) / (Object.keys(this.radixData.points).length) );
 		var planetRadius = this.radius/2 + margin;							
 		for (var planet in this.radixData.points) {
  		   if (this.radixData.points.hasOwnProperty( planet )) {
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius , this.radixData.points[planet].position);
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius , this.radixData.points[planet]);
         		this.paper.drawSymbol(planet, position.x, position.y, this.paper.root.getElementById( astrology.RADIX_ID ));
         		planetRadius += radiusStep;
     		}
@@ -71,7 +71,7 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":{"position":0}, "Sun":{"position":30},  ... },
+	 *		"points":{"Moon":0, "Sun":30,  ... },
 	 *		"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
 	 *	} 
 	 */

@@ -28,15 +28,15 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 ### Data example
 ``` 
 {
-	"points":{"Moon":{"position":0}, "Sun":{"position":30}, "Mercury":{"position":60}, ... },
+	"points":{"Moon":0, "Sun":30, "Mercury":60, ... },
 	"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
 }
 ```
 
-### Settings
+### Chart settings
 Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/project/src/settings.js)
 ```
-var settings = {RADIX_SYMBOL_SCALE:2};
+var settings = {SYMBOL_SCALE:2};
 var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
 

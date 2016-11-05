@@ -1,11 +1,8 @@
 // ## Settings #############################
 (function( astrology ) {
 	
-	// 0 degree is on the West 
-	astrology.SHIFT_IN_DEGREES = 180;
-		 
 	//Scale of symbols	 
-	astrology.RADIX_SYMBOL_SCALE = 1;
+	astrology.SYMBOL_SCALE = 1;		 
 	
 	// Font color of planet's symbols
 	astrology.COLOR_PLANETS = "#000";
@@ -52,5 +49,8 @@
 	        	
 	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
 	astrology.COLORS_ELEMENTS = [astrology.COLOR_RED, astrology.COLOR_BROWN, astrology.COLOR_BLUE, astrology.COLOR_GREEN, astrology.COLOR_RED, astrology.COLOR_BROWN, astrology.COLOR_BLUE, astrology.COLOR_GREEN, astrology.COLOR_RED, astrology.COLOR_BROWN, astrology.COLOR_BLUE, astrology.COLOR_GREEN];
+	
+	// 0 degree is on the West 
+	astrology.SHIFT_IN_DEGREES = 180;
 		       	      
 }( window.astrology = window.astrology || {}));
