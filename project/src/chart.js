@@ -57,9 +57,6 @@
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
 		var radiusStep = (gap - margin) / Object.keys(this.radixData.points).length;	
 		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + margin;
-		
-		console.log(gap);
-		console.log(radiusStep);
 									
 		for (var planet in this.radixData.points) {
  		   if (this.radixData.points.hasOwnProperty( planet )) {
