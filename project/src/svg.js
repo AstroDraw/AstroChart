@@ -28,141 +28,96 @@
 		
 		context = this;
 	};	
-		
-	/**
-	 * Draw radix Universe
- 	 * @param {int} cx
- 	 * @param {int} cy
- 	 * @param {int} radius
-	 */
-	astrology.SVG.prototype.radixUniverse = function( cx, cy, radius ){		
-		var universe = document.createElementNS(this.root.namespaceURI, "g");
-		universe.setAttribute('id', astrology.ID_RADIX);
-		
-		// colors
-        for( var i = 0, step = 30, start = 0, len = astrology.COLORS_SIGNS.length; i < len; i++ ){        	        	                	
-        	universe.appendChild( segment( cx, cy, radius, start, start+step, radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLORS_SIGNS[i]));        	        	        	               		
-			start += step;
-        }
-        
-        // signs
-        for( i = 0, step = 30, start = 15, len = astrology.SYMBOL_SIGNS.length; i < len; i++ ){ 
-        	var position = astrology.utils.getPointPosition( cx, cy, radius - (radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/2, start);       	        	                	
-        	this.drawSymbol( astrology.SYMBOL_SIGNS[i], position.x, position.y, universe);        	        	        	               		
-			start += step;
-        }
-         
-        //outdoor circle
-        universe.appendChild( circle( cx, cy, radius, astrology.COLOR_CIRCLE));
-       	
-       	//inner circle
-        universe.appendChild( circle( cx, cy, radius-radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE) );
-        
-        //indoor circle
-       	universe.appendChild( circle( cx, cy, radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE));
-        
-        // lines
-        var lineLength = 3;
-        for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
-            var startPosition = astrology.utils.getPointPosition( cx, cy, radius, start );
-        	var endPosition = astrology.utils.getPointPosition( cx, cy, radius + lineLength, start );
-       		universe.appendChild( line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, astrology.COLOR_CIRCLE));
-       		start += step;
-       	}
-       	
-       	this.root.appendChild( universe );						
-	};
 	
 	/**
-	 * Draw a required symbol. 
+	 * Get a required symbol. 
 	 * 
 	 * @param {String} name
 	 * @param {int} x
 	 * @param {int} y
-	 * @param {GroupSVGElement} universe
 	 */
-	astrology.SVG.prototype.drawSymbol = function( name, x, y, universe){		
+	astrology.SVG.prototype.getSymbol = function( name, x, y){		
 		
 		switch(name) {
 			case astrology.SYMBOL_SUN:		        
-		        universe.appendChild( sun( x, y) );		        
+		        return sun( x, y);		        
 		        break;
 		    case astrology.SYMBOL_MOON:		        
-		        universe.appendChild( moon( x, y) );		        
+		        return moon( x, y);		        
 		        break;
 		   case astrology.SYMBOL_MERCURY:		        
-		        universe.appendChild( mercury( x, y) );		        
+		        return mercury( x, y);		        
 		        break;     
 		    case astrology.SYMBOL_VENUS:		        
-		        universe.appendChild( venus( x, y) );		        
+		        return venus( x, y);		        
 		        break;	
 		    case astrology.SYMBOL_MARS:		        
-		        universe.appendChild( mars( x, y) );		        
+		        return mars( x, y);		        
 		        break;
 		    case astrology.SYMBOL_JUPITER:		        
-		        universe.appendChild( jupiter( x, y) );		        
+		        return jupiter( x, y);		        
 		        break;
 		    case astrology.SYMBOL_SATURN:		        
-		        universe.appendChild( saturn( x, y) );		        
+		        return saturn( x, y);		        
 		        break; 
 		    case astrology.SYMBOL_URANUS:		        
-		        universe.appendChild( uranus( x, y) );		        
+		        return uranus( x, y);		        
 		        break;
 		    case astrology.SYMBOL_NEPTUNE:		        
-		        universe.appendChild( neptune( x, y) );		        
+		        return neptune( x, y);		        
 		        break;
 		    case astrology.SYMBOL_PLUTO:		        
-		        universe.appendChild( pluto( x, y) );		        
+		        return pluto( x, y);		        
 		        break;
 		    case astrology.SYMBOL_CHIRON:		        
-		        universe.appendChild( chiron( x, y) );		        
+		        return chiron( x, y);		        
 		        break;
 		    case astrology.SYMBOL_LILITH:		        
-		        universe.appendChild( lilith( x, y) );		        
+		        return lilith( x, y);		        
 		        break;
 		    case astrology.SYMBOL_NNODE:		        
-		        universe.appendChild( nnode( x, y) );		        
+		        return nnode( x, y);		        
 		        break;
 		    case astrology.SYMBOL_ARIES:		        
-		        universe.appendChild( aries( x, y) );		        
+		        return aries( x, y);		        
 		        break; 
 		    case astrology.SYMBOL_TAURUS:		        
-		        universe.appendChild( taurus( x, y) );		        
+		        return taurus( x, y);		        
 		        break;
 		    case astrology.SYMBOL_GEMINI:		        
-		        universe.appendChild( gemini( x, y) );		        
+		        return gemini( x, y);		        
 		        break;
 		    case astrology.SYMBOL_CANCER:		        
-		        universe.appendChild( cancer( x, y) );		        
+		        return cancer( x, y);		        
 		        break;
 		    case astrology.SYMBOL_LEO:		        
-		        universe.appendChild( leo( x, y) );		        
+		        return leo( x, y);		        
 		        break;
 		    case astrology.SYMBOL_VIRGO:		        
-		        universe.appendChild( virgo( x, y) );		        
+		        return virgo( x, y);		        
 		        break;
 		    case astrology.SYMBOL_LIBRA:		        
-		        universe.appendChild( libra( x, y) );		        
+		        return libra( x, y);		        
 		        break;
 		    case astrology.SYMBOL_SCORPIO:		        
-		        universe.appendChild( scorpio( x, y) );		        
+		        return scorpio( x, y);		        
 		        break;
 		    case astrology.SYMBOL_SAGITTARIUS:		        
-		        universe.appendChild( sagittarius( x, y) );		        
+		        return sagittarius( x, y);		        
 		        break;
 		    case astrology.SYMBOL_CAPRICORN:		        
-		        universe.appendChild( capricorn( x, y) );		        
+		        return capricorn( x, y);		        
 		        break;
 		    case astrology.SYMBOL_AQUARIUS:		        
-		        universe.appendChild( aquarius( x, y) );		        
+		        return aquarius( x, y);		        
 		        break; 
 		    case astrology.SYMBOL_PISCES:		        
-		        universe.appendChild( pisces( x, y) );		        
+		        return pisces( x, y);		        
 		        break;                                                                                	  
 		    default:
 		    	var unknownPoint = circle(x, y, 8, "#ffff00");
 		    	unknownPoint.setAttribute("fill", "#ff0000");
-		    	return universe.appendChild( unknownPoint );	 
+		    	return unknownPoint;	 
 		}			
 	};
 	
@@ -784,9 +739,9 @@
 		return node;
 	};
 			
-	/*
+	/**
 	 * Draw circular sector
-	 * @private
+	 * 
 	 * 
 	 * @param {int} x - circle x center position
 	 * @param {int} y - circle y center position
@@ -800,7 +755,7 @@
 	 *  
 	 * @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
 	 */  
-	function segment( x, y, radius, a1, a2, thickness, color){
+	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness, color){
 									            	 	            	
 	 	// @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
 	 	var LARGE_ARC_FLAG = 0;
@@ -815,9 +770,8 @@
 		return segment;
 	};
 	
-	/*
+	/**
 	 * Draw line in circle
-	 * @private
 	 * 
 	 * @param {int} x1
 	 * @param {int} y2
@@ -828,7 +782,7 @@
 	 * 
 	 * @return {SVGElement} line
 	 */  
-	function line( x1, y1, x2, y2, color, style){
+	astrology.SVG.prototype.line = function line( x1, y1, x2, y2, color, style){
 									            	 	            		
 		var line = document.createElementNS( context.root.namespaceURI, "line");
 		line.setAttribute("x1", x1);
@@ -845,9 +799,8 @@
 		return line;
 	};
 	
-	/*
+	/**
 	 * Draw a circle
-	 * @private
 	 * 
 	 * @param {int} cx
 	 * @param {int} cy
@@ -856,7 +809,7 @@
 	 * 
 	 * @return {SVGElement} circle
 	 */  
-	function circle( cx, cy, radius, color){						            	 	            		
+	astrology.SVG.prototype.circle = function circle( cx, cy, radius, color){						            	 	            		
 		var circle = document.createElementNS( context.root.namespaceURI, "circle");
 		circle.setAttribute("cx", cx);	
   	    circle.setAttribute("cy", cy);
@@ -866,6 +819,5 @@
 		circle.setAttribute("fill", "none");
 		return circle;
 	};
-	
-								    	 
+							    	 
 }( window.astrology = window.astrology || {}));

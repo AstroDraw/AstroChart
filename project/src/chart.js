@@ -47,25 +47,15 @@
 		if( !isDataValid( data ) ) {
 			throw new Error( "Source Data is not valid." );
 		}
-		this.radixData = data;
 		
-		this.paper.radixUniverse( this.cx, this.cy, this.radius);
+		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius);
+		radix.drawUniverse();
+		radix.drawPoints( data.points );
+		radix.drawCusps(data.cusps);
 		
-		// Planets can not be displayed on the same radius.
-		// The gap between indoor circle and outdoor circle / count of planets
-		var margin = astrology.MARGIN_POINTS * astrology.SYMBOL_SCALE;
-		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		var radiusStep = (gap - margin) / Object.keys(this.radixData.points).length;	
-		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + margin;
-									
-		for (var planet in this.radixData.points) {
- 		   if (this.radixData.points.hasOwnProperty( planet )) {
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius , this.radixData.points[planet]);
-        		this.paper.drawSymbol(planet, position.x, position.y, this.paper.root.getElementById( astrology.ID_RADIX ));
-        		planetRadius += radiusStep;
-    		}
-		}		
-	};
+		radix.drawSigns();
+		radix.drawCircles();
+	 };
 	
 	/**
 	 * Display transit horoscope

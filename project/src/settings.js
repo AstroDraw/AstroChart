@@ -19,17 +19,20 @@
 	// Radix chart element ID
 	astrology.ID_RADIX = "radix";
 	
+	// Transit chart element ID
+	astrology.ID_TRANSIT = "transit";
+	
 	// Color of circles in charts
 	astrology.COLOR_CIRCLE = "#666";
+	
+	// Color of circles in charts
+	astrology.COLOR_LINE = "#333";
 	
 	// radius / INDOOR_CIRCLE_RADIUS_RATIO
 	astrology.INDOOR_CIRCLE_RADIUS_RATIO = 3;
 	
 	// radius - radius/INNER_CIRCLE_RADIUS_RATIO
 	astrology.INNER_CIRCLE_RADIUS_RATIO = 8;
-	
-	// Transit chart element ID
-	astrology.ID_TRANSIT = "transit";
 	
 	// Points
 	astrology.SYMBOL_SUN = "Sun";
@@ -78,5 +81,8 @@
 	
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
+	
+	// Opacity of colors in chart
+	astrology.COLOR_OPACITY = 0.8;
 		       	      
 }( window.astrology = window.astrology || {}));
