@@ -4,6 +4,12 @@
 	//Scale of symbols	 
 	astrology.SYMBOL_SCALE = 1;		 
 	
+	// Font size in chart
+	astrology.FONT_SIZE = "12px";
+	
+	// Font color in chart
+	astrology.FONT_COLOR = "#333";
+	
 	// Font color of planet's symbols
 	astrology.COLOR_POINTS = "#000";
 	

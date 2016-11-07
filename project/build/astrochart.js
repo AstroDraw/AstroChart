@@ -4,6 +4,12 @@
 	//Scale of symbols	 
 	astrology.SYMBOL_SCALE = 1;		 
 	
+	// Font size in chart
+	astrology.FONT_SIZE = "12px";
+	
+	// Font color in chart
+	astrology.FONT_COLOR = "#333";
+	
 	// Font color of planet's symbols
 	astrology.COLOR_POINTS = "#000";
 	
@@ -907,6 +913,30 @@
 		circle.setAttribute("fill", "none");
 		return circle;
 	};
+	
+	/**
+	 * Draw a text
+	 * 
+	 * @param {String} text
+	 * @param {int} x
+	 * @param {int} y
+	 * @param {String} size - etc. "13px"
+	 * @param {String} color - HTML rgb
+	 * 
+	 * @return {SVGElement} text
+	 */  
+	astrology.SVG.prototype.text = function text( txt, x, y, size, color){						            	 	            		
+		var text = document.createElementNS( context.root.namespaceURI, "text");
+		text.setAttribute("x", x);	
+  	    text.setAttribute("y", y);
+		text.setAttribute("font-size", size);
+		text.setAttribute("fill", color);
+		text.setAttribute("font-family", "serif");
+		text.setAttribute("dominant-baseline", "central");
+		text.appendChild( document.createTextNode( txt ));
+		text.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");	
+		return text;
+	};
 							    	 
 }( window.astrology = window.astrology || {}));
 // ## CHART ###################################
@@ -1068,11 +1098,23 @@
 	astrology.Radix.prototype.drawCusps = function(){
 		var universe = this.universe;
 		
+		var textRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) )/1.2;
+		
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
+ 			
+ 			// Lines
  			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i]);
  			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i]);
  		 	universe.appendChild( this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE, "5, 5"));
+ 		 	
+ 		 	// Text
+ 		 	var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+ 		 	var startOfCusp = this.data.cusps[i];
+ 		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
+ 		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
+ 		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, (startOfCusp + gap/2) % deg360);
+ 		 	universe.appendChild( this.paper.text( i+1, textPosition.x, textPosition.y, astrology.FONT_SIZE, astrology.FONT_COLOR ));
 		}
 	};
 	

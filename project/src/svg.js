@@ -819,5 +819,29 @@
 		circle.setAttribute("fill", "none");
 		return circle;
 	};
+	
+	/**
+	 * Draw a text
+	 * 
+	 * @param {String} text
+	 * @param {int} x
+	 * @param {int} y
+	 * @param {String} size - etc. "13px"
+	 * @param {String} color - HTML rgb
+	 * 
+	 * @return {SVGElement} text
+	 */  
+	astrology.SVG.prototype.text = function text( txt, x, y, size, color){						            	 	            		
+		var text = document.createElementNS( context.root.namespaceURI, "text");
+		text.setAttribute("x", x);	
+  	    text.setAttribute("y", y);
+		text.setAttribute("font-size", size);
+		text.setAttribute("fill", color);
+		text.setAttribute("font-family", "serif");
+		text.setAttribute("dominant-baseline", "central");
+		text.appendChild( document.createTextNode( txt ));
+		text.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");	
+		return text;
+	};
 							    	 
 }( window.astrology = window.astrology || {}));
