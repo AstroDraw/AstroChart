@@ -13,9 +13,15 @@
 	 * @param {int} cx
 	 * @param {int} cy
 	 * @param {int} radius
+	 * @param {Object} data
 	 */
-	astrology.Radix = function( paper, cx, cy, radius ){
-										
+	astrology.Radix = function( paper, cx, cy, radius, data ){
+		
+		if( !isDataValid( data ) ) {
+			throw new Error( "Source Data is not valid." );
+		}
+		
+		this.data = data;								
 		this.paper = paper; 
 		this.cx = cx;
 		this.cy = cy;
@@ -52,22 +58,20 @@
 	
 	/**
 	 * Draw points
-	 * .
-	 * @param {Object} points
 	 */
-	astrology.Radix.prototype.drawPoints = function( points ){
+	astrology.Radix.prototype.drawPoints = function(){
 		var universe = this.universe;
 		
 		// Planets can not be displayed on the same radius.
 		// The gap between indoor circle and outdoor circle / count of planets
 		var margin = astrology.MARGIN_POINTS * astrology.SYMBOL_SCALE;
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		var radiusStep = (gap - margin) / Object.keys(points).length;	
+		var radiusStep = (gap - margin) / Object.keys(this.data.points).length;	
 		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + margin;
 									
-		for (var planet in points) {
- 		   if (points.hasOwnProperty( planet )) {
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius , points[planet]);
+		for (var planet in this.data.points) {
+ 		   if (this.data.points.hasOwnProperty( planet )) {
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius, this.data.points[planet]);
         		universe.appendChild( this.paper.getSymbol(planet, position.x, position.y));
         		planetRadius += radiusStep;
     		}
@@ -76,26 +80,23 @@
 	
 	/**
 	 * Draw cusps
-	 * .
-	 * @param {Array} cusps
 	 */
-	astrology.Radix.prototype.drawCusps = function( cusps ){
+	astrology.Radix.prototype.drawCusps = function(){
 		var universe = this.universe;
 		
 		//Cusps
-		for (var i = 0, ln = cusps.length; i < ln; i++) {
- 			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, cusps[i]);
- 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, cusps[i]);
+		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
+ 			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i]);
+ 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i]);
  		 	universe.appendChild( this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE, "5, 5"));
 		}
 	};
 	
 	/**
 	 * Draw aspects
-	 * @param {Array} data.
 	 */
-	astrology.Radix.prototype.drawAspects = function(data){
-		
+	astrology.Radix.prototype.drawAspects = function(){
+		//TODO
 	};
 	
 	/**
@@ -124,7 +125,7 @@
         universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius, astrology.COLOR_CIRCLE));
        	
        	//inner circle
-        universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE) )
+        universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE));
         
         //indoor circle
        	universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE));
@@ -137,6 +138,18 @@
        		universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, astrology.COLOR_CIRCLE));
        		start += step;
        	}
+	};
+	
+	/*
+	 * Checks a source data
+	 * @private
+	 * 
+	 * @param {Object} data
+	 * @return {boolean}
+	 */
+	function isDataValid( data ){
+		// TODO
+		return true;	
 	};
 	
 }( window.astrology = window.astrology || {}));

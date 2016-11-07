@@ -39,20 +39,16 @@
 	 * @example
 	 *	{
 	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
+	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
 	 *	} 
 	 */
 	astrology.Chart.prototype.radix = function( data ){
-		
-		if( !isDataValid( data ) ) {
-			throw new Error( "Source Data is not valid." );
-		}
-		
-		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius);
+		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawUniverse();
-		radix.drawPoints( data.points );
-		radix.drawCusps(data.cusps);
-		
+		radix.drawPoints();
+		radix.drawCusps();
+		radix.drawAspects();
 		radix.drawSigns();
 		radix.drawCircles();
 	 };
@@ -68,26 +64,9 @@
 	 *	} 
 	 */
 	astrology.Chart.prototype.transit = function( data ){
-		
-		if( !isDataValid( data ) ) {
-			throw new Error( "Source Data is not valid." );
-		}
-		
 		//TODO
 		throw new Error( "NotImplementedException." );
 	
 	};
-	
-	/*
-	 * Checks a source data
-	 * @private
-	 * 
-	 * @param {Object} data
-	 * @return {boolean}
-	 */
-	function isDataValid(){
-		// TODO
-		return true;	
-	};
-         
+     
 }( window.astrology = window.astrology || {}));
