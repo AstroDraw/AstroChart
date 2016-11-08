@@ -5,7 +5,7 @@
 	astrology.SYMBOL_SCALE = 1;		 
 	
 	// Font size in chart
-	astrology.FONT_SIZE = "12px";
+	astrology.FONT_SIZE = 12; //px
 	
 	// Font color in chart
 	astrology.FONT_COLOR = "#333";

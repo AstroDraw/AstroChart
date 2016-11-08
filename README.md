@@ -1,7 +1,7 @@
 # AstroChart
 A free and open-source JavaScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
 
-**Version**: 0.0.0
+**Version**: 0.0.5
 
 - Pure Javascript implementation without dependencies.
 - SVG graphics.

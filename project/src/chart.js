@@ -46,10 +46,10 @@
 	astrology.Chart.prototype.radix = function( data ){
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawUniverse();
-		radix.drawPoints();
 		radix.drawCusps();
 		radix.drawAspects();
 		radix.drawSigns();
+		radix.drawPoints();
 		radix.drawCircles();
 	 };
 	
