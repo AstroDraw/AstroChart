@@ -16,7 +16,18 @@
 					deepEqual(astrology.utils.getPointPosition(10,10,10,270), {x:10, y:0});
 					deepEqual(astrology.utils.getPointPosition(10,10,10,360), {x:0, y:10});
 					deepEqual(astrology.utils.getPointPosition(10,10,10,450), {x:10, y:20});
-				});								
+				});	
+				
+				test( "validate", function( ) {
+					 var chart = new astrology.Chart( 'paper2', 1, 1);					
+					 throws( function(){ chart.radix() }, "Must throw error to pass.");
+					 throws( function(){ chart.radix({}) }, "Must throw error to pass.");
+					 throws( function(){ chart.radix({points:{}, cusps:{}}) }, "Must throw error to pass.");
+					 throws( function(){ chart.radix({points:{}, cusps:[1,2,3]}) }, "Must throw error to pass.");
+					 throws( function(){ chart.radix({points:{}, cusps:[1,2,3,4,5,6,7,8,9,10,11,12], aspects:{}})}, "Must throw error to pass.");
+				});
+				
+											
 			};// onload
 		</script>
 	</head>

@@ -1031,8 +1031,11 @@
 	 */
 	astrology.Radix = function( paper, cx, cy, radius, data ){
 		
-		if( !isDataValid( data ) ) {
-			throw new Error( "Source Data is not valid." );
+		// Validate data
+		var status = validate(data);		 		
+		if( status.hasError ) {
+			console.error( status.messages);								
+			throw new Error( status.messages );
 		}
 		
 		this.data = data;								
@@ -1041,9 +1044,12 @@
 		this.cy = cy;
 		this.radius = radius;
 		
-		var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
-		this.shift = deg360 - this.data.cusps[0];
-		
+		this.shift = 0;		
+		if(this.data.cusps && this.data.cusps[0]){
+			var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+			this.shift = deg360 - this.data.cusps[0];	
+		}	
+				
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
 		this.universe.setAttribute('id', astrology.ID_RADIX);
 		this.paper.root.appendChild( this.universe );
@@ -1099,6 +1105,10 @@
 	 * Draw cusps
 	 */
 	astrology.Radix.prototype.drawCusps = function(){
+		if(this.data.cusps == null){
+			return;
+		}
+		
 		var universe = this.universe;
 		
 		var textRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) )/1.2;
@@ -1137,6 +1147,10 @@
 	 * Draw aspects
 	 */
 	astrology.Radix.prototype.drawAspects = function(){
+		if(this.data.aspects == null){
+			return;
+		}
+		
 		var universe = this.universe;
 		
         for( var i = 0, len = this.data.aspects.length; i < len; i++ ){ 
@@ -1192,11 +1206,38 @@
 	 * @private
 	 * 
 	 * @param {Object} data
-	 * @return {boolean}
+	 * @return {Object} status
 	 */
-	function isDataValid( data ){
-		// TODO
-		return true;	
+	function validate( data ){
+		var status = {hasError:false, messages:[]};
+		
+		if( data == null ){			
+			status.messages.push( "Data is not set." );
+			status.hasError = true;
+			return status;
+		}
+		
+		if(data.points == null){					
+			status.messages.push( "There is not property 'points'." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && !Array.isArray(data.cusps)){
+			status.messages.push( "Property 'cusps' has to be Array." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && data.cusps.length != 12){			
+			status.messages.push( "Count of 'cusps' values has to be 12." );
+			status.hasError = true;
+		}
+		
+		if(data.aspects != null && !Array.isArray(data.aspects)){
+			status.messages.push( "Property 'aspects' has to be Array." );
+			status.hasError = true;			
+		}
+						
+		return status;	
 	};
 	
 }( window.astrology = window.astrology || {}));
