@@ -9,7 +9,7 @@ A free and open-source JavaScript library for generating SVG charts to display p
 
 ### Example
 - [Radix horoscope](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix.html)
-- TODO [Transit horoscope](#)
+- [Transit horoscope](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/transit/transit.html)
 
 ### How to use
 ```
@@ -17,8 +17,7 @@ A free and open-source JavaScript library for generating SVG charts to display p
 <script>
 	window.onload = function(){	
 		var chart = new astrology.Chart( 'paper', 800, 800);
-		chart.radix( data );
-		chart.transit( data );				
+		chart.radix( data );					
 	};			
 </script>
 ```

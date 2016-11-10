@@ -42,31 +42,18 @@
 	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
 	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
 	 *	} 
+	 * 
+	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawUniverse();
-		radix.drawCusps();
-		radix.drawAspects();
+		radix.drawCusps();		
 		radix.drawSigns();
 		radix.drawPoints();
+		radix.drawAspects();
 		radix.drawCircles();
+		return radix;
 	 };
-	
-	/**
-	 * Display transit horoscope
-	 * 
-	 * @param {Object} data
-	 * @example
-	 *	{
-	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
-	 *	} 
-	 */
-	astrology.Chart.prototype.transit = function( data ){
-		//TODO
-		throw new Error( "NotImplementedException." );
-	
-	};
-     
+	 		  
 }( window.astrology = window.astrology || {}));

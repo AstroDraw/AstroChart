@@ -983,33 +983,20 @@
 	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
 	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
 	 *	} 
+	 * 
+	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawUniverse();
-		radix.drawCusps();
-		radix.drawAspects();
+		radix.drawCusps();		
 		radix.drawSigns();
 		radix.drawPoints();
+		radix.drawAspects();
 		radix.drawCircles();
+		return radix;
 	 };
-	
-	/**
-	 * Display transit horoscope
-	 * 
-	 * @param {Object} data
-	 * @example
-	 *	{
-	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cups":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
-	 *	} 
-	 */
-	astrology.Chart.prototype.transit = function( data ){
-		//TODO
-		throw new Error( "NotImplementedException." );
-	
-	};
-     
+	 		  
 }( window.astrology = window.astrology || {}));
 
 // ## Radix chart ###################################
@@ -1032,9 +1019,8 @@
 	astrology.Radix = function( paper, cx, cy, radius, data ){
 		
 		// Validate data
-		var status = validate(data);		 		
-		if( status.hasError ) {
-			console.error( status.messages);								
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
 		
@@ -1083,6 +1069,10 @@
 	 * Draw points
 	 */
 	astrology.Radix.prototype.drawPoints = function(){
+		if(this.data.points == null){
+			return;
+		}
+		
 		var universe = this.universe;
 		
 		// Planets can not be displayed on the same radius.
@@ -1179,7 +1169,7 @@
 	 * Draw circles
 	 * .
 	 */
-	astrology.Radix.prototype.drawCircles = function(){
+	astrology.Radix.prototype.drawCircles = function drawCircles(){
 		var universe = this.universe;
 		
 		//outdoor circle
@@ -1201,45 +1191,136 @@
        	}
 	};
 	
-	/*
-	 * Checks a source data
-	 * @private
+	/**
+	 * Scale chart
+	 * 
+	 * @param {int} factor 
+	 */
+	astrology.Radix.prototype.scale = function( factor ){			
+		this.universe.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
+	};
+		
+	/**
+	 * Display transit horoscope
 	 * 
 	 * @param {Object} data
-	 * @return {Object} status
+	 * @example
+	 *	{
+	 *		"points":{"Moon":0, "Sun":30,  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
+	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
+	 *	} 
+	 * 
+	 * @return {astrology.Transit} transit
 	 */
-	function validate( data ){
-		var status = {hasError:false, messages:[]};
+	astrology.Radix.prototype.transit = function( data ){
+		var transit = new astrology.Transit(context, data);
+		radix.drawUniverse();
+		radix.drawCusps();		
+		radix.drawSigns();
+		radix.drawPoints();
+		radix.drawAspects();
+		radix.drawCircles();
+		return transit; 
+	};
 		
-		if( data == null ){			
-			status.messages.push( "Data is not set." );
-			status.hasError = true;
-			return status;
-		}
+}( window.astrology = window.astrology || {}));
+
+// ## Transit chart ###################################
+(function( astrology ) {
+	
+	var context;
+    
+	/**
+	 * Transit charts.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor
+ 	 * @param {astrology.Radix} radix 
+	 * @param {Object} data
+	 */
+	astrology.Transit = function( radix, data ){
 		
-		if(data.points == null){					
-			status.messages.push( "There is not property 'points'." );
-			status.hasError = true;
-		}
-		
-		if(data.cusps != null && !Array.isArray(data.cusps)){
-			status.messages.push( "Property 'cusps' has to be Array." );
-			status.hasError = true;
-		}
-		
-		if(data.cusps != null && data.cusps.length != 12){			
-			status.messages.push( "Count of 'cusps' values has to be 12." );
-			status.hasError = true;
-		}
-		
-		if(data.aspects != null && !Array.isArray(data.aspects)){
-			status.messages.push( "Property 'aspects' has to be Array." );
-			status.hasError = true;			
+		// Validate data
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
+			throw new Error( status.messages );
 		}
 						
-		return status;	
+		this.data = data;								
+		this.paper = radix.paper; 
+		this.cx = radix.cx;
+		this.cy = radix.cy;
+		this.radius = radix.radius;
+		
+		this.shift = radix.shift;		
+						
+		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
+		this.universe.setAttribute('id', astrology.ID_TRANSIT);
+		this.paper.root.appendChild( this.universe );
+					
+		context = this; 
+		
+		radix.scale(0.8); // TODO
+									
+		return this;
 	};
 	
+	/**
+	 * Draw universe.
+	 */
+	astrology.Transit.prototype.drawUniverse = function(){
+		var universe = this.universe;		
+	};
+	
+	/**
+	 * Draw points
+	 */
+	astrology.Transit.prototype.drawPoints = function(){
+		if(this.data.points == null){
+			return;
+		}
+		
+		var universe = this.universe;			
+	};
+	
+	/**
+	 * Draw cusps
+	 */
+	astrology.Transit.prototype.drawCusps = function(){
+		if(this.data.cusps == null){
+			return;
+		}
+		
+		var universe = this.universe;				
+	};
+	
+	/**
+	 * Draw aspects
+	 */
+	astrology.Transit.prototype.drawAspects = function(){
+		if(this.data.aspects == null){
+			return;
+		}			
+	};
+	
+	/**
+	 * Draw signs symbols
+	 * .
+	 */
+	astrology.Transit.prototype.drawSigns = function(){
+		var universe = this.universe;			
+	};
+	
+	/**
+	 * Draw circles
+	 * .
+	 */
+	astrology.Transit.prototype.drawCircles = function drawCircles(){
+		var universe = this.universe;					
+	};
+				
 }( window.astrology = window.astrology || {}));
 
 // ## UTILS #############################
@@ -1271,5 +1352,44 @@
 	astrology.utils.radiansToDegree = function( radians ){
 		return radians * 180 / Math.PI;
 	};
-				        	   
+	
+	/**
+	 * Checks a source data
+	 * @private
+	 * 
+	 * @param {Object} data
+	 * @return {Object} status
+	 */
+	astrology.utils.validate = function( data ){
+		var status = {hasError:false, messages:[]};
+		
+		if( data == null ){			
+			status.messages.push( "Data is not set." );
+			status.hasError = true;
+			return status;
+		}
+		
+		if(data.points == null){					
+			status.messages.push( "There is not property 'points'." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && !Array.isArray(data.cusps)){
+			status.messages.push( "Property 'cusps' has to be Array." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && data.cusps.length != 12){			
+			status.messages.push( "Count of 'cusps' values has to be 12." );
+			status.hasError = true;
+		}
+		
+		if(data.aspects != null && !Array.isArray(data.aspects)){
+			status.messages.push( "Property 'aspects' has to be Array." );
+			status.hasError = true;		 	
+		}
+						
+		return status;		
+	};
+						        	 
 }( window.astrology = window.astrology || {}));

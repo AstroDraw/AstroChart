@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>Radix</title>  
+        <title>Transit</title>  
         <style>
         	#paper{
         		background:#eee;
@@ -15,15 +15,21 @@
         <script src="../../build/astrochart.js"></script>
         <script type="text/javascript">  
         
-        	var data = {
+        	var dataRadix = {
 				"points":{"Lilith":0, "Chiron":30, "Pluto":60, "Neptune":90, "Uranus":120, "Saturn":150, "Jupiter":180, "Mars":210, "Moon":240, "Sun":270, "Mercury":300, "Venus":330, "NNode":0},
-				"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274],
+				"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
+			};
+			
+			var dataTransit = {
+				"points":{"Moon":289,"Venus":28,"Jupiter":163,"NNode":169,"Mars":248,"Lilith":207,"Saturn":255,"Chiron":353,"Uranus":21,"Sun":38,"Mercury":53,"Neptune":341,"Pluto":287},
+				"cusps":[180,204,235,270,305,335,0,24,55,90,125,155],		
 				"aspects":[[296,26,"#f00"], [296,206,"#f00"], [0,120,"#00f"]]
 			};
 			                              	        	        	        	            
         	window.onload = function () {
-            	var chart = new astrology.Chart('paper', 600, 600);
-				chart.radix( data );																											            													            	            	       	
+            	var chart = new astrology.Chart( 'paper', 600, 600);
+				chart.radix( dataRadix ).transit( dataTransit );
+																															            													            	            	       	
 			};
 		</script>		    
     </body>

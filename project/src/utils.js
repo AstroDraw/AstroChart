@@ -27,5 +27,44 @@
 	astrology.utils.radiansToDegree = function( radians ){
 		return radians * 180 / Math.PI;
 	};
-				        	   
+	
+	/**
+	 * Checks a source data
+	 * @private
+	 * 
+	 * @param {Object} data
+	 * @return {Object} status
+	 */
+	astrology.utils.validate = function( data ){
+		var status = {hasError:false, messages:[]};
+		
+		if( data == null ){			
+			status.messages.push( "Data is not set." );
+			status.hasError = true;
+			return status;
+		}
+		
+		if(data.points == null){					
+			status.messages.push( "There is not property 'points'." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && !Array.isArray(data.cusps)){
+			status.messages.push( "Property 'cusps' has to be Array." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && data.cusps.length != 12){			
+			status.messages.push( "Count of 'cusps' values has to be 12." );
+			status.hasError = true;
+		}
+		
+		if(data.aspects != null && !Array.isArray(data.aspects)){
+			status.messages.push( "Property 'aspects' has to be Array." );
+			status.hasError = true;		 	
+		}
+						
+		return status;		
+	};
+						        	 
 }( window.astrology = window.astrology || {}));
