@@ -17,7 +17,7 @@
 	astrology.COLOR_SIGNS = "#333";
 	
 	// Chart margin
-	astrology.MARGIN = 5; //px
+	astrology.MARGIN = 50; //px
 		
 	// Chart PAdding
 	astrology.PADDING = 10; //px

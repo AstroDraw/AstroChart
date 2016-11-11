@@ -33,10 +33,7 @@
 		this.paper.root.appendChild( this.universe );
 					
 		context = this; 
-		
-		radix.scale(0.8); // TODO
-		this.scale(0.8); // TODO
-									
+												
 		return this;
 	};
 	
@@ -92,15 +89,6 @@
 	 */
 	astrology.Transit.prototype.drawCircles = function drawCircles(){
 		var universe = this.universe;					
-	};
-	
-	/**
-	 * Scale chart
-	 * 
-	 * @param {int} factor 
-	 */
-	astrology.Transit.prototype.scale = function( factor ){			
-		this.universe.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
 	};
 				
 }( window.astrology = window.astrology || {}));
