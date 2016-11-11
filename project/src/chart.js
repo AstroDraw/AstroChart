@@ -27,7 +27,7 @@
 		this.paper = new astrology.SVG( elementId, width, height); 
 		this.cx = this.paper.width/2;
 		this.cy = this.paper.height/2;
-		this.radius = this.paper.height/2 - astrology.MARGIN_CHART;
+		this.radius = this.paper.height/2 - astrology.MARGIN;
 			
 		return this;
 	};

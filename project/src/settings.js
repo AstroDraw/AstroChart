@@ -16,11 +16,11 @@
 	// Font color of signs symbols
 	astrology.COLOR_SIGNS = "#333";
 	
-	// Chart margin inside paper
-	astrology.MARGIN_CHART = 5; //px
-	
-	// Planets margin inside a chart
-	astrology.MARGIN_POINTS = 10;
+	// Chart margin
+	astrology.MARGIN = 5; //px
+		
+	// Chart PAdding
+	astrology.PADDING = 10; //px
 	
 	// Radix chart element ID
 	astrology.ID_RADIX = "radix";
@@ -71,18 +71,18 @@
 	astrology.SYMBOL_SIGNS = [astrology.SYMBOL_ARIES, astrology.SYMBOL_TAURUS, astrology.SYMBOL_GEMINI, astrology.SYMBOL_CANCER, astrology.SYMBOL_LEO, astrology.SYMBOL_VIRGO, astrology.SYMBOL_LIBRA, astrology.SYMBOL_SCORPIO, astrology.SYMBOL_SAGITTARIUS, astrology.SYMBOL_CAPRICORN, astrology.SYMBOL_AQUARIUS, astrology.SYMBOL_PISCES];
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
-	astrology.COLOR_ARIES = "#FF0000";
+	astrology.COLOR_ARIES = "#FF4500";
 	astrology.COLOR_TAURUS = "#8B4513";
 	astrology.COLOR_GEMINI= "#87CEEB";
-	astrology.COLOR_CANCER = "#006400"; 
-	astrology.COLOR_LEO = "#FF0000"; 
+	astrology.COLOR_CANCER = "#0000A0"; 
+	astrology.COLOR_LEO = "#FF4500"; 
 	astrology.COLOR_VIRGO = "#8B4513"; 
 	astrology.COLOR_LIBRA = "#87CEEB";  
-	astrology.COLOR_SCORPIO = "#006400";  
-	astrology.COLOR_SAGITTARIUS = "#FF0000";
+	astrology.COLOR_SCORPIO = "#0000A0";  
+	astrology.COLOR_SAGITTARIUS = "#FF4500";
 	astrology.COLOR_CAPRICORN = "#8B4513"; 
 	astrology.COLOR_AQUARIUS = "#87CEEB"; 
-	astrology.COLOR_PISCES = "#006400"; 	        	
+	astrology.COLOR_PISCES = "#0000A0"; 	        	
 	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
 	
 	// 0 degree is on the West 

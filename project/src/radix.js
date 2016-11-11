@@ -51,12 +51,7 @@
 		var universe = this.universe;
 		
 		// colors 
-        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){        	        	                	
-        	
-        	var bottomSegment = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, start+step, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLORS_SIGNS[i]);
-        	bottomSegment.setAttribute("fill-opacity", astrology.COLOR_OPACITY);
-        	universe.appendChild( bottomSegment );
-        	
+        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){        	        	                	        	        	       
         	var topSegment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLORS_SIGNS[i]);
         	universe.appendChild( topSegment );
         	        	        	        	               		
@@ -76,10 +71,10 @@
 		
 		// Planets can not be displayed on the same radius.
 		// The gap between indoor circle and outdoor circle / count of planets
-		var margin = astrology.MARGIN_POINTS * astrology.SYMBOL_SCALE;
+		var padding = 2 * astrology.PADDING * astrology.SYMBOL_SCALE;
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		var radiusStep = (gap - margin) / Object.keys(this.data.points).length;	
-		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + margin;
+		var radiusStep = (gap - padding) / Object.keys(this.data.points).length;	
+		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + padding;
 									
 		for (var planet in this.data.points) {
  		   if (this.data.points.hasOwnProperty( planet )) {
@@ -100,28 +95,41 @@
 		
 		var universe = this.universe;
 		
-		var textRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) )/1.2;
-		
+		var textRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING * astrology.SYMBOL_SCALE;
+				
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
  			
  			// Lines
  			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
- 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 		 	universe.appendChild( this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE, "5, 5"));
+ 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 		 	universe.appendChild( this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE));
  		 	
  		 	// Text
+ 		 	var xShift = 6; //px
  		 	var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
  		 	var startOfCusp = this.data.cusps[i];
  		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
  		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, ((startOfCusp + gap/2) % deg360) + this.shift  );
- 		 	universe.appendChild( this.paper.text( i+1, textPosition.x, textPosition.y, astrology.FONT_SIZE + "px", astrology.FONT_COLOR ));
+ 		 	universe.appendChild( this.paper.text( i+1, textPosition.x - xShift, textPosition.y, astrology.FONT_SIZE + "px", astrology.FONT_COLOR ));
  		 	
  		 	// As
  		 	if(i == 0){
  		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, this.data.cusps[i] + this.shift);
  		 		universe.appendChild( this.paper.text( "As", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 	}
+ 		 	 		 	 		 	 		
+ 		 	// Dc
+ 		 	if(i == 6){
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, this.data.cusps[i] + this.shift);
+ 		 		universe.appendChild( this.paper.text( "Dc", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 	}
+ 		 	 		 	
+ 		 	// Ic
+ 		 	if(i == 3){
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, this.data.cusps[i] - 2 + this.shift);
+ 		 		universe.appendChild( this.paper.text( "Ic", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
  		 	}
  		 	
  		 	// Mc
@@ -214,12 +222,12 @@
 	 */
 	astrology.Radix.prototype.transit = function( data ){
 		var transit = new astrology.Transit(context, data);
-		radix.drawUniverse();
-		radix.drawCusps();		
-		radix.drawSigns();
-		radix.drawPoints();
-		radix.drawAspects();
-		radix.drawCircles();
+		transit.drawUniverse();
+		transit.drawCusps();		
+		transit.drawSigns();
+		transit.drawPoints();
+		transit.drawAspects();
+		transit.drawCircles();
 		return transit; 
 	};
 		

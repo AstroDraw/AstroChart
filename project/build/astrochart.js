@@ -16,11 +16,11 @@
 	// Font color of signs symbols
 	astrology.COLOR_SIGNS = "#333";
 	
-	// Chart margin inside paper
-	astrology.MARGIN_CHART = 5; //px
-	
-	// Planets margin inside a chart
-	astrology.MARGIN_POINTS = 10;
+	// Chart margin
+	astrology.MARGIN = 5; //px
+		
+	// Chart PAdding
+	astrology.PADDING = 10; //px
 	
 	// Radix chart element ID
 	astrology.ID_RADIX = "radix";
@@ -71,18 +71,18 @@
 	astrology.SYMBOL_SIGNS = [astrology.SYMBOL_ARIES, astrology.SYMBOL_TAURUS, astrology.SYMBOL_GEMINI, astrology.SYMBOL_CANCER, astrology.SYMBOL_LEO, astrology.SYMBOL_VIRGO, astrology.SYMBOL_LIBRA, astrology.SYMBOL_SCORPIO, astrology.SYMBOL_SAGITTARIUS, astrology.SYMBOL_CAPRICORN, astrology.SYMBOL_AQUARIUS, astrology.SYMBOL_PISCES];
 			 
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
-	astrology.COLOR_ARIES = "#FF0000";
+	astrology.COLOR_ARIES = "#FF4500";
 	astrology.COLOR_TAURUS = "#8B4513";
 	astrology.COLOR_GEMINI= "#87CEEB";
-	astrology.COLOR_CANCER = "#006400"; 
-	astrology.COLOR_LEO = "#FF0000"; 
+	astrology.COLOR_CANCER = "#0000A0"; 
+	astrology.COLOR_LEO = "#FF4500"; 
 	astrology.COLOR_VIRGO = "#8B4513"; 
 	astrology.COLOR_LIBRA = "#87CEEB";  
-	astrology.COLOR_SCORPIO = "#006400";  
-	astrology.COLOR_SAGITTARIUS = "#FF0000";
+	astrology.COLOR_SCORPIO = "#0000A0";  
+	astrology.COLOR_SAGITTARIUS = "#FF4500";
 	astrology.COLOR_CAPRICORN = "#8B4513"; 
 	astrology.COLOR_AQUARIUS = "#87CEEB"; 
-	astrology.COLOR_PISCES = "#006400"; 	        	
+	astrology.COLOR_PISCES = "#0000A0"; 	        	
 	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
 	
 	// 0 degree is on the West 
@@ -968,7 +968,7 @@
 		this.paper = new astrology.SVG( elementId, width, height); 
 		this.cx = this.paper.width/2;
 		this.cy = this.paper.height/2;
-		this.radius = this.paper.height/2 - astrology.MARGIN_CHART;
+		this.radius = this.paper.height/2 - astrology.MARGIN;
 			
 		return this;
 	};
@@ -1052,12 +1052,7 @@
 		var universe = this.universe;
 		
 		// colors 
-        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){        	        	                	
-        	
-        	var bottomSegment = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, start+step, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLORS_SIGNS[i]);
-        	bottomSegment.setAttribute("fill-opacity", astrology.COLOR_OPACITY);
-        	universe.appendChild( bottomSegment );
-        	
+        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){        	        	                	        	        	       
         	var topSegment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLORS_SIGNS[i]);
         	universe.appendChild( topSegment );
         	        	        	        	               		
@@ -1077,10 +1072,10 @@
 		
 		// Planets can not be displayed on the same radius.
 		// The gap between indoor circle and outdoor circle / count of planets
-		var margin = astrology.MARGIN_POINTS * astrology.SYMBOL_SCALE;
+		var padding = 2 * astrology.PADDING * astrology.SYMBOL_SCALE;
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		var radiusStep = (gap - margin) / Object.keys(this.data.points).length;	
-		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + margin;
+		var radiusStep = (gap - padding) / Object.keys(this.data.points).length;	
+		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + padding;
 									
 		for (var planet in this.data.points) {
  		   if (this.data.points.hasOwnProperty( planet )) {
@@ -1101,28 +1096,41 @@
 		
 		var universe = this.universe;
 		
-		var textRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) )/1.2;
-		
+		var textRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING * astrology.SYMBOL_SCALE;
+				
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
  			
  			// Lines
  			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
- 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 		 	universe.appendChild( this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE, "5, 5"));
+ 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 		 	universe.appendChild( this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE));
  		 	
  		 	// Text
+ 		 	var xShift = 6; //px
  		 	var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
  		 	var startOfCusp = this.data.cusps[i];
  		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
  		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, ((startOfCusp + gap/2) % deg360) + this.shift  );
- 		 	universe.appendChild( this.paper.text( i+1, textPosition.x, textPosition.y, astrology.FONT_SIZE + "px", astrology.FONT_COLOR ));
+ 		 	universe.appendChild( this.paper.text( i+1, textPosition.x - xShift, textPosition.y, astrology.FONT_SIZE + "px", astrology.FONT_COLOR ));
  		 	
  		 	// As
  		 	if(i == 0){
  		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, this.data.cusps[i] + this.shift);
  		 		universe.appendChild( this.paper.text( "As", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 	}
+ 		 	 		 	 		 	 		
+ 		 	// Dc
+ 		 	if(i == 6){
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, this.data.cusps[i] + this.shift);
+ 		 		universe.appendChild( this.paper.text( "Dc", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 	}
+ 		 	 		 	
+ 		 	// Ic
+ 		 	if(i == 3){
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, textRadius, this.data.cusps[i] - 2 + this.shift);
+ 		 		universe.appendChild( this.paper.text( "Ic", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
  		 	}
  		 	
  		 	// Mc
@@ -1215,12 +1223,12 @@
 	 */
 	astrology.Radix.prototype.transit = function( data ){
 		var transit = new astrology.Transit(context, data);
-		radix.drawUniverse();
-		radix.drawCusps();		
-		radix.drawSigns();
-		radix.drawPoints();
-		radix.drawAspects();
-		radix.drawCircles();
+		transit.drawUniverse();
+		transit.drawCusps();		
+		transit.drawSigns();
+		transit.drawPoints();
+		transit.drawAspects();
+		transit.drawCircles();
 		return transit; 
 	};
 		
@@ -1252,7 +1260,7 @@
 		this.paper = radix.paper; 
 		this.cx = radix.cx;
 		this.cy = radix.cy;
-		this.radius = radix.radius;
+		this.radius = radix.radius + radix.radius/astrology.INNER_CIRCLE_RADIUS_RATIO;
 		
 		this.shift = radix.shift;		
 						
@@ -1263,6 +1271,7 @@
 		context = this; 
 		
 		radix.scale(0.8); // TODO
+		this.scale(0.8); // TODO
 									
 		return this;
 	};
@@ -1271,7 +1280,7 @@
 	 * Draw universe.
 	 */
 	astrology.Transit.prototype.drawUniverse = function(){
-		var universe = this.universe;		
+		var universe = this.universe;						
 	};
 	
 	/**
@@ -1319,6 +1328,15 @@
 	 */
 	astrology.Transit.prototype.drawCircles = function drawCircles(){
 		var universe = this.universe;					
+	};
+	
+	/**
+	 * Scale chart
+	 * 
+	 * @param {int} factor 
+	 */
+	astrology.Transit.prototype.scale = function( factor ){			
+		this.universe.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
 	};
 				
 }( window.astrology = window.astrology || {}));
