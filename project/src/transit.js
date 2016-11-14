@@ -68,5 +68,22 @@
 		if(this.data.aspects == null){
 			return;
 		}			
-	};			
+	};
+	
+	/**
+	 * Draw ruler
+	 */
+	astrology.Transit.prototype.drawRuler = function drawRuler(){
+		 var universe = this.universe;
+		
+		// rays
+        var lineLength = 3;
+        for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
+            var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, start  + this.shift);
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + lineLength, start + this.shift);
+       		universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, astrology.COLOR_CIRCLE));
+       		start += step;
+       	}		
+	};
+				
 }( window.astrology = window.astrology || {}));

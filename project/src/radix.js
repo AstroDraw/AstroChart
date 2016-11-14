@@ -204,7 +204,6 @@
 	
 	/**
 	 * Draw circles
-	 * .
 	 */
 	astrology.Radix.prototype.drawCircles = function drawCircles(){
 		var universe = this.universe;
@@ -216,16 +215,23 @@
         universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE));
         
         //indoor circle
-       	universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE));
-       	
-       	// rays
+       	universe.appendChild( this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, astrology.COLOR_CIRCLE));       	       
+	};
+	
+	/**
+	 * Draw ruler
+	 */
+	astrology.Radix.prototype.drawRuler = function drawRuler(){
+		var universe = this.universe;
+				
+		// rays
         var lineLength = 3;
         for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
-            var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, start );
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + lineLength, start );
+            var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineLength) , start + this.shift );
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start + this.shift);
        		universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, astrology.COLOR_CIRCLE));
        		start += step;
-       	}
+       	}       		
 	};
 		
 	/**
@@ -242,7 +248,8 @@
 	 * @return {astrology.Transit} transit
 	 */
 	astrology.Radix.prototype.transit = function( data ){
-		var transit = new astrology.Transit(context, data);						
+		var transit = new astrology.Transit(context, data);
+		transit.drawRuler();						
 		transit.drawPoints();
 		transit.drawAspects();		
 		return transit; 
