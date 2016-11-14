@@ -2,7 +2,10 @@
 (function( astrology ) {
 	
 	//Scale of symbols	 
-	astrology.SYMBOL_SCALE = 1;		 
+	astrology.SYMBOL_SCALE = 1;
+	
+	// BG color
+	astrology.COLOR_BACKGROUND = "#fff";		 
 	
 	// Font size in chart
 	astrology.FONT_SIZE = 12; //px

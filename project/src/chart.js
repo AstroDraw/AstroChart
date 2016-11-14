@@ -47,8 +47,9 @@
 	 */
 	astrology.Chart.prototype.radix = function( data ){
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
-		radix.drawUniverse();
-		radix.drawCusps();		
+		radix.drawBg();
+		radix.drawCusps();
+		radix.drawUniverse();				
 		radix.drawSigns();
 		radix.drawPoints();
 		radix.drawAspects();

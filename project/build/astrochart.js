@@ -2,7 +2,10 @@
 (function( astrology ) {
 	
 	//Scale of symbols	 
-	astrology.SYMBOL_SCALE = 1;		 
+	astrology.SYMBOL_SCALE = 1;
+	
+	// BG color
+	astrology.COLOR_BACKGROUND = "#fff";		 
 	
 	// Font size in chart
 	astrology.FONT_SIZE = 12; //px
@@ -988,8 +991,9 @@
 	 */
 	astrology.Chart.prototype.radix = function( data ){
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
-		radix.drawUniverse();
-		radix.drawCusps();		
+		radix.drawBg();
+		radix.drawCusps();
+		radix.drawUniverse();				
 		radix.drawSigns();
 		radix.drawPoints();
 		radix.drawAspects();
@@ -1056,13 +1060,25 @@
 	};
 	
 	/**
+	 * Draw background
+	 */
+	astrology.Radix.prototype.drawBg = function(){
+		var universe = this.universe;		
+		var bg = this.paper.circle( this.cx, this.cy, this.radius, astrology.COLOR_BACKGROUND);
+		bg.setAttribute("fill", astrology.COLOR_BACKGROUND);		
+		bg.setAttribute("stroke", "none");
+		universe.appendChild( bg );		
+	};
+		
+	/**
 	 * Draw universe.
 	 */
 	astrology.Radix.prototype.drawUniverse = function(){
 		var universe = this.universe;
 		
 		// colors 
-        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){        	        	                	        	        	       
+        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){ 
+        	        	        	       	        	                	        	        	     
         	var topSegment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.COLORS_SIGNS[i]);
         	universe.appendChild( topSegment );
         	        	        	        	               		
@@ -1111,88 +1127,61 @@
 		var DC = 6;
 		var MC = 9;
 		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING;
-		var axisRadius = this.radius + 15 * astrology.SYMBOL_SCALE;
+		var overlap = 15 * astrology.SYMBOL_SCALE; // px
+		var axisRadius = this.radius + overlap;
 				
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
  			
  			// Lines
- 			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
- 			var topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
- 			var line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE);
- 			if(i == AS || i == IC || i == DC || i == MC){
+ 			var topPosition, line;
+ 			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);   			 			
+ 			if( i == AS || i == IC || i == DC || i == MC ){ 			
+ 				topPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
+ 				line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE); 			
  				line.setAttribute("stroke-width", 2);
- 			} 			
- 		 	universe.appendChild( line );
- 		 	
- 		 	// Text
+ 			}else{
+ 				topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 				line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE);
+ 			} 			 			 			 			 		
+ 		 	universe.appendChild( line ); 
+ 		 	 		 	
+ 		 	// Cup number 
  		 	var xShift = 6; //px
- 		 	var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+ 		 	var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI );
  		 	var startOfCusp = this.data.cusps[i];
  		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
  		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
- 		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift  );
+ 		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
  		 	universe.appendChild( this.paper.text( i+1, textPosition.x - xShift, textPosition.y, astrology.FONT_SIZE + "px", astrology.FONT_COLOR ));
- 		 	
+ 		 	  		 			 
  		 	// As
- 		 	if(i == 0){ // TODO - to function
- 		 		
- 		 		// Axis
- 		 		bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 		 		topPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
- 		 		line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE);
- 		 		line.setAttribute("stroke-width", 2);
- 		 		universe.appendChild( line );
- 		 		
+ 		 	if(i == 0){ 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 1.5*overlap, this.data.cusps[i] + this.shift);
  		 		universe.appendChild( this.paper.text( "As", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
  		 	}
  		 	 		 	 		 	 		
  		 	// Dc
- 		 	if(i == 6){ // TODO - to function
- 		 		
- 		 		// Axis
- 		 		bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 		 		topPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
- 		 		line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE);
- 		 		line.setAttribute("stroke-width", 2);
- 		 		universe.appendChild( line );
- 		 		
+ 		 	if(i == 6){  		 		 		 		 		 		 		 
  		 		// Text
  		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
  		 		universe.appendChild( this.paper.text( "Dc", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
  		 	}
  		 	 		 	
  		 	// Ic
- 		 	if(i == 3){ // TODO - to function
- 		 		
- 		 		// Axis
- 		 		bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 		 		topPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
- 		 		line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE);
- 		 		line.setAttribute("stroke-width", 2);
- 		 		universe.appendChild( line );
- 		 		
+ 		 	if(i == 3){ 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] - 2 + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.7*overlap, this.data.cusps[i] - 2 + this.shift);
  		 		universe.appendChild( this.paper.text( "Ic", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
  		 	}
  		 	
  		 	// Mc
- 		 	if(i == 9){ // TODO - to function
- 		 		
- 		 		// Axis
- 		 		bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 		 		topPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
- 		 		line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y, astrology.COLOR_LINE);
- 		 		line.setAttribute("stroke-width", 2);
- 		 		universe.appendChild( line );
- 		 		
+ 		 	if(i == 9){ 		 		 		 	
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + 2 + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + overlap, this.data.cusps[i] + 2 + this.shift);
  		 		universe.appendChild( this.paper.text( "Mc", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
- 		 	}
+ 		 	} 		 
 		}
 	};
 	
