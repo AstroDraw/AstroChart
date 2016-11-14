@@ -242,13 +242,9 @@
 	 * @return {astrology.Transit} transit
 	 */
 	astrology.Radix.prototype.transit = function( data ){
-		var transit = new astrology.Transit(context, data);
-		transit.drawUniverse();
-		transit.drawCusps();		
-		transit.drawSigns();
+		var transit = new astrology.Transit(context, data);						
 		transit.drawPoints();
-		transit.drawAspects();
-		transit.drawCircles();
+		transit.drawAspects();		
 		return transit; 
 	};
 		

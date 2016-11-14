@@ -36,14 +36,7 @@
 												
 		return this;
 	};
-	
-	/**
-	 * Draw universe.
-	 */
-	astrology.Transit.prototype.drawUniverse = function(){
-		var universe = this.universe;						
-	};
-	
+		
 	/**
 	 * Draw points
 	 */
@@ -52,18 +45,20 @@
 			return;
 		}
 		
-		var universe = this.universe;			
-	};
-	
-	/**
-	 * Draw cusps
-	 */
-	astrology.Transit.prototype.drawCusps = function(){
-		if(this.data.cusps == null){
-			return;
-		}
-		
-		var universe = this.universe;				
+		var universe = this.universe;
+				
+		// Planets can not be displayed on the same radius.				
+		var gap = astrology.MARGIN;
+		var radiusStep = ( gap / 4 ) / Object.keys(this.data.points).length;	
+		var planetRadius = this.radius;
+									
+		for (var planet in this.data.points) {
+ 			if (this.data.points.hasOwnProperty( planet )) {
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius, this.data.points[planet] + this.shift);
+        		universe.appendChild( this.paper.getSymbol(planet, position.x, position.y));
+        		planetRadius += radiusStep;
+    		}
+		}							
 	};
 	
 	/**
@@ -73,22 +68,5 @@
 		if(this.data.aspects == null){
 			return;
 		}			
-	};
-	
-	/**
-	 * Draw signs symbols
-	 * .
-	 */
-	astrology.Transit.prototype.drawSigns = function(){
-		var universe = this.universe;			
-	};
-	
-	/**
-	 * Draw circles
-	 * .
-	 */
-	astrology.Transit.prototype.drawCircles = function drawCircles(){
-		var universe = this.universe;					
-	};
-				
+	};			
 }( window.astrology = window.astrology || {}));
