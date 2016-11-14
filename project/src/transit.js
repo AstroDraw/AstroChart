@@ -24,7 +24,7 @@
 		this.paper = radix.paper; 
 		this.cx = radix.cx;
 		this.cy = radix.cy;
-		this.radius = radix.radius + radix.radius/astrology.INNER_CIRCLE_RADIUS_RATIO;
+		this.radius = radix.radius;
 		
 		this.shift = radix.shift;		
 						
@@ -49,8 +49,8 @@
 				
 		// Planets can not be displayed on the same radius.				
 		var gap = astrology.MARGIN;
-		var radiusStep = ( gap / 4 ) / Object.keys(this.data.points).length;	
-		var planetRadius = this.radius;
+		var radiusStep = ( gap / 2 ) / Object.keys(this.data.points).length;	
+		var planetRadius = this.radius + astrology.PADDING;
 									
 		for (var planet in this.data.points) {
  			if (this.data.points.hasOwnProperty( planet )) {
