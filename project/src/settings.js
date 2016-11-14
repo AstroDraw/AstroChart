@@ -25,6 +25,9 @@
 	// Chart PAdding
 	astrology.PADDING = 10; //px
 	
+	// Wrapper element ID
+	astrology.ID_CHART = "astrology-chart";
+	
 	// Radix chart element ID
 	astrology.ID_RADIX = "radix";
 	

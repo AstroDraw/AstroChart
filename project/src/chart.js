@@ -63,9 +63,8 @@
 	 * 
 	 * @param {int} factor 
 	 */
-	astrology.Chart.prototype.scale = function( factor ){
-		// TODO			
-		//this.universe.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
+	astrology.Chart.prototype.scale = function( factor ){			
+		this.paper.root.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
 	};
 	 		  
 }( window.astrology = window.astrology || {}));

@@ -25,6 +25,9 @@
 	// Chart PAdding
 	astrology.PADDING = 10; //px
 	
+	// Wrapper element ID
+	astrology.ID_CHART = "astrology-chart";
+	
 	// Radix chart element ID
 	astrology.ID_RADIX = "radix";
 	
@@ -118,8 +121,12 @@
 		svg.setAttribute('height', height);			
 		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");				
 		document.getElementById( elementId ).appendChild( svg );
-				
-		this.root = svg;
+		
+		var wrapper = document.createElementNS(svg.namespaceURI, "g");
+		wrapper.setAttribute('id', astrology.ID_CHART);
+		svg.appendChild( wrapper );
+						
+		this.root = wrapper;
 		this.width = width;
 		this.height = height;
 		
@@ -1007,9 +1014,8 @@
 	 * 
 	 * @param {int} factor 
 	 */
-	astrology.Chart.prototype.scale = function( factor ){
-		// TODO			
-		//this.universe.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
+	astrology.Chart.prototype.scale = function( factor ){			
+		this.paper.root.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
 	};
 	 		  
 }( window.astrology = window.astrology || {}));
@@ -1341,8 +1347,16 @@
 	 */
 	astrology.Transit.prototype.drawAspects = function(){
 		if(this.data.aspects == null){
-			return;
-		}			
+			return; 
+		}
+						
+		var universe = this.universe;
+		
+        for( var i = 0, len = this.data.aspects.length; i < len; i++ ){ 
+        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][0] + this.shift);
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][1] + this.shift);
+        	universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, this.data.aspects[i][2]));
+        }				
 	};
 	
 	/**

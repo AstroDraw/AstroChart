@@ -66,8 +66,16 @@
 	 */
 	astrology.Transit.prototype.drawAspects = function(){
 		if(this.data.aspects == null){
-			return;
-		}			
+			return; 
+		}
+						
+		var universe = this.universe;
+		
+        for( var i = 0, len = this.data.aspects.length; i < len; i++ ){ 
+        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][0] + this.shift);
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][1] + this.shift);
+        	universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, this.data.aspects[i][2]));
+        }				
 	};
 	
 	/**

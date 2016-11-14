@@ -21,8 +21,12 @@
 		svg.setAttribute('height', height);			
 		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");				
 		document.getElementById( elementId ).appendChild( svg );
-				
-		this.root = svg;
+		
+		var wrapper = document.createElementNS(svg.namespaceURI, "g");
+		wrapper.setAttribute('id', astrology.ID_CHART);
+		svg.appendChild( wrapper );
+						
+		this.root = wrapper;
 		this.width = width;
 		this.height = height;
 		
