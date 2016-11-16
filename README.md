@@ -9,6 +9,7 @@ A free and open-source JavaScript library for generating SVG charts to display p
 
 ### Example
 - [Radix horoscope](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix.html)
+- [Radix 15. 11. 2016](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_2016_11_15.html)
 - [Transit horoscope](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/transit/transit.html)
 - TODO [Interactive chart](#)
 
