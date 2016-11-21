@@ -29,7 +29,7 @@
 		this.shift = radix.shift;		
 						
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
-		this.universe.setAttribute('id', astrology.ID_TRANSIT);
+		this.universe.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT);
 		this.paper.root.appendChild( this.universe );
 					
 		context = this; 
@@ -45,7 +45,8 @@
 			return;
 		}
 		
-		var universe = this.universe;
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS );
 				
 		// Planets can not be displayed on the same radius.				
 		var gap = astrology.MARGIN;
@@ -54,8 +55,11 @@
 									
 		for (var planet in this.data.points) {
  			if (this.data.points.hasOwnProperty( planet )) {
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius, this.data.points[planet] + this.shift);
-        		universe.appendChild( this.paper.getSymbol(planet, position.x, position.y));
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius, this.data.points[planet] + this.shift); 		   		 		   	
+ 		   		var symbol = this.paper.getSymbol(planet, position.x, position.y);
+        		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + planet);
+        		symbol.setAttribute('data-radius', planetRadius); 		   		 		   	
+        		wrapper.appendChild( symbol );
         		planetRadius += radiusStep;
     		}
 		}							
@@ -65,16 +69,22 @@
 	 * Draw aspects
 	 */
 	astrology.Transit.prototype.drawAspects = function(){
+		
+		// remove radix aspects
+		astrology.utils.removeChilds( document.getElementById( astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_ASPECTS ));
+				
 		if(this.data.aspects == null){
 			return; 
 		}
 						
 		var universe = this.universe;
+				
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_ASPECTS );
 		
         for( var i = 0, len = this.data.aspects.length; i < len; i++ ){ 
         	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][0] + this.shift);
         	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][1] + this.shift);
-        	universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, this.data.aspects[i][2]));
+        	wrapper.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, this.data.aspects[i][2]));
         }				
 	};
 	

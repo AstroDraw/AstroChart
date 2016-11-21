@@ -66,5 +66,42 @@
 						
 		return status;		
 	};
+	
+	/**
+	 * Get empty DOMElement with ID
+	 * 
+	 * @param{String} elementID
+	 * @param{DOMElement} parent
+	 * @return {DOMElement}
+	 */
+	astrology.utils.getEmptyWrapper = function( parent, elementID ){
+		
+		var wrapper = document.getElementById( elementID );		
+		if(wrapper){
+			astrology.utils.removeChilds( wrapper );
+		}else{					
+			wrapper = document.createElementNS( document.getElementById(astrology.ID_CHART).namespaceURI, "g");
+			wrapper.setAttribute('id', elementID);
+			parent.appendChild( wrapper );			
+		} 
+		
+		return wrapper;
+	};
+	
+	/**
+	* Remove childs
+	* 
+	* @param{DOMElement} parent
+	*/
+	astrology.utils.removeChilds = function(parent){
+		if( parent == null ){
+			return;
+		}
+		
+		var last;
+    	while (last = parent.lastChild){
+    		parent.removeChild(last);
+    	}
+	};
 						        	 
 }( window.astrology = window.astrology || {}));

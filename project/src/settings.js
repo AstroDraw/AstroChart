@@ -3,7 +3,7 @@
 	
 	//Scale of symbols	 
 	astrology.SYMBOL_SCALE = 1;
-	
+		
 	// BG color
 	astrology.COLOR_BACKGROUND = "#fff";		 
 	
@@ -25,14 +25,20 @@
 	// Chart PAdding
 	astrology.PADDING = 10; //px
 	
-	// Wrapper element ID
-	astrology.ID_CHART = "astrology-chart";
+	// Module wrapper element ID
+	astrology.ID_CHART = "astrology";
 	
 	// Radix chart element ID
 	astrology.ID_RADIX = "radix";
 	
 	// Transit chart element ID
 	astrology.ID_TRANSIT = "transit";
+	
+	// Aspects wrapper element ID
+	astrology.ID_ASPECTS = "aspects";
+	
+	// Aspects wrapper element ID
+	astrology.ID_POINTS = "points";
 	
 	// Color of circles in charts
 	astrology.COLOR_CIRCLE = "#666";

@@ -19,8 +19,8 @@
 		}
 		
 		if (elementId && !document.getElementById( elementId )){
-			var paper = document.createElement('div');
-			paper.id = elementId;
+			var paper = document.createElement('div');					
+			paper.setAttribute('id', elementId);			
 			document.body.appendChild( paper );
 		}
 										
@@ -53,7 +53,7 @@
 		radix.drawUniverse();				
 		radix.drawSigns();
 		radix.drawPoints();
-		radix.drawAspects();		
+		radix.drawAspects();radix.drawAspects();radix.drawAspects();		
 		radix.drawCircles();
 		return radix;
 	 };
