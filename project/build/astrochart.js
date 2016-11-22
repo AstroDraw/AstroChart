@@ -1498,6 +1498,15 @@
        		start += step;
        	}		
 	};
+	
+	/**
+	 * Moves points to another position.
+	 * 
+ 	 * @param {Object} data
+	 */
+	astrology.Transit.prototype.animate = function( data ){
+		// TODO
+	};
 				
 }( window.astrology = window.astrology || {}));
 
