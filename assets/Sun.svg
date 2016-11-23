@@ -11,7 +11,7 @@
    height="50"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="Sun.svg">
   <metadata
      id="metadata10">
@@ -21,6 +21,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -35,19 +36,27 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-width="1280"
+     inkscape:window-height="975"
      id="namedview6"
      showgrid="false"
-     inkscape:zoom="15.201251"
-     inkscape:cx="2.5250318"
-     inkscape:cy="23.618557"
+     inkscape:zoom="10.146667"
+     inkscape:cx="14.039846"
+     inkscape:cy="21.012932"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2" />
-  <path
-     d="m 15.999965,25.025 a 9.0000174,9.0000174 0 1 1 0,0.05 z m 1.500004,0 a 7.5000145,7.5000145 0 1 0 0,-0.05 z m 5.50001,0 a 2.0000038,2.0000038 0 1 0 0,-0.05 z"
-     id="path4"
-     inkscape:connector-curvature="0" />
+  <circle
+     style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path4144"
+     cx="24.833811"
+     cy="25.022133"
+     r="4.786437" />
+  <circle
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2.33107305;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="path4134"
+     cx="24.934294"
+     cy="25.164259"
+     r="17.868496" />
 </svg>

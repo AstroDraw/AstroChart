@@ -83,8 +83,11 @@
 		
         for( var i = 0, len = this.data.aspects.length; i < len; i++ ){ 
         	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][0] + this.shift);
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][1] + this.shift);
-        	wrapper.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, this.data.aspects[i][2]));
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][1] + this.shift);        	
+        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);      	
+        	line.setAttribute("stroke", this.data.aspects[i][2]);		 				 				 		
+ 			line.setAttribute("stroke-width", 1);        	
+        	wrapper.appendChild( line );        	        
         }				
 	};
 	
@@ -99,7 +102,10 @@
         for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
             var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, start  + this.shift);
         	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + lineLength, start + this.shift);
-       		universe.appendChild( this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y, astrology.COLOR_CIRCLE));
+        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);        	
+        	line.setAttribute("stroke", astrology.COLOR_CIRCLE );		 				 				 		
+ 			line.setAttribute("stroke-width", 1);        	        
+       		universe.appendChild( line );
        		start += step;
        	}		
 	};

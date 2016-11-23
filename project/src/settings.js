@@ -100,7 +100,7 @@
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
 	
-	// Opacity of colors in chart
-	astrology.COLOR_OPACITY = 0.8;
+	// No fill, only stroke
+	astrology.STROKE_ONLY = false;
 		       	      
 }( window.astrology = window.astrology || {}));

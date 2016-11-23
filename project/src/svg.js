@@ -121,8 +121,10 @@
 		        return pisces( x, y);		        
 		        break;                                                                                	  
 		    default:
-		    	var unknownPoint = circle(x, y, 8, "#ffff00");
-		    	unknownPoint.setAttribute("fill", "#ff0000");
+		    	var unknownPoint = this.circle(x, y, 8);
+		    	unknownPoint.setAttribute("stroke", "#ffff00");		 
+				unknownPoint.setAttribute("stroke-width", 1);
+		    	unknownPoint.setAttribute("fill", "#ff0000");		    							    			    			    			    		
 		    	return unknownPoint;	 
 		}			
 	};
@@ -139,18 +141,22 @@
 	function sun( x, y ){
 		
 		// center symbol
-		var xShift = -10; //px						
+		var xShift = 0; //px						
 		var yShift = 0; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
-					
-			var node = document.createElementNS( context.root.namespaceURI, "path");
-			node.setAttribute("d", "m" + x + ", " + y + " a 9.0000174,9.0000174 0 1 1 0,0.05 z m 1.500004,0 a 7.5000145,7.5000145 0 1 0 0,-0.05 z m 5.50001,0 a 2.0000038,2.0000038 0 1 0 0,-0.05 z");
-			node.setAttribute("fill", astrology.COLOR_POINTS);										
-			wrapper.appendChild(node);
+			
+			var circle = context.circle(x, y, 9);
+			circle.setAttribute("stroke", astrology.COLOR_POINTS);		 
+			circle.setAttribute("stroke-width", 1.8);															
+			wrapper.appendChild(circle);
+			
+			var centerPoint = context.circle(x,y,2);
+			centerPoint.setAttribute("fill", astrology.COLOR_POINTS); // this is not fill, this is point			
+			wrapper.appendChild(centerPoint);
 											
 		return wrapper;
 	};
@@ -179,7 +185,7 @@
 			node.setAttribute("d", "m" + x + ", " + y + " a 8.4375221,8.4375221 0 0 1 0,16.125042 8.4375221,8.4375221 0 1 0 0,-16.125042 z");				
 			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			node.setAttribute("stroke-width", 1.8);
-			node.setAttribute("fill", "none");			
+			node.setAttribute("fill", astrology.COLOR_BACKGROUND);			
 			wrapper.appendChild(node);
 											
 		return wrapper;
@@ -854,14 +860,13 @@
 	 * @param {int} radius - circle radius in px
 	 * @param {int} a1 - angleFrom in degree
 	 * @param {int} a2 - angleTo in degree
-	 * @param {int} thickness - from outside to center in px  
-	 * @param {String} color - HTML rgb
+	 * @param {int} thickness - from outside to center in px  	
 	 * 
 	 * @return {SVGElement} segment
 	 *  
 	 * @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
 	 */  
-	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness, color){
+	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness){
 									            	 	            	
 	 	// @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
 	 	var LARGE_ARC_FLAG = 0;
@@ -872,7 +877,7 @@
 		
 		var segment = document.createElementNS( context.root.namespaceURI, "path");
 		segment.setAttribute("d", "M " + (x + thickness * Math.cos(a1)) + ", " + (y + thickness * Math.sin(a1)) + " l " + ((radius-thickness) * Math.cos(a1)) + ", " + ((radius-thickness) * Math.sin(a1)) + " A " + radius + ", " + radius + ",0 ," +  LARGE_ARC_FLAG + ", " + SWEET_FLAG + ", " + ( x + radius * Math.cos(a2) ) + ", " + ( y + radius * Math.sin(a2) ) + " l " + ( (radius-thickness)  * -Math.cos(a2) ) + ", " + ( (radius-thickness) * -Math.sin(a2) ) + " A " + thickness + ", " + thickness + ",0 ," +  LARGE_ARC_FLAG + ", " + 1 + ", " + ( x + thickness * Math.cos(a1) ) + ", " + ( y + thickness * Math.sin(a1)));
-		segment.setAttribute("fill", color);		 
+		segment.setAttribute("fill", "none");						
 		return segment;
 	};
 	
@@ -883,25 +888,16 @@
 	 * @param {int} y2
 	 * @param {int} x2
 	 * @param {int} y2 
-	 * @param {String} color - HTML rgb
-	 * @param {String} style - line style
+	 * @param {String} color - HTML rgb	 
 	 * 
 	 * @return {SVGElement} line
 	 */  
-	astrology.SVG.prototype.line = function line( x1, y1, x2, y2, color, style){
-									            	 	            		
+	astrology.SVG.prototype.line = function line( x1, y1, x2, y2, color){									            	 	            	
 		var line = document.createElementNS( context.root.namespaceURI, "line");
 		line.setAttribute("x1", x1);
 		line.setAttribute("y1", y1);	
   	    line.setAttribute("x2", x2);
-		line.setAttribute("y2", y2);				
-		line.setAttribute("stroke", color);		 
-		line.setAttribute("stroke-width", 1);
-		
-		if(style){
-			line.setAttribute("stroke-dasharray", style);
-		}
-				
+		line.setAttribute("y2", y2);											
 		return line;
 	};
 	
@@ -910,19 +906,16 @@
 	 * 
 	 * @param {int} cx
 	 * @param {int} cy
-	 * @param {int} radius
-	 * @param {String} color - HTML rgb
+	 * @param {int} radius	
 	 * 
 	 * @return {SVGElement} circle
 	 */  
-	astrology.SVG.prototype.circle = function circle( cx, cy, radius, color){						            	 	            		
+	astrology.SVG.prototype.circle = function circle( cx, cy, radius){						            	 	            		
 		var circle = document.createElementNS( context.root.namespaceURI, "circle");
 		circle.setAttribute("cx", cx);	
   	    circle.setAttribute("cy", cy);
-		circle.setAttribute("r", radius);				
-		circle.setAttribute("stroke", color);		 
-		circle.setAttribute("stroke-width", 1);
-		circle.setAttribute("fill", "none");
+		circle.setAttribute("r", radius);
+		circle.setAttribute("fill", "none");							
 		return circle;
 	};
 	
