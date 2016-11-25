@@ -42,5 +42,11 @@ var settings = {SYMBOL_SCALE:2};
 var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
 
+### TODO
+- Transit chart animation
+- Stroke-only chart
+- SVG symbols fix
+- Aspects data fix 
+
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)

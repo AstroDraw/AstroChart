@@ -151,7 +151,8 @@
 			
 			var circle = context.circle(x, y, 9);
 			circle.setAttribute("stroke", astrology.COLOR_POINTS);		 
-			circle.setAttribute("stroke-width", 1.8);															
+			circle.setAttribute("stroke-width", 1.8);
+			circle.setAttribute("fill", astrology.COLOR_BACKGROUND);															
 			wrapper.appendChild(circle);
 			
 			var centerPoint = context.circle(x,y,2);
