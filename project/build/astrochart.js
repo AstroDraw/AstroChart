@@ -258,7 +258,7 @@
 			var circle = context.circle(x, y, 8);
 			circle.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			circle.setAttribute("stroke-width", 1.8);
-			circle.setAttribute("fill", astrology.COLOR_BACKGROUND);															
+			circle.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);															
 			wrapper.appendChild(circle);
 			
 			var centerPoint = context.circle(x,y,2);
@@ -292,7 +292,7 @@
 			node.setAttribute("d", "m" + x + ", " + y + " a 7.4969283,7.4969283 0 0 1 0,14.327462 7.4969283,7.4969283 0 1 0 0,-14.327462 z");				
 			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			node.setAttribute("stroke-width", 1.8);
-			node.setAttribute("fill", astrology.COLOR_BACKGROUND);			
+			node.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);			
 			wrapper.appendChild(node);
 											
 		return wrapper;
@@ -322,7 +322,7 @@
 			body.setAttribute("d", "m" + x + ", " + y + " 4.68215,0 m -2.34107,-3.2775 0,5.61858 m 5.16906,-10.76902 a 5.1690906,5.1690906 0 0 1 -5.16909,5.16909 5.1690906,5.1690906 0 0 1 -5.16909,-5.16909 5.1690906,5.1690906 0 0 1 5.16909,-5.16909 5.1690906,5.1690906 0 0 1 5.16909,5.16909 z");				
 			body.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			body.setAttribute("stroke-width", 1.8);
-			body.setAttribute("fill", astrology.COLOR_BACKGROUND);			
+			body.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);			
 			wrapper.appendChild( body );
 			
 			var crownXShift = 7; //px						
@@ -361,7 +361,7 @@
 			node.setAttribute("d", "m" + x + ", " + y + " -6.14143,0 m 3.070715,3.232332 0,-7.369717 a 5.9151669,5.9151669 0 1 1 0.03232,0");				
 			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			node.setAttribute("stroke-width", 1.8);
-			node.setAttribute("fill", astrology.COLOR_BACKGROUND);												
+			node.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);												
 			wrapper.appendChild(node);
 											
 		return wrapper;
@@ -391,7 +391,7 @@
 			node.setAttribute("d", "m" + x + ", " + y + " a 6.2455116,6.2455116 0 1 0 1.023855,1.023855 z m 0,0 0.511928,0.511927 5.631199,-5.631199 m -4.607345,0 4.607345,0 0,4.607345");				
 			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			node.setAttribute("stroke-width", 1.8);
-			node.setAttribute("fill", astrology.COLOR_BACKGROUND);			
+			node.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);			
 			wrapper.appendChild(node);
 											
 		return wrapper;
@@ -481,7 +481,7 @@
 			body.setAttribute("d", "m" + x + ", " + y + " a 1.6666672,1.6666672 0 0 1 -1.66667,1.66666 1.6666672,1.6666672 0 0 1 -1.66666,-1.66666 1.6666672,1.6666672 0 0 1 1.66666,-1.66667 1.6666672,1.6666672 0 0 1 1.66667,1.66667 z m -1.66664,-12.91669 0,10.83334 m -5,-5.83334 10,0");				
 			body.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			body.setAttribute("stroke-width", 1.8);
-			body.setAttribute("fill", astrology.COLOR_BACKGROUND);									
+			body.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);									
 			wrapper.appendChild(body);
 			
 			var hornsXShift = 3; //px						
@@ -490,7 +490,7 @@
 			horns.setAttribute("d", "m" + (x + hornsXShift) + ", " + (y + hornsYShift) + " 2.91667,0 0,-0.41666 -1.66667,-0.41667 0,-8.33333 1.66667,-0.41667 0,-0.41667 -2.91667,0 0,10 z m -9.16666,0 -2.91667,0 0,-0.41666 1.66667,-0.41667 0,-8.33333 -1.66667,-0.41667 0,-0.41667 2.91667,0 0,10 z");				
 			horns.setAttribute("stroke", astrology.COLOR_POINTS);
 			horns.setAttribute("stroke-width", 0.5);	 			
-			horns.setAttribute("fill", astrology.COLOR_POINTS); // In this graphics context this is not fill. Look at Uranus symbol. 									
+			horns.setAttribute("fill", astrology.COLOR_POINTS);  									
 			wrapper.appendChild( horns );
 													
 		return wrapper;
@@ -559,7 +559,7 @@
 			head.setAttribute("d", "m" + (x + headXShift) + ", " + (y + headYShift) + " a 3.3644834,3.3644834 0 0 1 -3.36448,3.36449 3.3644834,3.3644834 0 0 1 -3.36448,-3.36449 3.3644834,3.3644834 0 0 1 3.36448,-3.36448 3.3644834,3.3644834 0 0 1 3.36448,3.36448 z");				
 			head.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			head.setAttribute("stroke-width", 1.8);
-			head.setAttribute("fill", astrology.COLOR_BACKGROUND);														
+			head.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);														
 			wrapper.appendChild(head);
 														
 		return wrapper;
@@ -589,7 +589,7 @@
 			body.setAttribute("d", "m" + x + ", " + y + " a 3.8764725,3.0675249 0 0 1 -3.876473,3.067525 3.8764725,3.0675249 0 0 1 -3.876472,-3.067525 3.8764725,3.0675249 0 0 1 3.876472,-3.067525 3.8764725,3.0675249 0 0 1 3.876473,3.067525 z");
 			body.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			body.setAttribute("stroke-width", 1.8);
-			body.setAttribute("fill", astrology.COLOR_BACKGROUND);												
+			body.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);												
 			wrapper.appendChild( body );
 			
 			var headXShift = 0; //px						
@@ -822,7 +822,7 @@
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
-			node.setAttribute("d", "m " + x + ", " + y + " c 2.59723,-2.5223 3.43689,-6.5119 2.53053,-9.95443 -0.72556,-1.65651 -1.83788,0.32503 -2.05982,1.24822 -0.71964,2.09655 -0.40236,4.3329 -0.47071,6.50529 0,0.73364 0,1.46728 0,2.20092 z m -1.5,3.45 c -1.27103,0.70271 -2.6746,1.18885 -4.125,1.325 0,-0.62917 0,-1.25833 0,-1.8875 1.34404,-0.17807 2.63603,-0.68202 3.775,-1.4125 -0.0912,-4.6822 0.062,-9.36824 -0.0827,-14.04843 -0.19977,-1.03653 -0.11252,-2.69172 -1.26235,-3.09907 -1.06767,0.5251 -1.39925,1.88017 -1.90499,2.88347 -0.79596,2.2551 -0.45436,4.66899 -0.52491,7.01058 0,2.22198 0,4.44397 0,6.66595 -0.625,0 -1.25,0 -1.875,0 -0.0345,-4.4232 0.0732,-8.85021 -0.062,-13.27094 -0.16445,-1.04379 -0.0485,-3.227 -1.42274,-3.22278 -0.96776,0.66843 -1.29184,1.94938 -1.79757,2.96578 -0.72814,2.27934 -0.39886,4.69576 -0.46761,7.04837 0,2.15985 0,4.31971 0,6.47957 -0.625,0 -1.25,0 -1.875,0 -0.0363,-4.35697 0.0769,-8.71786 -0.065,-13.07229 -0.15998,-1.92797 -0.65613,-3.92286 -1.93494,-5.42771 0.64167,0 1.28333,0 1.925,0 0.85827,0.6841 1.27782,2.37848 1.58307,2.92075 0.48598,-1.33621 1.34784,-2.58519 2.58801,-3.31918 1.49621,-0.33797 2.2595,1.41128 2.73003,2.53188 0.0459,0.50422 0.41267,1.15619 0.52017,0.25054 0.64691,-1.22416 1.62834,-2.93079 3.20678,-2.81946 1.13191,0.45051 1.70704,1.69821 2.11232,2.77607 0.3594,1.19839 0.32811,2.46139 0.42211,3.6969 0.53071,-0.9533 1.53434,-2.46633 2.79507,-1.85918 1.01403,0.74235 1.26039,2.09136 1.60832,3.22696 0.99555,3.94395 0.0397,8.4253 -2.86477,11.35309 -0.72515,0.71396 -1.83488,1.27952 -0.97749,2.37957 0.21474,0.80025 1.21465,1.76992 1.37729,2.21206 -0.76697,0 -1.53394,0 -2.30091,0 -0.45359,-0.71569 -0.85802,-1.47217 -1.10008,-2.2875 z");				
+			node.setAttribute("d", "m " + x + ", " + y + " c 2.18337,-2.12037 2.88923,-5.47424 2.1273,-8.36821 -0.60994,-1.39255 -1.54502,0.27324 -1.73159,1.04932 -0.60497,1.76247 -0.33825,3.64246 -0.39571,5.46869 0,0.61673 0,1.23347 0,1.8502 z m -1.26097,2.90026 c -1.0685,0.59073 -2.24841,0.99941 -3.4677,1.11386 0,-0.52891 0,-1.05782 0,-1.58673 1.12987,-0.1497 2.21599,-0.57334 3.17347,-1.18742 -0.0767,-3.93611 0.0521,-7.87544 -0.0695,-11.80985 -0.16794,-0.87136 -0.0946,-2.2628 -1.0612,-2.60524 -0.89754,0.44142 -1.17629,1.58057 -1.60144,2.42399 -0.66912,1.89576 -0.38196,3.925 -0.44126,5.89347 0,1.86791 0,3.73583 0,5.60374 -0.52541,0 -1.05082,0 -1.57623,0 -0.029,-3.71837 0.0615,-7.43995 -0.0521,-11.15625 -0.13824,-0.87746 -0.0408,-2.71278 -1.19603,-2.70923 -0.81355,0.56191 -1.08599,1.63875 -1.51113,2.49319 -0.61211,1.91613 -0.3353,3.9475 -0.3931,5.92523 0,1.81568 0,3.63137 0,5.44706 -0.5254,0 -1.05081,0 -1.57622,0 -0.0305,-3.66269 0.0646,-7.32869 -0.0546,-10.98925 -0.13449,-1.62075 -0.55158,-3.29776 -1.62662,-4.56282 0.53943,0 1.07884,0 1.61826,0 0.72151,0.57509 1.0742,1.99948 1.33081,2.45534 0.40854,-1.12329 1.13307,-2.17325 2.17562,-2.79028 1.25779,-0.28411 1.89945,1.1864 2.29501,2.12843 0.0386,0.42388 0.34691,0.97196 0.43728,0.21062 0.54383,-1.02909 1.36887,-2.46378 2.69579,-2.37019 0.95154,0.37873 1.43502,1.42761 1.77572,2.33371 0.30213,1.00743 0.27583,2.06918 0.35485,3.10781 0.44614,-0.80139 1.28985,-2.07332 2.34968,-1.56292 0.85245,0.62406 1.05955,1.7581 1.35204,2.71275 0.83691,3.31549 0.0334,7.08275 -2.40827,9.544 -0.6096,0.6002 -1.5425,1.07563 -0.82173,2.00039 0.18052,0.67274 1.0211,1.48789 1.15782,1.85958 -0.64476,0 -1.28951,0 -1.93427,0 -0.38131,-0.60165 -0.72129,-1.23758 -0.92478,-1.92299 z");				
 			node.setAttribute("fill", astrology.COLOR_SIGNS);											
 			wrapper.appendChild(node);
 											
@@ -878,7 +878,7 @@
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
-			node.setAttribute("d", "m " + x + ", " + y + " c -2.10492,0.21427 -4.03434,-1.90932 -3.67478,-3.98178 -0.0738,-4.54848 0.16498,-9.10861 -0.15449,-13.64891 0.0718,-0.94457 -0.49432,-3.03553 -1.74105,-2.02742 -0.90909,0.80763 -1.05804,2.0923 -1.55214,3.1448 -0.5755,2.84178 -0.20359,5.75227 -0.30255,8.62724 0,1.44119 0,2.88238 0,4.32357 -0.625,0 -1.25,0 -1.875,0 -0.0753,-4.68692 0.16714,-9.38529 -0.15436,-14.06422 0.075,-0.94604 -0.48752,-3.04068 -1.73843,-2.03392 -0.91123,0.80734 -1.05995,2.09392 -1.55465,3.14733 -0.57551,2.84178 -0.2036,5.75227 -0.30256,8.62724 0,1.44119 0,2.88238 0,4.32357 -0.625,0 -1.25,0 -1.875,0 -0.0775,-4.6468 0.17276,-9.3044 -0.16106,-13.94341 -0.22644,-1.63414 -0.75515,-3.28249 -1.83893,-4.55659 0.64167,0 1.28333,0 1.925,0 0.99776,0.44736 0.8458,2.43678 1.72976,2.55085 0.53229,-1.21222 1.33993,-2.40672 2.57947,-2.97493 1.43136,-0.12222 2.18985,1.43215 2.54756,2.58632 0.49433,1.43299 0.80028,-0.63855 1.3002,-1.03502 0.53752,-0.80686 1.41036,-1.67276 2.45532,-1.52636 1.51158,0.5981 2.07719,2.34244 2.34025,3.81063 0.41838,2.90761 0.10759,5.85162 0.21103,8.7753 0.0129,2.31121 -0.0494,4.62789 0.0519,6.93556 0.31936,1.28731 2.95382,1.65841 2.46369,-0.13901 0.56158,-0.35118 0.96725,0.64058 1.43363,0.93247 0.42075,0.40306 0.84151,0.80613 1.26227,1.20919 -0.89167,0.85833 -1.78333,1.71667 -2.675,2.575 0,-0.54583 0,-1.09167 0,-1.6375 -0.23334,0 -0.46668,0 -0.70003,0 z");				
+			node.setAttribute("d", "m " + x + ", " + y + " c -1.74459,0.17759 -3.34372,-1.58247 -3.04571,-3.30015 -0.0612,-3.76985 0.13674,-7.54934 -0.12804,-11.31241 0.0595,-0.78287 -0.4097,-2.51589 -1.44301,-1.68035 -0.75346,0.66937 -0.87692,1.73412 -1.28643,2.60645 -0.47699,2.35531 -0.16874,4.76756 -0.25076,7.15038 0,1.19448 0,2.38896 0,3.58343 -0.51801,0 -1.03602,0 -1.55403,0 -0.0624,-3.88458 0.13853,-7.77866 -0.12793,-11.65662 0.0622,-0.78409 -0.40407,-2.52016 -1.44084,-1.68574 -0.75524,0.66913 -0.8785,1.73547 -1.28851,2.60855 -0.47699,2.35531 -0.16875,4.76756 -0.25077,7.15038 0,1.19448 0,2.38896 0,3.58343 -0.51801,0 -1.03602,0 -1.55403,0 -0.0642,-3.85133 0.14319,-7.71161 -0.13348,-11.55649 -0.18768,-1.3544 -0.62588,-2.72057 -1.52414,-3.77657 0.53183,0 1.06365,0 1.59547,0 0.82696,0.37078 0.70101,2.01964 1.43365,2.11419 0.44117,-1.00471 1.11055,-1.99473 2.1379,-2.46567 1.18633,-0.1013 1.81498,1.18699 2.11146,2.14358 0.4097,1.18768 0.66328,-0.52924 1.07762,-0.85784 0.4455,-0.66874 1.16893,-1.38641 2.035,-1.26507 1.25282,0.49572 1.72161,1.94145 1.93963,3.15831 0.34676,2.40986 0.0892,4.8499 0.17491,7.27309 0.0107,1.91556 -0.0409,3.83566 0.043,5.74829 0.26469,1.06694 2.44817,1.37451 2.04195,-0.11522 0.46544,-0.29106 0.80167,0.53092 1.18821,0.77285 0.34872,0.33406 0.69745,0.66813 1.04619,1.00219 -0.73903,0.7114 -1.47805,1.4228 -2.21708,2.1342 0,-0.45239 0,-0.90479 0,-1.35719 -0.1934,0 -0.38679,0 -0.5802,0 z");				
 			node.setAttribute("fill", astrology.COLOR_SIGNS);											
 			wrapper.appendChild(node);
 													
@@ -1210,10 +1210,10 @@
 	/**
 	 * Draw background
 	 */
-	astrology.Radix.prototype.drawBg = function(){
+	astrology.Radix.prototype.drawBg = function(){				
 		var universe = this.universe;		
 		var bg = this.paper.circle( this.cx, this.cy, this.radius);
-		bg.setAttribute("fill", astrology.COLOR_BACKGROUND);				
+		bg.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
 		universe.appendChild( bg );		
 	};
 		
@@ -1226,8 +1226,8 @@
 		// colors 
         for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){ 
         	        	        	       	        	                	        	        	     
-        	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);
-        	segment.setAttribute("fill", astrology.COLORS_SIGNS[i]);
+        	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);        	        	
+        	segment.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLORS_SIGNS[i]);        	
         	universe.appendChild( segment );
         	        	        	        	               		
 			start += step;

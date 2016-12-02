@@ -47,10 +47,10 @@
 	/**
 	 * Draw background
 	 */
-	astrology.Radix.prototype.drawBg = function(){
+	astrology.Radix.prototype.drawBg = function(){				
 		var universe = this.universe;		
 		var bg = this.paper.circle( this.cx, this.cy, this.radius);
-		bg.setAttribute("fill", astrology.COLOR_BACKGROUND);				
+		bg.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
 		universe.appendChild( bg );		
 	};
 		
@@ -63,8 +63,8 @@
 		// colors 
         for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){ 
         	        	        	       	        	                	        	        	     
-        	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);
-        	segment.setAttribute("fill", astrology.COLORS_SIGNS[i]);
+        	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);        	        	
+        	segment.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLORS_SIGNS[i]);        	
         	universe.appendChild( segment );
         	        	        	        	               		
 			start += step;
