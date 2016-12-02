@@ -53,8 +53,19 @@
 		radix.drawUniverse();				
 		radix.drawSigns();
 		radix.drawPoints();
-		radix.drawAspects();radix.drawAspects();radix.drawAspects();		
+		radix.drawAspects();		
 		radix.drawCircles();
+				
+		var name = "NNode";		
+		var as = radix.paper.getSymbol(name, this.cx - this.radius, this.cy);
+		radix.paper.root.appendChild(as);
+		var ic = radix.paper.getSymbol(name, this.cx, this.cy + this.radius);
+		radix.paper.root.appendChild(ic);
+		var dc = radix.paper.getSymbol(name, this.cx + this.radius, this.cy);
+		radix.paper.root.appendChild(dc);
+		var mc = radix.paper.getSymbol(name, this.cx, this.cy - this.radius);
+		radix.paper.root.appendChild(mc);
+		
 		return radix;
 	 };
 	 

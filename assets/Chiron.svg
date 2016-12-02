@@ -9,12 +9,12 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="36"
    height="60"
-   id="svg4926"
+   id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="Chiron.svg">
   <metadata
-     id="metadata4934">
+     id="metadata10">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -25,7 +25,7 @@
     </rdf:RDF>
   </metadata>
   <defs
-     id="defs4932" />
+     id="defs8" />
   <sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -35,24 +35,26 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
-     id="namedview4930"
+     inkscape:window-width="1280"
+     inkscape:window-height="975"
+     id="namedview6"
      showgrid="false"
-     inkscape:zoom="3.9333333"
-     inkscape:cx="-27.127119"
+     inkscape:zoom="4.5726239"
+     inkscape:cx="18"
      inkscape:cy="30"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="1"
-     inkscape:current-layer="svg4926" />
-  <g
-     style="font-size:64px"
-     id="text4928">
-    <path
-       id="path4937"
-       style="font-size:64px;fill:#000000;fill-opacity:1"
-       d="m 24.810976,30.74276 c -0.471552,0.479677 -0.707324,1.056912 -0.707317,1.731707 -7e-6,0.674797 0.235765,1.247967 0.707317,1.719512 0.479666,0.479674 1.056902,0.719511 1.731707,0.719512 0.674787,-10e-7 1.247957,-0.239838 1.719512,-0.719512 0.479664,-0.471545 0.719501,-1.044715 0.719512,-1.719512 -1.1e-5,-0.674795 -0.239848,-1.25203 -0.719512,-1.731707 -0.471555,-0.479672 -1.044725,-0.719509 -1.719512,-0.719513 -0.674805,4e-6 -1.252041,0.239841 -1.731707,0.719513 m 1.731707,6 c -1.17887,-3e-6 -2.191064,-0.418702 -3.036585,-1.256098 -0.837405,-0.837399 -1.256103,-1.845528 -1.256098,-3.02439 -5e-6,-1.18699 0.422759,-2.199184 1.268293,-3.036586 0.585359,-0.577231 1.25609,-0.955278 2.012195,-1.134146 l 0,-11.87805 2.097561,0 0,3.731708 3.573171,-2.109756 1.04878,1.804878 -4.378049,2.54878 4.378049,2.560976 -1.04878,1.804879 -3.573171,-2.121952 0,3.682927 c 0.723566,0.178868 1.369907,0.548786 1.939024,1.109756 0.845516,0.837402 1.26828,1.849596 1.268293,3.036586 -1.3e-5,1.178862 -0.422777,2.186991 -1.268293,3.02439 -0.83741,0.837396 -1.845539,1.256095 -3.02439,1.256098"
-       inkscape:connector-curvature="0" />
-  </g>
+     inkscape:current-layer="svg2" />
+  <path
+     id="path4140"
+     style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1.77984464;stroke-linecap:butt;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 21.392535,19.779441 -2.705883,2.542813 2.641777,2.728316 m -3.475817,-6.535241 0,12.809725"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccc" />
+  <path
+     style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.77984464;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     d="m 21.716107,34.557881 a 3.8764725,3.0675249 0 0 1 -3.876473,3.067525 3.8764725,3.0675249 0 0 1 -3.876472,-3.067525 3.8764725,3.0675249 0 0 1 3.876472,-3.067525 3.8764725,3.0675249 0 0 1 3.876473,3.067525 z"
+     id="path4144"
+     inkscape:connector-curvature="0" />
 </svg>

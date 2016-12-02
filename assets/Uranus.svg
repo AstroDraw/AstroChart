@@ -13,7 +13,7 @@
    height="50"
    id="svg34864"
    sodipodi:version="0.32"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    version="1.0"
    sodipodi:docname="Uranus.svg">
   <defs
@@ -29,12 +29,12 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="5.6"
-     inkscape:cx="8.4161174"
-     inkscape:cy="18.380435"
+     inkscape:cx="-26.25"
+     inkscape:cy="23.255801"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
+     inkscape:window-width="1280"
+     inkscape:window-height="975"
      inkscape:window-x="0"
      inkscape:window-y="25"
      showgrid="false"
@@ -56,9 +56,14 @@
      id="layer1"
      transform="translate(-348.7552,-478.0905)">
     <path
-       id="path23256"
-       style="color:#000000;fill:none;stroke:#000000;stroke-width:1.65123212;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
-       d="m 375.04765,506.89621 c 0,0.47733 -0.38695,0.86428 -0.86427,0.86428 -0.47733,0 -0.86428,-0.38695 -0.86428,-0.86428 0,-0.47732 0.38695,-0.86427 0.86428,-0.86427 0.47732,0 0.86427,0.38695 0.86427,0.86427 z m 5.82563,0.10284 c 0,3.63818 -2.94703,6.58752 -6.58238,6.58752 -3.63535,0 -6.58238,-2.94934 -6.58238,-6.58752 0,-3.63819 2.94703,-6.58753 6.58238,-6.58753 3.63535,0 6.58238,2.94934 6.58238,6.58753 z m -9.75964,-11.3805 3.0182,-3.0858 3.08578,3.01822 m -2.99353,-3.31362 0,8.01818"
+       id="path6780"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 378.98679,506.3734 2.91667,0 0,-0.41666 -1.66667,-0.41667 0,-8.33333 1.66667,-0.41667 0,-0.41667 -2.91667,0 0,10 z m -9.16666,0 -2.91667,0 0,-0.41666 1.66667,-0.41667 0,-8.33333 -1.66667,-0.41667 0,-0.41667 2.91667,0 0,10 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path6786"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.25000036;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
+       d="m 376.0701,509.29009 a 1.6666672,1.6666672 0 0 1 -1.66667,1.66666 1.6666672,1.6666672 0 0 1 -1.66666,-1.66666 1.6666672,1.6666672 0 0 1 1.66666,-1.66667 1.6666672,1.6666672 0 0 1 1.66667,1.66667 z m -1.66664,-12.91669 0,10.83334 m -5,-5.83334 10,0"
        inkscape:connector-curvature="0" />
   </g>
 </svg>

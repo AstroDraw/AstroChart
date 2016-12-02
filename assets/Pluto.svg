@@ -13,7 +13,7 @@
    height="50"
    id="svg2"
    sodipodi:version="0.32"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    version="1.0"
    sodipodi:docname="Pluto.svg">
   <defs
@@ -29,16 +29,16 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8"
-     inkscape:cx="119.05625"
+     inkscape:cx="115.30625"
      inkscape:cy="-6.8740917"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
-     inkscape:window-width="1366"
-     inkscape:window-height="719"
-     inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-width="1280"
+     inkscape:window-height="744"
+     inkscape:window-x="14"
+     inkscape:window-y="102"
      showgrid="false"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="0" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -56,9 +56,13 @@
      id="layer1"
      transform="translate(-258.5991,-387.1767)">
     <path
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.39385736;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
+       d="m 286.96357,407.58453 a 3.3644834,3.3644834 0 0 1 -3.36448,3.36449 3.3644834,3.3644834 0 0 1 -3.36448,-3.36449 3.3644834,3.3644834 0 0 1 3.36448,-3.36448 3.3644834,3.3644834 0 0 1 3.36448,3.36448 z"
+       id="path6798" />
+    <path
        id="path6800"
-       style="color:#000000;fill:none;stroke:#000000;stroke-width:1.71466553;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible"
-       d="m 290.69427,406.7442 c 0,3.91856 -3.17662,7.09517 -7.09517,7.09517 -3.91855,0 -7.09517,-3.17661 -7.09517,-7.09517 0,0 0,0 0,0 m 11.23402,0 c 0,2.28582 -1.85303,4.13885 -4.13885,4.13885 -2.28582,0 -4.13885,-1.85303 -4.13885,-4.13885 0,-2.28582 1.85303,-4.13884 4.13885,-4.13884 2.28582,0 4.13885,1.85302 4.13885,4.13884 z m -4.13883,17.14667 0,-10.05148 m -4.73011,5.32137 9.46023,0"
+       style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:none;fill-opacity:0.75;fill-rule:evenodd;stroke:#000000;stroke-width:1.39385736;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;marker-start:none;marker-mid:none;marker-end:none"
+       d="m 289.36679,407.58453 a 5.7676856,5.7676856 0 0 1 -2.88385,4.99496 5.7676856,5.7676856 0 0 1 -5.76768,0 5.7676856,5.7676856 0 0 1 -2.88385,-4.99496 m 5.76771,13.93858 0,-8.17088 m -3.84512,4.32576 7.69024,0"
        inkscape:connector-curvature="0" />
   </g>
 </svg>

@@ -12,7 +12,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="venus.svg">
+   sodipodi:docname="Venus.svg">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -21,7 +21,6 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -48,8 +47,8 @@
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2" />
   <path
-     d="m 40.957543,45.612333 -6.851145,0 m 3.425573,3.605865 0,-8.221373 a 6.5987339,6.5987339 0 1 1 0.03606,0"
+     d="m 40.604553,44.830249 -6.14143,0 m 3.070715,3.232332 0,-7.369717 a 5.9151669,5.9151669 0 1 1 0.03232,0"
      id="path4"
      inkscape:connector-curvature="0"
-     style="fill:none;stroke:#000000;stroke-width:1.80293274" />
+     style="fill:none;stroke:#000000;stroke-width:1.61616588" />
 </svg>
