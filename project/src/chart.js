@@ -46,14 +46,19 @@
 	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
+						
+		// Create division for aspects.					
+		var wrapperForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
+		wrapperForAspects.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		this.paper.root.appendChild( wrapperForAspects ); 
+		
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
-		radix.drawBg();
+		radix.drawBg();		
 		radix.drawRuler();
-		radix.drawCusps();
-		radix.drawUniverse();				
+		radix.drawCusps();		
+		radix.drawUniverse();						
 		radix.drawSigns();
-		radix.drawPoints();
-		radix.drawAspects();		
+		radix.drawPoints();			
 		radix.drawCircles(); 						
 		return radix;
 	 };

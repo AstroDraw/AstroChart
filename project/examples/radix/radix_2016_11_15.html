@@ -31,7 +31,7 @@
         	
         	window.onload = function () {
             	var chart = new astrology.Chart('paper', 600, 600);
-				chart.radix( data );																											            													            	            	       	
+				chart.radix( data ).aspects(data.aspects);																											            													            	            	       	
 			};
 		</script>		    
     </body>

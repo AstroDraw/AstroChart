@@ -38,11 +38,8 @@
 	astrology.ID_ASPECTS = "aspects";
 	
 	// Aspects wrapper element ID
-	astrology.ID_POINTS = "points";
-	
-	// Circles wrapper element ID
-	astrology.ID_CIRCLES = "circles";
-	
+	astrology.ID_POINTS = "points"; 
+		
 	// Color of circles in charts
 	astrology.COLOR_CIRCLE = "#666";
 	

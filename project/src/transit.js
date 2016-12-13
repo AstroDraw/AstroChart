@@ -68,27 +68,24 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Transit.prototype.drawAspects = function(){
+	astrology.Transit.prototype.aspects = function( data ){
 		
-		// remove radix aspects
-		astrology.utils.removeChilds( document.getElementById( astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_ASPECTS ));
-				
-		if(this.data.aspects == null){
-			return; 
-		}
-						
-		var universe = this.universe;
-				
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_ASPECTS );
+		// TODO
+		// validate data
+												
+		var wrapper = astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS );
 		
-        for( var i = 0, len = this.data.aspects.length; i < len; i++ ){ 
-        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][0] + this.shift);
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.aspects[i][1] + this.shift);        	
-        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);      	
-        	line.setAttribute("stroke", this.data.aspects[i][2]);		 				 				 		
+        for( var i = 0, len = data.length; i < len; i++ ){ 
+        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][0] + this.shift);
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][1] + this.shift);        	
+        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);        		        
+        	line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.FONT_COLOR : data[i][2]);		 				 				 		
  			line.setAttribute("stroke-width", 1);        	
         	wrapper.appendChild( line );        	        
-        }				
+        }
+        
+        // this
+        return context;				
 	};
 	
 	/**

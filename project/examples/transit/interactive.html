@@ -35,7 +35,7 @@
         		var chart = new astrology.Chart( 'paper', 600, 600, {MARGIN:80, SYMBOL_SCALE:0.8});
 				
 				var radix = chart.radix( dataRadix );
-				var transit = radix.transit( currentDataTransit );							
+				var transit = radix.transit( currentDataTransit ).aspects( currentDataTransit.aspects );							
 				
 				document.getElementById("btn-next").addEventListener('click', function(event) {
     				transit.animate( nextDataTransit );
