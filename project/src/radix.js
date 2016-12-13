@@ -219,25 +219,28 @@
 	 */
 	astrology.Radix.prototype.drawCircles = function drawCircles(){
 		var universe = this.universe;
+		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_CIRCLES );
+		
 		var circle;
 		
 		//outdoor circle
 		circle = this.paper.circle( this.cx, this.cy, this.radius);
 		circle.setAttribute("stroke", astrology.COLOR_CIRCLE);		 
 		circle.setAttribute("stroke-width", 1);
-        universe.appendChild( circle );
+        wrapper.appendChild( circle );
        	
        	//inner circle
        	circle = this.paper.circle( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);
        	circle.setAttribute("stroke", astrology.COLOR_CIRCLE);		 
 		circle.setAttribute("stroke-width", 1);
-        universe.appendChild( circle );
+        wrapper.appendChild( circle );
         
         //indoor circle
         circle = this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
         circle.setAttribute("stroke", astrology.COLOR_CIRCLE);		 
-		circle.setAttribute("stroke-width", 1); 
-       	universe.appendChild( circle );       	       
+		circle.setAttribute("stroke-width", 1);		
+       	wrapper.appendChild( circle );       	       
 	};
 	
 	/**
@@ -276,7 +279,8 @@
 		var transit = new astrology.Transit(context, data);
 		transit.drawRuler();						
 		transit.drawPoints();
-		transit.drawAspects();		
+		transit.drawAspects();
+		context.drawCircles();		
 		return transit; 
 	};
 		

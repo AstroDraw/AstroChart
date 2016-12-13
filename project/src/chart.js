@@ -57,7 +57,7 @@
 		radix.drawCircles(); 						
 		return radix;
 	 };
-	 
+	 	
 	 /**
 	 * Scale chart
 	 * 
