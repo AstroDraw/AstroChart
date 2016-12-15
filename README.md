@@ -46,7 +46,6 @@ var chart = new astrology.Chart( 'paper', 800, 800, settings);
 - Transit chart animation
 - Aspects data fix 
 - The collision of planets
-- As, Mc, Dc, Ic - the axis of the two lines
 
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)

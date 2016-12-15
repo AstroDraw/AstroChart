@@ -67,6 +67,12 @@
 	astrology.SYMBOL_LILITH = "Lilith";
 	astrology.SYMBOL_NNODE = "NNode";
 	
+	// Axis
+	astrology.SYMBOL_AS = "As";
+	astrology.SYMBOL_DS = "Ds";
+	astrology.SYMBOL_MC = "Mc";
+	astrology.SYMBOL_IC = "Ic";
+	
 	//Signs
 	astrology.SYMBOL_ARIES = "Aries";
 	astrology.SYMBOL_TAURUS = "Taurus";
@@ -225,7 +231,19 @@
 		        break; 
 		    case astrology.SYMBOL_PISCES:		        
 		        return pisces( x, y);		        
-		        break;                                                                                	  
+		        break;		        
+		    case astrology.SYMBOL_AS:		        
+		        return ascendant( x, y );		        
+		        break;		    
+		    case astrology.SYMBOL_DS:		        
+		        return descendant( x, y );		        
+		        break;
+		    case astrology.SYMBOL_MC:		        
+		        return mediumCoeli( x, y );		        
+		        break;
+		    case astrology.SYMBOL_IC:		        
+		        return immumCoeli( x, y );		        
+		        break;		                                                                                            	 
 		    default:
 		    	var unknownPoint = this.circle(x, y, 8);
 		    	unknownPoint.setAttribute("stroke", "#ffff00");		 
@@ -996,6 +1014,97 @@
 													
 		return wrapper;
 	};
+	
+	/**
+	 * Ascendant symbol
+	 */
+	function ascendant( x, y ){
+		// center symbol
+		var xShift = 12; //px						
+		var yShift = -2; //px		
+		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
+		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
+		
+		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
+				
+			var node = document.createElementNS( context.root.namespaceURI, "path");
+			node.setAttribute("d", "m " + x + ", " + y + " -0.563078,-1.1261527 -1.689228,-0.5630765 -1.689229,0 -1.68923,0.5630765 -0.563076,1.1261527 0.563076,1.12615272 1.126154,0.56307636 2.815381,0.56307635 1.126152,0.56307647 0.563078,1.1261526 0,0.5630763 -0.563078,1.1261528 -1.689228,0.5630764 -1.689229,0 -1.68923,-0.5630764 -0.563076,-1.1261528 m -6.756916,-10.135374 -4.504611,11.8246032 m 4.504611,-11.8246032 4.504611,11.8246032 m -7.3199925,-3.94153457 5.6307625,0");									
+			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
+			node.setAttribute("stroke-width", 1.2);
+			node.setAttribute("stroke-linecap", "round");
+			node.setAttribute("fill", "none");	
+																			
+			wrapper.appendChild(node);
+													
+		return wrapper;
+	};
+	
+	/**
+	 * Descendant symbol
+	 */
+	function descendant(x,y){
+		// center symbol
+		var xShift = 22; //px						
+		var yShift = -1; //px		
+		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
+		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
+		
+		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
+				
+			var node = document.createElementNS( context.root.namespaceURI, "path");
+			node.setAttribute("d", "m " + x + ", " + y + " -0.5625,-1.125 -1.6875,-0.5625 -1.6875,0 -1.6875,0.5625 -0.5625,1.125 0.5625,1.125 1.125,0.5625 2.8125,0.5625 1.125,0.5625 0.5625,1.125 0,0.5625 -0.5625,1.125 -1.6875,0.5625 -1.6875,0 -1.6875,-0.5625 -0.5625,-1.125 m -11.25,-10.125 0,11.8125 m 0,-11.8125 3.9375,0 1.6875,0.5625 1.125,1.125 0.5625,1.125 0.5625,1.6875 0,2.8125 -0.5625,1.6875 -0.5625,1.125 -1.125,1.125 -1.6875,0.5625 -3.9375,0");				
+			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
+			node.setAttribute("stroke-width", 1.2);
+			node.setAttribute("stroke-linecap", "round");
+			node.setAttribute("fill", "none");											
+			wrapper.appendChild(node);
+													
+		return wrapper;
+	};
+	
+	function mediumCoeli(x,y){
+		// center symbol
+		var xShift = 19; //px						
+		var yShift = -4; //px		
+		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
+		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
+		
+		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
+				
+			var node = document.createElementNS( context.root.namespaceURI, "path");
+			node.setAttribute("d", "m " + x + ", " + y + " -1.004085,-1.0040845 -1.004084,-0.5020423 -1.506127,0 -1.004085,0.5020423 -1.004084,1.0040845 -0.502043,1.50612689 0,1.00408458 0.502043,1.50612683 1.004084,1.0040846 1.004085,0.5020423 1.506127,0 1.004084,-0.5020423 1.004085,-1.0040846 m -17.57148,-9.0367612 0,10.5428881 m 0,-10.5428881 4.016338,10.5428881 m 4.016338,-10.5428881 -4.016338,10.5428881 m 4.016338,-10.5428881 0,10.5428881");				
+			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
+			node.setAttribute("stroke-width", 1.2);
+			node.setAttribute("stroke-linecap", "round");
+			node.setAttribute("fill", "none");											
+			wrapper.appendChild(node);
+													
+		return wrapper;
+	};
+	
+	function immumCoeli(x,y){
+		// center symbol
+		var xShift = 19; //px						
+		var yShift = 2; //px		
+		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
+		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
+		
+		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
+				
+			var node = document.createElementNS( context.root.namespaceURI, "path");
+			node.setAttribute("d", "m " + x + ", " + y + " -1.208852,-1.2088514 -1.208851,-0.6044258 -1.813278,0 -1.208852,0.6044258 -1.20885,1.2088514 -0.604426,1.81327715 0,1.20885135 0.604426,1.8132772 1.20885,1.2088513 1.208852,0.6044259 1.813278,0 1.208851,-0.6044259 1.208852,-1.2088513 m -11.4840902,-10.8796629 0,12.6929401");				
+			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
+			node.setAttribute("stroke-width", 1.2);
+			node.setAttribute("stroke-linecap", "round");
+			node.setAttribute("fill", "none");											
+			wrapper.appendChild(node);
+													
+		return wrapper;
+	};
 			
 	/**
 	 * Draw circular sector
@@ -1243,9 +1352,7 @@
         	segment.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.COLOR_CIRCLE: "none");		 				 				 		
  			segment.setAttribute("stroke-width", astrology.STROKE_ONLY ? 1 : 0); 				
         	universe.appendChild( segment );
-        	
-        	
-        	        	        	        	               		
+        	        	        	        	        	        	               	
 			start += step;
         };
 	};
@@ -1295,26 +1402,29 @@
 		var DC = 6;
 		var MC = 9;
 		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING;
-		var overlap = 15 * astrology.SYMBOL_SCALE; // px
+		var overlap = 2*astrology.PADDING; // px
 		var axisRadius = this.radius + overlap;
 				
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
  			
- 			// Lines
- 			var topPosition, line;
- 			var bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);   			 			
- 			if( i == AS || i == IC || i == DC || i == MC ){ 			
- 				topPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
- 				line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y); 				 			
- 				line.setAttribute("stroke", astrology.COLOR_LINE);		 				 				 		
+ 			// Lines 			 			 		 		
+ 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+ 			line.setAttribute("stroke", astrology.COLOR_LINE);		 				 				 		
+ 			line.setAttribute("stroke-width", 1); 			 			 		    			 	
+ 			if( i == AS || i == IC || i == DC || i == MC ){ 				 	 					 				 				 	
  				line.setAttribute("stroke-width", 2);
- 			}else{
- 				topPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
- 				line = this.paper.line( bottomPosition.x, bottomPosition.y, topPosition.x, topPosition.y);
- 				line.setAttribute("stroke", astrology.COLOR_LINE);		 				 				 		
- 				line.setAttribute("stroke-width", 1);
- 			} 			 			 			 			 		
+ 				 				
+ 				// overlap 				
+ 				startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
+ 				endPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
+ 				overlapLine = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y); 				 			
+ 				overlapLine.setAttribute("stroke", astrology.COLOR_LINE);		 				 				 		
+ 				overlapLine.setAttribute("stroke-width", 2);
+ 				universe.appendChild( overlapLine ); 				 				 			
+ 			} 			 						 			 			 			 
  		 	universe.appendChild( line ); 
  		 	 		 	
  		 	// Cup number 
@@ -1329,29 +1439,29 @@
  		 	// As
  		 	if(i == 0){ 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 1.5*overlap, this.data.cusps[i] + this.shift);
- 		 		universe.appendChild( this.paper.text( "As", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.9*overlap, this.data.cusps[i] + this.shift);
+ 		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_AS, textPosition.x, textPosition.y));
  		 	}
  		 	 		 	 		 	 		
- 		 	// Dc
+ 		 	// Ds
  		 	if(i == 6){  		 		 		 		 		 		 		 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
- 		 		universe.appendChild( this.paper.text( "Dc", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.1*overlap, this.data.cusps[i] + this.shift);
+ 		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_DS, textPosition.x, textPosition.y));
  		 	}
  		 	 		 	
  		 	// Ic
  		 	if(i == 3){ 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.7*overlap, this.data.cusps[i] - 2 + this.shift);
- 		 		universe.appendChild( this.paper.text( "Ic", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.4*overlap, this.data.cusps[i] - 2 + this.shift);
+ 		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_IC, textPosition.x, textPosition.y));
  		 	}
  		 	
  		 	// Mc
  		 	if(i == 9){ 		 		 		 	
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + overlap, this.data.cusps[i] + 2 + this.shift);
- 		 		universe.appendChild( this.paper.text( "Mc", textPosition.x, textPosition.y, astrology.FONT_SIZE * 1.5 + "px", astrology.FONT_COLOR ));
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.7*overlap, this.data.cusps[i] + 2 + this.shift);
+ 		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_MC, textPosition.x, textPosition.y));
  		 	} 		 
 		}
 	};
@@ -1516,7 +1626,7 @@
 		// Planets can not be displayed on the same radius.				
 		var gap = astrology.MARGIN;
 		var radiusStep = ( gap / 2 ) / Object.keys(this.data.points).length;	
-		var planetRadius = this.radius + astrology.PADDING;
+		var planetRadius = this.radius + astrology.PADDING + 5;
 									
 		for (var planet in this.data.points) {
  			if (this.data.points.hasOwnProperty( planet )) {
@@ -1525,7 +1635,7 @@
         		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + planet);
         		symbol.setAttribute('data-radius', planetRadius); 		   		 		   	
         		wrapper.appendChild( symbol );
-        		planetRadius += radiusStep;
+        		//planetRadius += radiusStep;
     		}
 		}							
 	};

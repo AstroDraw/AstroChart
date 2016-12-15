@@ -67,6 +67,12 @@
 	astrology.SYMBOL_LILITH = "Lilith";
 	astrology.SYMBOL_NNODE = "NNode";
 	
+	// Axis
+	astrology.SYMBOL_AS = "As";
+	astrology.SYMBOL_DS = "Ds";
+	astrology.SYMBOL_MC = "Mc";
+	astrology.SYMBOL_IC = "Ic";
+	
 	//Signs
 	astrology.SYMBOL_ARIES = "Aries";
 	astrology.SYMBOL_TAURUS = "Taurus";
