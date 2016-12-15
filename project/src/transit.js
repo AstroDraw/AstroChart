@@ -51,7 +51,7 @@
 		// Planets can not be displayed on the same radius.				
 		var gap = astrology.MARGIN;
 		var radiusStep = ( gap / 2 ) / Object.keys(this.data.points).length;	
-		var planetRadius = this.radius + astrology.PADDING + 5;
+		var planetRadius = this.radius + (2 * astrology.PADDING);
 									
 		for (var planet in this.data.points) {
  			if (this.data.points.hasOwnProperty( planet )) {
@@ -61,6 +61,7 @@
         		symbol.setAttribute('data-radius', planetRadius); 		   		 		   	
         		wrapper.appendChild( symbol );
         		//planetRadius += radiusStep;
+        		// TODO
     		}
 		}							
 	};
