@@ -790,8 +790,8 @@
 	function scorpio( x, y ){
 		
 		// center symbol
-		var xShift = -5; //px						
-		var yShift = -4; //px		
+		var xShift = -6; //px						
+		var yShift = -3; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		

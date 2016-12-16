@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Radix collision</title>  
+        <style>
+        	#paper{
+        		background:#999;
+        	}
+        </style>                   
+    </head>
+    <body>    	    
+        <div id="paper"></div>
+                                      
+        <script src="../../build/astrochart.js"></script>
+        <script type="text/javascript"> 
+        
+        	var data = {
+				"points":{"Lilith":0, "Chiron":0, "Pluto":0, "Neptune":0, "Uranus":0, "Saturn":60, "Jupiter":65, "Mars":70, "Moon":75, "Sun":80, "Mercury":85, "Venus":90, "NNode":95},
+				"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]								
+			};
+												      
+        	window.onload = function () {
+            	var chart = new astrology.Chart('paper', 600, 600);
+				chart.radix( data );									
+			};
+		</script>		    
+    </body>
+</html>

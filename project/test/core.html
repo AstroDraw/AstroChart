@@ -26,6 +26,18 @@
 					 throws( function(){ chart.radix({points:{}, cusps:[1,2,3]}) }, "Must throw error to pass.");
 					 throws( function(){ chart.radix({points:{}, cusps:[1,2,3,4,5,6,7,8,9,10,11,12], aspects:{}})}, "Must throw error to pass.");
 				});
+				
+				test( "isCollision", function( ) {
+					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:10, r:5}), true);
+					 
+					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:5}), true);
+					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:21, y:10, r:5}), false);
+					 
+					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:20, r:5}), true);
+					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:21, r:5}), false);
+					 
+					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:10}), true);
+				});
 														
 			};// onload
 		</script>

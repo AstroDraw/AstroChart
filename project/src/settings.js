@@ -22,8 +22,8 @@
 	// Chart margin
 	astrology.MARGIN = 50; //px
 		
-	// Chart PAdding
-	astrology.PADDING = 10; //px
+	// Chart Padding  
+	astrology.PADDING = 20; //px
 	
 	// Module wrapper element ID
 	astrology.ID_CHART = "astrology";
@@ -108,5 +108,8 @@
 	
 	// No fill, only stroke
 	astrology.STROKE_ONLY = false;
+	
+	// Planets collision circle radius
+	astrology.COLLISION_RADIUS = 10; //px
 		       	      
 }( window.astrology = window.astrology || {}));

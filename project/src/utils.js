@@ -103,5 +103,25 @@
     		parent.removeChild(last);
     	}
 	};
+	
+	/**
+	 * Check circle collision between two objects 
+	 * 
+ 	 * @param {Object} circle1, {x:123, y:123, r:50}
+ 	 * @param {Object} circle2, {x:456, y:456, r:60}
+ 	 * @return {boolean} 	 
+	 */
+	astrology.utils.isCollision = function(circle1, circle2){
+		
+		//Calculate the vector between the circles’ center points
+  		var vx = circle1.x - circle2.x;
+  		var vy = circle1.y - circle2.y;
+  		
+  		var magnitude = Math.sqrt(vx * vx + vy * vy);
+  		
+  		var totalRadii = circle1.r + circle2.r;
+		
+		return magnitude <= totalRadii; 
+	};
 						        	 
 }( window.astrology = window.astrology || {}));

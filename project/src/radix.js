@@ -90,22 +90,43 @@
 		
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
-		
-		// Planets can not be displayed on the same radius.
-		// The gap between indoor circle and outdoor circle / count of planets
-		var padding = 2 * astrology.PADDING * astrology.SYMBOL_SCALE;
-		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		var radiusStep = (gap - padding) / Object.keys(this.data.points).length;	
-		var planetRadius = (this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO) + padding;
-									
+					
+		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
+		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.points).length;
+				
+		var locatedPoints = [];									
 		for (var planet in this.data.points) {
  		   if (this.data.points.hasOwnProperty( planet )) {
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius, this.data.points[planet] + this.shift);
+ 		   		
+ 		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + astrology.PADDING);
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   		 		   		 		   		 		   	 		   
+ 		   		var isCollision = true; 		   		 		   		
+ 		   		while(isCollision){ 		   		 		   			
+ 		   			 		   		
+ 		   			var isFinish = true; 		   			
+ 		   			for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
+ 		   				
+ 		   				if( astrology.utils.isCollision({x:position.x, y:position.y, r:astrology.COLLISION_RADIUS},{x:locatedPoints[i].x, y:locatedPoints[i].y, r:astrology.COLLISION_RADIUS})){
+ 		   					pointRadius -= step;
+ 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   					isFinish = false;
+ 		   					break;
+ 		   				} 		   			
+ 		   			}
+ 		   			
+ 		   			if(isFinish){
+ 		   				isCollision = false;
+ 		   			} 		   			 		   		 		   			
+ 		   		} 		   		
+        		locatedPoints.push(position);
+ 		   		
+ 		   		
         		var symbol = this.paper.getSymbol(planet, position.x, position.y);
         		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + planet);
-        		symbol.setAttribute('data-radius', planetRadius);
+        		symbol.setAttribute('data-radius', pointRadius);
         		wrapper.appendChild( symbol );
-        		planetRadius += radiusStep;
+        		        		        		        		       
     		}
 		}		
 	};
@@ -125,7 +146,7 @@
 		var DC = 6;
 		var MC = 9;
 		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING;
-		var overlap = 2*astrology.PADDING; // px
+		var overlap = 20; //px
 		var axisRadius = this.radius + overlap;
 				
 		//Cusps
@@ -162,28 +183,28 @@
  		 	// As
  		 	if(i == 0){ 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.9*overlap, this.data.cusps[i] + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (20 * astrology.SYMBOL_SCALE), this.data.cusps[i] + this.shift);
  		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_AS, textPosition.x, textPosition.y));
  		 	}
  		 	 		 	 		 	 		
  		 	// Ds
  		 	if(i == 6){  		 		 		 		 		 		 		 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.1*overlap, this.data.cusps[i] + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (2 * astrology.SYMBOL_SCALE), this.data.cusps[i] + this.shift);
  		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_DS, textPosition.x, textPosition.y));
  		 	}
  		 	 		 	
  		 	// Ic
  		 	if(i == 3){ 
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.4*overlap, this.data.cusps[i] - 2 + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (10 * astrology.SYMBOL_SCALE), this.data.cusps[i] - 2 + this.shift);
  		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_IC, textPosition.x, textPosition.y));
  		 	}
  		 	
  		 	// Mc
  		 	if(i == 9){ 		 		 		 	
  		 		// Text
- 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + 0.7*overlap, this.data.cusps[i] + 2 + this.shift);
+ 		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (10 * astrology.SYMBOL_SCALE), this.data.cusps[i] + 2 + this.shift);
  		 		universe.appendChild( this.paper.getSymbol( astrology.SYMBOL_MC, textPosition.x, textPosition.y));
  		 	} 		 
 		}

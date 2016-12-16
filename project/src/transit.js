@@ -47,21 +47,16 @@
 		
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS );
-				
-		// Planets can not be displayed on the same radius.				
-		var gap = astrology.MARGIN;
-		var radiusStep = ( gap / 2 ) / Object.keys(this.data.points).length;	
-		var planetRadius = this.radius + (2 * astrology.PADDING);
-									
+					
+		var pointRadius = this.radius + astrology.PADDING;
+													
 		for (var planet in this.data.points) {
- 			if (this.data.points.hasOwnProperty( planet )) {
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, planetRadius, this.data.points[planet] + this.shift); 		   		 		   	
+ 			if (this.data.points.hasOwnProperty( planet )) { 				 				 			 			
+ 				var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift); 				 				 				  				 			 		   		 		   		 		
  		   		var symbol = this.paper.getSymbol(planet, position.x, position.y);
         		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + planet);
-        		symbol.setAttribute('data-radius', planetRadius); 		   		 		   	
-        		wrapper.appendChild( symbol );
-        		//planetRadius += radiusStep;
-        		// TODO
+        		symbol.setAttribute('data-radius', pointRadius); 		   		 		   	
+        		wrapper.appendChild( symbol );        		            		        		 
     		}
 		}							
 	};
