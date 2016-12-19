@@ -154,7 +154,7 @@
 		
 		// center symbol
 		var xShift = -1; //px						
-		var yShift = -9; //px		
+		var yShift = -8; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -162,7 +162,7 @@
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 						
 			var node = document.createElementNS( context.root.namespaceURI, "path");
-			node.setAttribute("d", "m" + x + ", " + y + " -2.454548,0.818176 -2.454546,1.636361 -1.636371,2.454547 -0.818176,2.454547 0,2.454546 0.818176,2.454547 1.636371,2.454547 2.454546,1.636362 2.454548,0.818185 2.454536,0 2.454548,-0.818185 2.454546,-1.636362 1.636371,-2.454547 0.818176,-2.454547 0,-2.454546 -0.818176,-2.454547 -1.636371,-2.454547 -2.454546,-1.636361 -2.454548,-0.818176 -2.454536,0 m 0.818175,7.363631 -0.818175,0.818185 0,0.818185 0.818175,0.818176 0.818186,0 0.818175,-0.818176 0,-0.818185 -0.818175,-0.818185 -0.818186,0 m 0,0.818185 0,0.818185 0.818186,0 0,-0.818185 -0.818186,0");				
+			node.setAttribute("d", "m" + x + ", " + y + " -2.18182,0.727268 -2.181819,1.454543 -1.454552,2.18182 -0.727268,2.181819 0,2.181819 0.727268,2.181819 1.454552,2.18182 2.181819,1.454544 2.18182,0.727276 2.18181,0 2.18182,-0.727276 2.181819,-1.454544 1.454552,-2.18182 0.727268,-2.181819 0,-2.181819 -0.727268,-2.181819 -1.454552,-2.18182 -2.181819,-1.454543 -2.18182,-0.727268 -2.18181,0 m 0.727267,6.54545 -0.727267,0.727276 0,0.727275 0.727267,0.727268 0.727276,0 0.727267,-0.727268 0,-0.727275 -0.727267,-0.727276 -0.727276,0 m 0,0.727276 0,0.727275 0.727276,0 0,-0.727275 -0.727276,0");				
 			node.setAttribute("stroke", astrology.COLOR_POINTS);		 
 			node.setAttribute("stroke-width", 1.8);
 			node.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);			
@@ -552,8 +552,8 @@
 	function nnode( x, y ){
 		
 		// center symbol
-		var xShift = -1; //px						
-		var yShift = -8; //px		
+		var xShift = -4; //px						
+		var yShift = 3; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		

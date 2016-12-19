@@ -60,7 +60,7 @@
 		radix.drawSigns();
 		radix.drawPoints();			
 		radix.drawCircles(); 
-		//this.paper.root.appendChild( this.paper.getSymbol("Uranus", this.cx - this.radius, this.cy));										
+		//this.paper.root.appendChild( this.paper.getSymbol("Lilith", this.cx - this.radius, this.cy));										
 		return radix;
 	 };
 	 	
