@@ -48,11 +48,36 @@
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS );
 					
-		var pointRadius = this.radius + astrology.PADDING;
-													
+		var gap = astrology.MARGIN;		
+		var step = ( gap - astrology.PADDING ) / Object.keys(this.data.points).length;
+								
+		var locatedPoints = [];												
 		for (var planet in this.data.points) {
- 			if (this.data.points.hasOwnProperty( planet )) { 				 				 			 			
- 				var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift); 				 				 				  				 			 		   		 		   		 		
+ 			if (this.data.points.hasOwnProperty( planet )) {
+ 				 				 				 				 	
+ 				var pointRadius = this.radius + astrology.PADDING;
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   		 		   		 		   		 		   	 		   
+ 		   		var isCollision = true; 		   		 		   		
+ 		   		while(isCollision){ 		   		 		   			
+ 		   			 		   		
+ 		   			var isFinish = true; 		   			
+ 		   			for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
+ 		   				
+ 		   				if( astrology.utils.isCollision({x:position.x, y:position.y, r:astrology.COLLISION_RADIUS},{x:locatedPoints[i].x, y:locatedPoints[i].y, r:astrology.COLLISION_RADIUS})){
+ 		   					pointRadius += step;
+ 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   					isFinish = false;
+ 		   					break;
+ 		   				} 		   			
+ 		   			}
+ 		   			
+ 		   			if(isFinish){
+ 		   				isCollision = false;
+ 		   			} 		   			 		   		 		   			
+ 		   		} 		   		
+        		locatedPoints.push(position); 
+ 				 				 				 				 				 				 				 			 			 				 				 				 				  				 			 		   		 		   
  		   		var symbol = this.paper.getSymbol(planet, position.x, position.y);
         		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + planet);
         		symbol.setAttribute('data-radius', pointRadius); 		   		 		   	

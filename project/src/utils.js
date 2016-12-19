@@ -17,7 +17,7 @@
 		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
 		var xPos = cx + radius * Math.cos( angleInRadius );
 		var yPos = cy + radius * Math.sin( angleInRadius );					
-		return {x:Math.round(xPos), y:Math.round(yPos)};
+		return {x:xPos, y:yPos};
 	};
 	
 	astrology.utils.degreeToRadians = function( degree ){

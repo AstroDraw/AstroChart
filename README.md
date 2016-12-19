@@ -46,7 +46,7 @@ var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ### TODO
 - Transit chart animation
 - Aspects data fix 
-- The collision of planets
+- Layer
 
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)

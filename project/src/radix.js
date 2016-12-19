@@ -283,9 +283,9 @@
 				
 		// rays
         var lineLength = 3;
-        for( i = 0, start = 0, step = 5;i < 72; i++ ){ 
-            var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineLength) , start + this.shift );
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start + this.shift);
+        for( i = 0, start = 0, step = 5; i < 72; i++ ){ 
+            var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start + this.shift );
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineLength), start + this.shift);
        		var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);       		       		       
        		line.setAttribute("stroke", astrology.COLOR_CIRCLE);		 				 				 		
  			line.setAttribute("stroke-width", 1);       		

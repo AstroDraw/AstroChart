@@ -23,7 +23,7 @@
 	astrology.MARGIN = 50; //px
 		
 	// Chart Padding  
-	astrology.PADDING = 20; //px
+	astrology.PADDING = 15; //px
 	
 	// Module wrapper element ID
 	astrology.ID_CHART = "astrology";

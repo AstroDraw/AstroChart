@@ -59,7 +59,8 @@
 		radix.drawUniverse();						
 		radix.drawSigns();
 		radix.drawPoints();			
-		radix.drawCircles(); 						
+		radix.drawCircles(); 
+		//this.paper.root.appendChild( this.paper.getSymbol("Uranus", this.cx - this.radius, this.cy));										
 		return radix;
 	 };
 	 	
