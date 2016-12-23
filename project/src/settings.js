@@ -6,18 +6,24 @@
 		
 	// BG color
 	astrology.COLOR_BACKGROUND = "#fff";		 
-	
-	// Font size in chart
-	astrology.FONT_SIZE = 12; //px
-	
+		
 	// Font color in chart
 	astrology.FONT_COLOR = "#333";
 	
-	// Font color of planet's symbols
-	astrology.COLOR_POINTS = "#000";
+	// Font strength of lines
+	astrology.FONT_STROKE = 1.2;
 	
+	// Color of planet's symbols
+	astrology.POINTS_COLOR = "#000";
+	
+	// Points strength of lines
+	astrology.POINTS_STROKE = 1.8;
+		
 	// Font color of signs symbols
-	astrology.COLOR_SIGNS = "#333";
+	astrology.SIGNS_COLOR = "#333";
+	
+	// Signs strength of lines
+	astrology.SIGNS_STROKE = 1.5;
 	
 	// Chart margin
 	astrology.MARGIN = 50; //px
@@ -51,7 +57,7 @@
 	
 	// radius - radius/INNER_CIRCLE_RADIUS_RATIO
 	astrology.INNER_CIRCLE_RADIUS_RATIO = 8;
-	
+		
 	// Points
 	astrology.SYMBOL_SUN = "Sun";
 	astrology.SYMBOL_MOON = "Moon";
@@ -72,6 +78,27 @@
 	astrology.SYMBOL_DS = "Ds";
 	astrology.SYMBOL_MC = "Mc";
 	astrology.SYMBOL_IC = "Ic";
+		
+	astrology.SYMBOL_AXIS_FONT_COLOR = "#333";
+	astrology.SYMBOL_AXIS_STROKE = 1.6;
+		
+	// Cusps
+	astrology.SYMBOL_CUSP_1 = "1";
+	astrology.SYMBOL_CUSP_2 = "2";
+	astrology.SYMBOL_CUSP_3 = "3";
+	astrology.SYMBOL_CUSP_4 = "4";
+	astrology.SYMBOL_CUSP_5 = "5";
+	astrology.SYMBOL_CUSP_6 = "6";
+	astrology.SYMBOL_CUSP_7 = "7";
+	astrology.SYMBOL_CUSP_8 = "8";
+	astrology.SYMBOL_CUSP_9 = "9";
+	astrology.SYMBOL_CUSP_10 = "10";
+	astrology.SYMBOL_CUSP_11 = "11";
+	astrology.SYMBOL_CUSP_12 = "12";
+	
+	// Cusps strength of lines
+	astrology.CUSPS_STROKE = 1;
+	astrology.CUSPS_FONT_COLOR = "#000";	
 	
 	//Signs
 	astrology.SYMBOL_ARIES = "Aries";
@@ -107,7 +134,7 @@
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = true;
+	astrology.STROKE_ONLY = false;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px

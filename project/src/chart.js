@@ -59,8 +59,7 @@
 		radix.drawUniverse();						
 		radix.drawSigns();
 		radix.drawPoints();			
-		radix.drawCircles(); 
-		//this.paper.root.appendChild( this.paper.getSymbol("Lilith", this.cx - this.radius, this.cy));										
+		radix.drawCircles(); 											
 		return radix;
 	 };
 	 	

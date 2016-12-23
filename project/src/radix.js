@@ -171,14 +171,13 @@
  			} 			 						 			 			 			 
  		 	universe.appendChild( line ); 
  		 	 		 	
- 		 	// Cup number 
- 		 	var xShift = 6; //px
+ 		 	// Cup number  		 	
  		 	var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI );
  		 	var startOfCusp = this.data.cusps[i];
  		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
  		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
- 		 	universe.appendChild( this.paper.text( i+1, textPosition.x - xShift, textPosition.y, astrology.FONT_SIZE + "px", astrology.FONT_COLOR ));
+ 		 	universe.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y ));
  		 	  		 			 
  		 	// As
  		 	if(i == 0){ 
@@ -292,6 +291,20 @@
        		universe.appendChild( line );
        		start += step;
        	}       		
+	};
+	
+	/**
+	 * Draw the symbol on the axis.
+	 * For debug only.
+	 * 
+	 * @param {String} name - name of symbol
+	 */
+	astrology.Radix.prototype.calibrate = function calibrate( name ){		
+		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx - this.radius, this.cy));
+		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx + this.radius, this.cy));
+		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx, this.cy + this.radius));
+		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx, this.cy - this.radius));
+		return this;		
 	};
 		
 	/**
