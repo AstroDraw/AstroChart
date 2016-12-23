@@ -53,13 +53,13 @@
 		this.paper.root.appendChild( wrapperForAspects ); 
 		
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
-		radix.drawBg();		
-		radix.drawRuler();
+		radix.drawBg();
+		radix.drawCircles();					
 		radix.drawCusps();		
 		radix.drawUniverse();						
 		radix.drawSigns();
 		radix.drawPoints();			
-		radix.drawCircles(); 											
+		 											
 		return radix;
 	 };
 	 	

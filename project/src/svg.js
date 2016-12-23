@@ -652,8 +652,8 @@
 	function taurus( x, y ){
 		
 		// center symbol
-		var xShift = -10; //px						
-		var yShift = -9; //px		
+		var xShift = -9; //px						
+		var yShift = -11; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -683,7 +683,7 @@
 		
 		// center symbol
 		var xShift = -6; //px						
-		var yShift = -5; //px		
+		var yShift = -6; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -713,7 +713,7 @@
 		
 		// center symbol
 		var xShift = 9; //px						
-		var yShift = -5; //px		
+		var yShift = -9; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -742,8 +742,8 @@
 	function leo( x, y ){
 		
 		// center symbol
-		var xShift = 0; //px						
-		var yShift = 6; //px		
+		var xShift = -3; //px						
+		var yShift = 4; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -772,7 +772,7 @@
 	function virgo( x, y ){
 		
 		// center symbol
-		var xShift = -7; //px						
+		var xShift = -9; //px						
 		var yShift = -5; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
@@ -802,7 +802,7 @@
 	function libra( x, y ){
 		
 		// center symbol
-		var xShift = -5; //px						
+		var xShift = -4; //px						
 		var yShift = 3; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
@@ -832,8 +832,8 @@
 	function scorpio( x, y ){
 		
 		// center symbol
-		var xShift = -6; //px						
-		var yShift = -3; //px		
+		var xShift = -9; //px						
+		var yShift = -4; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -862,8 +862,8 @@
 	function sagittarius( x, y ){
 		
 		// center symbol
-		var xShift = 5; //px						
-		var yShift = -6; //px		
+		var xShift = 7; //px						
+		var yShift = -9; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -892,7 +892,7 @@
 	function capricorn( x, y ){
 		
 		// center symbol
-		var xShift = -8; //px						
+		var xShift = -9; //px						
 		var yShift = -3; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
@@ -923,7 +923,7 @@
 		
 		// center symbol
 		var xShift = -8; //px						
-		var yShift = -4; //px		
+		var yShift = -2; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		

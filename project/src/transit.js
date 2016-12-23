@@ -100,7 +100,7 @@
         	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][0] + this.shift);
         	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][1] + this.shift);        	
         	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);        		        
-        	line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.FONT_COLOR : data[i][2]);		 				 				 		
+        	line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : data[i][2]);		 				 				 		
  			line.setAttribute("stroke-width", 1);        	
         	wrapper.appendChild( line );        	        
         }
@@ -121,7 +121,7 @@
             var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, start  + this.shift);
         	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + lineLength, start + this.shift);
         	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);        	
-        	line.setAttribute("stroke", astrology.COLOR_CIRCLE );		 				 				 		
+        	line.setAttribute("stroke", astrology.CIRCLE_COLOR );		 				 				 		
  			line.setAttribute("stroke-width", 1);        	        
        		universe.appendChild( line );
        		start += step;

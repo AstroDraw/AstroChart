@@ -6,13 +6,7 @@
 		
 	// BG color
 	astrology.COLOR_BACKGROUND = "#fff";		 
-		
-	// Font color in chart
-	astrology.FONT_COLOR = "#333";
-	
-	// Font strength of lines
-	astrology.FONT_STROKE = 1.2;
-	
+				
 	// Color of planet's symbols
 	astrology.POINTS_COLOR = "#000";
 	
@@ -20,7 +14,7 @@
 	astrology.POINTS_STROKE = 1.8;
 		
 	// Font color of signs symbols
-	astrology.SIGNS_COLOR = "#333";
+	astrology.SIGNS_COLOR = "#000"; 
 	
 	// Signs strength of lines
 	astrology.SIGNS_STROKE = 1.5;
@@ -45,12 +39,21 @@
 	
 	// Aspects wrapper element ID
 	astrology.ID_POINTS = "points"; 
+	
+	// Signs wrapper element ID
+	astrology.ID_SIGNS = "signs"; 
+	
+	// Circles wrapper element ID
+	astrology.ID_CIRCLES = "circles";
 		
 	// Color of circles in charts
-	astrology.COLOR_CIRCLE = "#666";
+	astrology.CIRCLE_COLOR = "#333";
+	
+	// Circles strength of lines
+	astrology.CIRCLE_STRONG = 2;
 	
 	// Color of circles in charts
-	astrology.COLOR_LINE = "#333";
+	astrology.LINE_COLOR = "#333";
 	
 	// radius / INDOOR_CIRCLE_RADIUS_RATIO
 	astrology.INDOOR_CIRCLE_RADIUS_RATIO = 3;
