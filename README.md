@@ -8,9 +8,9 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - Tested code.
 
 ### Example
-- [Radix chart](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix.html)
-- [Radix 15. 11. 2016](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_2016_11_15.html)
-- [Radix collision](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_collision.html)
+- [Radix chart](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix.html)
+- [Radix 15. 11. 2016](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_2016_11_15.html)
+- [Radix collision](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_collision.html)
 - [Transit chart](#)
 - [Interactive chart](#)
 
