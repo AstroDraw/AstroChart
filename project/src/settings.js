@@ -38,7 +38,7 @@
 	astrology.ID_ASPECTS = "aspects";
 	
 	// Aspects wrapper element ID
-	astrology.ID_POINTS = "points"; 
+	astrology.ID_POINTS = "planets"; 
 	
 	// Signs wrapper element ID
 	astrology.ID_SIGNS = "signs"; 

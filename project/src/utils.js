@@ -44,11 +44,20 @@
 			return status;
 		}
 		
-		if(data.points == null){					
-			status.messages.push( "There is not property 'points'." );
+		if(data.planets == null){					
+			status.messages.push( "There is not property 'planets'." );
 			status.hasError = true;
 		}
 		
+		for (var property in data.planets) {
+    		if (data.planets.hasOwnProperty(property)) {        		
+        		if(!Array.isArray( data.planets[property] )){
+        			status.messages.push( "The planets property '"+ property +"' has to be Array." );
+					status.hasError = true;	
+        		}
+    		}
+		}
+					
 		if(data.cusps != null && !Array.isArray(data.cusps)){
 			status.messages.push( "Property 'cusps' has to be Array." );
 			status.hasError = true;
@@ -58,12 +67,7 @@
 			status.messages.push( "Count of 'cusps' values has to be 12." );
 			status.hasError = true;
 		}
-		
-		if(data.aspects != null && !Array.isArray(data.aspects)){
-			status.messages.push( "Property 'aspects' has to be Array." );
-			status.hasError = true;		 	
-		}
-						
+									
 		return status;		
 	};
 	

@@ -38,20 +38,16 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
-	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
-	 *	} 
+	 *		"points":{"Moon":[0], "Sun":[30],  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274] 
+	 *	}
+	 * 
+	 * @see https://github.com/Kibo/AstroWebService 
 	 * 
 	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
-						
-		// Create division for aspects.					
-		var wrapperForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
-		wrapperForAspects.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
-		this.paper.root.appendChild( wrapperForAspects ); 
-		
+								 	
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawBg();
 		radix.drawCircles();					

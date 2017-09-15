@@ -49,16 +49,13 @@
 	 */
 	astrology.Radix.prototype.drawBg = function(){				
 		var universe = this.universe;		
-										
-		// Background consists of two segments.
-		// TODO - one segment		
-		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, 0, astrology.utils.radiansToDegree( Math.PI ), this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
-		universe.appendChild( northernHemisphere );
 		
-		var southHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.utils.radiansToDegree( Math.PI ), 0, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		southHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
-		universe.appendChild( southHemisphere );				
+		var LARGE_ARC_FLAG = 1;	
+		var start = 0; //degree
+		var end = 359.9999; //degree 				
+		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
+		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
+		universe.appendChild( northernHemisphere );					
 	};
 		
 	/**
@@ -84,7 +81,7 @@
 	 * Draw points
 	 */
 	astrology.Radix.prototype.drawPoints = function(){
-		if(this.data.points == null){
+		if(this.data.planets == null){
 			return;
 		}
 		
@@ -92,14 +89,14 @@
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
-		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.points).length;
-				
+		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.planets).length;
+									
 		var locatedPoints = [];									
-		for (var planet in this.data.points) {
- 		   if (this.data.points.hasOwnProperty( planet )) {
+		for (var planet in this.data.planets) {
+ 		   if (this.data.planets.hasOwnProperty( planet )) {
  		   		
  		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + astrology.PADDING);
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
  		   		 		   		 		   		 		   	 		   
  		   		var isCollision = true; 		   		 		   		
  		   		while(isCollision){ 		   		 		   			
@@ -109,7 +106,7 @@
  		   				
  		   				if( astrology.utils.isCollision({x:position.x, y:position.y, r:astrology.COLLISION_RADIUS},{x:locatedPoints[i].x, y:locatedPoints[i].y, r:astrology.COLLISION_RADIUS})){
  		   					pointRadius -= step;
- 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
  		   					isFinish = false;
  		   					break;
  		   				} 		   			
@@ -212,22 +209,9 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Radix.prototype.aspects = function( data ){
-		
+	astrology.Radix.prototype.aspects = function(){		
 		// TODO
-		// validate data
-								
-		var wrapper = astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS );
-					
-        for( var i = 0, len = data.length; i < len; i++ ){ 
-        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][0] + this.shift);
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][1] + this.shift);
-        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);        	
-        	line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : data[i][2]);		 				 				 		
- 			line.setAttribute("stroke-width", 1);        	
-        	wrapper.appendChild( line );
-        }
-        
+		         
         // this
         return context;
 	};
@@ -289,16 +273,7 @@
 		circle.setAttribute("stroke-width", astrology.CIRCLE_STRONG);		
        	wrapper.appendChild( circle );       	       	       	       	       	   
 	};
-	
-	/**
-	 * Draw ruler
-	 */
-	astrology.Radix.prototype.drawRuler = function drawRuler(){
-		var universe = this.universe;
-				
-		      		
-	};
-	
+		
 	/**
 	 * Draw the symbol on the axis.
 	 * For debug only.
@@ -319,9 +294,8 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
-	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
+	 *		"points":{"Moon":[0], "Sun":[30],  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],	*		 
 	 *	} 
 	 * 
 	 * @return {astrology.Transit} transit

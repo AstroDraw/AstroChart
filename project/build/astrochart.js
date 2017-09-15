@@ -38,7 +38,7 @@
 	astrology.ID_ASPECTS = "aspects";
 	
 	// Aspects wrapper element ID
-	astrology.ID_POINTS = "points"; 
+	astrology.ID_POINTS = "planets"; 
 	
 	// Signs wrapper element ID
 	astrology.ID_SIGNS = "signs"; 
@@ -341,7 +341,7 @@
 		var yShift = -8; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
-		
+					
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 						
@@ -1490,11 +1490,11 @@
 	 *  
 	 * @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
 	 */  
-	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness){
+	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness, lFlag, sFlag){
 									            	 	            	
 	 	// @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
-	 	var LARGE_ARC_FLAG = 0;
-	 	var SWEET_FLAG = 0;
+	 	var LARGE_ARC_FLAG = lFlag | 0;
+	 	var SWEET_FLAG = sFlag | 0;
             	 	                
         a1 = ((astrology.SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
         a2 = ((astrology.SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;
@@ -1608,20 +1608,16 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
-	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
-	 *	} 
+	 *		"points":{"Moon":[0], "Sun":[30],  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274] 
+	 *	}
+	 * 
+	 * @see https://github.com/Kibo/AstroWebService 
 	 * 
 	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
-						
-		// Create division for aspects.					
-		var wrapperForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
-		wrapperForAspects.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
-		this.paper.root.appendChild( wrapperForAspects ); 
-		
+								 	
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawBg();
 		radix.drawCircles();					
@@ -1695,16 +1691,13 @@
 	 */
 	astrology.Radix.prototype.drawBg = function(){				
 		var universe = this.universe;		
-										
-		// Background consists of two segments.
-		// TODO - one segment		
-		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, 0, astrology.utils.radiansToDegree( Math.PI ), this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
-		universe.appendChild( northernHemisphere );
 		
-		var southHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, astrology.utils.radiansToDegree( Math.PI ), 0, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
-		southHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
-		universe.appendChild( southHemisphere );				
+		var LARGE_ARC_FLAG = 1;	
+		var start = 0; //degree
+		var end = 359.9999; //degree 				
+		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
+		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
+		universe.appendChild( northernHemisphere );					
 	};
 		
 	/**
@@ -1730,7 +1723,7 @@
 	 * Draw points
 	 */
 	astrology.Radix.prototype.drawPoints = function(){
-		if(this.data.points == null){
+		if(this.data.planets == null){
 			return;
 		}
 		
@@ -1738,14 +1731,14 @@
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
-		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.points).length;
-				
+		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.planets).length;
+									
 		var locatedPoints = [];									
-		for (var planet in this.data.points) {
- 		   if (this.data.points.hasOwnProperty( planet )) {
+		for (var planet in this.data.planets) {
+ 		   if (this.data.planets.hasOwnProperty( planet )) {
  		   		
  		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + astrology.PADDING);
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
  		   		 		   		 		   		 		   	 		   
  		   		var isCollision = true; 		   		 		   		
  		   		while(isCollision){ 		   		 		   			
@@ -1755,7 +1748,7 @@
  		   				
  		   				if( astrology.utils.isCollision({x:position.x, y:position.y, r:astrology.COLLISION_RADIUS},{x:locatedPoints[i].x, y:locatedPoints[i].y, r:astrology.COLLISION_RADIUS})){
  		   					pointRadius -= step;
- 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.points[planet] + this.shift);
+ 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
  		   					isFinish = false;
  		   					break;
  		   				} 		   			
@@ -1858,22 +1851,9 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Radix.prototype.aspects = function( data ){
-		
+	astrology.Radix.prototype.aspects = function(){		
 		// TODO
-		// validate data
-								
-		var wrapper = astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS );
-					
-        for( var i = 0, len = data.length; i < len; i++ ){ 
-        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][0] + this.shift);
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, data[i][1] + this.shift);
-        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);        	
-        	line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : data[i][2]);		 				 				 		
- 			line.setAttribute("stroke-width", 1);        	
-        	wrapper.appendChild( line );
-        }
-        
+		         
         // this
         return context;
 	};
@@ -1935,16 +1915,7 @@
 		circle.setAttribute("stroke-width", astrology.CIRCLE_STRONG);		
        	wrapper.appendChild( circle );       	       	       	       	       	   
 	};
-	
-	/**
-	 * Draw ruler
-	 */
-	astrology.Radix.prototype.drawRuler = function drawRuler(){
-		var universe = this.universe;
-				
-		      		
-	};
-	
+		
 	/**
 	 * Draw the symbol on the axis.
 	 * For debug only.
@@ -1965,9 +1936,8 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":0, "Sun":30,  ... },
-	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
-	 *		"aspects":[[20,110,"#ff0"], [200,245,"#f0f"]] 
+	 *		"points":{"Moon":[0], "Sun":[30],  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],	*		 
 	 *	} 
 	 * 
 	 * @return {astrology.Transit} transit
@@ -2169,11 +2139,20 @@
 			return status;
 		}
 		
-		if(data.points == null){					
-			status.messages.push( "There is not property 'points'." );
+		if(data.planets == null){					
+			status.messages.push( "There is not property 'planets'." );
 			status.hasError = true;
 		}
 		
+		for (var property in data.planets) {
+    		if (data.planets.hasOwnProperty(property)) {        		
+        		if(!Array.isArray( data.planets[property] )){
+        			status.messages.push( "The planets property '"+ property +"' has to be Array." );
+					status.hasError = true;	
+        		}
+    		}
+		}
+					
 		if(data.cusps != null && !Array.isArray(data.cusps)){
 			status.messages.push( "Property 'cusps' has to be Array." );
 			status.hasError = true;
@@ -2183,12 +2162,7 @@
 			status.messages.push( "Count of 'cusps' values has to be 12." );
 			status.hasError = true;
 		}
-		
-		if(data.aspects != null && !Array.isArray(data.aspects)){
-			status.messages.push( "Property 'aspects' has to be Array." );
-			status.hasError = true;		 	
-		}
-						
+									
 		return status;		
 	};
 	

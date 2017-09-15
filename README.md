@@ -8,9 +8,9 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - Tested code.
 
 ### Example
-- [Radix chart](#)
-- [Radix 15. 11. 2016](#)
-- [Radix collision](#)
+- [Radix chart](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix.html)
+- [Radix 15. 11. 2016](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_2016_11_15.html)
+- [Radix collision](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_collision.html)
 - [Transit chart](#)
 - [Interactive chart](#)
 
@@ -30,7 +30,7 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 ### Data example
 ``` 
 {
-	"planets":{"Moon":[0, 0.9], "Sun":[30, 0.5], "Mercury":[60, -0.2], ... },
+	"planets":{"Moon":[0], "Sun":[30], "Mercury":[60], ... },
 	"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]	
 }
 ```
