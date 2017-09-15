@@ -1,18 +1,18 @@
 # AstroChart
 A free and open-source JavaScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
 
-**Version**: 1.0.0
+**Version**: 2.0.0
 
 - Pure Javascript implementation without dependencies.
 - SVG graphics.
 - Tested code.
 
 ### Example
-- [Radix chart](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix.html)
-- [Radix 15. 11. 2016](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_2016_11_15.html)
-- [Radix collision](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/radix/radix_collision.html)
-- [Transit chart](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/transit/transit.html)
-- [Interactive chart](http://htmlpreview.github.io/?https://github.com/Kibo/AstroChart/blob/master/project/examples/transit/interactive.html)
+- [Radix chart](#)
+- [Radix 15. 11. 2016](#)
+- [Radix collision](#)
+- [Transit chart](#)
+- [Interactive chart](#)
 
 ### How to use
 ```
@@ -30,11 +30,11 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 ### Data example
 ``` 
 {
-	"points":{"Moon":0, "Sun":30, "Mercury":60, ... },
-	"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],
-	"aspects":[ [5,95,"#f00"], [20,140,"#f0f"], ... ]
+	"planets":{"Moon":[0, 0.9], "Sun":[30, 0.5], "Mercury":[60, -0.2], ... },
+	"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]	
 }
 ```
+For detailed data description see [AstroWebService](https://github.com/Kibo/AstroWebService).
 
 ### Chart settings
 Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/project/src/settings.js)
@@ -44,9 +44,9 @@ var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
 
 ### TODO
-- Transit chart animation
-- Aspects data fix 
-- Layer
+
 
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)
+- [AstroWebService](https://github.com/Kibo/AstroWebService)
+- [AstroAPI](https://github.com/Kibo/AstroAPI)
