@@ -52,7 +52,7 @@
 		
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
-		var end = 359.9999; //degree 				
+		var end = 359.99; //degree 				
 		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
 		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
 		universe.appendChild( northernHemisphere );					
@@ -142,9 +142,8 @@
 		var IC = 3;
 		var DC = 6;
 		var MC = 9;
-		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING;
-		var overlap = 20; //px
-		var axisRadius = this.radius + overlap;
+		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING;		
+		var axisRadius = this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO;
 				
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
@@ -294,17 +293,18 @@
 	 * @param {Object} data
 	 * @example
 	 *	{
-	 *		"points":{"Moon":[0], "Sun":[30],  ... },
+	 *		"planets":{"Moon":[0], "Sun":[30],  ... },
 	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],	*		 
 	 *	} 
 	 * 
 	 * @return {astrology.Transit} transit
 	 */
 	astrology.Radix.prototype.transit = function( data ){
-		var transit = new astrology.Transit(context, data);
-		transit.drawRuler();						
+		var transit = new astrology.Transit(context, data);					
 		transit.drawPoints();		
-		context.drawCircles();		
+		transit.drawCusps();	
+		//context.drawCircles();	
+		transit.drawCircles();	
 		return transit; 
 	};
 		
