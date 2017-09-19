@@ -23,7 +23,7 @@
 	astrology.MARGIN = 50; //px
 		
 	// Chart Padding  
-	astrology.PADDING = 15; //px
+	astrology.PADDING = 10; //px
 	
 	// Module wrapper element ID
 	astrology.ID_CHART = "astrology";
@@ -45,6 +45,15 @@
 	
 	// Circles wrapper element ID
 	astrology.ID_CIRCLES = "circles";
+	
+	// Axis wrapper element ID
+	astrology.ID_AXIS = "axis";
+	
+	// Cusps wrapper element ID
+	astrology.ID_CUSPS = "cusps";
+	
+	// Cusps wrapper element ID
+	astrology.ID_RULER = "ruler";
 		
 	// Color of circles in charts
 	astrology.CIRCLE_COLOR = "#333";
@@ -56,7 +65,7 @@
 	astrology.LINE_COLOR = "#333";
 	
 	// radius / INDOOR_CIRCLE_RADIUS_RATIO
-	astrology.INDOOR_CIRCLE_RADIUS_RATIO = 3;
+	astrology.INDOOR_CIRCLE_RADIUS_RATIO = 2;
 	
 	// radius - radius/INNER_CIRCLE_RADIUS_RATIO
 	astrology.INNER_CIRCLE_RADIUS_RATIO = 8;

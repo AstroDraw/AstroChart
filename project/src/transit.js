@@ -134,7 +134,7 @@
  			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
  			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
  			line.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
- 			line.setAttribute("stroke-width", 1); 
+ 			line.setAttribute("stroke-width", astrology.CUSPS_STROKE); 
  			
  			universe.appendChild( line );
  			
@@ -146,8 +146,7 @@
  		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
  		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
- 		 	universe.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y ));
- 						
+ 		 	universe.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y )); 						
 		}	
 	}
 	

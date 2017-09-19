@@ -50,11 +50,13 @@
 								 	
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawBg();
-		radix.drawCircles();					
+		//radix.drawCircles();
+		radix.drawUniverse();					
 		radix.drawCusps();		
-		radix.drawUniverse();						
-		radix.drawSigns();
-		radix.drawPoints();			
+		radix.drawRuler();
+										
+		radix.drawPoints();		
+		radix.drawAxis();		
 		 											
 		return radix;
 	 };
