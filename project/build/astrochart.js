@@ -131,22 +131,22 @@
 	astrology.COLOR_ARIES = "#FF4500";
 	astrology.COLOR_TAURUS = "#8B4513";
 	astrology.COLOR_GEMINI= "#87CEEB";
-	astrology.COLOR_CANCER = "#0000A0"; 
+	astrology.COLOR_CANCER = "#27AE60"; 
 	astrology.COLOR_LEO = "#FF4500"; 
 	astrology.COLOR_VIRGO = "#8B4513"; 
 	astrology.COLOR_LIBRA = "#87CEEB";  
-	astrology.COLOR_SCORPIO = "#0000A0";  
+	astrology.COLOR_SCORPIO = "#27AE60";  
 	astrology.COLOR_SAGITTARIUS = "#FF4500";
 	astrology.COLOR_CAPRICORN = "#8B4513"; 
 	astrology.COLOR_AQUARIUS = "#87CEEB"; 
-	astrology.COLOR_PISCES = "#0000A0"; 	        	
+	astrology.COLOR_PISCES = "#27AE60"; 	        	
 	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
 	
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = false;
+	astrology.STROKE_ONLY = true;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px
@@ -1502,8 +1502,8 @@
 	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness, lFlag, sFlag){
 									            	 	            	
 	 	// @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
-	 	var LARGE_ARC_FLAG = lFlag | 0;
-	 	var SWEET_FLAG = sFlag | 0;
+	 	var LARGE_ARC_FLAG = lFlag || 0;
+	 	var SWEET_FLAG = sFlag || 0;
             	 	                
         a1 = ((astrology.SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
         a2 = ((astrology.SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;
@@ -1629,12 +1629,12 @@
 								 	
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		radix.drawBg();
-		//radix.drawCircles();
-		radix.drawUniverse();					
-		radix.drawCusps();		
+				
+		radix.drawUniverse();									
 		radix.drawRuler();
 										
-		radix.drawPoints();		
+		radix.drawPoints();
+		radix.drawCusps();		
 		radix.drawAxis();		
 		 											
 		return radix;
@@ -1759,38 +1759,20 @@
 		var locatedPoints = [];									
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
- 		   		
+ 		   	 		   	 		   		
  		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength + astrology.PADDING);
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
- 		   		 		   		 		   		 		   	 		   
- 		   		var isCollision = true; 		   		 		   		
- 		   		while(isCollision){ 		   		 		   			
- 		   			 		   		
- 		   			var isFinish = true; 		   			
- 		   			for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
- 		   				
- 		   				if( astrology.utils.isCollision({x:position.x, y:position.y, r:astrology.COLLISION_RADIUS},{x:locatedPoints[i].x, y:locatedPoints[i].y, r:astrology.COLLISION_RADIUS})){
- 		   					pointRadius -= step;
- 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
- 		   					isFinish = false;
- 		   					break;
- 		   				} 		   			
- 		   			}
- 		   			
- 		   			if(isFinish){
- 		   				isCollision = false;
- 		   			} 		   			 		   		 		   			
- 		   		} 		   		
-        		locatedPoints.push(position);
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift); 		   	
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, ephemeris:this.data.planets[planet][0]};
  		   		
- 		   		
-        		var symbol = this.paper.getSymbol(planet, position.x, position.y);
-        		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + planet);
-        		symbol.setAttribute('data-radius', pointRadius);
-        		wrapper.appendChild( symbol );
-        		        		        		        		       
-    		}
-		}		
+ 		   		locatedPoints = astrology.utils.assemble(locatedPoints, point, {cx:this.cx, cy:this.cy, pointRadius:pointRadius, shift:this.shift});   
+ 		   	} 		
+		}
+		
+		locatedPoints.forEach(function(point){						
+			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	wrapper.appendChild( symbol );          						
+		}, this);		
 	};
 	
 	astrology.Radix.prototype.drawAxis = function(){
@@ -1894,6 +1876,17 @@
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
  		 	wrapper.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y )); 		 	  		 			  		 			
 		}
+		
+		
+		var circle;						      
+        //indoor circle
+        circle = this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
+        circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", astrology.CUSPS_STROKE);		
+       	wrapper.appendChild( circle ); 
+       	
+         
+		
 	};
 	
 	/**
@@ -2298,5 +2291,34 @@
 		
 		return magnitude <= totalRadii; 
 	};
+	
+	/**
+	 * Places a new point in the located list 
+	 * 
+ 	 * @param {Array<Object>} locatedPoints, [{name:"Mars", x:123, y:123, r:50, ephemeris:45.96}, {name:"Sun", x:1234, y:1234, r:50, ephemeris:100.96}]
+ 	 * @param {Object} point, {name:"Venus", x:78, y:56, r:50, ephemeris:15.96} 
+ 	 * @param {Object} universe - current universe
+ 	 * @return {Array<Object>} locatedPoints 	 
+	 */
+	astrology.utils.assemble = function( locatedPoints, point, universe){
+		
+		locatedPoints.forEach(function( locatedPoint ){
+			if(astrology.utils.isCollision(locatedPoint, point)){
+				console.log( "Resolve collision: " + locatedPoint.name + " X " + point.name);
+				
+				// TODO correction
+				// locatedPoint - new position
+				// point - new position
+				// remove locatedPoint from locatedPoints
+				// call astrology.utils.assemble(locatedPoints, locatedPoint, universe); 	
+					
+				// return and new test for collision (probably with while(true))
+			}					
+		}, this);
+					
+		locatedPoints.push(point);						
+		return locatedPoints;
+	};
+	
 						        	 
 }( window.astrology = window.astrology || {}));

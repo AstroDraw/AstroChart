@@ -127,5 +127,34 @@
 		
 		return magnitude <= totalRadii; 
 	};
+	
+	/**
+	 * Places a new point in the located list 
+	 * 
+ 	 * @param {Array<Object>} locatedPoints, [{name:"Mars", x:123, y:123, r:50, ephemeris:45.96}, {name:"Sun", x:1234, y:1234, r:50, ephemeris:100.96}]
+ 	 * @param {Object} point, {name:"Venus", x:78, y:56, r:50, ephemeris:15.96} 
+ 	 * @param {Object} universe - current universe
+ 	 * @return {Array<Object>} locatedPoints 	 
+	 */
+	astrology.utils.assemble = function( locatedPoints, point, universe){
+		
+		locatedPoints.forEach(function( locatedPoint ){
+			if(astrology.utils.isCollision(locatedPoint, point)){
+				console.log( "Resolve collision: " + locatedPoint.name + " X " + point.name);
+				
+				// TODO correction
+				// locatedPoint - new position
+				// point - new position
+				// remove locatedPoint from locatedPoints
+				// call astrology.utils.assemble(locatedPoints, locatedPoint, universe); 	
+					
+				// return and new test for collision (probably with while(true))
+			}					
+		}, this);
+					
+		locatedPoints.push(point);						
+		return locatedPoints;
+	};
+	
 						        	 
 }( window.astrology = window.astrology || {}));

@@ -131,22 +131,22 @@
 	astrology.COLOR_ARIES = "#FF4500";
 	astrology.COLOR_TAURUS = "#8B4513";
 	astrology.COLOR_GEMINI= "#87CEEB";
-	astrology.COLOR_CANCER = "#0000A0"; 
+	astrology.COLOR_CANCER = "#27AE60"; 
 	astrology.COLOR_LEO = "#FF4500"; 
 	astrology.COLOR_VIRGO = "#8B4513"; 
 	astrology.COLOR_LIBRA = "#87CEEB";  
-	astrology.COLOR_SCORPIO = "#0000A0";  
+	astrology.COLOR_SCORPIO = "#27AE60";  
 	astrology.COLOR_SAGITTARIUS = "#FF4500";
 	astrology.COLOR_CAPRICORN = "#8B4513"; 
 	astrology.COLOR_AQUARIUS = "#87CEEB"; 
-	astrology.COLOR_PISCES = "#0000A0"; 	        	
+	astrology.COLOR_PISCES = "#27AE60"; 	        	
 	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
 	
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = false;
+	astrology.STROKE_ONLY = true;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px

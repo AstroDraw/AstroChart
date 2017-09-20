@@ -1348,8 +1348,8 @@
 	astrology.SVG.prototype.segment = function segment( x, y, radius, a1, a2, thickness, lFlag, sFlag){
 									            	 	            	
 	 	// @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
-	 	var LARGE_ARC_FLAG = lFlag | 0;
-	 	var SWEET_FLAG = sFlag | 0;
+	 	var LARGE_ARC_FLAG = lFlag || 0;
+	 	var SWEET_FLAG = sFlag || 0;
             	 	                
         a1 = ((astrology.SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
         a2 = ((astrology.SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;

@@ -106,38 +106,20 @@
 		var locatedPoints = [];									
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
- 		   		
+ 		   	 		   	 		   		
  		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength + astrology.PADDING);
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
- 		   		 		   		 		   		 		   	 		   
- 		   		var isCollision = true; 		   		 		   		
- 		   		while(isCollision){ 		   		 		   			
- 		   			 		   		
- 		   			var isFinish = true; 		   			
- 		   			for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
- 		   				
- 		   				if( astrology.utils.isCollision({x:position.x, y:position.y, r:astrology.COLLISION_RADIUS},{x:locatedPoints[i].x, y:locatedPoints[i].y, r:astrology.COLLISION_RADIUS})){
- 		   					pointRadius -= step;
- 		   					position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift);
- 		   					isFinish = false;
- 		   					break;
- 		   				} 		   			
- 		   			}
- 		   			
- 		   			if(isFinish){
- 		   				isCollision = false;
- 		   			} 		   			 		   		 		   			
- 		   		} 		   		
-        		locatedPoints.push(position);
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift); 		   	
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, ephemeris:this.data.planets[planet][0]};
  		   		
- 		   		
-        		var symbol = this.paper.getSymbol(planet, position.x, position.y);
-        		symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + planet);
-        		symbol.setAttribute('data-radius', pointRadius);
-        		wrapper.appendChild( symbol );
-        		        		        		        		       
-    		}
-		}		
+ 		   		locatedPoints = astrology.utils.assemble(locatedPoints, point, {cx:this.cx, cy:this.cy, pointRadius:pointRadius, shift:this.shift});   
+ 		   	} 		
+		}
+		
+		locatedPoints.forEach(function(point){						
+			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	wrapper.appendChild( symbol );          						
+		}, this);		
 	};
 	
 	astrology.Radix.prototype.drawAxis = function(){
@@ -241,6 +223,17 @@
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
  		 	wrapper.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y )); 		 	  		 			  		 			
 		}
+		
+		
+		var circle;						      
+        //indoor circle
+        circle = this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
+        circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", astrology.CUSPS_STROKE);		
+       	wrapper.appendChild( circle ); 
+       	
+         
+		
 	};
 	
 	/**
