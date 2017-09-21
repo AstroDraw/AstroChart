@@ -109,11 +109,13 @@
  		   	 		   	 		   		
  		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength + astrology.PADDING);
  		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift); 		   	
- 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, ephemeris:this.data.planets[planet][0]};
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:this.data.planets[planet][0] + this.shift};
  		   		
- 		   		locatedPoints = astrology.utils.assemble(locatedPoints, point, {cx:this.cx, cy:this.cy, pointRadius:pointRadius, shift:this.shift});   
+ 		   		locatedPoints = astrology.utils.assemble(locatedPoints, point, {cx:this.cx, cy:this.cy, r:pointRadius});   
  		   	} 		
 		}
+		
+		console.log( "Count of planets: " + locatedPoints.length )
 		
 		locatedPoints.forEach(function(point){						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);

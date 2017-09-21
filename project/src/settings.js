@@ -149,6 +149,6 @@
 	astrology.STROKE_ONLY = true;
 	
 	// Planets collision circle radius
-	astrology.COLLISION_RADIUS = 10; //px
+	astrology.COLLISION_RADIUS = 5; //px
 		       	      
 }( window.astrology = window.astrology || {}));
