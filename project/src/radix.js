@@ -93,7 +93,7 @@
 		if(this.data.planets == null){
 			return;
 		}
-		
+				
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
 					
@@ -101,26 +101,45 @@
 		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.planets).length;
 		
 		// @see radix.drawRuler()
-		var lineRulerLength = 2 * ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
-									
+		var lineRulerLength = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
+		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*lineRulerLength + astrology.PADDING);
+		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength);
+												
 		var locatedPoints = [];									
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
- 		   	 		   	 		   		
- 		   		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength + astrology.PADDING);
+ 		   	 		   	 		   		 		   		
  		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift); 		   	
- 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:this.data.planets[planet][0] + this.shift};
- 		   		
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:this.data.planets[planet][0] + this.shift, pointer:this.data.planets[planet][0] + this.shift}; 		   		
  		   		locatedPoints = astrology.utils.assemble(locatedPoints, point, {cx:this.cx, cy:this.cy, r:pointRadius});   
  		   	} 		
 		}
 		
-		console.log( "Count of planets: " + locatedPoints.length )
-		
-		locatedPoints.forEach(function(point){						
+		console.log( "Count of planets: " + locatedPoints.length );
+					
+					
+		locatedPoints.forEach(function(point){
+			
+			// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
         	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
-        	wrapper.appendChild( symbol );          						
+        	wrapper.appendChild( symbol );
+        	
+        	// draw pointer        	
+        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
+        	var pointer = this.paper.circle( startPosition.x, startPosition.y, 1);
+        	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+			pointer.setAttribute("stroke-width", 1);
+        	wrapper.appendChild(pointer);
+        	
+        	// draw pointer line
+        	// TODO var endPosition = astrology.utils.getPointPosition( );
+        	var line = this.paper.line( startPosition.x, startPosition.y, point.x, point.y);
+        	line.setAttribute("stroke", astrology.LINE_COLOR);	
+        	line.setAttribute("stroke-width", 1);
+        	
+        	wrapper.appendChild(line);
+        	          						
 		}, this);		
 	};
 	

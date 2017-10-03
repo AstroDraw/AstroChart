@@ -131,7 +131,7 @@
 	 * Places a new point in the located list 
 	 * 
  	 * @param {Array<Object>} locatedPoints, [{name:"Mars", x:123, y:123, r:50, ephemeris:45.96}, {name:"Sun", x:1234, y:1234, r:50, ephemeris:100.96}]
- 	 * @param {Object} point, {name:"Venus", x:78, y:56, r:50, ephemeris:15.96} 
+ 	 * @param {Object} point, {name:"Venus", x:78, y:56, r:50, angle:15.96} 
  	 * @param {Object} universe - current universe
  	 * @return {Array<Object>} locatedPoints 	 
 	 */
@@ -144,6 +144,7 @@
 		}
 		
 		var isCollision = false;
+		locatedPoints.sort(astrology.utils.comparePoints);
 		for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
 			
 			if(astrology.utils.isCollision(locatedPoints[i], point)){
@@ -155,14 +156,19 @@
 			}
 		}
 		
-		if( isCollision ){			 										    				  			  																																	
-			if( locatedButInCollisionPoint.angle >= point.angle ){				
-				locatedButInCollisionPoint.angle += 1;
-				point.angle -= 1;
+		var step = 1;
+		if( isCollision ){
+			
+			// it solves the problem with crossing over zero, for instance 359 > 3
+			var areNeighbors = Math.abs(locatedButInCollisionPoint.pointer - point.pointer) <= astrology.COLLISION_RADIUS;			 						 										    				  			  																															
+			if( areNeighbors && locatedButInCollisionPoint.pointer >= point.pointer ){
+									
+				locatedButInCollisionPoint.angle += step;
+				point.angle -= step;
 											
 			}else{
-				locatedButInCollisionPoint.angle -= 1;
-				point.angle += 1;						
+				locatedButInCollisionPoint.angle -= step;
+				point.angle += step;						
 			}
 													
 			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
@@ -183,8 +189,27 @@
 		}else{
 			locatedPoints.push(point);	
 		}
+		
 												
-		return locatedPoints;
+		return locatedPoints;	
 	};
 	
+	/**
+	* Compare Function
+	* 
+ 	* @param {Object} pointA, {name:"Venus", x:78, y:56, r:50, angle:15.96}
+ 	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
+	*/
+	astrology.utils.comparePoints = function( pointA, pointB){
+		if (pointA.angle < pointB.angle){
+			return -1;	
+		}
+					
+		if (pointA.angle > pointB.angle){
+			return 1;
+		}
+					    
+		return 0;				
+	};
+										
 }( window.astrology = window.astrology || {}));
