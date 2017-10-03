@@ -38,7 +38,7 @@
 					 
 					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:10}), true);
 				});
-				
+									
 				test( "assemble", function( ) {
 										
 					var universe = {cx:0, cy:0, r:100};					
@@ -66,11 +66,10 @@
 					mercury = {name:"Mercury", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
 																											
 					locatedPoints = astrology.utils.assemble([sun], mercury, universe);
-					equal( parseInt(locatedPoints[0].angle,10), -8); 
-					equal(parseInt(locatedPoints[1].angle,10), 10);
+					equal( parseInt(locatedPoints[0].angle,10), -5); 
+					equal(parseInt(locatedPoints[1].angle,10), 7);
 					equal(locatedPoints.length, 2);
-					
-					
+										
 					//---
 					angle = 1;
 					planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, angle);					
@@ -79,13 +78,13 @@
 					locatedPoints = astrology.utils.assemble([sun, mercury], venus, universe);
 					
 					equal( locatedPoints[0].name, "Sun"); 
-					equal( parseInt(locatedPoints[0].angle,10), -8);
+					equal( parseInt(locatedPoints[0].angle,10), -11);
 					
 					equal( locatedPoints[1].name, "Mercury");
-					equal(parseInt(locatedPoints[1].angle,10), 10);
+					equal(parseInt(locatedPoints[1].angle,10), 13);
 					
 					equal( locatedPoints[2].name, "Venus");
-					equal(parseInt(locatedPoints[2].angle,10), 10);
+					equal(parseInt(locatedPoints[2].angle,10), 1);
 										
 					equal(locatedPoints.length, 3);					
 				});																

@@ -155,42 +155,35 @@
 			}
 		}
 		
-		if( isCollision ){
-			// Calculate overlap
-			var vx = locatedButInCollisionPoint.x - point.x;
-			var vy = locatedButInCollisionPoint.y - point.y;  		
-			var magnitude = Math.sqrt(vx * vx + vy * vy);  		
-			var totalRadii = locatedButInCollisionPoint.r + point.r;
-			var overlap = (totalRadii - magnitude);  										    				  			  				
-			
-																													
-			if( locatedButInCollisionPoint.angle >= point.angle ){
-				
-				locatedButInCollisionPoint.angle += (overlap/2);
-				point.angle -= (overlap/2);
-				
+		if( isCollision ){			 										    				  			  																																	
+			if( locatedButInCollisionPoint.angle >= point.angle ){				
+				locatedButInCollisionPoint.angle += 1;
+				point.angle -= 1;
+											
 			}else{
-				locatedButInCollisionPoint.angle -= (overlap/2);
-				point.angle += (overlap/2);	
+				locatedButInCollisionPoint.angle -= 1;
+				point.angle += 1;						
 			}
 													
 			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
 			locatedButInCollisionPoint.x = newPointPosition.x;
 			locatedButInCollisionPoint.y = newPointPosition.y;
-			  
+			
 			newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, point.angle);
 			point.x = newPointPosition.x;
 			point.y = newPointPosition.y;
-			
+									  					
 			// remove locatedButInCollisionPoint from locatedPoints									
 			locatedPoints.splice(locatedButInCollisionPoint.index, 1);
 																
 			// call recursive	
-			locatedPoints = astrology.utils.assemble(locatedPoints, locatedButInCollisionPoint, universe);										
+			locatedPoints = astrology.utils.assemble(locatedPoints, locatedButInCollisionPoint, universe);	
+			locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);	
+														
+		}else{
+			locatedPoints.push(point);	
 		}
-		
-		locatedPoints.push(point);
-					
+												
 		return locatedPoints;
 	};
 	
