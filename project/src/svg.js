@@ -1333,7 +1333,6 @@
 	/**
 	 * Draw circular sector
 	 * 
-	 * 
 	 * @param {int} x - circle x center position
 	 * @param {int} y - circle y center position
 	 * @param {int} radius - circle radius in px

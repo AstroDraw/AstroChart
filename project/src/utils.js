@@ -192,6 +192,5 @@
 		
 												
 		return locatedPoints;	
-	};
-									
+	};								
 }( window.astrology = window.astrology || {}));

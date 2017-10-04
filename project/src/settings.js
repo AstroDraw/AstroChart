@@ -10,6 +10,9 @@
 	// Color of planet's symbols
 	astrology.POINTS_COLOR = "#000";
 	
+	// Size of description text next to the planet: angle, retrograde, dignities, ...
+	astrology.POINTS_TEXT_SIZE = 8;
+	
 	// Points strength of lines
 	astrology.POINTS_STROKE = 1.8;
 		
@@ -146,7 +149,7 @@
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = true;
+	astrology.STROKE_ONLY = false;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px
