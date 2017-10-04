@@ -1799,7 +1799,7 @@
         	wrapper.appendChild( symbol );
         	
         	// draw angle        	        
-        	var angle = this.paper.text( Math.round(this.data.planets[point.name][0]).toString(), point.x + astrology.COLLISION_RADIUS/1.4, point.y - astrology.COLLISION_RADIUS, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
+        	var angle = this.paper.text( (Math.round(this.data.planets[point.name][0]) % 30).toString(), point.x + astrology.COLLISION_RADIUS/1.4, point.y - astrology.COLLISION_RADIUS, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
         	wrapper.appendChild( angle );
         	
         	// draw point description
