@@ -149,7 +149,7 @@
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = false;
+	astrology.STROKE_ONLY = true;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px

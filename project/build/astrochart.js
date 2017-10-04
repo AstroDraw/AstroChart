@@ -149,7 +149,7 @@
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = false;
+	astrology.STROKE_ONLY = true;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px
@@ -1684,6 +1684,9 @@
 		this.cy = cy;
 		this.radius = radius;
 		
+		// after calling this.drawPoints() it contains current position of point
+		this.locatedPoints = [];
+		
 		this.shift = 0;		
 		if(this.data.cusps && this.data.cusps[0]){
 			var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
@@ -1760,20 +1763,19 @@
 		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*lineRulerLength + astrology.PADDING);
 		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength);
 		var startPosition, endPosition;
-												
-		var locatedPoints = [];									
+																					
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
  		   	 		   	 		   		 		   		
  		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift); 		   	
  		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:this.data.planets[planet][0] + this.shift, pointer:this.data.planets[planet][0] + this.shift}; 		   		
- 		   		locatedPoints = astrology.utils.assemble(locatedPoints, point, {cx:this.cx, cy:this.cy, r:pointRadius});   
+ 		   		this.locatedPoints = astrology.utils.assemble(this.locatedPoints, point, {cx:this.cx, cy:this.cy, r:pointRadius});   
  		   	} 		
 		}
 		
-		console.log( "Count of planets: " + locatedPoints.length );
+		console.log( "Count of planets: " + this.locatedPoints.length );
 										
-		locatedPoints.forEach(function(point){
+		this.locatedPoints.forEach(function(point){
 						        
         	// draw pointer        	
         	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
@@ -1836,13 +1838,19 @@
     																		 	 					 				 				 							
 			// overlap 				
 			startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+			endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+			overlapLine = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y); 				 			
+			overlapLine.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
+			overlapLine.setAttribute("stroke-width", astrology.SYMBOL_AXIS_STROKE);
+			wrapper.appendChild( overlapLine ); 	
+						
+			startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
 			endPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
 			overlapLine = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y); 				 			
 			overlapLine.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
 			overlapLine.setAttribute("stroke-width", astrology.SYMBOL_AXIS_STROKE);
-			wrapper.appendChild( overlapLine ); 				 				 			
-			
-											
+			wrapper.appendChild( overlapLine ); 
+						 				 																
 			// As
 		 	if(i == AS){ 
 		 		// Text
@@ -1894,8 +1902,14 @@
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
  			
  			// Lines 			 			 		 		
- 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift); 			
  			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 			
+ 			// line is collision with same planet
+ 			if( astrology.utils.isInCollision( this.data.cusps[i] + this.shift, this.locatedPoints) ){
+				endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO) * 2.2  ), this.data.cusps[i] + this.shift); 				
+ 			}
+ 			 			 			 
  			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
  			line.setAttribute("stroke", astrology.LINE_COLOR);		 			 			 	
  			line.setAttribute("stroke-width", astrology.CUSPS_STROKE); 			 						 			 			 			 
@@ -2322,6 +2336,20 @@
   		var totalRadii = circle1.r + circle2.r;
 		
 		return magnitude <= totalRadii; 
+	};
+	
+	/**
+	 * Check collision between angle and object 
+	 * 
+ 	 * @param {double} angle
+ 	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
+ 	 * @return {boolean} 	 
+	 */
+	astrology.utils.isInCollision = function(angle, point){
+		//TODO			
+		return false;
+		
+		// TODO call this in radix.drawAxis() too
 	};
 	
 	/**

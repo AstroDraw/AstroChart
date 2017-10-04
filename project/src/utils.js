@@ -128,6 +128,20 @@
 	};
 	
 	/**
+	 * Check collision between angle and object 
+	 * 
+ 	 * @param {double} angle
+ 	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
+ 	 * @return {boolean} 	 
+	 */
+	astrology.utils.isInCollision = function(angle, point){
+		//TODO			
+		return false;
+		
+		// TODO call this in radix.drawAxis() too
+	};
+	
+	/**
 	 * Places a new point in the located list 
 	 * 
  	 * @param {Array<Object>} locatedPoints, [{name:"Mars", x:123, y:123, r:50, ephemeris:45.96}, {name:"Sun", x:1234, y:1234, r:50, ephemeris:100.96}]
