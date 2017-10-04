@@ -23,7 +23,7 @@
 	astrology.MARGIN = 50; //px
 		
 	// Chart Padding  
-	astrology.PADDING = 10; //px
+	astrology.PADDING = 12; //px
 	
 	// Module wrapper element ID
 	astrology.ID_CHART = "astrology";
@@ -1757,6 +1757,7 @@
 		var lineRulerLength = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
 		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*lineRulerLength + astrology.PADDING);
 		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength);
+		var startPosition, endPosition;
 												
 		var locatedPoints = [];									
 		for (var planet in this.data.planets) {
@@ -1769,29 +1770,31 @@
 		}
 		
 		console.log( "Count of planets: " + locatedPoints.length );
-					
-					
+										
 		locatedPoints.forEach(function(point){
-			
-			// draw symbol						
-			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
-        	wrapper.appendChild( symbol );
-        	
+						        
         	// draw pointer        	
-        	var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
-        	var pointer = this.paper.circle( startPosition.x, startPosition.y, 1);
+        	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
+        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius-lineRulerLength/2, this.data.planets[point.name][0] + this.shift );
+        	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
         	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
-			pointer.setAttribute("stroke-width", 1);
+			pointer.setAttribute("stroke-width", astrology.CIRCLE_STRONG);
         	wrapper.appendChild(pointer);
         	
         	// draw pointer line
-        	// TODO var endPosition = astrology.utils.getPointPosition( );
-        	var line = this.paper.line( startPosition.x, startPosition.y, point.x, point.y);
-        	line.setAttribute("stroke", astrology.LINE_COLOR);	
-        	line.setAttribute("stroke-width", 1);
+        	if( !astrology.STROKE_ONLY && (this.data.planets[point.name][0] + this.shift) != point.angle){	        	
+	        	startPosition = endPosition;
+	        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointRadius+astrology.COLLISION_RADIUS, point.angle );
+	        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+	        	line.setAttribute("stroke", astrology.LINE_COLOR);	
+	        	line.setAttribute("stroke-width", 0.5);        	
+	        	wrapper.appendChild(line);
+        	}        	
         	
-        	wrapper.appendChild(line);
+        	// draw symbol						
+			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	wrapper.appendChild( symbol );
         	          						
 		}, this);		
 	};
@@ -2378,23 +2381,5 @@
 												
 		return locatedPoints;	
 	};
-	
-	/**
-	* Compare Function
-	* 
- 	* @param {Object} pointA, {name:"Venus", x:78, y:56, r:50, angle:15.96}
- 	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
-	*/
-	astrology.utils.comparePoints = function( pointA, pointB){
-		if (pointA.angle < pointB.angle){
-			return -1;	
-		}
-					
-		if (pointA.angle > pointB.angle){
-			return 1;
-		}
-					    
-		return 0;				
-	};
-										
+									
 }( window.astrology = window.astrology || {}));

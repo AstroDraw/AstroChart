@@ -193,23 +193,5 @@
 												
 		return locatedPoints;	
 	};
-	
-	/**
-	* Compare Function
-	* 
- 	* @param {Object} pointA, {name:"Venus", x:78, y:56, r:50, angle:15.96}
- 	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
-	*/
-	astrology.utils.comparePoints = function( pointA, pointB){
-		if (pointA.angle < pointB.angle){
-			return -1;	
-		}
-					
-		if (pointA.angle > pointB.angle){
-			return 1;
-		}
-					    
-		return 0;				
-	};
-										
+									
 }( window.astrology = window.astrology || {}));
