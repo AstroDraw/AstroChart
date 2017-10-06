@@ -26,7 +26,7 @@
 	astrology.MARGIN = 50; //px
 		
 	// Chart Padding  
-	astrology.PADDING = 30; //px
+	astrology.PADDING = 18; //px
 	
 	// Module wrapper element ID
 	astrology.ID_CHART = "astrology";
@@ -1909,7 +1909,7 @@
 		var universe = this.universe;
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_CUSPS);
 				
-		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.PADDING;
+		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + astrology.COLLISION_RADIUS;
 		var AS = 0;
 		var IC = 3;
 		var DC = 6;
