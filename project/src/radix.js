@@ -31,6 +31,8 @@
 		
 		// after calling this.drawPoints() it contains current position of point
 		this.locatedPoints = [];
+		this.rulerRadius = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/astrology.RULER_RADIUS);
+		this.pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*this.rulerRadius + astrology.PADDING);
 		
 		this.shift = 0;		
 		if(this.data.cusps && this.data.cusps[0]){
@@ -102,19 +104,16 @@
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
 		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.planets).length;
-		
-		// @see radix.drawRuler()
-		var lineRulerLength = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
-		var pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*lineRulerLength + astrology.PADDING);
-		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + lineRulerLength);
+					
+		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius);
 		var startPosition, endPosition;
 																					
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
  		   	 		   	 		   		 		   		
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, pointRadius, this.data.planets[planet][0] + this.shift); 		   	
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets[planet][0] + this.shift); 		   	
  		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:this.data.planets[planet][0] + this.shift, pointer:this.data.planets[planet][0] + this.shift}; 		   		
- 		   		this.locatedPoints = astrology.utils.assemble(this.locatedPoints, point, {cx:this.cx, cy:this.cy, r:pointRadius});   
+ 		   		this.locatedPoints = astrology.utils.assemble(this.locatedPoints, point, {cx:this.cx, cy:this.cy, r:this.pointRadius});   
  		   	} 		
 		}
 		
@@ -124,7 +123,7 @@
 						        
         	// draw pointer        	
         	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
-        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius-lineRulerLength/2, this.data.planets[point.name][0] + this.shift );
+        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius-this.rulerRadius/2, this.data.planets[point.name][0] + this.shift );
         	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
         	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
 			pointer.setAttribute("stroke-width", astrology.CIRCLE_STRONG);
@@ -133,7 +132,7 @@
         	// draw pointer line
         	if( !astrology.STROKE_ONLY && (this.data.planets[point.name][0] + this.shift) != point.angle){	        	
 	        	startPosition = endPosition;
-	        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointRadius+astrology.COLLISION_RADIUS, point.angle );
+	        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, this.pointRadius+astrology.COLLISION_RADIUS, point.angle );
 	        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
 	        	line.setAttribute("stroke", astrology.LINE_COLOR);	
 	        	line.setAttribute("stroke-width", 0.5);        	
@@ -145,6 +144,7 @@
         	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
         	wrapper.appendChild( symbol );
         	
+        	// TODO - add description to function
         	// draw angle        	        
         	var angle = this.paper.text( (Math.round(this.data.planets[point.name][0]) % 30).toString(), point.x + astrology.COLLISION_RADIUS/1.4, point.y - astrology.COLLISION_RADIUS, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
         	wrapper.appendChild( angle );
@@ -170,6 +170,7 @@
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
 		
 		var axisRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
+					
 		var AS = 0;
 		var IC = 3;
 		var DC = 6;
@@ -177,18 +178,30 @@
 		var overlapLine, 
 		startPosition, 
 		endPosition, 
-		line;
+		line,
+		lines;
 				
 		[AS,IC,DC,MC].forEach( function(i) {
-    																		 	 					 				 				 							
-			// overlap 				
-			startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
-			endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
-			overlapLine = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y); 				 			
-			overlapLine.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
-			overlapLine.setAttribute("stroke-width", astrology.SYMBOL_AXIS_STROKE);
-			wrapper.appendChild( overlapLine ); 	
-						
+										
+			// Draws a dashed line when an point is in the way
+			lines = astrology.utils.getDashedLinesPositions(
+				this.cx, 
+				this.cy, 
+				this.data.cusps[i] + this.shift, 
+				this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, 
+				this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius),
+				this.pointRadius,
+				this.locatedPoints
+				);
+				
+			lines.forEach(function(line){ 				
+				line = this.paper.line( line.startX, line.startY, line.endX, line.endY);
+				line.setAttribute("stroke", astrology.LINE_COLOR);		 			 			 	
+				line.setAttribute("stroke-width", astrology.SYMBOL_AXIS_STROKE); 			 						 			 			 			 
+		 		wrapper.appendChild( line );  				
+			}, this);
+    								    								    								    								    																		 	 					 				 				 			
+			// overlap 												
 			startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
 			endPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
 			overlapLine = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y); 				 			
@@ -234,6 +247,7 @@
 			return;
 		}
 		
+		var startPosition, endPosition, lines, line;
 		var universe = this.universe;
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_CUSPS);
 				
@@ -242,24 +256,28 @@
 		var IC = 3;
 		var DC = 6;
 		var MC = 9;	
-										
+											
 		//Cusps
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
  			
- 			// Lines 			 			 		 		
- 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift); 			
- 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
- 			
- 			// line is collision with same planet
- 			if( astrology.utils.isInCollision( this.data.cusps[i] + this.shift, this.locatedPoints) ){
-				endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO) * 2.2  ), this.data.cusps[i] + this.shift); 				
- 			}
- 			 			 			 
- 			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
- 			line.setAttribute("stroke", astrology.LINE_COLOR);		 			 			 	
- 			line.setAttribute("stroke-width", astrology.CUSPS_STROKE); 			 						 			 			 			 
- 		 	wrapper.appendChild( line ); 
- 		 	 		 	
+ 			// Draws a dashed line when an point is in the way
+ 			lines = astrology.utils.getDashedLinesPositions(
+ 				this.cx, 
+ 				this.cy, 
+ 				this.data.cusps[i] + this.shift, 
+ 				this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, 
+ 				this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius),
+ 				this.pointRadius,
+ 				this.locatedPoints
+ 				);
+ 				
+ 			lines.forEach(function(line){ 				
+ 				line = this.paper.line( line.startX, line.startY, line.endX, line.endY);
+ 				line.setAttribute("stroke", astrology.LINE_COLOR);		 			 			 	
+ 				line.setAttribute("stroke-width", astrology.CUSPS_STROKE); 			 						 			 			 			 
+ 		 		wrapper.appendChild( line );  				
+ 			}, this);	
+ 			 			 			 			 		 			 		 	 		
  		 	// Cup number  		 	
  		 	var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI );
  		 	var startOfCusp = this.data.cusps[i];
@@ -275,10 +293,7 @@
         circle = this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
         circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
 		circle.setAttribute("stroke-width", astrology.CUSPS_STROKE);		
-       	wrapper.appendChild( circle ); 
-       	
-         
-		
+       	wrapper.appendChild( circle );       	         
 	};
 	
 	/**
@@ -296,12 +311,11 @@
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_RULER);
 		
-		// Rays
-        var lineLength = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
-        var startRadius = (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO+lineLength));        
+		// Rays         
+        var startRadius = (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius));        
         for( i = 0, start = 0, step = 5; i < 72; i++ ){ 
             var startPosition = astrology.utils.getPointPosition( this.cx, this.cy, startRadius, start + this.shift );
-        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, startRadius + (i%2 == 0 ? lineLength : lineLength/2), start + this.shift);
+        	var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, startRadius + (i%2 == 0 ? this.rulerRadius : this.rulerRadius/2), start + this.shift);
        		var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);       		       		       
        		line.setAttribute("stroke", astrology.CIRCLE_COLOR);		 				 				 		
  			line.setAttribute("stroke-width", 1);       		

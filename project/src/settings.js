@@ -26,7 +26,7 @@
 	astrology.MARGIN = 50; //px
 		
 	// Chart Padding  
-	astrology.PADDING = 12; //px
+	astrology.PADDING = 30; //px
 	
 	// Module wrapper element ID
 	astrology.ID_CHART = "astrology";
@@ -72,6 +72,9 @@
 	
 	// radius - radius/INNER_CIRCLE_RADIUS_RATIO
 	astrology.INNER_CIRCLE_RADIUS_RATIO = 8;
+	
+	// ( radius / astrology.INNER_CIRCLE_RADIUS_RATIO ) / astrology.RULER_RADIUS 
+	astrology.RULER_RADIUS = 4;
 		
 	// Points
 	astrology.SYMBOL_SUN = "Sun";
@@ -149,7 +152,7 @@
 	astrology.SHIFT_IN_DEGREES = 180;
 	
 	// No fill, only stroke
-	astrology.STROKE_ONLY = true;
+	astrology.STROKE_ONLY = false;
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px

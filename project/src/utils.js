@@ -127,19 +127,6 @@
 		return magnitude <= totalRadii; 
 	};
 	
-	/**
-	 * Check collision between angle and object 
-	 * 
- 	 * @param {double} angle
- 	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
- 	 * @return {boolean} 	 
-	 */
-	astrology.utils.isInCollision = function(angle, point){
-		//TODO			
-		return false;
-		
-		// TODO call this in radix.drawAxis() too
-	};
 	
 	/**
 	 * Places a new point in the located list 
@@ -172,18 +159,24 @@
 		
 		var step = 1;
 		if( isCollision ){
-			
-			// it solves the problem with crossing over zero, for instance 359 > 3
-			var areNeighbors = Math.abs(locatedButInCollisionPoint.pointer - point.pointer) <= astrology.COLLISION_RADIUS;			 						 										    				  			  																															
-			if( areNeighbors && locatedButInCollisionPoint.pointer >= point.pointer ){
+																																																													 						 										    				  			  															
+			if( 
+				// solving problems with zero crossing										
+				(locatedButInCollisionPoint.pointer <= point.pointer && 
+				Math.abs(locatedButInCollisionPoint.pointer - point.pointer) < astrology.COLLISION_RADIUS) ||
+								
+				(locatedButInCollisionPoint.pointer >= point.pointer && 
+				Math.abs(locatedButInCollisionPoint.pointer - point.pointer) > astrology.COLLISION_RADIUS)			
+			){
 									
-				locatedButInCollisionPoint.angle += step;
-				point.angle -= step;
-											
-			}else{
 				locatedButInCollisionPoint.angle -= step;
-				point.angle += step;						
+				point.angle += step;																
+			}else{
+											
+				locatedButInCollisionPoint.angle += step;
+				point.angle -= step;						
 			}
+			
 													
 			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
 			locatedButInCollisionPoint.x = newPointPosition.x;
@@ -206,5 +199,70 @@
 		
 												
 		return locatedPoints;	
-	};								
+	};
+	
+	
+	/**
+	 * Check collision between angle and object 
+	 * 
+ 	 * @param {double} angle
+ 	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
+ 	 * @return {boolean} 	 
+	 */
+	astrology.utils.isInCollision = function(angle, points){		
+		var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+		var collisionRadius = astrology.COLLISION_RADIUS/2;
+		
+		var result = false;					
+		for(var i = 0, ln = points.length; i < ln ; i++ ){
+										
+			if( Math.abs(points[i].angle - angle) <= collisionRadius || 
+			(deg360 - Math.abs(points[i].angle - angle)) <= collisionRadius){
+				result = true;
+				break;
+			}					
+		}				
+					
+		return result;			
+	};
+		
+	/**
+	 * Calculates positions of the dashed line passing through the obstacle.
+	 * 	* 
+	 * @param {double} centerX
+	 * @param {double} centerY
+	 * @param {double} angle - line angle
+ 	 * @param {double} lineStartRadius
+ 	 * @param {double} lineEndRadius
+ 	 * @param {double} obstacleRadius 	
+ 	 * @param {Array<Object>} obstacles, [{x:456, y:456, r:60, angle:123}, ...]
+ 	 * 
+ 	 * @return {Array<Object>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
+	 */
+	astrology.utils.getDashedLinesPositions = function( centerX, centerY, angle, lineStartRadius, lineEndRadius, obstacleRadius, obstacles){
+		var startPos, endPos;
+		var result = [];	
+		
+		if( astrology.utils.isInCollision( angle, obstacles)){
+			
+			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
+			endPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius - astrology.COLLISION_RADIUS, angle);			
+			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );
+			
+			// the second part of the line when is space
+			if( (obstacleRadius + 2*astrology.COLLISION_RADIUS) < lineEndRadius){
+				startPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius + 2*astrology.COLLISION_RADIUS,angle); 			
+				endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);				
+				result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} ); 														
+			}					
+								
+		}else{
+			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
+			endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);
+			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );	
+		}	
+						
+		return result;		
+	};
+									
 }( window.astrology = window.astrology || {}));
