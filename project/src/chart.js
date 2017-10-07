@@ -49,14 +49,14 @@
 	astrology.Chart.prototype.radix = function( data ){
 								 	
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
-		radix.drawBg();
-				
+		
+		radix.drawBg();				
 		radix.drawUniverse();									
-		radix.drawRuler();
-										
+		radix.drawRuler();									
 		radix.drawPoints();
 		radix.drawCusps();		
 		radix.drawAxis();		
+		radix.drawCircles();		
 		 											
 		return radix;
 	 };

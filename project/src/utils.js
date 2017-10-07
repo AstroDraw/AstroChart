@@ -295,5 +295,31 @@
 						
 		return result;		
 	};
+	
+	/**
+	 * Calculate ruler positions.
+	 * 
+	 * @param {Double} centerX
+	 * @param {Double} centerY
+	 * @param {Double} radius
+	 * @param {Double} startAngle
+	 * @param {Boolean} isInner
+	 * 
+	 * @return {Array<Object>} [ {startX:1,startY:2, endX:3, endX:4 }, ...]
+	 */
+	astrology.utils.getRulerPositions = function( centerX, centerY, startRadius, endRadius, startAngle ){	
+		var result = [];
+		
+		for( i = 0, start = 0, step = 5; i < 72; i++ ){ 
+			    var angle = start + startAngle;
+			    var startPos = astrology.utils.getPointPosition( centerX, centerY, startRadius, angle);
+				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? endRadius : endRadius - Math.abs(endRadius-startRadius)/2), angle);				
+				result.push({startX:startPos.x,startY:startPos.y, endX:endPos.x, endY:endPos.y });				
+				
+				start += step;
+		} 
+												
+		return result;		
+	};
 									
 }( window.astrology = window.astrology || {}));
