@@ -66,8 +66,8 @@
 					mercury = {name:"Mercury", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
 																											
 					locatedPoints = astrology.utils.assemble([sun], mercury, universe);
-					equal( parseInt(locatedPoints[0].angle,10), -5); 
-					equal(parseInt(locatedPoints[1].angle,10), 7);
+					equal( parseInt(locatedPoints[0].angle,10), 7); 
+					equal(parseInt(locatedPoints[1].angle,10), -5);
 					equal(locatedPoints.length, 2);
 										
 					//---
@@ -78,16 +78,42 @@
 					locatedPoints = astrology.utils.assemble([sun, mercury], venus, universe);
 					
 					equal( locatedPoints[0].name, "Sun"); 
-					equal( parseInt(locatedPoints[0].angle,10), -11);
+					equal( parseInt(locatedPoints[0].angle,10), 13);
 					
 					equal( locatedPoints[1].name, "Mercury");
-					equal(parseInt(locatedPoints[1].angle,10), 13);
+					equal(parseInt(locatedPoints[1].angle,10), 1);
 					
 					equal( locatedPoints[2].name, "Venus");
-					equal(parseInt(locatedPoints[2].angle,10), 1);
+					equal(parseInt(locatedPoints[2].angle,10), -11);
 										
 					equal(locatedPoints.length, 3);					
-				});																
+				});
+				
+				test( "placePointsInCollision", function( ) {	
+					
+					var p1, p2;					
+					
+					p1 = {name:'Sun', pointer:1, angle:1};
+					p2 = {name:'Mercury', pointer:359, angle:1};					
+					astrology.utils.placePointsInCollision(p1, p2);					
+					deepEqual(p1, {name:'Sun', pointer:1, angle:2});
+					deepEqual(p2, {name:'Mercury', pointer:359, angle:0});
+					
+					p1 = {name:'Mercury', pointer:359, angle:1};
+					p2 = {name:'Sun', pointer:1, angle:1};										
+					astrology.utils.placePointsInCollision(p1, p2);					
+					deepEqual(p1, {name:'Mercury', pointer:359, angle:0});
+					deepEqual(p2, {name:'Sun', pointer:1, angle:2});
+					
+					p1 = {name:'Sun', pointer:10, angle:10};
+					p2 = {name:'Mercury', pointer:20, angle:10};					
+					astrology.utils.placePointsInCollision(p1, p2);					
+					deepEqual(p1, {name:'Sun', pointer:10, angle:9});
+					deepEqual(p2, {name:'Mercury', pointer:20, angle:11});
+																		
+				});
+				
+																				
 			};// onload
 		</script>
 	</head>

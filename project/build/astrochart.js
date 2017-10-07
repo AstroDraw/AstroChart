@@ -1801,21 +1801,18 @@
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
         	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
         	wrapper.appendChild( symbol );
-        	
-        	// TODO - add description to function
-        	// draw angle        	        
-        	var angle = this.paper.text( (Math.round(this.data.planets[point.name][0]) % 30).toString(), point.x + astrology.COLLISION_RADIUS/1.4, point.y - astrology.COLLISION_RADIUS, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
-        	wrapper.appendChild( angle );
-        	
-        	// draw point description
+        	        	        	        
+        	// draw point descriptions
+        	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
         	if( Array.isArray( this.data.planets[point.name][1] )){
-	        		this.data.planets[point.name][1].forEach(function(item, index){        		
-	        		var yPos = (point.y - astrology.COLLISION_RADIUS) + (astrology.COLLISION_RADIUS/1.4 * (index+1)); 
-	        		var item = this.paper.text( item, point.x + astrology.COLLISION_RADIUS/1.4, yPos, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
-	        		wrapper.appendChild( item );
-	        	}, this);
-        	}        	        
-        	        	          					
+        		textsToShow = textsToShow.concat( this.data.planets[point.name][1] );
+        	}   
+        	        	        	        	   
+        	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
+        	pointDescriptions.forEach(function(dsc){        		        		        		     
+				wrapper.appendChild( this.paper.text( dsc.text, dsc.x, dsc.y, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR) );	        		
+        	}, this);
+        	        	        	        	       	              	        	          			
 		}, this);		
 	};
 	
@@ -2257,6 +2254,27 @@
 	};
 	
 	/**
+	 * Calculates positions of the point description
+	 * 
+	 * @param {Object} point
+	 * @param {Array<String>} texts
+	 * 
+	 * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
+	 */
+	astrology.utils.getDescriptionPosition = function( point, texts ){
+		var RATION = 1.4;
+		var result = [];		
+		var posX = point.x + astrology.COLLISION_RADIUS/RATION;
+		var posY = point.y - astrology.COLLISION_RADIUS;
+		
+		texts.forEach(function(text, idx){						
+			result.push({text:text, x:posX, y:posY + (astrology.COLLISION_RADIUS/RATION * idx)});					
+		}, this);
+						
+		return result;
+	};
+	
+	/**
 	 * Checks a source data
 	 * @private
 	 * 
@@ -2384,28 +2402,11 @@
 				break;
 			}
 		}
-		
-		var step = 1;
+				
 		if( isCollision ){
-																																																													 						 										    				  			  															
-			if( 
-				// solving problems with zero crossing										
-				(locatedButInCollisionPoint.pointer <= point.pointer && 
-				Math.abs(locatedButInCollisionPoint.pointer - point.pointer) < astrology.COLLISION_RADIUS) ||
-								
-				(locatedButInCollisionPoint.pointer >= point.pointer && 
-				Math.abs(locatedButInCollisionPoint.pointer - point.pointer) > astrology.COLLISION_RADIUS)			
-			){
-									
-				locatedButInCollisionPoint.angle -= step;
-				point.angle += step;																
-			}else{
-											
-				locatedButInCollisionPoint.angle += step;
-				point.angle -= step;						
-			}
 			
-													
+			astrology.utils.placePointsInCollision(locatedButInCollisionPoint, point);
+																																																																 						 										    				  			  																													
 			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
 			locatedButInCollisionPoint.x = newPointPosition.x;
 			locatedButInCollisionPoint.y = newPointPosition.y;
@@ -2429,7 +2430,34 @@
 		return locatedPoints;	
 	};
 	
-	
+	/**
+	 * Sets the positions of two points that are in collision.
+	 * 
+	 * @param {Object} p1, {..., pointer:123, angle:456}
+	 * @param {Object} p2, {..., pointer:23, angle:56}
+	 */
+	astrology.utils.placePointsInCollision = function(p1, p2){
+		
+		var step = 1;
+		
+		if( 
+			// solving problems with zero crossing										
+			(p1.pointer <= p2.pointer && 
+			Math.abs(p1.pointer - p2.pointer) <= astrology.COLLISION_RADIUS) ||
+							
+			(p1.pointer >= p2.pointer && 
+			Math.abs(p1.pointer - p2.pointer) >= astrology.COLLISION_RADIUS)			
+		){
+								
+			p1.angle -= step;
+			p2.angle += step;																
+		}else{
+										
+			p1.angle += step;
+			p2.angle -= step;						
+		}			
+	};
+		
 	/**
 	 * Check collision between angle and object 
 	 * 

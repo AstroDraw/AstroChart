@@ -29,6 +29,27 @@
 	};
 	
 	/**
+	 * Calculates positions of the point description
+	 * 
+	 * @param {Object} point
+	 * @param {Array<String>} texts
+	 * 
+	 * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
+	 */
+	astrology.utils.getDescriptionPosition = function( point, texts ){
+		var RATION = 1.4;
+		var result = [];		
+		var posX = point.x + astrology.COLLISION_RADIUS/RATION;
+		var posY = point.y - astrology.COLLISION_RADIUS;
+		
+		texts.forEach(function(text, idx){						
+			result.push({text:text, x:posX, y:posY + (astrology.COLLISION_RADIUS/RATION * idx)});					
+		}, this);
+						
+		return result;
+	};
+	
+	/**
 	 * Checks a source data
 	 * @private
 	 * 
@@ -156,28 +177,11 @@
 				break;
 			}
 		}
-		
-		var step = 1;
+				
 		if( isCollision ){
-																																																													 						 										    				  			  															
-			if( 
-				// solving problems with zero crossing										
-				(locatedButInCollisionPoint.pointer <= point.pointer && 
-				Math.abs(locatedButInCollisionPoint.pointer - point.pointer) < astrology.COLLISION_RADIUS) ||
-								
-				(locatedButInCollisionPoint.pointer >= point.pointer && 
-				Math.abs(locatedButInCollisionPoint.pointer - point.pointer) > astrology.COLLISION_RADIUS)			
-			){
-									
-				locatedButInCollisionPoint.angle -= step;
-				point.angle += step;																
-			}else{
-											
-				locatedButInCollisionPoint.angle += step;
-				point.angle -= step;						
-			}
 			
-													
+			astrology.utils.placePointsInCollision(locatedButInCollisionPoint, point);
+																																																																 						 										    				  			  																													
 			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
 			locatedButInCollisionPoint.x = newPointPosition.x;
 			locatedButInCollisionPoint.y = newPointPosition.y;
@@ -201,7 +205,34 @@
 		return locatedPoints;	
 	};
 	
-	
+	/**
+	 * Sets the positions of two points that are in collision.
+	 * 
+	 * @param {Object} p1, {..., pointer:123, angle:456}
+	 * @param {Object} p2, {..., pointer:23, angle:56}
+	 */
+	astrology.utils.placePointsInCollision = function(p1, p2){
+		
+		var step = 1;
+		
+		if( 
+			// solving problems with zero crossing										
+			(p1.pointer <= p2.pointer && 
+			Math.abs(p1.pointer - p2.pointer) <= astrology.COLLISION_RADIUS) ||
+							
+			(p1.pointer >= p2.pointer && 
+			Math.abs(p1.pointer - p2.pointer) >= astrology.COLLISION_RADIUS)			
+		){
+								
+			p1.angle -= step;
+			p2.angle += step;																
+		}else{
+										
+			p1.angle += step;
+			p2.angle -= step;						
+		}			
+	};
+		
 	/**
 	 * Check collision between angle and object 
 	 * 

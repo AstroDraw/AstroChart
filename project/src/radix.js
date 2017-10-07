@@ -143,21 +143,18 @@
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
         	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
         	wrapper.appendChild( symbol );
-        	
-        	// TODO - add description to function
-        	// draw angle        	        
-        	var angle = this.paper.text( (Math.round(this.data.planets[point.name][0]) % 30).toString(), point.x + astrology.COLLISION_RADIUS/1.4, point.y - astrology.COLLISION_RADIUS, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
-        	wrapper.appendChild( angle );
-        	
-        	// draw point description
+        	        	        	        
+        	// draw point descriptions
+        	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
         	if( Array.isArray( this.data.planets[point.name][1] )){
-	        		this.data.planets[point.name][1].forEach(function(item, index){        		
-	        		var yPos = (point.y - astrology.COLLISION_RADIUS) + (astrology.COLLISION_RADIUS/1.4 * (index+1)); 
-	        		var item = this.paper.text( item, point.x + astrology.COLLISION_RADIUS/1.4, yPos, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR);
-	        		wrapper.appendChild( item );
-	        	}, this);
-        	}        	        
-        	        	          					
+        		textsToShow = textsToShow.concat( this.data.planets[point.name][1] );
+        	}   
+        	        	        	        	   
+        	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
+        	pointDescriptions.forEach(function(dsc){        		        		        		     
+				wrapper.appendChild( this.paper.text( dsc.text, dsc.x, dsc.y, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR) );	        		
+        	}, this);
+        	        	        	        	       	              	        	          			
 		}, this);		
 	};
 	
