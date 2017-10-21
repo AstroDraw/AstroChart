@@ -51,7 +51,7 @@
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
 		var end = 359.99; //degree 				
-		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius, start, end, this.radius+this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
+		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius+astrology.CIRCLE_STRONG/2, start, end, this.radius+this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
 		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
 		universe.appendChild( northernHemisphere );					
 	};
