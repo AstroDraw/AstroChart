@@ -57,6 +57,9 @@
 	
 	// Cusps wrapper element ID
 	astrology.ID_RULER = "ruler";
+	
+	// Background wrapper element ID
+	astrology.ID_BG = "bg";
 		
 	// Color of circles in charts
 	astrology.CIRCLE_COLOR = "#333";

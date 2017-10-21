@@ -47,16 +47,17 @@
 	 */
 	astrology.Transit.prototype.drawBg = function(){				
 		var universe = this.universe;		
+						
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_BG);	
 		
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
 		var end = 359.99; //degree 				
-		var northernHemisphere = this.paper.segment( this.cx, this.cy, this.radius+astrology.CIRCLE_STRONG/2, start, end, this.radius+this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
-		northernHemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
-		universe.appendChild( northernHemisphere );					
+		var hemisphere = this.paper.segment( this.cx, this.cy, this.radius+this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
+		hemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
+		wrapper.appendChild( hemisphere );							
 	};
-		
-		
+				
 	/**
 	 * Draw points
 	 */

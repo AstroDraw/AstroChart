@@ -53,14 +53,15 @@
 	 * Draw background
 	 */
 	astrology.Radix.prototype.drawBg = function(){				
-		var universe = this.universe;		
+		var universe = this.universe;	
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_BG);	
 		
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
 		var end = 359.99; //degree 				
 		var hemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
 		hemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
-		universe.appendChild( hemisphere );					
+		wrapper.appendChild( hemisphere );					
 	};
 		
 	/**
@@ -363,7 +364,7 @@
 	 */
 	astrology.Radix.prototype.transit = function( data ){
 		
-		// remove radix axis (As, Ds, Mc, Ic)
+		// remove axis (As, Ds, Mc, Ic) from radix
 		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
 		
 		var transit = new astrology.Transit(context, data);
