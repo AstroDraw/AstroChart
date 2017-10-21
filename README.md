@@ -11,7 +11,8 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - [Radix chart](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix.html)
 - [Radix 15. 11. 2016](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_2016_11_15.html)
 - [Radix collision](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_collision.html)
-- [Transit chart](#)
+- [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/transit/transit.html)
+- [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/transit/stroke_only.html)
 - [Interactive chart](#)
 
 ### How to use
@@ -44,7 +45,8 @@ var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
 
 ### TODO
-
+- aspects, orbit
+- planet animation
 
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)

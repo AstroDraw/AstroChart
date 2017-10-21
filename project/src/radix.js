@@ -362,9 +362,11 @@
 	 * @return {astrology.Transit} transit
 	 */
 	astrology.Radix.prototype.transit = function( data ){
-		var transit = new astrology.Transit(context, data);					
+		var transit = new astrology.Transit(context, data);
+		transit.drawBg();					
 		transit.drawPoints();		
 		transit.drawCusps();	
+		transit.drawRuler();
 			
 		transit.drawCircles();	
 		return transit; 

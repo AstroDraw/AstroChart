@@ -55,7 +55,7 @@
 		radix.drawRuler();									
 		radix.drawPoints();
 		radix.drawCusps();		
-		radix.drawAxis();		
+		//radix.drawAxis();	// TODO collision with transit ruler	
 		radix.drawCircles();		
 		 											
 		return radix;

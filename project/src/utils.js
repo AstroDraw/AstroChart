@@ -39,8 +39,8 @@
 	astrology.utils.getDescriptionPosition = function( point, texts ){
 		var RATION = 1.4;
 		var result = [];		
-		var posX = point.x + astrology.COLLISION_RADIUS/RATION;
-		var posY = point.y - astrology.COLLISION_RADIUS;
+		var posX = point.x + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE)  ;
+		var posY = point.y - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
 		
 		texts.forEach(function(text, idx){						
 			result.push({text:text, x:posX, y:posY + (astrology.COLLISION_RADIUS/RATION * idx)});					
@@ -301,19 +301,22 @@
 	 * 
 	 * @param {Double} centerX
 	 * @param {Double} centerY
-	 * @param {Double} radius
-	 * @param {Double} startAngle
-	 * @param {Boolean} isInner
+	 * @param {Double} startRadius
+	 * @param {Double} endRadius
+	 * @param {Boolean} startAngle
 	 * 
 	 * @return {Array<Object>} [ {startX:1,startY:2, endX:3, endX:4 }, ...]
 	 */
 	astrology.utils.getRulerPositions = function( centerX, centerY, startRadius, endRadius, startAngle ){	
 		var result = [];
 		
+		var rayRadius = endRadius;
+		var halfRayRadius = (startRadius <= endRadius) ? rayRadius - (Math.abs(endRadius-startRadius)/2): rayRadius + (Math.abs(endRadius-startRadius)/2); 
+		
 		for( i = 0, start = 0, step = 5; i < 72; i++ ){ 
 			    var angle = start + startAngle;
 			    var startPos = astrology.utils.getPointPosition( centerX, centerY, startRadius, angle);
-				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? endRadius : endRadius - Math.abs(endRadius-startRadius)/2), angle);				
+				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? rayRadius : halfRayRadius), angle);				
 				result.push({startX:startPos.x,startY:startPos.y, endX:endPos.x, endY:endPos.y });				
 				
 				start += step;
