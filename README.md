@@ -8,12 +8,12 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - Tested code.
 
 ### Example
-- [Radix chart](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix.html)
-- [Radix 15. 11. 2016](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_2016_11_15.html)
-- [Radix collision](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_collision.html)
-- [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/transit/transit.html)
-- [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/transit/stroke_only.html)
-- [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/debug/calibration.html)
+- [Radix chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/radix/radix.html)
+- [Radix 15. 11. 2016](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/radix/radix_2016_11_15.html)
+- [Radix collision](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/radix/radix_collision.html)
+- [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/transit.html)
+- [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/stroke_only.html)
+- [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/debug/calibration.html)
 - [Interactive chart](#)
 
 ### How to use
