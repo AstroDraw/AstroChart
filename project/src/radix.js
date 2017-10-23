@@ -126,7 +126,7 @@
         	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius-this.rulerRadius/2, this.data.planets[point.name][0] + this.shift );
         	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
         	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
-			pointer.setAttribute("stroke-width", astrology.CIRCLE_STRONG);
+			pointer.setAttribute("stroke-width", 1);
         	wrapper.appendChild(pointer);
         	
         	// draw pointer line

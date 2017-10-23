@@ -1840,7 +1840,7 @@
         	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius-this.rulerRadius/2, this.data.planets[point.name][0] + this.shift );
         	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
         	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
-			pointer.setAttribute("stroke-width", astrology.CIRCLE_STRONG);
+			pointer.setAttribute("stroke-width", 1);
         	wrapper.appendChild(pointer);
         	
         	// draw pointer line
@@ -2171,7 +2171,7 @@
         	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius+this.rulerRadius/2, this.data.planets[point.name][0] + this.shift );
         	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
         	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
-			pointer.setAttribute("stroke-width", astrology.CIRCLE_STRONG);
+			pointer.setAttribute("stroke-width", 1);
         	wrapper.appendChild(pointer);
         	
         	// draw pointer line
@@ -2243,7 +2243,7 @@
 		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
 			// Lines 			 			 		 		
  			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, this.data.cusps[i] + this.shift);
+ 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius , this.data.cusps[i] + this.shift);
  			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
  			line.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
  			line.setAttribute("stroke-width", astrology.CUSPS_STROKE); 
