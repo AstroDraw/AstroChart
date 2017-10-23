@@ -685,7 +685,7 @@
 		
 		// center symbol
 		var xShift = 3; //px						
-		var yShift = 4; //px		
+		var yShift = 5; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
