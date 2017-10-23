@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Radix</title>  
+        <style>
+        	body{
+        		background:#999;
+        	}
+        </style>                   
+    </head>
+    <body>    	        	    	   
+        <div id="paper"></div>
+                                      
+        <script src="../../build/astrochart.js"></script>
+        <script type="text/javascript"> 
+        
+        												     
+        	window.onload = function () {
+            	
+            	var color= "#eee";
+            	var chart = new astrology.Chart('paper', 2000, 2000, {MARGIN:120, SYMBOL_SCALE:1, STROKE_ONLY:true, LINE_COLOR:color, CIRCLE_STRONG:1, CIRCLE_COLOR:color});  
+				chart.calibrate();								
+			};
+		</script>		    
+    </body>
+</html>

@@ -69,5 +69,58 @@
 	astrology.Chart.prototype.scale = function( factor ){			
 		this.paper.root.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
 	};
+	
+	/**
+	 * Draw the symbol on the axis.
+	 * For debug only.
+	 * 	
+	 */
+	astrology.Chart.prototype.calibrate = function calibrate(){
+		var positions, circle, line;
+		var startRadius = 60;
+		
+		var planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Chiron", "Lilith", "NNode"];
+		
+		for(var i = 0; i < planets.length; i++){		
+			positions = astrology.utils.getPointPosition(this.cx, this.cy, this.radius*2, i * 30 );
+			
+			line = this.paper.line(this.cx, this.cy, positions.x, positions.y);
+			line.setAttribute("stroke", astrology.LINE_COLOR);	
+			this.paper.root.appendChild( line);
+			
+			circle = this.paper.circle(this.cx, this.cy, startRadius + startRadius * i );
+			circle.setAttribute("stroke", astrology.LINE_COLOR);		 
+			circle.setAttribute("stroke-width", 1);
+			this.paper.root.appendChild( circle );
+						
+		}
+		
+		
+		
+		
+		for(var n = 0, ln = planets.length; n < ln; n++){
+			
+			var radius = startRadius + startRadius*n; 
+			
+			for(var i = 0; i < 12; i++){
+				positions = astrology.utils.getPointPosition(this.cx, this.cy, radius, i * 30 );
+			
+				circle = this.paper.circle(positions.x, positions.y, astrology.COLLISION_RADIUS *astrology.SYMBOL_SCALE );
+				circle.setAttribute("stroke", "red");		 
+				circle.setAttribute("stroke-width", 1);
+				this.paper.root.appendChild( circle );
+							
+				this.paper.root.appendChild( this.paper.getSymbol( planets[n], positions.x, positions.y));	
+			}
+		
+		}
+		
+		
+				
+		
+				
+		return this;		
+	};
+	
 	 		  
 }( window.astrology = window.astrology || {}));

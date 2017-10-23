@@ -13,6 +13,7 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - [Radix collision](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/radix/radix_collision.html)
 - [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/transit/transit.html)
 - [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/transit/stroke_only.html)
+- [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/dev/project/examples/debug/calibration.html)
 - [Interactive chart](#)
 
 ### How to use

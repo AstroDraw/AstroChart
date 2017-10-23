@@ -335,21 +335,7 @@
 		circle.setAttribute("stroke-width", astrology.CIRCLE_STRONG);
         wrapper.appendChild( circle );  	       	       	       	       	   
 	};
-		
-	/**
-	 * Draw the symbol on the axis.
-	 * For debug only.
-	 * 
-	 * @param {String} name - name of symbol
-	 */
-	astrology.Radix.prototype.calibrate = function calibrate( name ){		
-		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx - this.radius, this.cy));
-		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx + this.radius, this.cy));
-		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx, this.cy + this.radius));
-		this.paper.root.appendChild( this.paper.getSymbol( name, this.cx, this.cy - this.radius));
-		return this;		
-	};
-		
+			
 	/**
 	 * Display transit horoscope
 	 * 

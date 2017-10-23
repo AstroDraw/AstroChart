@@ -222,8 +222,8 @@
 	function moon( x, y ){
 		
 		// center symbol
-		var xShift = -5; //px						
-		var yShift = -8; //px		
+		var xShift = -2; //px						
+		var yShift = -7; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -252,7 +252,7 @@
 	function mercury( x, y ){
 		
 		// center symbol
-		var xShift = -3; //px						
+		var xShift = -2; //px						
 		var yShift = 8; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
@@ -292,8 +292,8 @@
 	function venus( x, y ){
 		
 		// center symbol
-		var xShift = -1; //px						
-		var yShift = -6; //px		
+		var xShift = 0; //px						
+		var yShift = -8; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -323,7 +323,7 @@
 		
 		// center symbol
 		var xShift = -1; //px						
-		var yShift = -5; //px		
+		var yShift = -4; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -352,8 +352,8 @@
 	function jupiter( x, y ){
 		
 		// center symbol
-		var xShift = -7; //px						
-		var yShift = -3; //px		
+		var xShift = -6; //px						
+		var yShift = -2; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -413,7 +413,7 @@
 		
 		// center symbol
 		var xShift = -6; //px						
-		var yShift = -6; //px		
+		var yShift = -7; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -453,7 +453,7 @@
 		
 		// center symbol
 		var xShift = 3; //px						
-		var yShift = -7; //px		
+		var yShift = -5; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -482,8 +482,8 @@
 	function pluto( x, y ){
 		
 		// center symbol
-		var xShift = 6; //px						
-		var yShift = -6; //px		
+		var xShift = 5; //px						
+		var yShift = -5; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
@@ -561,7 +561,7 @@
 	function lilith( x, y ){
 		
 		// center symbol
-		var xShift = 3; //px						
+		var xShift = 1; //px						
 		var yShift = 5; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
@@ -591,7 +591,7 @@
 	function nnode( x, y ){
 		
 		// center symbol
-		var xShift = -4; //px						
+		var xShift = -2; //px						
 		var yShift = 3; //px		
 		x =  Math.round(x + (xShift * astrology.SYMBOL_SCALE));
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
