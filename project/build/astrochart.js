@@ -159,6 +159,15 @@
 	
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px
+	
+	// Aspects
+	//Define: { NAME:[DEGREE, ORBIT] }
+	astrology.ASPECTS = [
+					{"conjunction":[0,10]},
+					{"square":[90,8]},
+					{"trine":[120,8]},
+					{"opposition":[180,10]}
+						];	
 		       	      
 }( window.astrology = window.astrology || {}));
 // ## SVG #####################
@@ -1860,8 +1869,8 @@
         	        	        	        
         	// draw point descriptions
         	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
-        	if( Array.isArray( this.data.planets[point.name][1] )){
-        		textsToShow = textsToShow.concat( this.data.planets[point.name][1] );
+        	if( Array.isArray( this.data.planets[point.name][2] )){
+        		textsToShow = textsToShow.concat( this.data.planets[point.name][2] );
         	}   
         	        	        	        	   
         	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
@@ -2191,8 +2200,8 @@
         	        	        	        
         	// draw point descriptions
         	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
-        	if( Array.isArray( this.data.planets[point.name][1] )){
-        		textsToShow = textsToShow.concat( this.data.planets[point.name][1] );
+        	if( Array.isArray( this.data.planets[point.name][2] )){
+        		textsToShow = textsToShow.concat( this.data.planets[point.name][2] );
         	}   
         	        	        	        	   
         	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
@@ -2302,6 +2311,94 @@
 		// TODO
 	};
 				
+}( window.astrology = window.astrology || {}));
+
+// ## Transit chart ###################################
+(function( astrology ) {
+		
+	var context;
+    
+	/**
+	 * Aspects calculator
+	 * 
+	 * @class
+	 * @public
+	 * @constructor
+ 	 * @param {Object} radixData 
+	 * @param {Object | null } transitData
+	 * @param {Object | null } settings
+	 */
+	astrology.AspectCalculator = function( radixData, transitData, settings ){
+		
+		this.settings = settings || {};
+		this.settings.type = settings.type || TRANSIT_TYPE;
+		
+		this.radix = radixData;
+		this.transit = transitData;
+				
+		if( !this.transit ){
+			this.transit = radixData;
+			this.settings.type = RADIX_TYPE;
+		}
+																																							
+		context = this; 
+												
+		return this;
+	};
+	
+	/**
+ 	* Radix to Radix calculation type
+ 	* @constant
+ 	* @type {String}
+ 	*/	
+	astrology.AspectCalculator.RADIX_TYPE = "radixToRadix";
+	
+	/**
+ 	* Radix to Transit calculation type
+ 	* @constant
+ 	* @type {String}
+ 	*/	
+	astrology.AspectCalculator.TRANSIT_TYPE = "radixToTransit";
+				
+	/**
+	 * Calculate Aspects
+	 * @public
+	 * @return {Object} {"Sun":[ {"aspect":"conjunction", "degree":0, "precision":0.5, "transitPlanet":"Moon"}]}
+	 */
+	astrology.AspectCalculator.prototype.aspects = function(){
+		
+		switch ( this.settings.type ) {
+	  		case astrology.AspectCalculator.TRANSIT_TYPE:
+	    		return calculateRadixToTransit();
+	    		break;
+	  		
+	  		case astrology.AspectCalculator.RADIX_TYPE:
+	    		return calculateRadixToRadix();
+	    		break;
+	 
+	 		default:
+	    		throw new Error( "Unknown aspect type: " + this.settings.type );
+		}	
+	};
+	
+	/*
+	 * @private
+	 * @return {Object}
+	 * @see astrology.Transit.prototype.aspects
+	 */
+	function calculateRadixToRadix(){
+		return []
+	}
+	
+	/*
+	 * @private
+	 * @return {Object}
+	 * @see astrology.Transit.prototype.aspects
+	 */
+	function calculateRadixToTransit(){
+		return []	
+	}
+	
 }( window.astrology = window.astrology || {}));
 
 // ## UTILS #############################

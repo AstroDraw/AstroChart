@@ -111,8 +111,8 @@
         	        	        	        
         	// draw point descriptions
         	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
-        	if( Array.isArray( this.data.planets[point.name][1] )){
-        		textsToShow = textsToShow.concat( this.data.planets[point.name][1] );
+        	if( Array.isArray( this.data.planets[point.name][2] )){
+        		textsToShow = textsToShow.concat( this.data.planets[point.name][2] );
         	}   
         	        	        	        	   
         	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
