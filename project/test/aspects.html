@@ -9,16 +9,19 @@
 		
 		<script>
 			window.onload = function( ) {							
-				test( "radixToRadix", function( ) {										
+				test( "radix", function( ) {										
 					
-					var data = {
-						"planets":{"Sun":[0], "Moon":[90], "Neptune":[120, -0.2]}
+					var radixData = {
+						"Sun":[0], 
+						"Moon":[90], 
+						"Neptune":[120, -0.2]
 					};
 					
-					var calculator = new astrology.AspectCalculator(data, data, {type: astrology.AspectCalculator.RADIX_TYPE });
-												
-					deepEqual(calculator.aspects(), {"Sun":[{"aspect":"square", "precision":0, "transitPlanet":"Moon"},
-															{"aspect":"trine", "precision":0, "transitPlanet":"Neptune"}]} );					
+					var calculator = new astrology.AspectCalculator( radixData );
+																				
+					deepEqual(calculator.radix(), [
+						{"aspect":"square", "precision":0, "planet":"Sun", "toPlanet":"Moon"},
+													] );					
 				});	
 																													
 			};// onload

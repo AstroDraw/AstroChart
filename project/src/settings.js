@@ -161,12 +161,7 @@
 	astrology.COLLISION_RADIUS = 10; //px
 	
 	// Aspects
-	//Define: { NAME:[DEGREE, ORBIT] }
-	astrology.ASPECTS = [
-					{"conjunction":[0,10]},
-					{"square":[90,8]},
-					{"trine":[120,8]},
-					{"opposition":[180,10]}
-						];	
+	//Define > NAME:[DEGREE, ORBIT] 
+	astrology.ASPECTS = { "conjunction":[0,10], "square":[90,8], "trine":[120,8],"opposition":[180,10]};	
 		       	      
 }( window.astrology = window.astrology || {}));

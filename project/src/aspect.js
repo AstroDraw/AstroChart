@@ -8,80 +8,87 @@
 	 * 
 	 * @class
 	 * @public
-	 * @constructor
- 	 * @param {Object} radixData 
-	 * @param {Object | null } transitData
+	 * @constructor 	 
+	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120, -0.2], "As":[30]}
 	 * @param {Object | null } settings
 	 */
-	astrology.AspectCalculator = function( radixData, transitData, settings ){
+	astrology.AspectCalculator = function( points, settings ){
 		
-		this.settings = settings || {};
-		this.settings.type = settings.type || TRANSIT_TYPE;
-		
-		this.radix = radixData;
-		this.transit = transitData;
-				
-		if( !this.transit ){
-			this.transit = radixData;
-			this.settings.type = RADIX_TYPE;
-		}
-																																							
+		this.settings = settings || {}; 			
+		this.points = points;
+																																												
 		context = this; 
-												
+												 
 		return this;
 	};
 	
 	/**
- 	* Radix to Radix calculation type
- 	* @constant
- 	* @type {String}
- 	*/	
-	astrology.AspectCalculator.RADIX_TYPE = "radixToRadix";
-	
-	/**
- 	* Radix to Transit calculation type
- 	* @constant
- 	* @type {String}
- 	*/	
-	astrology.AspectCalculator.TRANSIT_TYPE = "radixToTransit";
-				
-	/**
-	 * Calculate Aspects
-	 * @public
-	 * @return {Object} {"Sun":[ {"aspect":"conjunction", "degree":0, "precision":0.5, "transitPlanet":"Moon"}]}
+	 * Radix aspects
+	 *
+	 * @return {Array<Object>} [{"aspect":"conjunction", "point":"Sun", "toPoint":"Moon", "precision":0.5}]]
 	 */
-	astrology.AspectCalculator.prototype.aspects = function(){
+	astrology.AspectCalculator.prototype.radix = function(){
 		
-		switch ( this.settings.type ) {
-	  		case astrology.AspectCalculator.TRANSIT_TYPE:
-	    		return calculateRadixToTransit();
-	    		break;
-	  		
-	  		case astrology.AspectCalculator.RADIX_TYPE:
-	    		return calculateRadixToRadix();
-	    		break;
-	 
-	 		default:
-	    		throw new Error( "Unknown aspect type: " + this.settings.type );
-		}	
+		var aspects = [];
+		
+		for (var point in this.points) {
+ 		   if (this.points.hasOwnProperty( point )) {
+ 		   	 		   	 		   
+ 		   	for (var toPoint in this.points) {
+ 		   		if (this.points.hasOwnProperty( toPoint )) { 		   			 		   			 		   		
+ 		   			if( point != toPoint){ 		   				 		   			 		   			 		   
+	 		   			for(var aspect in astrology.ASPECTS){ 		   				
+	 		   				if(hasAspect( this.points[point], this.points[toPoint], astrology.ASPECTS[aspect])){
+	 		   						
+	 		   					aspects.push(
+	 		   								{
+	 		   								"aspect":aspect, 
+	 		   								"precision":calcPrecision(this.points[point], this.points[toPoint], astrology.ASPECTS[aspect]), 
+	 		   								"point":point, 
+	 		   								"toPoint":toPoint
+	 		   								}
+	 		   							)
+	 		   				}
+	 		   				
+	 		   			}
+ 		   			} 		   		 		   						 
+ 		   		} 		   		
+ 		   	} 		   	 		   	 		  
+ 		   } 		
+ 		}
+		 
+		return aspects;
+	}; 
+			
+	/**
+	 * Transit aspects
+	 *
+	 * @return {Array<Object>} [{"aspect":"conjunction", "point":"Sun", "toPoint":"Moon", "precision":0.5}]]
+	 */
+	astrology.AspectCalculator.prototype.transit = function( transitData ){		
+		return [{a:1}];
 	};
 	
 	/*
-	 * @private
-	 * @return {Object}
-	 * @see astrology.Transit.prototype.aspects
+	* @private
+ 	* @param {double} point
+ 	* @param {double} toPoint
+ 	* @param {Array} aspects; [DEGREE, ORBIT]
 	 */
-	function calculateRadixToRadix(){
-		return []
+	function hasAspect(point, toPoint, aspect){
+		return true;	
 	}
 	
 	/*
-	 * @private
-	 * @return {Object}
-	 * @see astrology.Transit.prototype.aspects
+	* @private 
+ 	* @param {Object} point; [ANGLE, SPEED]
+ 	* @param {Object} toPoint; [ANGLE, SPEED]
+ 	* @param {Array} aspect;  [DEGREE, ORBIT]
 	 */
-	function calculateRadixToTransit(){
-		return []	
+	function calcPrecision(point, toPoint, aspect){
+		return 0.1;
 	}
-	
+		
 }( window.astrology = window.astrology || {}));
+
+
