@@ -11,17 +11,74 @@
 			window.onload = function( ) {							
 				test( "radix", function( ) {										
 					
-					var radixData = {
+					var toPoints = {
 						"Sun":[0], 
-						"Moon":[90], 
-						"Neptune":[120, -0.2]
+						"Moon":[91], 
+						"Neptune":[122],
+						"As":[330],
+						"Ic":[90]
 					};
 					
-					var calculator = new astrology.AspectCalculator( radixData );
+					var points = {
+						"Sun":[0], 
+						"Moon":[91], 
+						"Neptune":[122]						
+					}
+					
+					var settings = {};
+					settings.aspects = { 
+							"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
+							"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+							"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
+							"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
+						};
+					
+					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.radix(), [
-						{"aspect":"square", "precision":0, "planet":"Sun", "toPlanet":"Moon"},
-													] );					
+					deepEqual(calculator.radix( points ), [
+								 {
+								    "name": "square",
+								    "point": "Sun",
+								    "precision": 1,
+								    "toPoint": "Moon"
+								  },
+								  {
+								    "name": "trine",
+								    "point": "Sun",
+								    "precision": 2,
+								    "toPoint": "Neptune"
+								  },
+								  {
+								    "name": "square",
+								    "point": "Sun",
+								    "precision": 0,
+								    "toPoint": "Ic"
+								  },
+								  {
+								    "name": "square",
+								    "point": "Moon",
+								    "precision": 1,
+								    "toPoint": "Sun"
+								  },
+								  {
+								    "name": "trine",
+								    "point": "Moon",
+								    "precision": 119,
+								    "toPoint": "As"
+								  },
+								  {
+								    "name": "conjunction",
+								    "point": "Moon",
+								    "precision": 1,
+								    "toPoint": "Ic"
+								  },
+								  {
+								    "name": "trine",
+								    "point": "Neptune",
+								    "precision": 2,
+								    "toPoint": "Sun"
+								  }
+															] );					
 				});	
 																													
 			};// onload

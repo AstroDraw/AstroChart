@@ -34,16 +34,25 @@
 		this.rulerRadius = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/astrology.RULER_RADIUS);
 		this.pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*this.rulerRadius + astrology.PADDING);
 		
+		//@see astrology.Radix.prototype.aspects()
+		//@see astrology.Radix.prototype.setPointsOfInterest() 
+        this.toPoints = this.data.planets;
+		
 		this.shift = 0;		
 		if(this.data.cusps && this.data.cusps[0]){
 			var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
 			this.shift = deg360 - this.data.cusps[0];	
 		}	
+		
+		// preparing wrapper for aspects. It is the lowest layer
+		var divisionForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
+		divisionForAspects.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		this.paper.root.appendChild( divisionForAspects );
 				
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
 		this.universe.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX);
 		this.paper.root.appendChild( this.universe );
-		
+						
 		context = this;
 			
 		return this;
@@ -278,11 +287,57 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Radix.prototype.aspects = function(){		
-		// TODO
+	astrology.Radix.prototype.aspects = function(){
+					
+		if(!this.data.planets){
+			return context;	
+		}
+							
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		
+		var points  = this.data.planets;
+		var toPoints = this.toPoints;		
+								
+		var calculator = new astrology.AspectCalculator( toPoints );
+		
+		var aspectsList = calculator.radix( points );
+					
+		var duplicateCheck = [];
+		
+		for(var i = 0, ln = aspectsList.length; i < ln; i++){
+			
+			var key 		= aspectsList[i].name + "-" + aspectsList[i].point + "-" + aspectsList[i].toPoint;
+			var opositeKey	= aspectsList[i].name + "-" + aspectsList[i].toPoint + "-" + aspectsList[i].point;									
+			if( duplicateCheck.indexOf( opositeKey ) == -1 ){			
+				duplicateCheck.push( key );
+										
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].point][0] +this.shift );
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].toPoint][0]+this.shift);
+									
+				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke-width", 1);       		
+				wrapper.appendChild( line );			
+			}
+		}         
 		         
         // this
         return context;
+	};
+	
+	/**
+	 * Add points of interest for aspects calculation
+	 * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]} 
+	 * @see (astrology.AspectCalculator( toPoints) )
+	 */
+	astrology.Radix.prototype.addPointsOfInterest = function( points ){
+		
+		for(point in points){
+			this.toPoints[ point ] = points[point]; 	
+		}
+						
+        return context;	
 	};
 		
 	astrology.Radix.prototype.drawRuler = function drawRuler(){

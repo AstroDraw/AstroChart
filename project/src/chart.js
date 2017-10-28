@@ -28,7 +28,7 @@
 		this.cx = this.paper.width/2;
 		this.cy = this.paper.height/2;
 		this.radius = this.paper.height/2 - astrology.MARGIN;
-			
+						
 		return this;
 	};
 	
@@ -47,7 +47,7 @@
 	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
-								 	
+												
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		
 		radix.drawBg();				
@@ -56,8 +56,8 @@
 		radix.drawPoints();
 		radix.drawCusps();		
 		radix.drawAxis();	 
-		radix.drawCircles();		
-		 											
+		radix.drawCircles();
+										 							
 		return radix;
 	 };
 	 	
@@ -94,10 +94,7 @@
 			this.paper.root.appendChild( circle );
 						
 		}
-		
-		
-		
-		
+						
 		for(var n = 0, ln = planets.length; n < ln; n++){
 			
 			var radius = startRadius + startRadius*n; 
@@ -114,13 +111,8 @@
 			}
 		
 		}
-		
-		
-				
-		
-				
+											
 		return this;		
 	};
-	
-	 		  
+		 		  
 }( window.astrology = window.astrology || {}));

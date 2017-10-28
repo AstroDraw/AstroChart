@@ -160,8 +160,12 @@
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px
 	
-	// Aspects
-	//Define > NAME:[DEGREE, ORBIT] 
-	astrology.ASPECTS = { "conjunction":[0,10], "square":[90,8], "trine":[120,8],"opposition":[180,10]};	
+	// Aspects	
+	astrology.ASPECTS = { 
+		"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
+		"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+		"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
+		"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
+		};	
 		       	      
 }( window.astrology = window.astrology || {}));

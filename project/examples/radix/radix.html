@@ -16,13 +16,17 @@
         <script type="text/javascript"> 
         
         	var data = {
-				"planets":{"Lilith":[18], "Chiron":[35], "Pluto":[63], "Neptune":[110, 0.2, ['R', 'D']], "Uranus":[128], "Saturn":[156], "Jupiter":[192], "Mars":[210], "Moon":[268], "Sun":[281], "Mercury":[312], "Venus":[330], "NNode":[2]},
+				"planets":{"Lilith":[18], "Chiron":[18], "Pluto":[63], "Neptune":[110, 0.2, ['R', 'D']], "Uranus":[128], "Saturn":[156], "Jupiter":[192], "Mars":[210], "Moon":[268], "Sun":[281], "Mercury":[312], "Venus":[330], "NNode":[2]},
 				"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]			
 			};
 												      
-        	window.onload = function () {
-            	var chart = new astrology.Chart('paper', 600, 600);  
-				chart.radix( data ).aspects();									
+        	window.onload = function () {            	     
+				var radix = new astrology.Chart('paper', 600, 600).radix( data );
+								
+				// Aspect calculation
+				// add some points
+				radix.addPointsOfInterest( {"As":[data.cusps[0]],"Ic":[data.cusps[3]],"Ds":[data.cusps[6]],"Mc":[data.cusps[9]]});				
+				radix.aspects();												
 			};
 		</script>		    
     </body>

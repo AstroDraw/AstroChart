@@ -160,9 +160,13 @@
 	// Planets collision circle radius
 	astrology.COLLISION_RADIUS = 10; //px
 	
-	// Aspects
-	//Define > NAME:[DEGREE, ORBIT] 
-	astrology.ASPECTS = { "conjunction":[0,10], "square":[90,8], "trine":[120,8],"opposition":[180,10]};	
+	// Aspects	
+	astrology.ASPECTS = { 
+		"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
+		"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+		"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
+		"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
+		};	
 		       	      
 }( window.astrology = window.astrology || {}));
 // ## SVG #####################
@@ -1619,7 +1623,7 @@
 		this.cx = this.paper.width/2;
 		this.cy = this.paper.height/2;
 		this.radius = this.paper.height/2 - astrology.MARGIN;
-			
+						
 		return this;
 	};
 	
@@ -1638,7 +1642,7 @@
 	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){
-								 	
+												
 		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
 		
 		radix.drawBg();				
@@ -1647,8 +1651,8 @@
 		radix.drawPoints();
 		radix.drawCusps();		
 		radix.drawAxis();	 
-		radix.drawCircles();		
-		 											
+		radix.drawCircles();
+										 							
 		return radix;
 	 };
 	 	
@@ -1685,10 +1689,7 @@
 			this.paper.root.appendChild( circle );
 						
 		}
-		
-		
-		
-		
+						
 		for(var n = 0, ln = planets.length; n < ln; n++){
 			
 			var radius = startRadius + startRadius*n; 
@@ -1705,15 +1706,10 @@
 			}
 		
 		}
-		
-		
-				
-		
-				
+											
 		return this;		
 	};
-	
-	 		  
+		 		  
 }( window.astrology = window.astrology || {}));
 
 // ## Radix chart ###################################
@@ -1752,16 +1748,25 @@
 		this.rulerRadius = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/astrology.RULER_RADIUS);
 		this.pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*this.rulerRadius + astrology.PADDING);
 		
+		//@see astrology.Radix.prototype.aspects()
+		//@see astrology.Radix.prototype.setPointsOfInterest() 
+        this.toPoints = this.data.planets;
+		
 		this.shift = 0;		
 		if(this.data.cusps && this.data.cusps[0]){
 			var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
 			this.shift = deg360 - this.data.cusps[0];	
 		}	
+		
+		// preparing wrapper for aspects. It is the lowest layer
+		var divisionForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
+		divisionForAspects.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		this.paper.root.appendChild( divisionForAspects );
 				
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
 		this.universe.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX);
 		this.paper.root.appendChild( this.universe );
-		
+						
 		context = this;
 			
 		return this;
@@ -1996,11 +2001,57 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Radix.prototype.aspects = function(){		
-		// TODO
+	astrology.Radix.prototype.aspects = function(){
+					
+		if(!this.data.planets){
+			return context;	
+		}
+							
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		
+		var points  = this.data.planets;
+		var toPoints = this.toPoints;		
+								
+		var calculator = new astrology.AspectCalculator( toPoints );
+		
+		var aspectsList = calculator.radix( points );
+					
+		var duplicateCheck = [];
+		
+		for(var i = 0, ln = aspectsList.length; i < ln; i++){
+			
+			var key 		= aspectsList[i].name + "-" + aspectsList[i].point + "-" + aspectsList[i].toPoint;
+			var opositeKey	= aspectsList[i].name + "-" + aspectsList[i].toPoint + "-" + aspectsList[i].point;									
+			if( duplicateCheck.indexOf( opositeKey ) == -1 ){			
+				duplicateCheck.push( key );
+										
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].point][0] +this.shift );
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].toPoint][0]+this.shift);
+									
+				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke-width", 1);       		
+				wrapper.appendChild( line );			
+			}
+		}         
 		         
         // this
         return context;
+	};
+	
+	/**
+	 * Add points of interest for aspects calculation
+	 * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]} 
+	 * @see (astrology.AspectCalculator( toPoints) )
+	 */
+	astrology.Radix.prototype.addPointsOfInterest = function( points ){
+		
+		for(point in points){
+			this.toPoints[ point ] = points[point]; 	
+		}
+						
+        return context;	
 	};
 		
 	astrology.Radix.prototype.drawRuler = function drawRuler(){
@@ -2319,13 +2370,15 @@
 	 * @class
 	 * @public
 	 * @constructor 	 
-	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120, -0.2], "As":[30]}
+	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
 	 * @param {Object | null } settings
 	 */
-	astrology.AspectCalculator = function( points, settings ){
+	astrology.AspectCalculator = function( toPoints, settings ){
 		
-		this.settings = settings || {}; 			
-		this.points = points;
+		this.settings = settings || {}; 		
+		this.settings.aspects = settings && settings.aspects || astrology.ASPECTS;
+							
+		this.toPoints = toPoints;
 																																												
 		context = this; 
 												 
@@ -2333,27 +2386,46 @@
 	};
 	
 	/**
+	 * Getter for this.toPoints
+	 * @see constructor
+	 * 
+	 * @return {Object} 
+	 */
+	astrology.AspectCalculator.prototype.getToPoints = function(){
+		return this.this.toPoints;
+	};
+	
+	/**
 	 * Radix aspects
-	 *
+	 * 
+	 * In radix calculation is the param "points" the same as param "toPoints" in constructor 
+	 * , but without special points such as: As,Ds, Mc, Ic, ...
+	 * 
+	 * @param {Object} points; {"Sun":[0], "Moon":[90]}
+	 * 
 	 * @return {Array<Object>} [{"aspect":"conjunction", "point":"Sun", "toPoint":"Moon", "precision":0.5}]]
 	 */
-	astrology.AspectCalculator.prototype.radix = function(){
+	astrology.AspectCalculator.prototype.radix = function( points ){
+		if(!points){
+			return []; 
+		}
+							
+		var aspects = [];			
 		
-		var aspects = [];
-		
-		for (var point in this.points) {
- 		   if (this.points.hasOwnProperty( point )) {
+		for (var point in points) {
+ 		   if (points.hasOwnProperty( point )) {
  		   	 		   	 		   
- 		   	for (var toPoint in this.points) {
- 		   		if (this.points.hasOwnProperty( toPoint )) { 		   			 		   			 		   		
+ 		   	for (var toPoint in this.toPoints) {
+ 		   		if (this.toPoints.hasOwnProperty( toPoint )) { 		   			 		   			 		   		
+ 		   			
  		   			if( point != toPoint){ 		   				 		   			 		   			 		   
-	 		   			for(var aspect in astrology.ASPECTS){ 		   				
-	 		   				if(hasAspect( this.points[point], this.points[toPoint], astrology.ASPECTS[aspect])){
+	 		   			for(var aspect in this.settings.aspects){ 		   				
+	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){
 	 		   						
 	 		   					aspects.push(
 	 		   								{
-	 		   								"aspect":aspect, 
-	 		   								"precision":calcPrecision(this.points[point], this.points[toPoint], astrology.ASPECTS[aspect]), 
+	 		   								"name":aspect, 
+	 		   								"precision":calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]), 
 	 		   								"point":point, 
 	 		   								"toPoint":toPoint
 	 		   								}
@@ -2386,22 +2458,36 @@
  	* @param {Array} aspects; [DEGREE, ORBIT]
 	 */
 	function hasAspect(point, toPoint, aspect){
-		return true;	
+		var result = false;
+		
+		var gap = Math.abs( point - toPoint );
+		
+		if( gap > astrology.utils.radiansToDegree( Math.PI)){
+			gap = astrology.utils.radiansToDegree( 2 * Math.PI) - gap;
+		}
+		
+		var orbitMin = aspect["degree"] - (aspect["orbit"] / 2);
+		var orbitMax = aspect["degree"] + (aspect["orbit"] / 2);
+		
+		if(orbitMin <= gap && gap <= orbitMax){											
+			result = true;
+		}
+								
+		return result;	
 	}
 	
 	/*
 	* @private 
- 	* @param {Object} point; [ANGLE, SPEED]
- 	* @param {Object} toPoint; [ANGLE, SPEED]
- 	* @param {Array} aspect;  [DEGREE, ORBIT]
+ 	* @param {Object} pointAngle
+ 	* @param {Object} toPointAngle
+ 	* @param {double} aspectDegree;
 	 */
 	function calcPrecision(point, toPoint, aspect){
-		return 0.1;
+		var gap = Math.abs( point - toPoint );		
+		return Math.abs( gap - aspect);
 	}
 		
 }( window.astrology = window.astrology || {}));
-
-
 
 // ## UTILS #############################
 (function( astrology ) {
