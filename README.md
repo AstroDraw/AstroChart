@@ -46,7 +46,6 @@ var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
 
 ### TODO
-- aspects, orbit
 - planet animation
 
 ### It might interest you
