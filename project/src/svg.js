@@ -26,6 +26,7 @@
 		wrapper.setAttribute('id', astrology.ID_CHART);
 		svg.appendChild( wrapper );
 						
+		this.DOMElement = svg;				
 		this.root = wrapper;
 		this.width = width;
 		this.height = height;

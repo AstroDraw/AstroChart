@@ -102,11 +102,23 @@
  		   				for(var aspect in this.settings.aspects){ 		   				
 	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){	 
 	 		   					
-	 		   					var precision = calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);	 		   						 		   							   					
+	 		   					var precision = calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);
+	 		   					
+	 		   					// -1 : is approaching to aspect
+	 		   					// +1 : is moving away
+	 		   					if(isTransitPointApproachingToAspect( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0] )){
+	 		   						precision *= -1;
+	 		   					}
+	 		   					
+	 		   					// if transit has speed value && transit is retrograde
+	 		   					if(points[point][1] && points[point][1] < 0 ){ 
+	 		   						precision *= -1;
+	 		   					}
+	 		   						 		   						 		   						 		   							   				
 	 		   					aspects.push(
 	 		   								{
 	 		   								"name":aspect, 
-	 		   								"precision":calcDirection( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0], points[point][1]) * precision,
+	 		   								"precision":precision, 
 	 		   								"point":point, 
 	 		   								"toPoint":toPoint
 	 		   								}
@@ -169,17 +181,12 @@
 	 * //TODO
 	 * This method is tested, and for tests gives the right results. 
 	 * But the code is totally unclear. It needs to be rewritten.
-	 * *
-	 * @param {Integer} aspect - aspect angle, for example 90
-	 * @param {double} toPoint - angle of radix standing point
+	 * @param {double} aspect - aspect degree; for example 90.	
+	 * @param {double} toPoint - angle of standing point
 	 * @param {double} point - angle of transiting planet
-	 * @param {double | undefined} speed - speed of transiting planet
-	 * 
-	 * @return {+1 | -1}
-	 * -1 transit planet is approaching the radix point.
-	 * +1 transit planet is falling the radix point.
+	 * @return {boolean}
 	 */
-	function calcDirection(aspect, toPoint, point, pointSpeed){
+	function isTransitPointApproachingToAspect(aspect, toPoint, point){
 		
 		if( (point - toPoint) > 0 ){
 			
@@ -207,7 +214,7 @@
 			_toPoint = point;
 		}
 							
-		return (_point - _toPoint < 0) ? -1 : 1;				
+		return (_point - _toPoint < 0);				
 	}
 		
 }( window.astrology = window.astrology || {}));

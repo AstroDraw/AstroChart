@@ -36,7 +36,14 @@
 			                              	        	        	        	            
         	window.onload = function () {
             	var chart = new astrology.Chart( 'paper', 600, 600, {MARGIN:100, SYMBOL_SCALE:0.8});
-				chart.radix( dataRadix ).transit( dataTransit ); 																																            													            	            	      
+            	var radix = chart.radix( dataRadix );
+            	
+            	// Aspect calculation
+				// default is planet to planet, but it is possible add some important points:															
+            	radix.addPointsOfInterest( {"As":[dataRadix.cusps[0]],"Ic":[dataRadix.cusps[3]],"Ds":[dataRadix.cusps[6]],"Mc":[dataRadix.cusps[9]]});
+            	
+				var transit = radix.transit( dataTransit );
+				transit.aspects(); 																																																		            													            	            	 
 			};
 		</script>		    
     </body>

@@ -24,6 +24,7 @@
 		this.paper = radix.paper; 
 		this.cx = radix.cx;
 		this.cy = radix.cy;
+		this.toPoints = radix.toPoints;
 		this.radius = radix.radius;
 		
 		// after calling this.drawPoints() it contains current position of point
@@ -207,10 +208,36 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Transit.prototype.aspects = function( data ){
+	astrology.Transit.prototype.aspects = function(){
 		
-		// TODO		
-        return context;				
+		if(!this.data.planets){
+			return context;	
+		}
+							
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		
+		var points  = this.data.planets;
+		var toPoints = this.toPoints;		
+								
+		var calculator = new astrology.AspectCalculator( toPoints );
+		
+		var aspectsList = calculator.radix( points );
+													
+		for(var i = 0, ln = aspectsList.length; i < ln; i++){
+														
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].toPoint][0] +this.shift );				
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
+									
+				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke-width", 1);       		
+				wrapper.appendChild( line );			
+		}         
+		         
+        // this
+        return context;
+				
 	};
 		
 	/**

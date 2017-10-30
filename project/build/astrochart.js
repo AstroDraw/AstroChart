@@ -197,6 +197,7 @@
 		wrapper.setAttribute('id', astrology.ID_CHART);
 		svg.appendChild( wrapper );
 						
+		this.DOMElement = svg;				
 		this.root = wrapper;
 		this.width = width;
 		this.height = height;
@@ -2026,8 +2027,8 @@
 			if( duplicateCheck.indexOf( opositeKey ) == -1 ){			
 				duplicateCheck.push( key );
 										
-				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].point][0] +this.shift );
-				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].toPoint][0]+this.shift);
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].toPoint][0] +this.shift );
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
 				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
@@ -2159,6 +2160,7 @@
 		this.paper = radix.paper; 
 		this.cx = radix.cx;
 		this.cy = radix.cy;
+		this.toPoints = radix.toPoints;
 		this.radius = radix.radius;
 		
 		// after calling this.drawPoints() it contains current position of point
@@ -2342,10 +2344,36 @@
 	/**
 	 * Draw aspects
 	 */
-	astrology.Transit.prototype.aspects = function( data ){
+	astrology.Transit.prototype.aspects = function(){
 		
-		// TODO		
-        return context;				
+		if(!this.data.planets){
+			return context;	
+		}
+							
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		
+		var points  = this.data.planets;
+		var toPoints = this.toPoints;		
+								
+		var calculator = new astrology.AspectCalculator( toPoints );
+		
+		var aspectsList = calculator.radix( points );
+													
+		for(var i = 0, ln = aspectsList.length; i < ln; i++){
+														
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].toPoint][0] +this.shift );				
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
+									
+				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke-width", 1);       		
+				wrapper.appendChild( line );			
+		}         
+		         
+        // this
+        return context;
+				
 	};
 		
 	/**
@@ -2463,11 +2491,23 @@
  		   				for(var aspect in this.settings.aspects){ 		   				
 	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){	 
 	 		   					
-	 		   					var precision = calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);	 		   						 		   							   					
+	 		   					var precision = calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);
+	 		   					
+	 		   					// -1 : is approaching to aspect
+	 		   					// +1 : is moving away
+	 		   					if(isTransitPointApproachingToAspect( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0] )){
+	 		   						precision *= -1;
+	 		   					}
+	 		   					
+	 		   					// if transit has speed value && transit is retrograde
+	 		   					if(points[point][1] && points[point][1] < 0 ){ 
+	 		   						precision *= -1;
+	 		   					}
+	 		   						 		   						 		   						 		   							   				
 	 		   					aspects.push(
 	 		   								{
 	 		   								"name":aspect, 
-	 		   								"precision":calcDirection( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0], points[point][1]) * precision,
+	 		   								"precision":precision, 
 	 		   								"point":point, 
 	 		   								"toPoint":toPoint
 	 		   								}
@@ -2530,17 +2570,12 @@
 	 * //TODO
 	 * This method is tested, and for tests gives the right results. 
 	 * But the code is totally unclear. It needs to be rewritten.
-	 * *
-	 * @param {Integer} aspect - aspect angle, for example 90
-	 * @param {double} toPoint - angle of radix standing point
+	 * @param {double} aspect - aspect degree; for example 90.	
+	 * @param {double} toPoint - angle of standing point
 	 * @param {double} point - angle of transiting planet
-	 * @param {double | undefined} speed - speed of transiting planet
-	 * 
-	 * @return {+1 | -1}
-	 * -1 transit planet is approaching the radix point.
-	 * +1 transit planet is falling the radix point.
+	 * @return {boolean}
 	 */
-	function calcDirection(aspect, toPoint, point, pointSpeed){
+	function isTransitPointApproachingToAspect(aspect, toPoint, point){
 		
 		if( (point - toPoint) > 0 ){
 			
@@ -2568,7 +2603,7 @@
 			_toPoint = point;
 		}
 							
-		return (_point - _toPoint < 0) ? -1 : 1;				
+		return (_point - _toPoint < 0);				
 	}
 		
 }( window.astrology = window.astrology || {}));
