@@ -67,7 +67,7 @@
 	// Circles strength of lines
 	astrology.CIRCLE_STRONG = 2;
 	
-	// Color of circles in charts
+	// Color of lines in charts
 	astrology.LINE_COLOR = "#333";
 	
 	// radius / INDOOR_CIRCLE_RADIUS_RATIO
@@ -167,5 +167,24 @@
 		"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
 		"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
 		};	
-		       	      
+	
+	// Dignities
+	astrology.DIGNITIES_RULERSHIP = "r";			
+	astrology.DIGNITIES_DETRIMENT = "d";			
+	astrology.DIGNITIES_EXALTATION = "e";			
+	astrology.DIGNITIES_EXACT_EXALTATION = "E";		
+	astrology.DIGNITIES_FALL = "f";	
+	
+	// Source: Aleister Crowley
+	astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT = [
+		{"name":"Sun", "position":19}, // 19 Arise
+		{"name":"Moon", "position":33}, //3 Taurus
+		{"name":"Mercury", "position":155}, //15 Virgo
+		{"name":"Venus", "position":357}, //27 Pisces
+		{"name":"Mars", "position":298}, //28 Capricorn
+		{"name":"Jupiter", "position":105}, //15 Cancer
+		{"name":"Saturn", "position":201}, //21 Libra
+		{"name":"NNode", "position":63}, //3 Geminy
+	];
+									       	      
 }( window.astrology = window.astrology || {}));

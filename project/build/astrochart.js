@@ -67,7 +67,7 @@
 	// Circles strength of lines
 	astrology.CIRCLE_STRONG = 2;
 	
-	// Color of circles in charts
+	// Color of lines in charts
 	astrology.LINE_COLOR = "#333";
 	
 	// radius / INDOOR_CIRCLE_RADIUS_RATIO
@@ -167,7 +167,26 @@
 		"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
 		"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
 		};	
-		       	      
+	
+	// Dignities
+	astrology.DIGNITIES_RULERSHIP = "r";			
+	astrology.DIGNITIES_DETRIMENT = "d";			
+	astrology.DIGNITIES_EXALTATION = "e";			
+	astrology.DIGNITIES_EXACT_EXALTATION = "E";		
+	astrology.DIGNITIES_FALL = "f";	
+	
+	// Source: Aleister Crowley
+	astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT = [
+		{"name":"Sun", "position":19}, // 19 Arise
+		{"name":"Moon", "position":33}, //3 Taurus
+		{"name":"Mercury", "position":155}, //15 Virgo
+		{"name":"Venus", "position":357}, //27 Pisces
+		{"name":"Mars", "position":298}, //28 Capricorn
+		{"name":"Jupiter", "position":105}, //15 Cancer
+		{"name":"Saturn", "position":201}, //21 Libra
+		{"name":"NNode", "position":63}, //3 Geminy
+	];
+									       	      
 }( window.astrology = window.astrology || {}));
 // ## SVG #####################
 (function( astrology ) {
@@ -2031,7 +2050,7 @@
 				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
-				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
 				line.setAttribute("stroke-width", 1);       		
 				wrapper.appendChild( line );			
 			}
@@ -2366,7 +2385,7 @@
 				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
-				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
 				line.setAttribute("stroke-width", 1);       		
 				wrapper.appendChild( line );			
 		}         
@@ -2692,32 +2711,26 @@
 	 		 	
 		throw new Error( "Oops, serious error in the method: 'astrology.Zodiac.getHouseNumber'." );
 	 };
-	
-	
-	
-		 		  
+	 
+	 /**
+	  * Calculate dignities of planet
+	  *   
+	  * r - Rulership 
+	  * d - Detriment  
+	  * e - Exaltation  
+	  * E - Exalatation - Exact exaltation
+	  * f - Fall 
+	  *  
+ 	  * @param {Object} planet, { name:"Sun", angle:60.2 }
+ 	  * @return {Array<String>}
+	  */
+	 astrology.Zodiac.prototype.getDignities = function( planet ){
+	 	// TODO
+	 	return [];
+	 };
+	 					 
 }( window.astrology = window.astrology || {}));
 
-// ## Moon ###################################
-(function( astrology ) {
-    
-	/**
-	 * Moon
-	 * 
-	 * //TODO
-	 * 
-	 * @class
-	 * @public
-	 * @constructor 	
-	 */
-	astrology.Moon = function( ){
-		// TODO
-		
-						
-		return this;
-	};
-		 		  
-}( window.astrology = window.astrology || {}));
 // ## UTILS #############################
 (function( astrology ) {
 	

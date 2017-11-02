@@ -230,7 +230,7 @@
 				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
-				line.setAttribute("stroke", astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
 				line.setAttribute("stroke-width", 1);       		
 				wrapper.appendChild( line );			
 		}         

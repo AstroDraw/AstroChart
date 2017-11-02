@@ -78,8 +78,22 @@
 	 		 	
 		throw new Error( "Oops, serious error in the method: 'astrology.Zodiac.getHouseNumber'." );
 	 };
-	
-	
-	
-		 		  
+	 
+	 /**
+	  * Calculate dignities of planet
+	  *   
+	  * r - Rulership 
+	  * d - Detriment  
+	  * e - Exaltation  
+	  * E - Exalatation - Exact exaltation
+	  * f - Fall 
+	  *  
+ 	  * @param {Object} planet, { name:"Sun", angle:60.2 }
+ 	  * @return {Array<String>}
+	  */
+	 astrology.Zodiac.prototype.getDignities = function( planet ){
+	 	// TODO
+	 	return [];
+	 };
+	 					 
 }( window.astrology = window.astrology || {}));
