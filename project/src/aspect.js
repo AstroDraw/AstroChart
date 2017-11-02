@@ -14,6 +14,10 @@
 	 */
 	astrology.AspectCalculator = function( toPoints, settings ){
 		
+		if(toPoints == null){
+			throw new Error( "Param 'toPoint' must not be empty." );
+		}
+		
 		this.settings = settings || {}; 		
 		this.settings.aspects = settings && settings.aspects || astrology.ASPECTS;
 							

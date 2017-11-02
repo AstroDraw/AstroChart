@@ -13,7 +13,9 @@ module.exports = function( grunt ) {
 					'project/src/chart.js', 
 					'project/src/radix.js', 
 					'project/src/transit.js', 
-					'project/src/aspect.js', 
+					'project/src/aspect.js',
+					'project/src/zodiac.js', 
+					'project/src/Moon.js',  
 					'project/src/utils.js'],
 				dest : 'project/build/<%= pkg.name %>.js' 
 			}

@@ -1,11 +1,13 @@
 {
   "name": "astrochart",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "description": "A free and open-source JavaScript library for generating SVG charts to display planets in astrology.",
   "keywords": [
     "astrology",
     "chart",
-    "horoscope"    
+    "horoscope",
+    "zodiac",
+    "ephemetis"
   ],
   "author": {
     "name": "Tomas Jurman",

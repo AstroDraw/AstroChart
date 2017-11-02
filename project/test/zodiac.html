@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.12.0.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
+		<script type="text/javascript" src="../build/astrochart.js"></script>	
+		
+		<script>			
+			window.onload = function( ) {							
+				test( "getSign", function( ) {
+					
+					var cusps = [296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274];
+					var reporter = new astrology.Zodiac( cusps );
+					
+					equal( reporter.getSign( 0 ), 1 );						
+					equal( reporter.getSign( 30 ), 2 );
+					equal( reporter.getSign( 270 ), 10 );
+					equal( reporter.getSign( 359 ), 12 );
+					
+					equal( reporter.getSign( 361 ), 1 );					
+				});	
+				
+				test( "isRetrograde", function( ) {
+					
+					var cusps = [296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274];
+					var reporter = new astrology.Zodiac( cusps );
+					
+					equal( reporter.isRetrograde( -1 ), true );						
+					equal( reporter.isRetrograde( 1 ), false );
+									
+				});
+				
+				test( "getHouseNumber1", function( ) {
+					
+					var cusps = [296.1, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274];
+					var reporter = new astrology.Zodiac( cusps );
+					
+					equal( reporter.getHouseNumber( 274 ), 12 );					
+					equal( reporter.getHouseNumber( 296 ), 12 );						
+					
+					equal( reporter.getHouseNumber( 296.1 ), 1 );
+					
+					equal( reporter.getHouseNumber( 350 ), 2 );
+					equal( reporter.getHouseNumber( 359 ), 2 );
+					equal( reporter.getHouseNumber( 0 ), 2 );
+					equal( reporter.getHouseNumber( 361 ), 2 );					
+					equal( reporter.getHouseNumber( 29.9 ), 2 );
+					
+					equal( reporter.getHouseNumber( 30 ), 3 );	
+																													
+				});
+				
+				test( "getHouseNumber2", function( ) {
+					
+					var cusps = [265.6850555442075,307.6441825689919,353.38796689506074,26.86890880306794,50.191811553503044,68.57049261566578,85.6850555442075,127.64418256899188,173.3879668950608,206.8689088030679,230.19181155350307,248.5704926156658];
+					var reporter = new astrology.Zodiac( cusps );
+					
+					equal( reporter.getHouseNumber( 248.58 ), 12 );					
+					equal( reporter.getHouseNumber( 265 ), 12 );						
+					
+					equal( reporter.getHouseNumber( 265.7 ), 1 );
+					
+					equal( reporter.getHouseNumber( 307.65 ), 2 );
+					equal( reporter.getHouseNumber( 353.4 ), 3 );
+					equal( reporter.getHouseNumber( 0 ), 3 );
+					equal( reporter.getHouseNumber( 361 ), 3 );					
+					
+					equal( reporter.getHouseNumber( 26.87 ), 4 );																																				
+				});
+				
+																										
+			};// onload
+		</script>
+	</head>
+	<body>
+		<h1 id="qunit-header">chart.js tests</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture">
+			test markup, will be hidden
+		</div>
+	</body>
+</html>
