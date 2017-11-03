@@ -70,6 +70,151 @@
 					equal( reporter.getHouseNumber( 26.87 ), 4 );																																				
 				});
 				
+				test( "dignities - Sun", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Sun", position:120} ), [astrology.DIGNITIES_RULERSHIP] );
+					deepEqual( reporter.getDignities( {name:"Sun", position:300} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Sun", position:150} ), [astrology.DIGNITIES_FALL] );
+					deepEqual( reporter.getDignities( {name:"Sun", position:18} ), [astrology.DIGNITIES_EXALTATION] );					
+					deepEqual( reporter.getDignities( {name:"Sun", position:0}, [{"name":"Sun", "position":0, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Moon", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Moon", position:90} ), [astrology.DIGNITIES_RULERSHIP] );
+					deepEqual( reporter.getDignities( {name:"Moon", position:270} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Moon", position:210} ), [astrology.DIGNITIES_FALL] );					
+					deepEqual( reporter.getDignities( {name:"Moon", position:30} ), [astrology.DIGNITIES_EXALTATION] );					
+					deepEqual( reporter.getDignities( {name:"Moon", position:32}, [{"name":"Moon", "position":33, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Mercury", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Mercury", position:60} ), [astrology.DIGNITIES_RULERSHIP] );									
+					deepEqual( reporter.getDignities( {name:"Mercury", position:240} ), [astrology.DIGNITIES_DETRIMENT] );
+					
+					deepEqual( reporter.getDignities( {name:"Mercury", position:330} ), [astrology.DIGNITIES_FALL] );					
+					
+					deepEqual( reporter.getDignities( {name:"Mercury", position:150} ), [astrology.DIGNITIES_EXALTATION] );										;					
+					deepEqual( reporter.getDignities( {name:"Mercury", position:156}, [{"name":"Mercury", "position":155, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Venus", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Venus", position:30} ), [astrology.DIGNITIES_RULERSHIP] );									
+					deepEqual( reporter.getDignities( {name:"Venus", position:180} ), [astrology.DIGNITIES_RULERSHIP] );
+					
+					deepEqual( reporter.getDignities( {name:"Venus", position:0} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Venus", position:210} ), [astrology.DIGNITIES_DETRIMENT] );
+					
+					deepEqual( reporter.getDignities( {name:"Venus", position:150} ), [astrology.DIGNITIES_FALL] );					
+					
+					deepEqual( reporter.getDignities( {name:"Venus", position:330} ), [astrology.DIGNITIES_EXALTATION] );										;					
+					deepEqual( reporter.getDignities( {name:"Venus", position:357.987}, [{"name":"Venus", "position":357, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Mars", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Mars", position:0} ), [astrology.DIGNITIES_RULERSHIP] );									
+					deepEqual( reporter.getDignities( {name:"Mars", position:210} ), [astrology.DIGNITIES_RULERSHIP] );
+					
+					deepEqual( reporter.getDignities( {name:"Mars", position:30} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Mars", position:180} ), [astrology.DIGNITIES_DETRIMENT] );
+					
+					deepEqual( reporter.getDignities( {name:"Mars", position:90} ), [astrology.DIGNITIES_FALL] );					
+					
+					deepEqual( reporter.getDignities( {name:"Mars", position:270} ), [astrology.DIGNITIES_EXALTATION] );										;					
+					deepEqual( reporter.getDignities( {name:"Mars", position:298}, [{"name":"Mars", "position":298, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Jupiter", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:240} ), [astrology.DIGNITIES_RULERSHIP] );									
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:330} ), [astrology.DIGNITIES_RULERSHIP] );
+					
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:60} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:150} ), [astrology.DIGNITIES_DETRIMENT] );
+					
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:270} ), [astrology.DIGNITIES_FALL] );					
+					
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:90} ), [astrology.DIGNITIES_EXALTATION] );										;					
+					deepEqual( reporter.getDignities( {name:"Jupiter", position:105}, [{"name":"Jupiter", "position":105, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Saturn", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Saturn", position:270} ), [astrology.DIGNITIES_RULERSHIP] );									
+					deepEqual( reporter.getDignities( {name:"Saturn", position:300} ), [astrology.DIGNITIES_RULERSHIP] );
+					
+					deepEqual( reporter.getDignities( {name:"Saturn", position:90} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Saturn", position:120} ), [astrology.DIGNITIES_DETRIMENT] );
+					
+					deepEqual( reporter.getDignities( {name:"Saturn", position:0} ), [astrology.DIGNITIES_FALL] );					
+					
+					deepEqual( reporter.getDignities( {name:"Saturn", position:180} ), [astrology.DIGNITIES_EXALTATION] );										;					
+					deepEqual( reporter.getDignities( {name:"Saturn", position:201}, [{"name":"Saturn", "position":201, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Uranus", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Uranus", position:300} ), [astrology.DIGNITIES_RULERSHIP] );
+					deepEqual( reporter.getDignities( {name:"Uranus", position:120} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Uranus", position:30} ), [astrology.DIGNITIES_FALL] );					
+					deepEqual( reporter.getDignities( {name:"Uranus", position:210} ), [astrology.DIGNITIES_EXALTATION] );					
+					deepEqual( reporter.getDignities( {name:"Uranus", position:218}, [{"name":"Uranus", "position":218, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Neptun", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Neptune", position:330} ), [astrology.DIGNITIES_RULERSHIP] );
+					deepEqual( reporter.getDignities( {name:"Neptune", position:150} ), [astrology.DIGNITIES_DETRIMENT] );
+					deepEqual( reporter.getDignities( {name:"Neptune", position:60} ), [astrology.DIGNITIES_FALL] );
+					deepEqual( reporter.getDignities( {name:"Neptune", position:300} ), [astrology.DIGNITIES_FALL] );
+										
+					deepEqual( reporter.getDignities( {name:"Neptune", position:120} ), [astrology.DIGNITIES_EXALTATION] );					
+					deepEqual( reporter.getDignities( {name:"Neptune", position:240} ), [astrology.DIGNITIES_EXALTATION] );
+					deepEqual( reporter.getDignities( {name:"Neptune", position:241}, [{"name":"Neptune", "position":241, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
+				test( "dignities - Pluto", function( ) {
+					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var reporter = new astrology.Zodiac( cusps  );	
+																	
+					deepEqual( reporter.getDignities( {name:"Pluto", position:210} ), [astrology.DIGNITIES_RULERSHIP] );
+					deepEqual( reporter.getDignities( {name:"Pluto", position:30} ), [astrology.DIGNITIES_DETRIMENT] );					
+					deepEqual( reporter.getDignities( {name:"Pluto", position:180} ), [astrology.DIGNITIES_FALL] );																						
+					deepEqual( reporter.getDignities( {name:"Pluto", position:0} ), [astrology.DIGNITIES_EXALTATION] );
+					deepEqual( reporter.getDignities( {name:"Pluto", position:18}, [{"name":"Pluto", "position":18, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
+				});
+				
 																										
 			};// onload
 		</script>

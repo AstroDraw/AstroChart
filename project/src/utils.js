@@ -43,7 +43,7 @@
 		var posY = point.y - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
 		
 		texts.forEach(function(text, idx){						
-			result.push({text:text, x:posX, y:posY + (astrology.COLLISION_RADIUS/RATION * idx)});					
+			result.push({text:text, x:posX, y:posY + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE * idx)});					
 		}, this);
 						
 		return result;

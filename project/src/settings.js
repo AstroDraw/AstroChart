@@ -177,14 +177,14 @@
 	
 	// Source: Aleister Crowley
 	astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT = [
-		{"name":"Sun", "position":19}, // 19 Arise
-		{"name":"Moon", "position":33}, //3 Taurus
-		{"name":"Mercury", "position":155}, //15 Virgo
-		{"name":"Venus", "position":357}, //27 Pisces
-		{"name":"Mars", "position":298}, //28 Capricorn
-		{"name":"Jupiter", "position":105}, //15 Cancer
-		{"name":"Saturn", "position":201}, //21 Libra
-		{"name":"NNode", "position":63}, //3 Geminy
+		{"name":"Sun", "position":19, "orbit":2}, // 19 Arise
+		{"name":"Moon", "position":33, "orbit":2}, //3 Taurus
+		{"name":"Mercury", "position":155, "orbit":2}, //15 Virgo
+		{"name":"Venus", "position":357, "orbit":2}, //27 Pisces
+		{"name":"Mars", "position":298, "orbit":2}, //28 Capricorn
+		{"name":"Jupiter", "position":105, "orbit":2}, //15 Cancer
+		{"name":"Saturn", "position":201, "orbit":2}, //21 Libra
+		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
 	];
 									       	      
 }( window.astrology = window.astrology || {}));

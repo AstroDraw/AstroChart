@@ -155,10 +155,16 @@
         	        	        	        
         	// draw point descriptions
         	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
-        	if( Array.isArray( this.data.planets[point.name][2] )){
-        		textsToShow = textsToShow.concat( this.data.planets[point.name][2] );
-        	}   
-        	        	        	        	   
+        	
+        	var zodiac = new astrology.Zodiac(this.data.cusps);
+        	
+        	if(this.data.planets[point.name][1] && zodiac.isRetrograde(this.data.planets[point.name][1])){
+        		textsToShow.push("R");
+        	}else{
+        		textsToShow.push("");
+        	}
+        	textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":this.data.planets[point.name][0]}, astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT).join(","));        	
+        	        	        	        	        	        	      	        	         	        	        	      
         	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
         	pointDescriptions.forEach(function(dsc){        		        		        		     
 				wrapper.appendChild( this.paper.text( dsc.text, dsc.x, dsc.y, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR) );	        		
