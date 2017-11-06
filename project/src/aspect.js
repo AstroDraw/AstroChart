@@ -46,7 +46,7 @@
 	 * 
 	 * @param {Object} points; {"Sun":[0], "Moon":[90]}
 	 * 
-	 * @return {Array<Object>} [{"aspect":"conjunction", "point":"Sun", "toPoint":"Moon", "precision":0.5}]]
+	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "angle":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
 	astrology.AspectCalculator.prototype.radix = function( points ){
 		if(!points){
@@ -67,10 +67,10 @@
 	 		   						
 	 		   					aspects.push(
 	 		   								{
-	 		   								"name":aspect, 
-	 		   								"precision":calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]), 
-	 		   								"point":point, 
-	 		   								"toPoint":toPoint
+	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
+	 		   								"point":{"name":point, "position":points[point][0]}, 
+	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
+	 		   								"precision":calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"])
 	 		   								}
 	 		   							)
 	 		   				}
@@ -81,7 +81,7 @@
  		   	} 		   	 		   	 		  
  		   } 		
  		}
-		 
+ 				
 		return aspects;
 	}; 
 			
@@ -121,10 +121,10 @@
 	 		   						 		   						 		   						 		   							   				
 	 		   					aspects.push(
 	 		   								{
-	 		   								"name":aspect, 
-	 		   								"precision":precision, 
-	 		   								"point":point, 
-	 		   								"toPoint":toPoint
+	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
+	 		   								"point":{"name":point, "position":points[point][0]}, 
+	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
+	 		   								"precision":precision
 	 		   								}
 	 		   							)
 	 		   				}	 		   				

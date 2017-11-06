@@ -207,42 +207,33 @@
 		circle.setAttribute("stroke-width", 1);
         wrapper.appendChild( circle );       	       	
 	};
-	
-	
-	
+		
 	/**
 	 * Draw aspects
+	 * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
 	 */
-	astrology.Transit.prototype.aspects = function(){
+	astrology.Transit.prototype.aspects = function( customAspects ){
 		
-		if(!this.data.planets){
-			return context;	
-		}
+		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
+						  customAspects : 
+						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
 							
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
-		
-		var points  = this.data.planets;
-		var toPoints = this.toPoints;		
-								
-		var calculator = new astrology.AspectCalculator( toPoints );
-		
-		var aspectsList = calculator.radix( points );
-													
+																										
 		for(var i = 0, ln = aspectsList.length; i < ln; i++){
 														
-				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].toPoint][0] +this.shift );				
-				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
-									
-				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
-				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
-				line.setAttribute("stroke-width", 1);       		
-				wrapper.appendChild( line );			
+			var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].toPoint.position + this.shift );
+			var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].point.position + this.shift);
+								
+			var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+			line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
+			line.setAttribute("stroke-width", 1);       		
+			wrapper.appendChild( line );				
 		}         
 		         
         // this
-        return context;
-				
+        return context;				
 	};
 		
 	/**

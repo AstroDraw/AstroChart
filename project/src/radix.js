@@ -292,42 +292,36 @@
 	
 	/**
 	 * Draw aspects
+	 * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
 	 */
-	astrology.Radix.prototype.aspects = function(){
-					
-		if(!this.data.planets){
-			return context;	
-		}
-							
+	astrology.Radix.prototype.aspects = function( customAspects ){
+															
+		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
+						  customAspects : 
+						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
+														
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
-		
-		var points  = this.data.planets;
-		var toPoints = this.toPoints;		
 								
-		var calculator = new astrology.AspectCalculator( toPoints );
-		
-		var aspectsList = calculator.radix( points );
-					
 		var duplicateCheck = [];
 		
 		for(var i = 0, ln = aspectsList.length; i < ln; i++){
 			
-			var key 		= aspectsList[i].name + "-" + aspectsList[i].point + "-" + aspectsList[i].toPoint;
-			var opositeKey	= aspectsList[i].name + "-" + aspectsList[i].toPoint + "-" + aspectsList[i].point;									
+			var key 		= aspectsList[i].aspect.name + "-" + aspectsList[i].point.name + "-" + aspectsList[i].toPoint.name;
+			var opositeKey	= aspectsList[i].aspect.name + "-" + aspectsList[i].toPoint.name + "-" + aspectsList[i].point.name;									
 			if( duplicateCheck.indexOf( opositeKey ) == -1 ){			
 				duplicateCheck.push( key );
-										
-				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, toPoints[aspectsList[i].toPoint][0] +this.shift );
-				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, points[aspectsList[i].point][0]+this.shift);
+																			
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].toPoint.position + this.shift );
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].point.position + this.shift);
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
-				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : astrology.ASPECTS[aspectsList[i].name].color);		 				 				 		
+				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
 				line.setAttribute("stroke-width", 1);       		
 				wrapper.appendChild( line );			
 			}
-		}         
-		         
+		}
+										     
         // this
         return context;
 	};
