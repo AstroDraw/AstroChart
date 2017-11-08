@@ -14,7 +14,9 @@ module.exports = function( grunt ) {
 					'project/src/radix.js', 
 					'project/src/transit.js', 
 					'project/src/aspect.js',
-					'project/src/zodiac.js', 					
+					'project/src/zodiac.js',
+					'project/src/animation/timer.js',
+					'project/src/animation/animator.js',  										
 					'project/src/utils.js'],
 				dest : 'project/build/<%= pkg.name %>.js' 
 			}
@@ -48,7 +50,8 @@ module.exports = function( grunt ) {
       	watch: {
   			scripts: {
     			files: [
-    				 "project/src/*.js"          			 
+    				 "project/src/*.js",
+    				 "project/src/animation/*.js",          			 
     			],
     			tasks: [ 'dev' ],
     			options: {

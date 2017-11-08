@@ -1421,43 +1421,5 @@
 		text.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");	
 		return text;
 	};
-	
-	/**
-	 * Animate object to specified path
- 	* @param {String} elementId
- 	* @param {String} pathId
- 	* @param {Integer} duration - second
-	 */
-	astrology.SVG.prototype.animate = function animate( elementId, path, duration ){
-						
-		var animation = document.createElementNS( context.root.namespaceURI, "animateMotion");				
-		animation.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#" + elementId);		
-		animation.setAttribute("dur", duration + "s");
-		animation.setAttribute("path", path);		
-		animation.setAttribute("begin", "0s");
-		animation.setAttribute("fill", "freeze");
-		animation.setAttribute("repeatCount","1");		
-		//animation.setAttribute("rotate", "auto");
-		
-		/*
-		var path = document.createElementNS( context.root.namespaceURI, "mpath");				
-		path.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#path963");
-		animation.appendChild( path );
-		*/
-													
-		return animation;		
-	};
-	
-	astrology.SVG.prototype.arcPath = function arcPath( x, y, radius, a1, a2, lFlag, sFlag ){
-		
-		var LARGE_ARC_FLAG = lFlag || 0;
-	 	var SWEET_FLAG = sFlag || 0;
-            	 	                
-        a1 = ((astrology.SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
-        a2 = ((astrology.SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;
-        
-        return "M 0 0 A " + radius + ", " + radius + ",0 ," +  LARGE_ARC_FLAG + ", " + SWEET_FLAG + ", " + ( x + radius * Math.cos(a2) ) + ", " + ( y + radius * Math.sin(a2));
-		
-	};
-									    
+										  
 }( window.astrology = window.astrology || {}));

@@ -108,6 +108,7 @@
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
         	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	symbol.setAttribute('data-angle', this.data.planets[point.name][0]);
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -240,37 +241,22 @@
 	 * Moves points to another position.
 	 * 
  	 * @param {Object} data
+ 	 * @param {Integet | undefined} numberOfMonths - number of months, 0 - n
+ 	 * @param {Function | undefined} callbck - the function executed at the end of animation
 	 */
-	astrology.Transit.prototype.animate = function( data, callBack ){
+	astrology.Transit.prototype.animate = function( data, callback ){
 		// Validate data
 		var status = astrology.utils.validate(data);		 		
 		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
-							
+		
 		this.data = data;
-					
-		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-"  + astrology.ID_TRANSIT + "-" + astrology.ID_ANIMATION);
-		
-				
-		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets["Sun"][0] + this.shift); 		   	
-		var path = "M 0 0 A " + this.pointRadius/2 + " " + this.pointRadius/2 + " 0 0 0 " + position.x + " " + position.y;
-		
-		console.log ( path );
-		
-		var pathEl = document.createElementNS( "http://www.w3.org/2000/svg", "path");
-		pathEl.setAttribute("d", "M 388 45 A 355 355 0 0 0 69.91153633117591 531.9918791166918");	
-		//pathEl.setAttribute("d", "M 0 0 L 388 600");
-  	    pathEl.setAttribute("stroke", "red");
-  	    pathEl.setAttribute("fill", "none");
-  	    pathEl.setAttribute("stroke-width", 2);
-  	    pathEl.setAttribute("id", "path963");
-  	    wrapper.appendChild( pathEl );
-											
-		var animation = this.paper.animate("astrology-transit-planets-Sun", "M 0 0 A 355 355 0 0 0 69.91153633117591 531.9918791166918", 10);		 	
-		wrapper.appendChild( animation );
-											
+										
+		var animator = new astrology.Animator(this.cx, this.cy, this.pointRadius);	
+		animator.transit = context; //TODO		
+		animator.animate( this.data.planets, 3, callback);
+																								
 		 // this
         return context;				
 	};

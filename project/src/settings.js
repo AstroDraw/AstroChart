@@ -61,9 +61,6 @@
 	// Background wrapper element ID
 	astrology.ID_BG = "bg";
 	
-	// Animation wrapper element ID
-	astrology.ID_ANIMATION = "animation";
-		
 	// Color of circles in charts
 	astrology.CIRCLE_COLOR = "#333";
 	
@@ -189,5 +186,7 @@
 		{"name":"Saturn", "position":201, "orbit":2}, //21 Libra
 		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
 	];
+	
+	astrology.DEBUG = true;
 									       	      
 }( window.astrology = window.astrology || {}));

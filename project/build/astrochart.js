@@ -61,9 +61,6 @@
 	// Background wrapper element ID
 	astrology.ID_BG = "bg";
 	
-	// Animation wrapper element ID
-	astrology.ID_ANIMATION = "animation";
-		
 	// Color of circles in charts
 	astrology.CIRCLE_COLOR = "#333";
 	
@@ -189,6 +186,8 @@
 		{"name":"Saturn", "position":201, "orbit":2}, //21 Libra
 		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
 	];
+	
+	astrology.DEBUG = true;
 									       	      
 }( window.astrology = window.astrology || {}));
 // ## SVG #####################
@@ -1614,45 +1613,7 @@
 		text.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");	
 		return text;
 	};
-	
-	/**
-	 * Animate object to specified path
- 	* @param {String} elementId
- 	* @param {String} pathId
- 	* @param {Integer} duration - second
-	 */
-	astrology.SVG.prototype.animate = function animate( elementId, path, duration ){
-						
-		var animation = document.createElementNS( context.root.namespaceURI, "animateMotion");				
-		animation.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#" + elementId);		
-		animation.setAttribute("dur", duration + "s");
-		animation.setAttribute("path", path);		
-		animation.setAttribute("begin", "0s");
-		animation.setAttribute("fill", "freeze");
-		animation.setAttribute("repeatCount","1");		
-		//animation.setAttribute("rotate", "auto");
-		
-		/*
-		var path = document.createElementNS( context.root.namespaceURI, "mpath");				
-		path.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#path963");
-		animation.appendChild( path );
-		*/
-													
-		return animation;		
-	};
-	
-	astrology.SVG.prototype.arcPath = function arcPath( x, y, radius, a1, a2, lFlag, sFlag ){
-		
-		var LARGE_ARC_FLAG = lFlag || 0;
-	 	var SWEET_FLAG = sFlag || 0;
-            	 	                
-        a1 = ((astrology.SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
-        a2 = ((astrology.SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;
-        
-        return "M 0 0 A " + radius + ", " + radius + ",0 ," +  LARGE_ARC_FLAG + ", " + SWEET_FLAG + ", " + ( x + radius * Math.cos(a2) ) + ", " + ( y + radius * Math.sin(a2));
-		
-	};
-									    
+										  
 }( window.astrology = window.astrology || {}));
 // ## CHART ###################################
 (function( astrology ) {
@@ -2304,6 +2265,7 @@
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
         	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	symbol.setAttribute('data-angle', this.data.planets[point.name][0]);
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -2436,37 +2398,22 @@
 	 * Moves points to another position.
 	 * 
  	 * @param {Object} data
+ 	 * @param {Integet | undefined} numberOfMonths - number of months, 0 - n
+ 	 * @param {Function | undefined} callbck - the function executed at the end of animation
 	 */
-	astrology.Transit.prototype.animate = function( data, callBack ){
+	astrology.Transit.prototype.animate = function( data, callback ){
 		// Validate data
 		var status = astrology.utils.validate(data);		 		
 		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
-							
+		
 		this.data = data;
-					
-		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-"  + astrology.ID_TRANSIT + "-" + astrology.ID_ANIMATION);
-		
-				
-		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets["Sun"][0] + this.shift); 		   	
-		var path = "M 0 0 A " + this.pointRadius/2 + " " + this.pointRadius/2 + " 0 0 0 " + position.x + " " + position.y;
-		
-		console.log ( path );
-		
-		var pathEl = document.createElementNS( "http://www.w3.org/2000/svg", "path");
-		pathEl.setAttribute("d", "M 388 45 A 355 355 0 0 0 69.91153633117591 531.9918791166918");	
-		//pathEl.setAttribute("d", "M 0 0 L 388 600");
-  	    pathEl.setAttribute("stroke", "red");
-  	    pathEl.setAttribute("fill", "none");
-  	    pathEl.setAttribute("stroke-width", 2);
-  	    pathEl.setAttribute("id", "path963");
-  	    wrapper.appendChild( pathEl );
-											
-		var animation = this.paper.animate("astrology-transit-planets-Sun", "M 0 0 A 355 355 0 0 0 69.91153633117591 531.9918791166918", 10);		 	
-		wrapper.appendChild( animation );
-											
+										
+		var animator = new astrology.Animator(this.cx, this.cy, this.pointRadius);	
+		animator.transit = context; //TODO		
+		animator.animate( this.data.planets, 3, callback);
+																								
 		 // this
         return context;				
 	};
@@ -3054,6 +3001,137 @@
 	 	return result;
 	 }
 	 					 
+}( window.astrology = window.astrology || {}));
+
+// ## Timer ###################################
+(function( astrology ) {
+		   
+	/**
+	 * Timer
+	 * 
+	 * Animation timer
+	 * 
+	 * @class
+	 * @public
+	 * @constructor 	
+	 */
+	astrology.Timer = function( animator ){
+						
+		this.animator = animator;				
+		this.boundTick_ = this.tick.bind(this); 
+										
+		return this;
+	};
+	
+	astrology.Timer.prototype.start = function(){	
+		if (!this.requestID_){
+			this.lastGameLoopFrame = new Date().getTime();	
+			this.tick();	
+			if( astrology.DEBUG ) window.console.log("[astrology.Timer] start"); 
+		}
+	};
+	
+	astrology.Timer.prototype.stop = function(){	
+		if(this.requestID_){    		
+			window.cancelAnimationFrame( this.requestID_ );	
+			this.requestID_ = undefined;
+			if(astrology.DEBUG) window.console.log("[astrology.Timer] stop");
+		}	
+	};
+	
+	astrology.Timer.prototype.isRunning = function(){
+		return this.requestID_ ? true : false;
+	};
+	
+	astrology.Timer.prototype.tick = function(){	
+		var now = new Date().getTime(); 				
+		this.requestID_ = window.requestAnimationFrame( this.boundTick_ );		
+		this.animator.update( now - this.lastGameLoopFrame );		
+		this.lastGameLoopFrame = now;				
+	};
+	 					 
+}( window.astrology = window.astrology || {}));
+// ## Animator ###################################
+(function( astrology ) {
+	
+	
+    
+	/**
+	 * Animator
+	 * 
+	 * Animates the object on a circle.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor 	
+	 * @param {Integer} cx - x center
+	 * @param {Integer} cy - y center
+	 * @param {Integer} radius - circle radius
+	 */
+	astrology.Animator = function( cx, cy, radius){
+		
+		this.cx = cx;
+		this.cy = cy;
+		this.radius = radius;		
+		
+			
+		this.timer = new astrology.Timer( this );
+		
+		// time, passed since the start of the loop
+		this.timeSinceLoopStart = 0;
+							
+		return this;
+	};
+	
+	
+	/**
+	 * Animate objects
+	 * 
+ 	 * @param {Integer} duration - seconds
+ 	 * @param {Function} callbck - start et the end of animation
+	 */
+	astrology.Animator.prototype.animate = function( planets, duration, callback){
+		
+		this.planets = planets;
+		this.duration = duration * 1000;		
+		this.callback = callback; 
+		
+		this.timer.start();									
+	};
+	
+	astrology.Animator.prototype.update = function( deltaTime ){
+		this.timeSinceLoopStart += deltaTime;
+		var expectedNumberOfLoops = Math.floor( this.duration - this.timeSinceLoopStart ) / deltaTime; 			
+		
+		var planetToDraw = {};							
+		for(var planet in this.planets){
+			var element = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + planet);
+			var actualPlanetAngle = parseFloat(element.getAttribute("data-angle"));			
+			var targetPlanetAngle = this.planets[planet][0];
+			var increment = (targetPlanetAngle - actualPlanetAngle < 0) ?			
+				(astrology.utils.radiansToDegree( 2 * Math.PI) - ( actualPlanetAngle - targetPlanetAngle) ) /  expectedNumberOfLoops :
+				(targetPlanetAngle - actualPlanetAngle) /  expectedNumberOfLoops;
+														
+			element.setAttribute("data-angle", actualPlanetAngle + increment);			
+			planetToDraw[planet] = [ actualPlanetAngle ];												
+		}
+		
+					
+		console.log("update");
+		
+		// TODO
+		this.transit.locatedPoints = [];
+		this.transit.drawPoints( planetToDraw );
+									
+		if (this.timeSinceLoopStart > this.duration) {
+			this.timer.stop();
+			
+			if( typeof this.callback  === "function"){
+				this.callback();	
+			}					
+		}						
+	};
+				 				
 }( window.astrology = window.astrology || {}));
 
 // ## UTILS #############################
