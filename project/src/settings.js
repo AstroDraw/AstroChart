@@ -60,6 +60,9 @@
 	
 	// Background wrapper element ID
 	astrology.ID_BG = "bg";
+	
+	// Animation wrapper element ID
+	astrology.ID_ANIMATION = "animation";
 		
 	// Color of circles in charts
 	astrology.CIRCLE_COLOR = "#333";

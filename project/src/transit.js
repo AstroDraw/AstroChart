@@ -107,7 +107,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);        	
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -127,7 +127,7 @@
         	}, this);
         	        	        	        	       	              	        	          			
 		}, this);
-									
+											
 	};
 	
 	/**
@@ -241,8 +241,38 @@
 	 * 
  	 * @param {Object} data
 	 */
-	astrology.Transit.prototype.animate = function( data ){
-		// TODO
+	astrology.Transit.prototype.animate = function( data, callBack ){
+		// Validate data
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
+			throw new Error( status.messages );
+		}
+							
+		this.data = data;
+					
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-"  + astrology.ID_TRANSIT + "-" + astrology.ID_ANIMATION);
+		
+				
+		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets["Sun"][0] + this.shift); 		   	
+		var path = "M 0 0 A " + this.pointRadius/2 + " " + this.pointRadius/2 + " 0 0 0 " + position.x + " " + position.y;
+		
+		console.log ( path );
+		
+		var pathEl = document.createElementNS( "http://www.w3.org/2000/svg", "path");
+		pathEl.setAttribute("d", "M 388 45 A 355 355 0 0 0 69.91153633117591 531.9918791166918");	
+		//pathEl.setAttribute("d", "M 0 0 L 388 600");
+  	    pathEl.setAttribute("stroke", "red");
+  	    pathEl.setAttribute("fill", "none");
+  	    pathEl.setAttribute("stroke-width", 2);
+  	    pathEl.setAttribute("id", "path963");
+  	    wrapper.appendChild( pathEl );
+											
+		var animation = this.paper.animate("astrology-transit-planets-Sun", "M 0 0 A 355 355 0 0 0 69.91153633117591 531.9918791166918", 10);		 	
+		wrapper.appendChild( animation );
+											
+		 // this
+        return context;				
 	};
 				
 }( window.astrology = window.astrology || {}));

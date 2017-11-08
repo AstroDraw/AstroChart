@@ -60,6 +60,9 @@
 	
 	// Background wrapper element ID
 	astrology.ID_BG = "bg";
+	
+	// Animation wrapper element ID
+	astrology.ID_ANIMATION = "animation";
 		
 	// Color of circles in charts
 	astrology.CIRCLE_COLOR = "#333";
@@ -204,12 +207,12 @@
 	 * @param {int} height 
 	 */
 	astrology.SVG = function( elementId, width, height){		
-		var svg = document.createElementNS( "http://www.w3.org/2000/svg", "svg");
+		var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");		
+		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 		svg.setAttribute('style', "position: relative; overflow: hidden;");		
 		svg.setAttribute('version', "1.1");						 				
 		svg.setAttribute('width', width);
-		svg.setAttribute('height', height);			
-		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");				
+		svg.setAttribute('height', height);									
 		document.getElementById( elementId ).appendChild( svg );
 		
 		var wrapper = document.createElementNS(svg.namespaceURI, "g");
@@ -220,7 +223,7 @@
 		this.root = wrapper;
 		this.width = width;
 		this.height = height;
-		
+						
 		context = this;
 	};	
 	
@@ -1611,7 +1614,45 @@
 		text.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");	
 		return text;
 	};
-							    	 
+	
+	/**
+	 * Animate object to specified path
+ 	* @param {String} elementId
+ 	* @param {String} pathId
+ 	* @param {Integer} duration - second
+	 */
+	astrology.SVG.prototype.animate = function animate( elementId, path, duration ){
+						
+		var animation = document.createElementNS( context.root.namespaceURI, "animateMotion");				
+		animation.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#" + elementId);		
+		animation.setAttribute("dur", duration + "s");
+		animation.setAttribute("path", path);		
+		animation.setAttribute("begin", "0s");
+		animation.setAttribute("fill", "freeze");
+		animation.setAttribute("repeatCount","1");		
+		//animation.setAttribute("rotate", "auto");
+		
+		/*
+		var path = document.createElementNS( context.root.namespaceURI, "mpath");				
+		path.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', "#path963");
+		animation.appendChild( path );
+		*/
+													
+		return animation;		
+	};
+	
+	astrology.SVG.prototype.arcPath = function arcPath( x, y, radius, a1, a2, lFlag, sFlag ){
+		
+		var LARGE_ARC_FLAG = lFlag || 0;
+	 	var SWEET_FLAG = sFlag || 0;
+            	 	                
+        a1 = ((astrology.SHIFT_IN_DEGREES - a1) % 360) * Math.PI / 180;
+        a2 = ((astrology.SHIFT_IN_DEGREES - a2 ) % 360) * Math.PI / 180;
+        
+        return "M 0 0 A " + radius + ", " + radius + ",0 ," +  LARGE_ARC_FLAG + ", " + SWEET_FLAG + ", " + ( x + radius * Math.cos(a2) ) + ", " + ( y + radius * Math.sin(a2));
+		
+	};
+									    
 }( window.astrology = window.astrology || {}));
 // ## CHART ###################################
 (function( astrology ) {
@@ -2262,7 +2303,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);        	
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -2282,7 +2323,7 @@
         	}, this);
         	        	        	        	       	              	        	          			
 		}, this);
-									
+											
 	};
 	
 	/**
@@ -2396,8 +2437,38 @@
 	 * 
  	 * @param {Object} data
 	 */
-	astrology.Transit.prototype.animate = function( data ){
-		// TODO
+	astrology.Transit.prototype.animate = function( data, callBack ){
+		// Validate data
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
+			throw new Error( status.messages );
+		}
+							
+		this.data = data;
+					
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-"  + astrology.ID_TRANSIT + "-" + astrology.ID_ANIMATION);
+		
+				
+		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets["Sun"][0] + this.shift); 		   	
+		var path = "M 0 0 A " + this.pointRadius/2 + " " + this.pointRadius/2 + " 0 0 0 " + position.x + " " + position.y;
+		
+		console.log ( path );
+		
+		var pathEl = document.createElementNS( "http://www.w3.org/2000/svg", "path");
+		pathEl.setAttribute("d", "M 388 45 A 355 355 0 0 0 69.91153633117591 531.9918791166918");	
+		//pathEl.setAttribute("d", "M 0 0 L 388 600");
+  	    pathEl.setAttribute("stroke", "red");
+  	    pathEl.setAttribute("fill", "none");
+  	    pathEl.setAttribute("stroke-width", 2);
+  	    pathEl.setAttribute("id", "path963");
+  	    wrapper.appendChild( pathEl );
+											
+		var animation = this.paper.animate("astrology-transit-planets-Sun", "M 0 0 A 355 355 0 0 0 69.91153633117591 531.9918791166918", 10);		 	
+		wrapper.appendChild( animation );
+											
+		 // this
+        return context;				
 	};
 				
 }( window.astrology = window.astrology || {}));
