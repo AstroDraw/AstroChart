@@ -26,9 +26,7 @@
 		this.cy = radix.cy;
 		this.toPoints = radix.toPoints;
 		this.radius = radix.radius;
-		
-		// after calling this.drawPoints() it contains current position of point
-		this.locatedPoints = [];
+				
 		this.rulerRadius = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/astrology.RULER_RADIUS);
 		this.pointRadius = this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO +  astrology.PADDING);
 											
@@ -75,16 +73,17 @@
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS);
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
-		var step = ( gap - 2*astrology.PADDING ) / Object.keys(this.data.planets).length;
+		var step = ( gap - 2*astrology.PADDING ) / Object.keys(planets).length;
 					
 		var pointerRadius = this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);
 		var startPosition, endPosition;
-																					
-		for (var planet in this.data.planets) {
- 		   if (this.data.planets.hasOwnProperty( planet )) {
+		
+		this.locatedPoints = [];																			
+		for (var planet in planets) {
+ 		   if (planets.hasOwnProperty( planet )) {
  		   	 		   	 		   		 		   		
- 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets[planet][0] + this.shift); 		   	
- 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:this.data.planets[planet][0] + this.shift, pointer:this.data.planets[planet][0] + this.shift}; 		   		
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, planets[planet][0] + this.shift); 		   	
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:astrology.COLLISION_RADIUS, angle:planets[planet][0] + this.shift, pointer:planets[planet][0] + this.shift}; 		   		
  		   		this.locatedPoints = astrology.utils.assemble(this.locatedPoints, point, {cx:this.cx, cy:this.cy, r:this.pointRadius});   
  		   	} 		
 		}
@@ -92,15 +91,15 @@
 		this.locatedPoints.forEach(function(point){
 						        
         	// draw pointer        	
-        	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
-        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius+this.rulerRadius/2, this.data.planets[point.name][0] + this.shift );
+        	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, planets[point.name][0] + this.shift);
+        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius+this.rulerRadius/2, planets[point.name][0] + this.shift );
         	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
         	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
 			pointer.setAttribute("stroke-width", 1);
         	wrapper.appendChild(pointer);
         	
         	// draw pointer line
-        	if( !astrology.STROKE_ONLY && (this.data.planets[point.name][0] + this.shift) != point.angle){	        	
+        	if( !astrology.STROKE_ONLY && (planets[point.name][0] + this.shift) != point.angle){	        	
 	        	startPosition = endPosition;
 	        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, this.pointRadius-astrology.COLLISION_RADIUS, point.angle );
 	        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
@@ -115,23 +114,22 @@
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
-        	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
+        	var textsToShow = [(Math.round(planets[point.name][0]) % 30).toString()];
         	
         	var zodiac = new astrology.Zodiac(this.data.cusps);
-        	if(this.data.planets[point.name][1] && zodiac.isRetrograde(this.data.planets[point.name][1])){
+        	if(planets[point.name][1] && zodiac.isRetrograde(planets[point.name][1])){
         		textsToShow.push("R");
         	}else{
         		textsToShow.push("");
         	}
-        	textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":this.data.planets[point.name][0]}, astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT).join(","));        	
+        	textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":planets[point.name][0]}, astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT).join(","));        	
         	         	           	        	        	        	 
         	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
         	pointDescriptions.forEach(function(dsc){        		        		        		     
 				wrapper.appendChild( this.paper.text( dsc.text, dsc.x, dsc.y, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR) );	        		
         	}, this);
         	        	        	        	       	              	        	          			
-		}, this);
-											
+		}, this);										
 	};
 	
 	/**
@@ -243,31 +241,38 @@
 	/**
 	 * Moves points to another position.
 	 * 
- 	 * @param {Object} data - target positions.
+ 	 * @param {Object} data - planets target positions.
+ 	 * @param {Integer} duration - in seconds
  	 * @param {boolean} isReverse 	  	 
  	 * @param {Function | undefined} callbck - the function executed at the end of animation
 	 */
-	astrology.Transit.prototype.animate = function( data, isReverse, callback ){
+	astrology.Transit.prototype.animate = function( data, duration, isReverse, callback ){
 		// Validate data
 		var status = astrology.utils.validate(data);		 		
 		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
+		
+		// remove aspects
+		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
 																			
 		var animator = new astrology.Animator( context );			
-		animator.animate( data, 3, callback);
+		animator.animate( data, duration, isReverse, (function(){
+			
+			// animation is finished
+			this.data = data;
+			this.drawPoints();		
+			this.drawCusps();
+			this.aspects();
+			
+			if(typeof callback == 'function'){
+				callback();
+			}
+						
+		}).bind(this));
 																											
 		 // this
         return context;				
 	};
-	
-	/*
-	 * Reset 
-	 */
-	astrology.Transit.prototype.reset = function reset(){
-		if( astrology.DEBUG ) console.log("[astrology.Transit] call reset()");
 		
-		this.locatedPoints = [];		
-	};
-				
 }( window.astrology = window.astrology || {}));

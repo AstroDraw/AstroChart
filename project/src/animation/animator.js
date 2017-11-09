@@ -1,8 +1,6 @@
 // ## Animator ###################################
 (function( astrology ) {
-	
-	
-    
+			  
 	/**
 	 * Transit chart animator
 	 * 
@@ -38,11 +36,13 @@
 	 
 	 * @param {Object} data, targetPositions 
  	 * @param {Integer} duration - seconds
+ 	 * @param {boolean} isReverse 
  	 * @param {Function} callbck - start et the end of animation
 	 */
-	astrology.Animator.prototype.animate = function( data, duration, callback){
+	astrology.Animator.prototype.animate = function( data, duration, isReverse, callback){
 		this.data = data;		 			
-		this.duration = duration * 1000;		
+		this.duration = duration * 1000;
+		this.isReverse = isReverse || false;					
 		this.callback = callback; 
 		
 		this.timer.start();									
@@ -52,13 +52,8 @@
 		this.timeSinceLoopStart += deltaTime;	
 		
 		if (this.timeSinceLoopStart >= this.duration) {
-			this.timer.stop();
-			
-			this.transit.reset();
-			this.transit.data = this.data;
-			this.transit.drawPoints();		
-			this.transit.drawCusps();
-			
+			this.timer.stop();					
+								
 			if( typeof this.callback  === "function"){
 				this.callback();	
 			}
@@ -73,13 +68,38 @@
 		for(var planet in this.data.planets){
 			var actualPlanetAngle = this.actualPlanetPos[planet][0]; 		
 			var targetPlanetAngle = this.data.planets[planet][0];
+			var isRetrograde = this.actualPlanetPos[planet][1] != null && this.actualPlanetPos[planet][1] < 0;
+								
+			var difference;
+			if( this.isReverse && isRetrograde){
+				difference = targetPlanetAngle - actualPlanetAngle;
 			
-			// TODO retrograde, reverse, zero pass trough
-			var increment = (targetPlanetAngle - actualPlanetAngle < 0) ?			
-				(astrology.utils.radiansToDegree( 2 * Math.PI) - ( actualPlanetAngle - targetPlanetAngle) ) /  expectedNumberOfLoops :
-				(targetPlanetAngle - actualPlanetAngle) /  expectedNumberOfLoops;
+			}else if( this.isReverse || isRetrograde ){
+				difference = actualPlanetAngle - targetPlanetAngle;
+								
+			}else{
+				difference = targetPlanetAngle - actualPlanetAngle;
+			}	
+							
+			// zero crossing			
+			var increment = difference < 0 ?			
+				(astrology.utils.radiansToDegree( 2 * Math.PI) -  Math.abs(difference) ) /  expectedNumberOfLoops :
+				difference /  expectedNumberOfLoops;
 			
-			this.actualPlanetPos[planet][0] = actualPlanetAngle + increment;					
+			
+			if(this.isReverse){
+				increment *= -1; 
+			}
+																
+			if(isRetrograde){
+				increment *= -1; 
+			}
+													
+			var newPos = (actualPlanetAngle + increment) < 0 ? 
+				astrology.utils.radiansToDegree( 2 * Math.PI) - Math.abs(actualPlanetAngle + increment) :
+				actualPlanetAngle + increment;
+												
+			this.actualPlanetPos[planet][0] = newPos;							
 		}
 								
 		this.transit.drawPoints( this.actualPlanetPos );											

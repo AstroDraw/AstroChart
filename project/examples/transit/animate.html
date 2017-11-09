@@ -26,20 +26,24 @@
         	};
         	
 		    var dataTransit = {
-		    		"planets":{"Moon":[60.739220451080115],"Venus":[305.6996431634707],"Jupiter":[198.6565699576221],"NNode":[157.25592636170012],"Mars":[324.84013049518734],"Lilith":[232.88904207991555],"Saturn":[259.1015412368795, -0.2],"Chiron":[350.7285587924208],"Uranus":[20],"Sun":[260],"Mercury":[281.5699804920016],"Neptune":[339.3848859932604],"Pluto":[286.29683069280685]},
+		    		"planets":{"Moon":[60],"Venus":[305.6996431634707],"Jupiter":[198.6565699576221],"NNode":[157.25592636170012],"Mars":[324.84013049518734],"Lilith":[232.88904207991555],"Saturn":[259.1015412368795, -0.2],"Chiron":[350.7285587924208],"Uranus":[20.678747795787075],"Sun":[260.94912160755536],"Mercury":[281.5699804920016],"Neptune":[339.3848859932604],"Pluto":[286.29683069280685, -0.1]},
 		    		"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]		    				    	
 		    };
 		    
 		    var animateToData = {
-		    		"planets":{"Moon":[80],"Venus":[350],"Jupiter":[200],"NNode":[350],"Mars":[120],"Lilith":[30],"Saturn":[0, -0.2],"Chiron":[270],"Uranus":[40],"Sun":[10],"Mercury":[190],"Neptune":[80],"Pluto":[180]},
-		    		"cusps":[330, 10, 40, 60, 80, 94, 116, 170, 210, 236, 255, 274]		    				    	
+		    		"planets":{"Moon":[2 * 360 + 60],"Venus":[350],"Jupiter":[210],"NNode":[160],"Mars":[10],"Lilith":[270],"Saturn":[250, -0.2],"Chiron":[6],"Uranus":[35],"Sun":[298],"Mercury":[320],"Neptune":[340],"Pluto":[280,-0.1]},
+		    		"cusps":[94, 116, 170, 210, 236, 255, 274, 280, 10, 40, 60, 80]		    				    	
 		    };
 			                              	        	        	        	            
         	window.onload = function () {
-            	var chart = new astrology.Chart( 'paper', 800, 800, {MARGIN:100});
+            	var chart = new astrology.Chart( 'paper', 800, 800, {MARGIN:100, DEBUG:true});
             	var radix = chart.radix( dataRadix );            	            
-				var transit = radix.transit( dataTransit ).aspects();
-				transit.animate( animateToData );																																 																																																            													            	       
+				var transit = radix.transit( dataTransit )
+				
+				// data, duration, isReverse, callback
+				transit.animate( animateToData, 6, false, function(){
+					console.log("Animation finished.")
+				});																																 																																																            													            	       
 			};
 		</script>		    
     </body>

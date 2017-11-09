@@ -14,7 +14,7 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/transit.html)
 - [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/stroke_only.html)
 - [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/debug/calibration.html)
-- [Interactive chart](#)
+- [Interactive chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/animate.html)
 
 ### How to use
 ```
@@ -44,10 +44,6 @@ Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/proje
 var settings = {SYMBOL_SCALE:2};
 var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
-
-### TODO
-- planet animation
-- events
 
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)

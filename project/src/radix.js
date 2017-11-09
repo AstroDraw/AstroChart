@@ -126,8 +126,8 @@
  		   	} 		
 		}
 		
-		console.log( "Count of planets: " + this.locatedPoints.length );
-										
+		if( astrology.DEBUG ) console.log( "Count of planets: " + this.locatedPoints.length );
+											
 		this.locatedPoints.forEach(function(point){
 						        
         	// draw pointer        	

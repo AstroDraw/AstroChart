@@ -187,6 +187,6 @@
 		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
 	];
 	
-	astrology.DEBUG = true;
+	astrology.DEBUG = false;
 									       	      
 }( window.astrology = window.astrology || {}));

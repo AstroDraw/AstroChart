@@ -173,7 +173,9 @@
 				isCollision = true;
 				var locatedButInCollisionPoint =  locatedPoints[i];
 				locatedButInCollisionPoint.index = i;
-				console.log( "Resolve collision: " + locatedButInCollisionPoint.name + " X " + point.name);								
+				
+				if( astrology.DEBUG ) console.log( "Resolve collision: " + locatedButInCollisionPoint.name + " X " + point.name); 
+												
 				break;
 			}
 		}
