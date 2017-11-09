@@ -14,7 +14,7 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/transit.html)
 - [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/stroke_only.html)
 - [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/debug/calibration.html)
-- [Interactive chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/animate.html)
+- [Animation](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/animate.html)
 
 ### How to use
 ```
