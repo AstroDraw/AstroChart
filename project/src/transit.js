@@ -60,10 +60,14 @@
 	};
 				
 	/**
-	 * Draw points
+	 * Draw planets
+	 * 
+	 * @param{undefined | Object} planetsData, posible data planets to draw
 	 */
-	astrology.Transit.prototype.drawPoints = function(){
-		if(this.data.planets == null){
+	astrology.Transit.prototype.drawPoints = function( planetsData ){
+		
+		var planets = (planetsData == null) ? this.data.planets : planetsData;		
+		if(planets == null){
 			return;
 		}
 		
@@ -107,8 +111,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);        	
-        	symbol.setAttribute('data-angle', this.data.planets[point.name][0]);
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -240,25 +243,31 @@
 	/**
 	 * Moves points to another position.
 	 * 
- 	 * @param {Object} data
- 	 * @param {Integet | undefined} numberOfMonths - number of months, 0 - n
+ 	 * @param {Object} data - target positions.
+ 	 * @param {boolean} isReverse 	  	 
  	 * @param {Function | undefined} callbck - the function executed at the end of animation
 	 */
-	astrology.Transit.prototype.animate = function( data, callback ){
+	astrology.Transit.prototype.animate = function( data, isReverse, callback ){
 		// Validate data
 		var status = astrology.utils.validate(data);		 		
 		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
-		
-		this.data = data;
-										
-		var animator = new astrology.Animator(this.cx, this.cy, this.pointRadius);	
-		animator.transit = context; //TODO		
-		animator.animate( this.data.planets, 3, callback);
-																								
+																			
+		var animator = new astrology.Animator( context );			
+		animator.animate( data, 3, callback);
+																											
 		 // this
         return context;				
+	};
+	
+	/*
+	 * Reset 
+	 */
+	astrology.Transit.prototype.reset = function reset(){
+		if( astrology.DEBUG ) console.log("[astrology.Transit] call reset()");
+		
+		this.locatedPoints = [];		
 	};
 				
 }( window.astrology = window.astrology || {}));

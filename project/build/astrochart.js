@@ -2217,10 +2217,14 @@
 	};
 				
 	/**
-	 * Draw points
+	 * Draw planets
+	 * 
+	 * @param{undefined | Object} planetsData, posible data planets to draw
 	 */
-	astrology.Transit.prototype.drawPoints = function(){
-		if(this.data.planets == null){
+	astrology.Transit.prototype.drawPoints = function( planetsData ){
+		
+		var planets = (planetsData == null) ? this.data.planets : planetsData;		
+		if(planets == null){
 			return;
 		}
 		
@@ -2264,8 +2268,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);        	
-        	symbol.setAttribute('data-angle', this.data.planets[point.name][0]);
+        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -2397,25 +2400,31 @@
 	/**
 	 * Moves points to another position.
 	 * 
- 	 * @param {Object} data
- 	 * @param {Integet | undefined} numberOfMonths - number of months, 0 - n
+ 	 * @param {Object} data - target positions.
+ 	 * @param {boolean} isReverse 	  	 
  	 * @param {Function | undefined} callbck - the function executed at the end of animation
 	 */
-	astrology.Transit.prototype.animate = function( data, callback ){
+	astrology.Transit.prototype.animate = function( data, isReverse, callback ){
 		// Validate data
 		var status = astrology.utils.validate(data);		 		
 		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
-		
-		this.data = data;
-										
-		var animator = new astrology.Animator(this.cx, this.cy, this.pointRadius);	
-		animator.transit = context; //TODO		
-		animator.animate( this.data.planets, 3, callback);
-																								
+																			
+		var animator = new astrology.Animator( context );			
+		animator.animate( data, 3, callback);
+																											
 		 // this
         return context;				
+	};
+	
+	/*
+	 * Reset 
+	 */
+	astrology.Transit.prototype.reset = function reset(){
+		if( astrology.DEBUG ) console.log("[astrology.Transit] call reset()");
+		
+		this.locatedPoints = [];		
 	};
 				
 }( window.astrology = window.astrology || {}));
@@ -3015,9 +3024,13 @@
 	 * @public
 	 * @constructor 	
 	 */
-	astrology.Timer = function( animator ){
+	astrology.Timer = function( callback ){
 						
-		this.animator = animator;				
+		if(typeof callback !== "function"){
+			throw new Error( "param 'callback' has to be a function." );
+		}				
+						
+		this.callback = callback;				
 		this.boundTick_ = this.tick.bind(this); 
 										
 		return this;
@@ -3027,7 +3040,7 @@
 		if (!this.requestID_){
 			this.lastGameLoopFrame = new Date().getTime();	
 			this.tick();	
-			if( astrology.DEBUG ) window.console.log("[astrology.Timer] start"); 
+			if( astrology.DEBUG ) console.log("[astrology.Timer] start"); 
 		}
 	};
 	
@@ -3035,7 +3048,7 @@
 		if(this.requestID_){    		
 			window.cancelAnimationFrame( this.requestID_ );	
 			this.requestID_ = undefined;
-			if(astrology.DEBUG) window.console.log("[astrology.Timer] stop");
+			if(astrology.DEBUG) console.log("[astrology.Timer] stop");
 		}	
 	};
 	
@@ -3046,7 +3059,7 @@
 	astrology.Timer.prototype.tick = function(){	
 		var now = new Date().getTime(); 				
 		this.requestID_ = window.requestAnimationFrame( this.boundTick_ );		
-		this.animator.update( now - this.lastGameLoopFrame );		
+		this.callback( now - this.lastGameLoopFrame );		
 		this.lastGameLoopFrame = now;				
 	};
 	 					 
@@ -3057,42 +3070,44 @@
 	
     
 	/**
-	 * Animator
+	 * Transit chart animator
 	 * 
 	 * Animates the object on a circle.
 	 * 
 	 * @class
 	 * @public
 	 * @constructor 	
-	 * @param {Integer} cx - x center
-	 * @param {Integer} cy - y center
-	 * @param {Integer} radius - circle radius
+	 * @param {Object} from, {"Sun":[12], "Moon":[60]}
+	 * @param {Object} to, {"Sun":[30], "Moon":[180]}
+	 * @param {Object} settings, {cx:100, cy:100, radius:200, prefix:"astro-chart-"}
 	 */
-	astrology.Animator = function( cx, cy, radius){
+	astrology.Animator = function( transit ){
 		
-		this.cx = cx;
-		this.cy = cy;
-		this.radius = radius;		
+		this.transit = transit;
 		
-			
-		this.timer = new astrology.Timer( this );
+		// Copy data
+		this.actualPlanetPos = {};
+		for(var planet in this.transit.data.planets){
+			this.actualPlanetPos[planet] = this.transit.data.planets[planet];
+		}
+										
+		this.timer = new astrology.Timer( this.update.bind(this) );
 		
 		// time, passed since the start of the loop
 		this.timeSinceLoopStart = 0;
-							
+									
 		return this;
 	};
-	
-	
+		
 	/**
 	 * Animate objects
-	 * 
+	 
+	 * @param {Object} data, targetPositions 
  	 * @param {Integer} duration - seconds
  	 * @param {Function} callbck - start et the end of animation
 	 */
-	astrology.Animator.prototype.animate = function( planets, duration, callback){
-		
-		this.planets = planets;
+	astrology.Animator.prototype.animate = function( data, duration, callback){
+		this.data = data;		 			
 		this.duration = duration * 1000;		
 		this.callback = callback; 
 		
@@ -3100,38 +3115,42 @@
 	};
 	
 	astrology.Animator.prototype.update = function( deltaTime ){
-		this.timeSinceLoopStart += deltaTime;
-		var expectedNumberOfLoops = Math.floor( this.duration - this.timeSinceLoopStart ) / deltaTime; 			
+		this.timeSinceLoopStart += deltaTime;	
 		
-		var planetToDraw = {};							
-		for(var planet in this.planets){
-			var element = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + planet);
-			var actualPlanetAngle = parseFloat(element.getAttribute("data-angle"));			
-			var targetPlanetAngle = this.planets[planet][0];
-			var increment = (targetPlanetAngle - actualPlanetAngle < 0) ?			
-				(astrology.utils.radiansToDegree( 2 * Math.PI) - ( actualPlanetAngle - targetPlanetAngle) ) /  expectedNumberOfLoops :
-				(targetPlanetAngle - actualPlanetAngle) /  expectedNumberOfLoops;
-														
-			element.setAttribute("data-angle", actualPlanetAngle + increment);			
-			planetToDraw[planet] = [ actualPlanetAngle ];												
-		}
-		
-					
-		console.log("update");
-		
-		// TODO
-		this.transit.locatedPoints = [];
-		this.transit.drawPoints( planetToDraw );
-									
-		if (this.timeSinceLoopStart > this.duration) {
+		if (this.timeSinceLoopStart >= this.duration) {
 			this.timer.stop();
+			
+			this.transit.reset();
+			this.transit.data = this.data;
+			this.transit.drawPoints();		
+			this.transit.drawCusps();
 			
 			if( typeof this.callback  === "function"){
 				this.callback();	
-			}					
-		}						
+			}
+			
+			return;					
+		}
+									
+		var expectedNumberOfLoops = (this.duration - this.timeSinceLoopStart) < deltaTime ? 
+							1 :		
+		 					Math.round( (this.duration - this.timeSinceLoopStart) / deltaTime);		
+		
+		for(var planet in this.data.planets){
+			var actualPlanetAngle = this.actualPlanetPos[planet][0]; 		
+			var targetPlanetAngle = this.data.planets[planet][0];
+			
+			// TODO retrograde, reverse, zero pass trough
+			var increment = (targetPlanetAngle - actualPlanetAngle < 0) ?			
+				(astrology.utils.radiansToDegree( 2 * Math.PI) - ( actualPlanetAngle - targetPlanetAngle) ) /  expectedNumberOfLoops :
+				(targetPlanetAngle - actualPlanetAngle) /  expectedNumberOfLoops;
+			
+			this.actualPlanetPos[planet][0] = actualPlanetAngle + increment;					
+		}
+								
+		this.transit.drawPoints( this.actualPlanetPos );											
 	};
-				 				
+						 		
 }( window.astrology = window.astrology || {}));
 
 // ## UTILS #############################

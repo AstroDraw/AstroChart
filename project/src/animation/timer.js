@@ -10,9 +10,13 @@
 	 * @public
 	 * @constructor 	
 	 */
-	astrology.Timer = function( animator ){
+	astrology.Timer = function( callback ){
 						
-		this.animator = animator;				
+		if(typeof callback !== "function"){
+			throw new Error( "param 'callback' has to be a function." );
+		}				
+						
+		this.callback = callback;				
 		this.boundTick_ = this.tick.bind(this); 
 										
 		return this;
@@ -22,7 +26,7 @@
 		if (!this.requestID_){
 			this.lastGameLoopFrame = new Date().getTime();	
 			this.tick();	
-			if( astrology.DEBUG ) window.console.log("[astrology.Timer] start"); 
+			if( astrology.DEBUG ) console.log("[astrology.Timer] start"); 
 		}
 	};
 	
@@ -30,7 +34,7 @@
 		if(this.requestID_){    		
 			window.cancelAnimationFrame( this.requestID_ );	
 			this.requestID_ = undefined;
-			if(astrology.DEBUG) window.console.log("[astrology.Timer] stop");
+			if(astrology.DEBUG) console.log("[astrology.Timer] stop");
 		}	
 	};
 	
@@ -41,7 +45,7 @@
 	astrology.Timer.prototype.tick = function(){	
 		var now = new Date().getTime(); 				
 		this.requestID_ = window.requestAnimationFrame( this.boundTick_ );		
-		this.animator.update( now - this.lastGameLoopFrame );		
+		this.callback( now - this.lastGameLoopFrame );		
 		this.lastGameLoopFrame = now;				
 	};
 	 					 
