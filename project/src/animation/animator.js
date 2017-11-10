@@ -1,5 +1,7 @@
 // ## Animator ###################################
 (function( astrology ) {
+	
+	var context;
 			  
 	/**
 	 * Transit chart animator
@@ -27,6 +29,8 @@
 		
 		// time, passed since the start of the loop
 		this.timeSinceLoopStart = 0;
+		
+		context = this;
 									
 		return this;
 	};
@@ -64,45 +68,63 @@
 		var expectedNumberOfLoops = (this.duration - this.timeSinceLoopStart) < deltaTime ? 
 							1 :		
 		 					Math.round( (this.duration - this.timeSinceLoopStart) / deltaTime);		
+		 					
+		updatePlanets( expectedNumberOfLoops );
+		updateCusps( expectedNumberOfLoops );														
+	};
+	
+	/*
+	 * @private
+	 */
+	function updateCusps( expectedNumberOfLoops ){
 		
-		for(var planet in this.data.planets){
-			var actualPlanetAngle = this.actualPlanetPos[planet][0]; 		
-			var targetPlanetAngle = this.data.planets[planet][0];
-			var isRetrograde = this.actualPlanetPos[planet][1] != null && this.actualPlanetPos[planet][1] < 0;
+	};
+	
+	/*
+	 * @private
+	 */
+	function updatePlanets( expectedNumberOfLoops ){
+		
+		for(var planet in context.data.planets){
+			var actualPlanetAngle = context.actualPlanetPos[planet][0]; 		
+			var targetPlanetAngle = context.data.planets[planet][0];
+			var isRetrograde = context.actualPlanetPos[planet][1] != null && context.actualPlanetPos[planet][1] < 0;
 								
 			var difference;
-			if( this.isReverse && isRetrograde){
+			if( context.isReverse && isRetrograde){
 				difference = targetPlanetAngle - actualPlanetAngle;
 			
-			}else if( this.isReverse || isRetrograde ){
+			}else if( context.isReverse || isRetrograde ){
 				difference = actualPlanetAngle - targetPlanetAngle;
 								
 			}else{
 				difference = targetPlanetAngle - actualPlanetAngle;
-			}	
-							
-			// zero crossing			
-			var increment = difference < 0 ?			
-				(astrology.utils.radiansToDegree( 2 * Math.PI) -  Math.abs(difference) ) /  expectedNumberOfLoops :
-				difference /  expectedNumberOfLoops;
+			}
+																
+			// zero crossing
+			if( difference < 0 ){
+				difference += astrology.utils.radiansToDegree( 2 * Math.PI); 		
+			}
 			
-			
-			if(this.isReverse){
-				increment *= -1; 
+			var increment = difference /  expectedNumberOfLoops;
+																																								
+			if(context.isReverse){
+				increment *= -1; 				
 			}
 																
 			if(isRetrograde){
 				increment *= -1; 
 			}
-													
-			var newPos = (actualPlanetAngle + increment) < 0 ? 
-				astrology.utils.radiansToDegree( 2 * Math.PI) - Math.abs(actualPlanetAngle + increment) :
-				actualPlanetAngle + increment;
-												
-			this.actualPlanetPos[planet][0] = newPos;							
+																
+			var newPos = actualPlanetAngle + increment;
+			if( newPos < 0 ){
+				newPos += astrology.utils.radiansToDegree( 2 * Math.PI);
+			}
+						 										
+			context.actualPlanetPos[planet][0] = newPos;										
 		}
 								
-		this.transit.drawPoints( this.actualPlanetPos );											
-	};
+		context.transit.drawPoints( context.actualPlanetPos );		
+	}
 						 		
 }( window.astrology = window.astrology || {}));
