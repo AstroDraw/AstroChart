@@ -2307,12 +2307,15 @@
 	
 	/**
 	 * Draw cusps
+	 * @param{undefined | Object} cuspsData, posible data cusps to draw
 	 */
-	astrology.Transit.prototype.drawCusps = function(){
-		if(this.data.cusps == null){
+	astrology.Transit.prototype.drawCusps = function( cuspsData ){
+		
+		var cusps = (cuspsData == null) ? this.data.cusps : cuspsData;		
+		if(cusps == null){
 			return;
 		}
-		
+						
 		var startPosition, endPosition, lines, line;
 		var universe = this.universe;
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);	
@@ -2325,10 +2328,10 @@
 		var mainAxis = [AS,IC,DC,MC];
 		
 		//Cusps
-		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
+		for (var i = 0, ln = cusps.length; i < ln; i++) {
 			// Lines 			 			 		 		
- 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
- 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius , this.data.cusps[i] + this.shift);
+ 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, cusps[i] + this.shift);
+ 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius, cusps[i] + this.shift);
  			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
  			line.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
  			line.setAttribute("stroke-width", astrology.CUSPS_STROKE); 
@@ -2337,8 +2340,8 @@
  			 			 		
  			// Cup number  		 	
  		 	var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI );
- 		 	var startOfCusp = this.data.cusps[i];
- 		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
+ 		 	var startOfCusp = cusps[i];
+ 		 	var endOfCusp = cusps[ (i+1)%12 ];
  		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
  		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
  		 	wrapper.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y )); 						
@@ -2409,7 +2412,7 @@
 		if( status.hasError ) {										
 			throw new Error( status.messages );
 		}
-		
+							
 		// remove aspects
 		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
 																			
@@ -3118,13 +3121,14 @@
 		this.duration = duration * 1000;
 		this.isReverse = isReverse || false;					
 		this.callback = callback; 
+		this.rotation = 0;
 		
 		this.timer.start();									
 	};
 	
 	astrology.Animator.prototype.update = function( deltaTime ){
-		this.timeSinceLoopStart += deltaTime;	
-		
+		deltaTime = deltaTime || 1; //									
+		this.timeSinceLoopStart += deltaTime;					
 		if (this.timeSinceLoopStart >= this.duration) {
 			this.timer.stop();					
 								
@@ -3138,7 +3142,7 @@
 		var expectedNumberOfLoops = (this.duration - this.timeSinceLoopStart) < deltaTime ? 
 							1 :		
 		 					Math.round( (this.duration - this.timeSinceLoopStart) / deltaTime);		
-		 					
+						 											 
 		updatePlanets( expectedNumberOfLoops );
 		updateCusps( expectedNumberOfLoops );														
 	};
@@ -3146,8 +3150,16 @@
 	/*
 	 * @private
 	 */
-	function updateCusps( expectedNumberOfLoops ){
+	function updateCusps( expectedNumberOfLoops ){				
+		var groupElement = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
 		
+		context.rotation += (context.isReverse) ? expectedNumberOfLoops : -1 * expectedNumberOfLoops;
+		context.rotation = context.rotation % 360;						 		
+		groupElement.setAttribute("transform", "rotate(" + context.rotation + " " + context.transit.cx + " " + context.transit.cy +")");
+					
+		if( expectedNumberOfLoops == 1){
+			groupElement.removeAttribute("transform");
+		}								
 	};
 	
 	/*
@@ -3181,16 +3193,16 @@
 			if(context.isReverse){
 				increment *= -1; 				
 			}
-																
+			
 			if(isRetrograde){
 				increment *= -1; 
 			}
-																
+			
 			var newPos = actualPlanetAngle + increment;
 			if( newPos < 0 ){
 				newPos += astrology.utils.radiansToDegree( 2 * Math.PI);
 			}
-						 										
+			
 			context.actualPlanetPos[planet][0] = newPos;										
 		}
 								

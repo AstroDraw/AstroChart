@@ -48,13 +48,14 @@
 		this.duration = duration * 1000;
 		this.isReverse = isReverse || false;					
 		this.callback = callback; 
+		this.rotation = 0;
 		
 		this.timer.start();									
 	};
 	
 	astrology.Animator.prototype.update = function( deltaTime ){
-		this.timeSinceLoopStart += deltaTime;	
-		
+		deltaTime = deltaTime || 1; //									
+		this.timeSinceLoopStart += deltaTime;					
 		if (this.timeSinceLoopStart >= this.duration) {
 			this.timer.stop();					
 								
@@ -68,7 +69,7 @@
 		var expectedNumberOfLoops = (this.duration - this.timeSinceLoopStart) < deltaTime ? 
 							1 :		
 		 					Math.round( (this.duration - this.timeSinceLoopStart) / deltaTime);		
-		 					
+						 											 
 		updatePlanets( expectedNumberOfLoops );
 		updateCusps( expectedNumberOfLoops );														
 	};
@@ -76,8 +77,16 @@
 	/*
 	 * @private
 	 */
-	function updateCusps( expectedNumberOfLoops ){
+	function updateCusps( expectedNumberOfLoops ){				
+		var groupElement = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
 		
+		context.rotation += (context.isReverse) ? expectedNumberOfLoops : -1 * expectedNumberOfLoops;
+		context.rotation = context.rotation % 360;						 		
+		groupElement.setAttribute("transform", "rotate(" + context.rotation + " " + context.transit.cx + " " + context.transit.cy +")");
+					
+		if( expectedNumberOfLoops == 1){
+			groupElement.removeAttribute("transform");
+		}								
 	};
 	
 	/*
@@ -111,16 +120,16 @@
 			if(context.isReverse){
 				increment *= -1; 				
 			}
-																
+			
 			if(isRetrograde){
 				increment *= -1; 
 			}
-																
+			
 			var newPos = actualPlanetAngle + increment;
 			if( newPos < 0 ){
 				newPos += astrology.utils.radiansToDegree( 2 * Math.PI);
 			}
-						 										
+			
 			context.actualPlanetPos[planet][0] = newPos;										
 		}
 								
