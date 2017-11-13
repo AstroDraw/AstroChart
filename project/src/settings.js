@@ -54,7 +54,7 @@
 	
 	// Cusps wrapper element ID
 	astrology.ID_CUSPS = "cusps";
-	
+		
 	// Cusps wrapper element ID
 	astrology.ID_RULER = "ruler";
 	
@@ -186,6 +186,9 @@
 		{"name":"Saturn", "position":201, "orbit":2}, //21 Libra
 		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
 	];
+	
+	// 0 - 4
+	astrology.ANIMATION_CUSPS_ROTATION_SPEED = 2;
 	
 	astrology.DEBUG = false;
 									       	      

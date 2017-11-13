@@ -48,7 +48,9 @@
 		this.duration = duration * 1000;
 		this.isReverse = isReverse || false;					
 		this.callback = callback; 
-		this.rotation = 0;
+		
+		this.rotation = 0;				
+		this.cuspsElement = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
 		
 		this.timer.start();									
 	};
@@ -77,15 +79,42 @@
 	/*
 	 * @private
 	 */
-	function updateCusps( expectedNumberOfLoops ){				
-		var groupElement = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
+	function updateCusps( expectedNumberOfLoops ){	
 		
-		context.rotation += (context.isReverse) ? expectedNumberOfLoops : -1 * expectedNumberOfLoops;
-		context.rotation = context.rotation % 360;						 		
-		groupElement.setAttribute("transform", "rotate(" + context.rotation + " " + context.transit.cx + " " + context.transit.cy +")");
+		var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI);							
+		var targetCuspAngle = context.transit.data.cusps[0] - context.data.cusps[0];					
+					
+		if( targetCuspAngle < 0 ){
+			targetCuspAngle += deg360; 		
+		}
+						
+		// speed
+		if(  astrology.ANIMATION_CUSPS_ROTATION_SPEED > 0 ){
+			targetCuspAngle += (context.isReverse)?
+		 		-1 * ((astrology.ANIMATION_CUSPS_ROTATION_SPEED * deg360) + deg360) :
+				astrology.ANIMATION_CUSPS_ROTATION_SPEED * deg360;
+		}
+																																													
+		var difference = (context.isReverse) ? 
+			context.rotation - targetCuspAngle : 
+			targetCuspAngle - context.rotation;
+								
+		// zero crossing
+		if( difference < 0 ){
+			difference += deg360; 		
+		}
+			 				
+		var increment = difference /  expectedNumberOfLoops;
+						
+		if(context.isReverse){
+			increment *= -1; 				
+		}						
+		context.rotation += increment;
+														 
+		context.cuspsElement.setAttribute("transform", "rotate(" + context.rotation + " " + context.transit.cx + " " + context.transit.cy +")");
 					
 		if( expectedNumberOfLoops == 1){
-			groupElement.removeAttribute("transform");
+			context.cuspsElement.removeAttribute("transform");
 		}								
 	};
 	

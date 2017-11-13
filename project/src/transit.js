@@ -161,7 +161,7 @@
 						
 		var startPosition, endPosition, lines, line;
 		var universe = this.universe;
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);	
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
 		var numbersRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius)/2);
 		
 		var AS = 0;
@@ -258,7 +258,7 @@
 							
 		// remove aspects
 		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
-																			
+																				
 		var animator = new astrology.Animator( context );			
 		animator.animate( data, duration, isReverse, (function(){
 			
