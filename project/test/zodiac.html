@@ -215,7 +215,13 @@
 					deepEqual( reporter.getDignities( {name:"Pluto", position:18}, [{"name":"Pluto", "position":18, "orbit":2}] ), [astrology.DIGNITIES_EXALTATION, astrology.DIGNITIES_EXACT_EXALTATION] );																																					
 				});
 				
-																										
+				test( "toDMS", function( ) {					
+					var cusps = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330];
+					var zodiac = new astrology.Zodiac( cusps  );							
+					equal( zodiac.toDMS(266.1234), "266° 7' 24" );
+					equal( zodiac.toDMS(0.1234), "0° 7' 24" );																																																						
+					equal( zodiac.toDMS(360.1234), "360° 7' 24" );
+				});																												
 			};// onload
 		</script>
 	</head>

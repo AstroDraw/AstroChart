@@ -2983,6 +2983,22 @@
 	 	return result;
 	 };
 	 
+	  /*
+	 * To hours:minutes:seconds
+	 * @param {Double} d
+	 * @return {String}
+	 */
+	 astrology.Zodiac.prototype.toDMS = function ( d ) {  
+	 	d += 0.5/3600./10000.;	// round to 1/1000 of a second
+		var deg = parseInt(d);
+		d = (d - deg) * 60;
+		var min = parseInt(d);
+		d = (d - min) * 60;
+		var sec = parseInt(d);
+		
+		return deg + "° " + min + "' " + sec;
+	 };
+	 
 	 /*
 	  * Has conjunction with point
 	  * 
@@ -3018,7 +3034,9 @@
 			}				 						
 								 		 		 	
 	 	return result;
-	 }
+	 };
+	 
+	
 	 					 
 }( window.astrology = window.astrology || {}));
 
