@@ -36,8 +36,8 @@
 		
 		//@see astrology.Radix.prototype.aspects()
 		//@see astrology.Radix.prototype.setPointsOfInterest() 
-        this.toPoints = this.data.planets;
-		
+        this.toPoints = JSON.parse(JSON.stringify(this.data.planets)); // Clone object
+                	
 		this.shift = 0;		
 		if(this.data.cusps && this.data.cusps[0]){
 			var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
@@ -299,7 +299,7 @@
 		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
 						  customAspects : 
 						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
-														
+						  						  						 						  										
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
 								
