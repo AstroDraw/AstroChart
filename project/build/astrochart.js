@@ -2511,7 +2511,7 @@
 	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
 	 		   								"point":{"name":point, "position":points[point][0]}, 
 	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
-	 		   								"precision":calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"])
+	 		   								"precision": calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]).toFixed(4)
 	 		   								}
 	 		   							)
 	 		   				}
@@ -2522,8 +2522,8 @@
  		   	} 		   	 		   	 		  
  		   } 		
  		}
- 				
-		return aspects;
+ 		 		 		  		 		 
+		return aspects.sort( compareAspectsByPrecision );
 	}; 
 			
 	/**
@@ -2565,7 +2565,7 @@
 	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
 	 		   								"point":{"name":point, "position":points[point][0]}, 
 	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
-	 		   								"precision":precision
+	 		   								"precision":precision.toFixed(4)
 	 		   								}
 	 		   							)
 	 		   				}	 		   				
@@ -2575,7 +2575,7 @@
  		   } 		
  		}
  		 		   						
-		return aspects;
+		return aspects.sort( compareAspectsByPrecision );
 	};
 	
 	/*
@@ -2660,6 +2660,17 @@
 		}
 							
 		return (_point - _toPoint < 0);				
+	}
+	
+	/*
+	 * Aspects comparator
+	 * by precision
+	 * @private
+	 * @param {Object} a 
+	 * @param {Object} b 
+	 */
+	function compareAspectsByPrecision( a , b ) {		
+		return a.precision - b.precision;								
 	}
 		
 }( window.astrology = window.astrology || {}));
