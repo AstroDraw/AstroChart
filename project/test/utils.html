@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.12.0.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
+		<script type="text/javascript" src="../build/astrochart.js"></script>	
+		
+		<script>			
+			window.onload = function( ) {							
+				test( "comparePoints", function( ) {
+											
+					var point1, poit2;						
+														
+					point1 = {angle:10}
+					point2 = {angle:20}																				
+					equal( astrology.utils.comparePoints( point1, point2 ), -1 );	
+					
+					point1 = {angle:20}
+					point2 = {angle:20}																				
+					equal( astrology.utils.comparePoints( point1, point2 ), 0 );
+					
+					point1 = {angle:30}
+					point2 = {angle:20}																				
+					equal( astrology.utils.comparePoints( point1, point2 ), 1 );
+					
+					point1 = {angle:0}
+					point2 = {angle:1}																				
+					equal( astrology.utils.comparePoints( point1, point2 ), -1 );
+					
+					point1 = {angle:259.99}
+					point2 = {angle:0}																				
+					equal( astrology.utils.comparePoints( point1, point2 ), 1 );												
+				});	
+				
+				test( "assemble", function( ) {					
+					astrology.DEBUG = true;
+					
+					var locatedPoints, universe, point, planetRadius;					
+					
+					locatedPoints = [];					
+					universe = {cx:0, cy:0, r:600}
+					planetRadius = 50
+										
+					astrology.COLLISION_RADIUS = 5;
+																		
+					point = {name:"Point1", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					equal( locatedPoints.length, 1 );
+					
+					point = {name:"Point2", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point3", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point4", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point5", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point6", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point7", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point8", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point9", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					point = {name:"Point10", x:100, y:0, r:planetRadius, angle:180}														
+					locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);
+					
+					console.log( locatedPoints )
+					
+					
+																	
+				});	
+				
+																																															
+			};// onload
+		</script>
+	</head>
+	<body>
+		<h1 id="qunit-header">chart.js tests</h1>
+		<h2 id="qunit-banner"></h2>
+		<div id="qunit-testrunner-toolbar"></div>
+		<h2 id="qunit-userAgent"></h2>
+		<ol id="qunit-tests"></ol>
+		<div id="qunit-fixture">
+			test markup, will be hidden
+		</div>
+	</body>
+</html>

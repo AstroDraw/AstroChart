@@ -157,7 +157,8 @@
 	// No fill, only stroke
 	astrology.STROKE_ONLY = false;
 	
-	// Planets collision circle radius
+	// Planets collision circle radius for astrology.SYMBOL_SCALE = 1
+	// Scaling changes the collision radius 
 	astrology.COLLISION_RADIUS = 10; //px
 	
 	// Aspects	

@@ -157,7 +157,8 @@
 	// No fill, only stroke
 	astrology.STROKE_ONLY = false;
 	
-	// Planets collision circle radius
+	// Planets collision circle radius for astrology.SYMBOL_SCALE = 1
+	// Scaling changes the collision radius 
 	astrology.COLLISION_RADIUS = 10; //px
 	
 	// Aspects	
@@ -3416,12 +3417,12 @@
   		
   		var magnitude = Math.sqrt(vx * vx + vy * vy);
   		
+  		//circle.radius is has been set to astrology.COLLISION_RADIUS;
   		var totalRadii = circle1.r + circle2.r;
 		
 		return magnitude <= totalRadii; 
 	};
-	
-	
+		
 	/**
 	 * Places a new point in the located list 
 	 * 
@@ -3518,7 +3519,7 @@
 	astrology.utils.isInCollision = function(angle, points){		
 		var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
 		var collisionRadius = astrology.COLLISION_RADIUS/2;
-		
+							
 		var result = false;					
 		for(var i = 0, ln = points.length; i < ln ; i++ ){
 										
@@ -3598,6 +3599,25 @@
 		} 
 												
 		return result;		
+	};
+	
+	/**
+	* Compare two points
+	* 
+	* @param {Object} pointA, {name:"Venus", x:78, y:56, r:50, angle:15.96}
+	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
+	* @return 
+	*/
+	astrology.utils.comparePoints = function( pointA, pointB){		
+		if (pointA.angle < pointB.angle){
+			return -1;	
+		}
+					
+		if (pointA.angle > pointB.angle){
+			return 1;
+		}
+					    
+		return 0;				
 	};
 									
 }( window.astrology = window.astrology || {}));
