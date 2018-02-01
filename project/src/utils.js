@@ -16,7 +16,7 @@
 	astrology.utils.getPointPosition = function( cx, cy, radius, angle ){		
 		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
 		var xPos = cx + radius * Math.cos( angleInRadius );
-		var yPos = cy + radius * Math.sin( angleInRadius );					
+		var yPos = cy + radius * Math.sin( angleInRadius );							  		  			
 		return {x:xPos, y:yPos};
 	};
 	
@@ -143,9 +143,9 @@
   		
   		var magnitude = Math.sqrt(vx * vx + vy * vy);
   		
-  		//circle.radius is has been set to astrology.COLLISION_RADIUS;
+  		//circle.radius has been set to astrology.COLLISION_RADIUS;
   		var totalRadii = circle1.r + circle2.r;
-		
+  		  		  		  		   		  		   	
 		return magnitude <= totalRadii; 
 	};
 		
@@ -164,9 +164,14 @@
 			locatedPoints.push(point);
 			return locatedPoints; //================>
 		}
-		
-		var isCollision = false;
-		locatedPoints.sort(astrology.utils.comparePoints);
+								
+		if( (2 * Math.PI * universe.r) - ( 2 * (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) * (locatedPoints.length+2))  <= 0){							
+			if( astrology.DEBUG ) console.log( "Universe circumference: " + (2 * Math.PI * universe.r) + ", Planets circumference: " + ( 2 * (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) * (locatedPoints.length+2)));							
+			throw new Error("Unresolved planet collision. Try change SYMBOL_SCALE or paper size.");
+		}
+													
+		var isCollision = false;				
+		locatedPoints.sort( astrology.utils.comparePoints );
 		for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
 			
 			if(astrology.utils.isCollision(locatedPoints[i], point)){
@@ -179,7 +184,7 @@
 				break;
 			}
 		}
-				
+						
 		if( isCollision ){
 			
 			astrology.utils.placePointsInCollision(locatedButInCollisionPoint, point);
@@ -191,7 +196,7 @@
 			newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, point.angle);
 			point.x = newPointPosition.x;
 			point.y = newPointPosition.y;
-									  					
+																		  		
 			// remove locatedButInCollisionPoint from locatedPoints									
 			locatedPoints.splice(locatedButInCollisionPoint.index, 1);
 																
@@ -202,8 +207,7 @@
 		}else{
 			locatedPoints.push(point);	
 		}
-		
-												
+													
 		return locatedPoints;	
 	};
 	
@@ -226,13 +230,16 @@
 			Math.abs(p1.pointer - p2.pointer) >= astrology.COLLISION_RADIUS)			
 		){
 								
-			p1.angle -= step;
-			p2.angle += step;																
+			p1.angle = p1.angle - step;
+			p2.angle = p2.angle + step;											
 		}else{
 										
-			p1.angle += step;
-			p2.angle -= step;						
-		}			
+			p1.angle = p1.angle + step;
+			p2.angle = p2.angle - step;	
+		}
+							
+		p1.angle = (p1.angle + 360) % 360;
+		p2.angle = (p2.angle + 360) % 360;		 					
 	};
 		
 	/**
@@ -244,7 +251,7 @@
 	 */
 	astrology.utils.isInCollision = function(angle, points){		
 		var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
-		var collisionRadius = astrology.COLLISION_RADIUS/2;
+		var collisionRadius = (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) / 2;
 							
 		var result = false;					
 		for(var i = 0, ln = points.length; i < ln ; i++ ){
@@ -279,12 +286,12 @@
 		if( astrology.utils.isInCollision( angle, obstacles)){
 			
 			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
-			endPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius - astrology.COLLISION_RADIUS, angle);			
+			endPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), angle);			
 			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );
 			
 			// the second part of the line when is space
-			if( (obstacleRadius + 2*astrology.COLLISION_RADIUS) < lineEndRadius){
-				startPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius + 2*astrology.COLLISION_RADIUS,angle); 			
+			if( (obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE)) < lineEndRadius){
+				startPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE),angle); 			
 				endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);				
 				result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} ); 														
 			}					
@@ -335,15 +342,7 @@
 	* @return 
 	*/
 	astrology.utils.comparePoints = function( pointA, pointB){		
-		if (pointA.angle < pointB.angle){
-			return -1;	
-		}
-					
-		if (pointA.angle > pointB.angle){
-			return 1;
-		}
-					    
-		return 0;				
+		return pointA.angle - pointB.angle; 			
 	};
 									
 }( window.astrology = window.astrology || {}));

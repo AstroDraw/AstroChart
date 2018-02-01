@@ -9,14 +9,7 @@
 		
 		<script>
 			window.onload = function( ) {							
-				test( "getPointPosition", function( ) {						
-					deepEqual(astrology.utils.getPointPosition(10,10,10,0), {x:0, y:10});	
-					deepEqual(astrology.utils.getPointPosition(10,10,10,90), {x:10, y:20});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,180), {x:20, y:10});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,270), {x:10, y:0});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,360), {x:0, y:10});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,450), {x:10, y:20});
-				});	
+				
 				
 				test( "validate", function( ) {
 					 var chart = new astrology.Chart( 'paper2', 1, 1);					
@@ -27,91 +20,11 @@
 					 throws( function(){ chart.radix({planets:{Moon:0, Sun:30}, cusps:[1,2,3,4,5,6,7,8,9,10,11,12]})}, "Must throw error to pass.");
 				});
 				
-				test( "isCollision", function( ) {
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:10, r:5}), true);
-					 
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:5}), true);
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:21, y:10, r:5}), false);
-					 
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:20, r:5}), true);
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:21, r:5}), false);
-					 
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:10}), true);
-				});
-									
-				test( "assemble", function( ) {
-										
-					var universe = {cx:0, cy:0, r:100};					
-					var collisionRadius = 10;
-					var angle, planetPosition, sun, mercury, venus, result, locatedPoints;
-					
-					//---
-					angle = 0;
-					planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, angle);
-					sun = {name:"Sun", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};					
-					deepEqual(astrology.utils.assemble([], sun, universe), [sun]);
-															
-					//---										
-					angle = 90;
-					planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, angle);					
-					mercury = {name:"Mercury", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
-																											
-					locatedPoints = astrology.utils.assemble([sun], mercury, universe);
-					equal(locatedPoints[0].angle, 0); 
-					equal(locatedPoints[1].angle, 90);
-					
-					//---
-					angle = 2;
-					planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, angle);					
-					mercury = {name:"Mercury", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
-																											
-					locatedPoints = astrology.utils.assemble([sun], mercury, universe);
-					equal( parseInt(locatedPoints[0].angle,10), 7); 
-					equal(parseInt(locatedPoints[1].angle,10), -5);
-					equal(locatedPoints.length, 2);
-										
-					//---
-					angle = 1;
-					planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, angle);					
-					venus = {name:"Venus", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
-																											
-					locatedPoints = astrology.utils.assemble([sun, mercury], venus, universe);
-					
-					equal( locatedPoints[0].name, "Sun"); 
-					equal( parseInt(locatedPoints[0].angle,10), 13);
-					
-					equal( locatedPoints[1].name, "Mercury");
-					equal(parseInt(locatedPoints[1].angle,10), 1);
-					
-					equal( locatedPoints[2].name, "Venus");
-					equal(parseInt(locatedPoints[2].angle,10), -11);
-										
-					equal(locatedPoints.length, 3);					
-				});
 				
-				test( "placePointsInCollision", function( ) {	
-					
-					var p1, p2;					
-					
-					p1 = {name:'Sun', pointer:1, angle:1};
-					p2 = {name:'Mercury', pointer:359, angle:1};					
-					astrology.utils.placePointsInCollision(p1, p2);					
-					deepEqual(p1, {name:'Sun', pointer:1, angle:2});
-					deepEqual(p2, {name:'Mercury', pointer:359, angle:0});
-					
-					p1 = {name:'Mercury', pointer:359, angle:1};
-					p2 = {name:'Sun', pointer:1, angle:1};										
-					astrology.utils.placePointsInCollision(p1, p2);					
-					deepEqual(p1, {name:'Mercury', pointer:359, angle:0});
-					deepEqual(p2, {name:'Sun', pointer:1, angle:2});
-					
-					p1 = {name:'Sun', pointer:10, angle:10};
-					p2 = {name:'Mercury', pointer:20, angle:10};					
-					astrology.utils.placePointsInCollision(p1, p2);					
-					deepEqual(p1, {name:'Sun', pointer:10, angle:9});
-					deepEqual(p2, {name:'Mercury', pointer:20, angle:11});
-																		
-				});
+									
+				
+				
+				
 				
 																				
 			};// onload
