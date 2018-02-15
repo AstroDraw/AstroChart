@@ -236,7 +236,14 @@
 								
 			var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
 			line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
-			line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));       		
+			line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));  
+			
+			line.setAttribute("data-name", aspectsList[i].aspect.name);
+			line.setAttribute("data-degree", aspectsList[i].aspect.degree);				
+			line.setAttribute("data-point", aspectsList[i].point.name);   		
+			line.setAttribute("data-toPoint", aspectsList[i].toPoint.name);
+			line.setAttribute("data-precision", aspectsList[i].precision);
+						     	
 			wrapper.appendChild( line );				
 		}         
 		         
