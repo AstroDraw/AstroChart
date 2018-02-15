@@ -2058,7 +2058,14 @@
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
 				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
-				line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));       		
+				line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));    
+				
+				line.setAttribute("data-name", aspectsList[i].aspect.name);
+				line.setAttribute("data-degree", aspectsList[i].aspect.degree);				
+				line.setAttribute("data-point", aspectsList[i].point.name);   		
+				line.setAttribute("data-toPoint", aspectsList[i].toPoint.name);
+				line.setAttribute("data-precision", aspectsList[i].precision);
+				
 				wrapper.appendChild( line );			
 			}
 		}
@@ -2492,7 +2499,7 @@
 	 * 
 	 * @param {Object} points; {"Sun":[0], "Moon":[90]}
 	 * 
-	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "angle":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
+	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
 	astrology.AspectCalculator.prototype.radix = function( points ){
 		if(!points){
@@ -2535,7 +2542,7 @@
 	 * Transit aspects
 	 *
 	 * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]}; 
-	 * @return {Array<Object>} [{"aspect":"conjunction", "point":"Sun", "toPoint":"Moon", "precision":0.5}]]
+	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
 	astrology.AspectCalculator.prototype.transit = function( points ){	
 		if(!points){

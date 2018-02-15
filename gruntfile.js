@@ -60,7 +60,11 @@ module.exports = function( grunt ) {
   			},
 		}			    	   	    	   
 	});
-
+	
+	grunt.registerTask( 'default', [
+		"dev",
+  		"watch"
+	]);	
 	grunt.registerTask('dev', ['jshint', 'concat']);
 	grunt.registerTask('build', ['concat', 'uglify', 'qunit']);
 	grunt.registerTask('test', ['qunit']);	
