@@ -3549,7 +3549,7 @@
 		for(var i = 0, ln = points.length; i < ln ; i++ ){
 										
 			if( Math.abs(points[i].angle - angle) <= collisionRadius || 
-			(deg360 - Math.abs(points[i].angle - angle)) <= collisionRadius){
+			Math.abs(deg360 - Math.abs(points[i].angle - angle)) <= collisionRadius){
 				result = true;
 				break;
 			}					
