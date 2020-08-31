@@ -19,7 +19,8 @@
 		svg.setAttribute('style', "position: relative; overflow: hidden;");		
 		svg.setAttribute('version', "1.1");						 				
 		svg.setAttribute('width', width);
-		svg.setAttribute('height', height);									
+		svg.setAttribute('height', height);		
+		svg.setAttribute('viewBox', "0 0 "+ width + " " + height);									
 		document.getElementById( elementId ).appendChild( svg );
 		
 		var wrapper = document.createElementNS(svg.namespaceURI, "g");
