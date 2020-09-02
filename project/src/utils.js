@@ -322,7 +322,7 @@
 		var rayRadius = endRadius;
 		var halfRayRadius = (startRadius <= endRadius) ? rayRadius - (Math.abs(endRadius-startRadius)/2): rayRadius + (Math.abs(endRadius-startRadius)/2); 
 		
-		for( i = 0, start = 0, step = 5; i < 72; i++ ){ 
+		for(var i = 0, start = 0, step = 5; i < 72; i++ ){ 
 			    var angle = start + startAngle;
 			    var startPos = astrology.utils.getPointPosition( centerX, centerY, startRadius, angle);
 				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? rayRadius : halfRayRadius), angle);				

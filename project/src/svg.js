@@ -13,7 +13,8 @@
 	 * @param {int} width
 	 * @param {int} height 
 	 */
-	astrology.SVG = function( elementId, width, height){		
+	astrology.SVG = function( elementId, width, height){	
+		astrology.ID_CHART = elementId + '-astrology';	
 		var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");		
 		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 		svg.setAttribute('style', "position: relative; overflow: hidden;");		
