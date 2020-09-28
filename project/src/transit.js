@@ -33,7 +33,7 @@
 		this.shift = radix.shift;		
 						
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
-		this.universe.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT);
+		this.universe.setAttribute('id', this.paper.elementId + "-" + astrology.ID_TRANSIT);
 		this.paper.root.appendChild( this.universe );
 					
 		context = this; 
@@ -47,7 +47,7 @@
 	astrology.Transit.prototype.drawBg = function(){				
 		var universe = this.universe;		
 						
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_BG);	
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_BG);	
 		
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
@@ -70,7 +70,7 @@
 		}
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS);
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
 		var step = ( gap - 2*(astrology.PADDING * astrology.SYMBOL_SCALE)) / Object.keys(planets).length;
@@ -113,7 +113,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
+        	symbol.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -141,7 +141,7 @@
 	astrology.Transit.prototype.drawCircles = function drawCircles(){
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CIRCLES);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CIRCLES);
 		var radius = this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO;
 			
 		var circle;			
@@ -164,7 +164,7 @@
 						
 		var startPosition, endPosition, lines, line;
 		var universe = this.universe;
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
 		var numbersRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius)/2);
 		
 		var AS = 0;
@@ -197,7 +197,7 @@
 	astrology.Transit.prototype.drawRuler = function drawRuler(){
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_RULER);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_RULER);
 				
 		var startRadius = (this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO));		
 		var rays = astrology.utils.getRulerPositions( this.cx, this.cy, startRadius, startRadius - this.rulerRadius, this.shift);
@@ -227,7 +227,7 @@
 						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
 							
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
 																										
 		for(var i = 0, ln = aspectsList.length; i < ln; i++){
 														
@@ -267,7 +267,7 @@
 		}
 							
 		// remove aspects
-		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		astrology.utils.getEmptyWrapper( this.universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
 																				
 		var animator = new astrology.Animator( context );			
 		animator.animate( data, duration, isReverse, (function(){

@@ -28,7 +28,7 @@
 		this.cx = this.paper.width/2;
 		this.cy = this.paper.height/2;
 		this.radius = this.paper.height/2 - astrology.MARGIN;
-						
+									
 		return this;
 	};
 	

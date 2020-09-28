@@ -215,18 +215,21 @@
 		svg.setAttribute('style', "position: relative; overflow: hidden;");		
 		svg.setAttribute('version', "1.1");						 				
 		svg.setAttribute('width', width);
-		svg.setAttribute('height', height);									
+		svg.setAttribute('height', height);		
+		svg.setAttribute('viewBox', "0 0 "+ width + " " + height);									
 		document.getElementById( elementId ).appendChild( svg );
 		
+		astrology._paperElementId = elementId + "-" + astrology.ID_CHART;		
+		
 		var wrapper = document.createElementNS(svg.namespaceURI, "g");
-		wrapper.setAttribute('id', astrology.ID_CHART);
+		wrapper.setAttribute('id', astrology._paperElementId );
 		svg.appendChild( wrapper );
 						
 		this.DOMElement = svg;				
 		this.root = wrapper;
 		this.width = width;
 		this.height = height;
-						
+										
 		context = this;
 	};	
 	
@@ -1649,7 +1652,7 @@
 		this.cx = this.paper.width/2;
 		this.cy = this.paper.height/2;
 		this.radius = this.paper.height/2 - astrology.MARGIN;
-						
+									
 		return this;
 	};
 	
@@ -1786,12 +1789,12 @@
 		
 		// preparing wrapper for aspects. It is the lowest layer
 		var divisionForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
-		divisionForAspects.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		divisionForAspects.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_ASPECTS);
 		this.paper.root.appendChild( divisionForAspects );
 				
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
-		this.universe.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX);
-		this.paper.root.appendChild( this.universe );
+		this.universe.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_RADIX);
+		this.paper.root.appendChild( this.universe );														
 						
 		context = this;
 			
@@ -1803,7 +1806,7 @@
 	 */
 	astrology.Radix.prototype.drawBg = function(){				
 		var universe = this.universe;	
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_BG);	
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_BG);	
 		
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
@@ -1818,7 +1821,7 @@
 	 */
 	astrology.Radix.prototype.drawUniverse = function(){
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_SIGNS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_SIGNS);
 						
 		// colors 
         for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){ 
@@ -1849,7 +1852,7 @@
 		}
 				
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
 		var step = ( gap - 2*(astrology.PADDING* astrology.SYMBOL_SCALE) ) / Object.keys(this.data.planets).length;
@@ -1891,7 +1894,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	symbol.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -1920,7 +1923,7 @@
 		}
 		
 		var universe = this.universe;
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
 		
 		var axisRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
 					
@@ -1984,7 +1987,7 @@
 		
 		var startPosition, endPosition, lines, line;
 		var universe = this.universe;
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_CUSPS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_CUSPS);
 				
 		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
 		
@@ -2042,7 +2045,7 @@
 						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
 						  						  						 						  										
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
 								
 		var duplicateCheck = [];
 		
@@ -2091,7 +2094,7 @@
 	astrology.Radix.prototype.drawRuler = function drawRuler(){
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_RULER);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_RULER);
 				
 		var startRadius = (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius));		
 		var rays = astrology.utils.getRulerPositions( this.cx, this.cy, startRadius, startRadius + this.rulerRadius, this.shift);
@@ -2116,7 +2119,7 @@
 	astrology.Radix.prototype.drawCircles = function drawCircles(){
 	
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_CIRCLES);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_CIRCLES);
 														
 		var circle;
 						      
@@ -2154,7 +2157,7 @@
 	astrology.Radix.prototype.transit = function( data ){
 		
 		// remove axis (As, Ds, Mc, Ic) from radix
-		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
+		astrology.utils.getEmptyWrapper( this.universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
 		
 		var transit = new astrology.Transit(context, data);
 		transit.drawBg();					
@@ -2202,7 +2205,7 @@
 		this.shift = radix.shift;		
 						
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
-		this.universe.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT);
+		this.universe.setAttribute('id', this.paper.elementId + "-" + astrology.ID_TRANSIT);
 		this.paper.root.appendChild( this.universe );
 					
 		context = this; 
@@ -2216,7 +2219,7 @@
 	astrology.Transit.prototype.drawBg = function(){				
 		var universe = this.universe;		
 						
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_BG);	
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_BG);	
 		
 		var LARGE_ARC_FLAG = 1;	
 		var start = 0; //degree
@@ -2239,7 +2242,7 @@
 		}
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS);
 					
 		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
 		var step = ( gap - 2*(astrology.PADDING * astrology.SYMBOL_SCALE)) / Object.keys(planets).length;
@@ -2282,7 +2285,7 @@
         	
         	// draw symbol						
 			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
-        	symbol.setAttribute('id', astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
+        	symbol.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
@@ -2310,7 +2313,7 @@
 	astrology.Transit.prototype.drawCircles = function drawCircles(){
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CIRCLES);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CIRCLES);
 		var radius = this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO;
 			
 		var circle;			
@@ -2333,7 +2336,7 @@
 						
 		var startPosition, endPosition, lines, line;
 		var universe = this.universe;
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
 		var numbersRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius)/2);
 		
 		var AS = 0;
@@ -2366,7 +2369,7 @@
 	astrology.Transit.prototype.drawRuler = function drawRuler(){
 		
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_RULER);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_RULER);
 				
 		var startRadius = (this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO));		
 		var rays = astrology.utils.getRulerPositions( this.cx, this.cy, startRadius, startRadius - this.rulerRadius, this.shift);
@@ -2396,7 +2399,7 @@
 						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
 							
 		var universe = this.universe;		
-		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
 																										
 		for(var i = 0, ln = aspectsList.length; i < ln; i++){
 														
@@ -2436,7 +2439,7 @@
 		}
 							
 		// remove aspects
-		astrology.utils.getEmptyWrapper( this.universe, astrology.ID_CHART + "-" + astrology.ID_ASPECTS);
+		astrology.utils.getEmptyWrapper( this.universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
 																				
 		var animator = new astrology.Animator( context );			
 		animator.animate( data, duration, isReverse, (function(){
@@ -3174,7 +3177,7 @@
 		this.callback = callback; 
 		
 		this.rotation = 0;				
-		this.cuspsElement = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
+		this.cuspsElement = document.getElementById(astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
 		
 		this.timer.start();									
 	};
@@ -3397,7 +3400,7 @@
 		if(wrapper){
 			astrology.utils.removeChilds( wrapper );
 		}else{					
-			wrapper = document.createElementNS( document.getElementById(astrology.ID_CHART).namespaceURI, "g");
+			wrapper = document.createElementNS( document.getElementById( astrology._paperElementId ).namespaceURI, "g");
 			wrapper.setAttribute('id', elementID);
 			parent.appendChild( wrapper );			
 		} 
@@ -3549,7 +3552,7 @@
 		for(var i = 0, ln = points.length; i < ln ; i++ ){
 										
 			if( Math.abs(points[i].angle - angle) <= collisionRadius || 
-			Math.abs(deg360 - Math.abs(points[i].angle - angle)) <= collisionRadius){
+			(deg360 - Math.abs(points[i].angle - angle)) <= collisionRadius){
 				result = true;
 				break;
 			}					
@@ -3614,7 +3617,7 @@
 		var rayRadius = endRadius;
 		var halfRayRadius = (startRadius <= endRadius) ? rayRadius - (Math.abs(endRadius-startRadius)/2): rayRadius + (Math.abs(endRadius-startRadius)/2); 
 		
-		for( i = 0, start = 0, step = 5; i < 72; i++ ){ 
+		for(var i = 0, start = 0, step = 5; i < 72; i++ ){ 
 			    var angle = start + startAngle;
 			    var startPos = astrology.utils.getPointPosition( centerX, centerY, startRadius, angle);
 				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? rayRadius : halfRayRadius), angle);				

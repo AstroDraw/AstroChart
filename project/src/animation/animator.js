@@ -50,7 +50,7 @@
 		this.callback = callback; 
 		
 		this.rotation = 0;				
-		this.cuspsElement = document.getElementById(astrology.ID_CHART + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
+		this.cuspsElement = document.getElementById(astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
 		
 		this.timer.start();									
 	};

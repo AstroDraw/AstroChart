@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>2 Radix</title>  
+        <style>
+        	#paper1{
+        		float:right;
+        	}
+        </style>                   
+    </head>
+    <body>    	    
+        <div id="paper1"></div>                    
+        <div id="paper2"></div>
+                                      
+        <script src="../../build/astrochart.js"></script>
+        <script type="text/javascript"> 
+        
+        	var dataChart1 = {
+				"planets":{"Moon":[0], "Sun":[180]},
+				"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]			
+			};
+			
+			var dataChart2 = {
+				"planets":{"Moon":[90], "Sun":[270]},
+				"cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]			
+			};
+												      
+        	window.onload = function () {            	     
+				var chart1 = new astrology.Chart('paper1', 600, 600).radix( dataChart1 );																	
+				var chart2 = new astrology.Chart('paper2', 600, 600).radix( dataChart2 );																																														
+			};
+		</script>		    
+    </body>
+</html>
+

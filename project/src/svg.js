@@ -13,8 +13,7 @@
 	 * @param {int} width
 	 * @param {int} height 
 	 */
-	astrology.SVG = function( elementId, width, height){	
-		astrology.ID_CHART = elementId + '-astrology';	
+	astrology.SVG = function( elementId, width, height){		
 		var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");		
 		svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
 		svg.setAttribute('style', "position: relative; overflow: hidden;");		
@@ -24,15 +23,17 @@
 		svg.setAttribute('viewBox', "0 0 "+ width + " " + height);									
 		document.getElementById( elementId ).appendChild( svg );
 		
+		astrology._paperElementId = elementId + "-" + astrology.ID_CHART;		
+		
 		var wrapper = document.createElementNS(svg.namespaceURI, "g");
-		wrapper.setAttribute('id', astrology.ID_CHART);
+		wrapper.setAttribute('id', astrology._paperElementId );
 		svg.appendChild( wrapper );
 						
 		this.DOMElement = svg;				
 		this.root = wrapper;
 		this.width = width;
 		this.height = height;
-						
+										
 		context = this;
 	};	
 	

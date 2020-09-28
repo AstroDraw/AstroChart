@@ -105,7 +105,7 @@
 		if(wrapper){
 			astrology.utils.removeChilds( wrapper );
 		}else{					
-			wrapper = document.createElementNS( document.getElementById(astrology.ID_CHART).namespaceURI, "g");
+			wrapper = document.createElementNS( document.getElementById( astrology._paperElementId ).namespaceURI, "g");
 			wrapper.setAttribute('id', elementID);
 			parent.appendChild( wrapper );			
 		} 

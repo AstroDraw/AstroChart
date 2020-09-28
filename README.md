@@ -1,7 +1,7 @@
 # AstroChart
 A free and open-source JavaScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
 
-**Version**: 2.0.0
+**Version**: 2.0.1
 
 - Pure Javascript implementation without dependencies.
 - SVG graphics.
@@ -15,6 +15,8 @@ A free and open-source JavaScript library for generating SVG charts to display p
 - [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/stroke_only.html)
 - [Animation](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/animate.html)
 - [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/debug/calibration.html)
+- [2 charts on page](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/2ChartsOnPage/2radix.html)
+
 
 ### How to use
 ```
