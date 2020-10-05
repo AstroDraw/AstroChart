@@ -192,7 +192,7 @@
 	 * @return {String id}
 	 */
 	function getSignWrapperId(sign) {
-		return astrology.ID_CHART + '-' + astrology.ID_RADIX + '-' + astrology.ID_SIGNS + '-' + sign
+		return astrology._paperElementId + '-' + astrology.ID_RADIX + '-' + astrology.ID_SIGNS + '-' + sign
 	}
 
 	/**
@@ -203,7 +203,7 @@
 	 * @return {String id}
 	 */
 	function getHouseIdWrapper(house) {
-		return astrology.ID_CHART + '-' + astrology.ID_RADIX + '-' + astrology.ID_CUSPS + '-' + house
+		return astrology._paperElementId + '-' + astrology.ID_RADIX + '-' + astrology.ID_CUSPS + '-' + house
 	}
 
 	/*
