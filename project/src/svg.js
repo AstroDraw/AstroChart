@@ -184,6 +184,28 @@
 		}			
 	};
 	
+	/**
+	 * Get ID for sign wrapper. 
+	 * 
+	 * @param {String} sign
+	 * 
+	 * @return {String id}
+	 */
+	function getSignWrapperId(sign) {
+		return astrology._paperElementId + '-' + astrology.ID_RADIX + '-' + astrology.ID_SIGNS + '-' + sign
+	}
+
+	/**
+	 * Get ID for house wrapper. 
+	 * 
+	 * @param {String} house
+	 * 
+	 * @return {String id}
+	 */
+	function getHouseIdWrapper(house) {
+		return astrology._paperElementId + '-' + astrology.ID_RADIX + '-' + astrology.ID_CUSPS + '-' + house
+	}
+
 	/*
 	 * Sun path
 	 * @private
@@ -631,6 +653,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_ARIES));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -662,6 +685,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_TAURUS));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -692,6 +716,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_GEMINI));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -722,6 +747,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_CANCER));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -752,6 +778,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_LEO));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -782,6 +809,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_VIRGO));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -812,6 +840,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_LIBRA));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -842,6 +871,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_SCORPIO));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -872,6 +902,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_SAGITTARIUS));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -902,6 +933,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 				
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_CAPRICORN));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");		
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -932,6 +964,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_AQUARIUS));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -962,6 +995,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getSignWrapperId(astrology.SYMBOL_PISCES));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1075,6 +1109,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_1));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1095,6 +1130,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_2));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1115,6 +1151,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_3));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1135,6 +1172,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_4));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1155,6 +1193,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_5));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1175,6 +1214,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_6));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1195,6 +1235,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_7));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1215,6 +1256,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_8));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1235,6 +1277,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_9));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var node = document.createElementNS( context.root.namespaceURI, "path");
@@ -1255,6 +1298,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_10));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var one = document.createElementNS( context.root.namespaceURI, "path");
@@ -1284,6 +1328,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_11));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var one = document.createElementNS( context.root.namespaceURI, "path");
@@ -1313,6 +1358,7 @@
 		y =  Math.round(y + (yShift * astrology.SYMBOL_SCALE));
 		
 		var wrapper = document.createElementNS(context.root.namespaceURI, "g");
+		wrapper.setAttribute('id', getHouseIdWrapper(astrology.SYMBOL_CUSP_12));
 		wrapper.setAttribute("transform", "translate(" + ( -x * (astrology.SYMBOL_SCALE - 1)) + "," + (-y * (astrology.SYMBOL_SCALE - 1)) + ") scale(" + astrology.SYMBOL_SCALE + ")");
 				
 			var one = document.createElementNS( context.root.namespaceURI, "path");
