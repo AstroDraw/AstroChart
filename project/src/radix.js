@@ -84,12 +84,13 @@
         for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){ 
         	        	        	       	        	                	        	        	     
         	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);        	        	
-        	segment.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLORS_SIGNS[i]);        	        	        	
+					segment.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLORS_SIGNS[i]);
+					segment.setAttribute("id", astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_SIGNS + "-" + i)
         	segment.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.CIRCLE_COLOR: "none");		 				 				 		
- 			segment.setAttribute("stroke-width", astrology.STROKE_ONLY ? 1 : 0); 				
+ 					segment.setAttribute("stroke-width", astrology.STROKE_ONLY ? 1 : 0); 				
         	wrapper.appendChild( segment );
         	        	        	        	        	        	               	
-			start += step;
+					start += step;
         };
                        
         // signs
