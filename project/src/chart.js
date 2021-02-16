@@ -16,6 +16,7 @@
 		
 		if(settings){
 			Object.assign(astrology, settings);
+			if(!('COLORS_SIGNS' in settings)) astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
 		}
 		
 		if (elementId && !document.getElementById( elementId )){
