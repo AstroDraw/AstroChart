@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Radix</title>  
+        <style>
+          #paper{
+            background:#999;
+          }
+        </style>                   
+    </head>
+    <body>          
+        <div id="paper"></div>
+                                      
+        <script src="../../build/astrochart.js"></script>
+        <script type="text/javascript"> 
+        
+          var data = {
+            "planets":{"Lilith":[18], "Chiron":[18], "Pluto":[63], "Neptune":[110, 0.2], "Uranus":[318], "Saturn":[201, -0.2], "Jupiter":[192], "Mars":[210], "Moon":[268], "Sun":[281], "Mercury":[312], "Venus":[330], "NNode":[2]},
+            "cusps":[296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]      
+          };
+
+
+          //The colors can be set all in an array
+          var settings = {COLORS_SIGNS: ["#F00000", "#F0F0F0", "#00F000", "#F006F0", "#0000F0", "#113311", "#F00000", "#F0F0F0", "#00F000", "#F006F0", "#0000F0", "#113311"]};
+          
+          //Or you can pass them separately
+          /*var settings = {COLOR_ARIES : "#F00000",
+                          COLOR_TAURUS : "#F0F0F0",
+                          COLOR_GEMINI: "#00F000",
+                          COLOR_CANCER : "#F006F0", 
+                          COLOR_LEO : "#0000F0", 
+                          COLOR_VIRGO : "#113311", 
+                          COLOR_LIBRA : "#F00000",  
+                          COLOR_SCORPIO : "#F0F0F0",  
+                          COLOR_SAGITTARIUS : "#00F000",
+                          COLOR_CAPRICORN : "#F006F0", 
+                          COLOR_AQUARIUS : "#0000F0", 
+                          COLOR_PISCES : "#113311"}*/
+
+          window.onload = function () {                   
+            var radix = new astrology.Chart('paper', 600, 600, settings).radix( data );    
+          };
+    </script>        
+    </body>
+</html>
+
