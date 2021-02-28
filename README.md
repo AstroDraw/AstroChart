@@ -38,7 +38,6 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 	"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]	
 }
 ```
-For detailed data description see [AstroWebService](https://github.com/Kibo/AstroWebService).
 
 ### Chart settings
 Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/project/src/settings.js)
@@ -46,6 +45,10 @@ Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/proje
 var settings = {SYMBOL_SCALE:2};
 var chart = new astrology.Chart( 'paper', 800, 800, settings);
 ```
+
+### People  
+**Creator**: [Kibo](https://github.com/Kibo)  
+**Mantainer**: [afucher](https://github.com/afucher)  
 
 ### It might interest you
 - [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)
