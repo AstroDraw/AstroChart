@@ -175,6 +175,26 @@
 										
 					equal(locatedPoints.length, 3);					
 				});
+
+				test( "assemble should not change planet position when planet are in collision", function( ) {
+					var shift = 344.07396032340205;
+					var universe = {cx:300, cy:300, r:185.125};	
+					var collisionRadius = 10;
+					var angle, planetPosition, sun, mercury, venus, result, locatedPoints = [];
+					var planets = {"Sun": [264.7071707108],"Mercury": [283.248841516],"Saturn": [283.8137792332],"Uranus": [274.8367919812],"Neptune": [281.4462451253]}
+
+					for(var planet in planets){
+						planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, planets[planet][0]+shift);
+						planetObject = {name:planet, x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:planets[planet][0]+shift,pointer:planets[planet][0]+shift};
+																												
+						locatedPoints = astrology.utils.assemble(locatedPoints, planetObject, universe);
+					}
+
+					var expectedPlanetOrder = ["Sun", "Uranus", "Neptune", "Mercury", "Saturn"];
+					
+					deepEqual(locatedPoints.map(lp => lp.name), expectedPlanetOrder);
+					
+				});
 				
 																																															
 			};// onload
