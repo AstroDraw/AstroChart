@@ -163,14 +163,14 @@
 					venus = {name:"Venus", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
 																											
 					locatedPoints = astrology.utils.assemble([sun, mercury], venus, universe);
-					
-					equal( locatedPoints[0].name, "Mercury"); 
+										
+					equal( locatedPoints[0].name, "Venus"); 
 					equal( parseInt(locatedPoints[0].angle,10), 1);
 					
-					equal( locatedPoints[1].name, "Sun");
+					equal( locatedPoints[1].name, "Mercury");
 					equal(parseInt(locatedPoints[1].angle,10), 13);
 					
-					equal( locatedPoints[2].name, "Venus");
+					equal( locatedPoints[2].name, "Sun");
 					equal(parseInt(locatedPoints[2].angle,10), 349);
 										
 					equal(locatedPoints.length, 3);					

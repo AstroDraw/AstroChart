@@ -1907,7 +1907,7 @@
 					
 		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius);
 		var startPosition, endPosition;
-																					
+		
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
  		   	 		   	 		   		 		   		
@@ -3550,7 +3550,7 @@
 		}else{
 			locatedPoints.push(point);	
 		}
-													
+		locatedPoints.sort( astrology.utils.comparePoints );									
 		return locatedPoints;	
 	};
 	
@@ -3563,20 +3563,20 @@
 	astrology.utils.placePointsInCollision = function(p1, p2){
 		
 		var step = 1;
+		var adjustedP1Pointer = p1.pointer == undefined ? p1.angle : p1.pointer;
+		var adjustedP2Pointer = p2.pointer == undefined ? p2.angle : p2.pointer;
+
+		// solving problems with zero crossing
+		if(Math.abs(adjustedP1Pointer - adjustedP2Pointer) > 180) {
+			adjustedP1Pointer = (adjustedP1Pointer + 180) % 360
+			adjustedP2Pointer = (adjustedP2Pointer + 180) % 360
+		}
 		
-		if( 
-			// solving problems with zero crossing										
-			(p1.pointer <= p2.pointer && 
-			Math.abs(p1.pointer - p2.pointer) <= astrology.COLLISION_RADIUS) ||
-							
-			(p1.pointer >= p2.pointer && 
-			Math.abs(p1.pointer - p2.pointer) >= astrology.COLLISION_RADIUS)			
-		){
-								
+		if(adjustedP1Pointer <= adjustedP2Pointer){
 			p1.angle = p1.angle - step;
 			p2.angle = p2.angle + step;											
-		}else{
-										
+		} else if(adjustedP1Pointer >= adjustedP2Pointer)
+		{
 			p1.angle = p1.angle + step;
 			p2.angle = p2.angle - step;	
 		}
