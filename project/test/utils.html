@@ -3,86 +3,82 @@
 	<head>
 		<meta charset="utf-8">
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.12.0.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
-		<script type="text/javascript" src="../build/astrochart.js"></script>	
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-2.16.0.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-2.16.0.js"></script>
+		<script type="text/javascript" src="../../build/astrochart.js"></script>	
 		
-		<script>			
-			window.onload = function( ) {	
-				
-				test( "getPointPosition", function( ) {						
-					deepEqual(astrology.utils.getPointPosition(10,10,10,0), {x:0, y:10});	
-					deepEqual(astrology.utils.getPointPosition(10,10,10,90), {x:10, y:20});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,180), {x:20, y:10});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,270), {x:10, y:0});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,360), {x:0, y:10});
-					deepEqual(astrology.utils.getPointPosition(10,10,10,450), {x:10, y:20});													
+		<script>				
+				QUnit.test( "getPointPosition", function( assert ) {						
+					assert.deepEqual(astrology.utils.getPointPosition(10,10,10,0), {x:0, y:10});	
+					assert.deepEqual(astrology.utils.getPointPosition(10,10,10,90), {x:10, y:20});
+					assert.deepEqual(astrology.utils.getPointPosition(10,10,10,180), {x:20, y:10});
+					assert.deepEqual(astrology.utils.getPointPosition(10,10,10,270), {x:10, y:0});
+					assert.deepEqual(astrology.utils.getPointPosition(10,10,10,360), {x:0, y:10});
+					assert.deepEqual(astrology.utils.getPointPosition(10,10,10,450), {x:10, y:20});													
 				});	
 				
-				test( "placePointsInCollision", function( ) {	
+				QUnit.test( "placePointsInCollision", function( assert  ) {	
 					
 					var p1, p2;					
 					
 					p1 = {name:'Sun', pointer:1, angle:1};
 					p2 = {name:'Mercury', pointer:359, angle:1};					
 					astrology.utils.placePointsInCollision(p1, p2);					
-					deepEqual(p1, {name:'Sun', pointer:1, angle:2});
-					deepEqual(p2, {name:'Mercury', pointer:359, angle:0});
+					assert.deepEqual(p1, {name:'Sun', pointer:1, angle:2});
+					assert.deepEqual(p2, {name:'Mercury', pointer:359, angle:0});
 					
 					p1 = {name:'Mercury', pointer:359, angle:1};
 					p2 = {name:'Sun', pointer:1, angle:1};										
 					astrology.utils.placePointsInCollision(p1, p2);					
-					deepEqual(p1, {name:'Mercury', pointer:359, angle:0});
-					deepEqual(p2, {name:'Sun', pointer:1, angle:2});
+					assert.deepEqual(p1, {name:'Mercury', pointer:359, angle:0});
+					assert.deepEqual(p2, {name:'Sun', pointer:1, angle:2});
 					
 					p1 = {name:'Sun', pointer:10, angle:10};
 					p2 = {name:'Mercury', pointer:20, angle:10};					
 					astrology.utils.placePointsInCollision(p1, p2);					
-					deepEqual(p1, {name:'Sun', pointer:10, angle:9});
-					deepEqual(p2, {name:'Mercury', pointer:20, angle:11});
+					assert.deepEqual(p1, {name:'Sun', pointer:10, angle:9});
+					assert.deepEqual(p2, {name:'Mercury', pointer:20, angle:11});
 																		
 				});
 				
-				test( "isCollision", function( ) {
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:10, r:5}), true);
+				QUnit.test( "isCollision", function(  assert ) {
+					 assert.equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:10, r:5}), true);
 					 
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:5}), true);
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:21, y:10, r:5}), false);
+					 assert.equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:5}), true);
+					 assert.equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:21, y:10, r:5}), false);
 					 
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:20, r:5}), true);
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:21, r:5}), false);
+					 assert.equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:20, r:5}), true);
+					 assert.equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:10, y:21, r:5}), false);
 					 
-					 equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:10}), true);
+					 assert.equal(astrology.utils.isCollision({x:10, y:10, r:5}, {x:20, y:10, r:10}), true);
 				});
 										
-				test( "comparePoints", function( ) {
+				QUnit.test( "comparePoints", function(  assert ) {
 											
 					var point1, poit2;						
 														
 					point1 = {angle:10}
 					point2 = {angle:20}																				
-					equal( astrology.utils.comparePoints( point1, point2 ), -10 );	
+					assert.equal( astrology.utils.comparePoints( point1, point2 ), -10 );	
 					
 					point1 = {angle:20}
 					point2 = {angle:20}																				
-					equal( astrology.utils.comparePoints( point1, point2 ), 0 );
+					assert.equal( astrology.utils.comparePoints( point1, point2 ), 0 );
 					
 					point1 = {angle:30}
 					point2 = {angle:20}																				
-					equal( astrology.utils.comparePoints( point1, point2 ), 10 );
+					assert.equal( astrology.utils.comparePoints( point1, point2 ), 10 );
 					
 					point1 = {angle:0}
 					point2 = {angle:1}																				
-					equal( astrology.utils.comparePoints( point1, point2 ), -1 );
+					assert.equal( astrology.utils.comparePoints( point1, point2 ), -1 );
 					
 					point1 = {angle:259.99}
 					point2 = {angle:0}																				
-					equal( astrology.utils.comparePoints( point1, point2 ), 259.99 );												
+					assert.equal( astrology.utils.comparePoints( point1, point2 ), 259.99 );												
 				});	
 				
-				test( "assemble", function( ) {	
-																				
-					astrology.DEBUG = true;
+				QUnit.test( "assemble", function(  assert ) {	
 					astrology.COLLISION_RADIUS = 10;
 					
 					var locatedPoints, universe, point, planetRadius;					
@@ -123,10 +119,10 @@
 					
 					console.log( locatedPoints )
 														
-					equal( locatedPoints.length, 10 );												
+					assert.equal( locatedPoints.length, 10 );												
 				});	
 				
-				test( "assemble2", function( ) {
+				QUnit.test( "assemble2", function(  assert ) {
 										
 					var universe = {cx:0, cy:0, r:100};					
 					var collisionRadius = 10;
@@ -136,7 +132,7 @@
 					angle = 0;
 					planetPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, angle);
 					sun = {name:"Sun", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};					
-					deepEqual(astrology.utils.assemble([], sun, universe), [sun]);
+					assert.deepEqual(astrology.utils.assemble([], sun, universe), [sun]);
 															
 					//---										
 					angle = 90;
@@ -144,8 +140,8 @@
 					mercury = {name:"Mercury", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
 																											
 					locatedPoints = astrology.utils.assemble([sun], mercury, universe);
-					equal(locatedPoints[0].angle, 0); 
-					equal(locatedPoints[1].angle, 90);
+					assert.equal(locatedPoints[0].angle, 0); 
+					assert.equal(locatedPoints[1].angle, 90);
 					
 					//---
 					angle = 2;
@@ -153,9 +149,9 @@
 					mercury = {name:"Mercury", x:planetPosition.x, y:planetPosition.y, r:collisionRadius, angle:angle};																										
 																											
 					locatedPoints = astrology.utils.assemble([sun], mercury, universe);
-					equal( parseInt(locatedPoints[0].angle,10), 7); 
-					equal(parseInt(locatedPoints[1].angle,10), 355);
-					equal(locatedPoints.length, 2);
+					assert.equal( parseInt(locatedPoints[0].angle,10), 7); 
+					assert.equal(parseInt(locatedPoints[1].angle,10), 355);
+					assert.equal(locatedPoints.length, 2);
 										
 					//---
 					angle = 1;
@@ -164,19 +160,19 @@
 																											
 					locatedPoints = astrology.utils.assemble([sun, mercury], venus, universe);
 										
-					equal( locatedPoints[0].name, "Venus"); 
-					equal( parseInt(locatedPoints[0].angle,10), 1);
+					assert.equal( locatedPoints[0].name, "Venus"); 
+					assert.equal( parseInt(locatedPoints[0].angle,10), 1);
 					
-					equal( locatedPoints[1].name, "Mercury");
-					equal(parseInt(locatedPoints[1].angle,10), 13);
+					assert.equal( locatedPoints[1].name, "Mercury");
+					assert.equal(parseInt(locatedPoints[1].angle,10), 13);
 					
-					equal( locatedPoints[2].name, "Sun");
-					equal(parseInt(locatedPoints[2].angle,10), 349);
+					assert.equal( locatedPoints[2].name, "Sun");
+					assert.equal(parseInt(locatedPoints[2].angle,10), 349);
 										
-					equal(locatedPoints.length, 3);					
+					assert.equal(locatedPoints.length, 3);					
 				});
 
-				test( "assemble should not change planet position when planet are in collision", function( ) {
+				QUnit.test( "assemble should not change planet position when planet are in collision", function(  assert ) {
 					var shift = 344.07396032340205;
 					var universe = {cx:300, cy:300, r:185.125};	
 					var collisionRadius = 10;
@@ -192,12 +188,11 @@
 
 					var expectedPlanetOrder = ["Sun", "Uranus", "Neptune", "Mercury", "Saturn"];
 					
-					deepEqual(locatedPoints.map(lp => lp.name), expectedPlanetOrder);
+					assert.deepEqual(locatedPoints.map(lp => lp.name), expectedPlanetOrder);
 					
 				});
 				
 																																															
-			};// onload
 		</script>
 	</head>
 	<body>

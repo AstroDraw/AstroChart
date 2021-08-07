@@ -3,13 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<script src="http://code.jquery.com/jquery-latest.js"></script>
-		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.12.0.css" type="text/css" media="screen" />
-		<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-1.12.0.js"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-2.16.0.css" type="text/css" media="screen" />
+		<script type="text/javascript" src="http://code.jquery.com/qunit/qunit-2.16.0.js"></script>
 		<script type="text/javascript" src="../build/astrochart.js"></script>	
 		
-		<script>
-			window.onload = function( ) {							
-				test( "radix", function( ) {										
+		<script>						
+				QUnit.test( "radix", function( assert ) {										
 					
 					var toPoints = {
 						"Sun":[0], 
@@ -35,7 +34,7 @@
 					
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.radix( points ), [
+					 assert.deepEqual(calculator.radix( points ), [
 							  {
 							    "aspect": {
 							  "color": "#FF4500",
@@ -158,7 +157,7 @@
 							] );					
 				});	
 				
-				test( "transit1", function( ) {
+				QUnit.test( "transit1", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -178,7 +177,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																																
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 										  {
 										    "aspect": {
 										      "color": "transparent",
@@ -200,7 +199,7 @@
 										
 				});
 				
-				test( "transit2", function( ) {
+				QUnit.test( "transit2", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -220,7 +219,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 									  {
 									    "aspect": {
 									      "color": "transparent",
@@ -241,7 +240,7 @@
 									]);										
 				});
 				
-				test( "transit3", function( ) {
+				QUnit.test( "transit3", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -261,7 +260,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), 	
+					 assert.deepEqual(calculator.transit( transit ), 	
 								[
 								  {
 								    "aspect": {
@@ -284,7 +283,7 @@
 																		
 				});
 				
-				test( "transit4", function( ) {
+				QUnit.test( "transit4", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -304,7 +303,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 								  {
 								    "aspect": {
 								  "color": "#FF4500",
@@ -326,7 +325,7 @@
 										
 				});
 				
-				test( "transit5", function( ) {
+				QUnit.test( "transit5", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -346,7 +345,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 							  {
 							    "aspect": {
 							      "color": "#27AE60",
@@ -368,7 +367,7 @@
 										
 				});
 				
-				test( "transit6", function( ) {
+				QUnit.test( "transit6", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -388,7 +387,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 						  {
 						    "aspect": {
 						      "color": "#27AE60",
@@ -410,7 +409,7 @@
 										
 				});
 				
-				test( "transit7", function( ) {
+				QUnit.test( "transit7", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -430,7 +429,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 							  {
 							    "aspect": {
 							      "color": "#FF4500",
@@ -452,7 +451,7 @@
 																
 				});
 				
-				test( "transit8", function( ) {
+				QUnit.test( "transit8", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -472,7 +471,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [
+					 assert.deepEqual(calculator.transit( transit ), [
 							  {
 							    "aspect": {
 							      "color": "#FF4500",
@@ -494,7 +493,7 @@
 																
 				});
 				
-				test( "transit9", function( ) {
+				QUnit.test( "transit9", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[359], 						
@@ -514,7 +513,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [{
+					 assert.deepEqual(calculator.transit( transit ), [{
 					    "aspect": {
 					      "color": "#FF4500",
 					      "degree": 90,
@@ -534,7 +533,7 @@
 																
 				});
 				
-				test( "transit10", function( ) {
+				QUnit.test( "transit10", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[359], 						
@@ -554,7 +553,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [{
+					 assert.deepEqual(calculator.transit( transit ), [{
 					    "aspect": {
 					      "color": "#FF4500",
 					      "degree": 90,
@@ -574,7 +573,7 @@
 																
 				});
 				
-				test( "transit11 - speed", function( ) {
+				QUnit.test( "transit11 - speed", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -594,7 +593,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [ {
+					 assert.deepEqual(calculator.transit( transit ), [ {
 						    "aspect": {
 						      "color": "transparent",
 						      "degree": 0,
@@ -614,7 +613,7 @@
 										
 				});
 				
-				test( "transit12 - speed", function( ) {
+				QUnit.test( "transit12 - speed", function( assert ) {
 					
 					var toPoints = {
 						"Sun":[0], 						
@@ -634,7 +633,7 @@
 						
 					var calculator = new astrology.AspectCalculator( toPoints, settings);
 																				
-					deepEqual(calculator.transit( transit ), [{
+					 assert.deepEqual(calculator.transit( transit ), [{
 						    "aspect": {
 						      "color": "transparent",
 						      "degree": 0,
@@ -653,18 +652,16 @@
 						  }]);
 										
 				});
-																																			
-			};// onload
 		</script>
 	</head>
 	<body>
-		<h1 id="qunit-header">chart.js tests</h1>
+		<h1 id="qunit-header">chart.js QUnit.tests</h1>
 		<h2 id="qunit-banner"></h2>
-		<div id="qunit-testrunner-toolbar"></div>
+		<div id="qunit-QUnit.testrunner-toolbar"></div>
 		<h2 id="qunit-userAgent"></h2>
-		<ol id="qunit-tests"></ol>
+		<ol id="qunit-QUnit.tests"></ol>
 		<div id="qunit-fixture">
-			test markup, will be hidden
+			QUnit.test markup, will be hidden
 		</div>
 	</body>
 </html>
