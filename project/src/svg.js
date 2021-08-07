@@ -46,8 +46,7 @@
 	 * 
 	 * @return {SVG g}
 	 */
-	astrology.SVG.prototype.getSymbol = function( name, x, y){		
-		
+	astrology.SVG.prototype.getSymbol = function( name, x, y){
 		switch(name) {
 			case astrology.SYMBOL_SUN:		        
 		        return sun( x, y);		        
@@ -183,6 +182,26 @@
 		    	return unknownPoint;	 
 		}			
 	};
+
+	/**
+	 * Create transparent rectangle. 
+	 * 
+	 * Used to improve area click, @see astrology.ADD_CLICK_AREA
+	 * 
+	 * @param {Number} x
+	 * @param {Number} y
+	 * 
+	 * @return {HTMLElement} rect
+	 */
+	function createRectForClick(x, y) {
+		var rect = document.createElementNS(context.root.namespaceURI, 'rect')
+		rect.setAttribute('x', x - astrology.SIGNS_STROKE)
+		rect.setAttribute('y', y - astrology.SIGNS_STROKE)
+		rect.setAttribute('width', '20px')
+		rect.setAttribute('height', '20px')
+		rect.setAttribute('fill', 'transparent')
+		return rect
+	}
 	
 	/**
 	 * Get ID for sign wrapper. 
@@ -392,7 +411,9 @@
 			node.setAttribute("stroke-width", astrology.POINTS_STROKE);
 			node.setAttribute("fill", "none");													
 			wrapper.appendChild(node);
-											
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y-3));
+		
 		return wrapper;
 	};
 	
@@ -461,7 +482,8 @@
 			body.setAttribute("stroke-width", astrology.POINTS_STROKE); 			
 			body.setAttribute("fill", "none");	 									
 			wrapper.appendChild( body );
-			
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 													
 		return wrapper;
 	};
@@ -663,7 +685,9 @@
 			node.setAttribute("fill", "none");	
 			
 			wrapper.appendChild(node);
-											
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y-4));
+		
 		return wrapper;
 	};
 	
@@ -694,7 +718,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -725,7 +750,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-											
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -756,7 +782,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-											
+			
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x-18, y));
 		return wrapper;
 	};
 	
@@ -787,7 +814,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 6, y - 13));
 		return wrapper;
 	};
 	
@@ -818,7 +846,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-											
+			
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -849,7 +878,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-											
+			
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 6, y - 12));
 		return wrapper;
 	};
 	
@@ -880,7 +910,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");													
 			wrapper.appendChild(node);
-													
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -910,8 +941,9 @@
 			node.setAttribute("stroke", astrology.SIGNS_COLOR);		 
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
-			wrapper.appendChild(node);	
-											
+			wrapper.appendChild(node);
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 12, y));
 		return wrapper;
 	};
 	
@@ -942,7 +974,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-													
+			
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -973,7 +1006,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");													
 			wrapper.appendChild(node);
-													
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));			
 		return wrapper;
 	};
 	
@@ -1004,7 +1038,8 @@
 			node.setAttribute("stroke-width", astrology.SIGNS_STROKE);			
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
-													
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));										
 		return wrapper;
 	};
 	
@@ -1118,7 +1153,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1139,7 +1175,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1160,7 +1197,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1181,7 +1219,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+
+			if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1202,7 +1241,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1224,6 +1264,8 @@
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
 											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1244,7 +1286,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));											
 		return wrapper;
 	};
 	
@@ -1265,7 +1308,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 	
@@ -1286,7 +1330,8 @@
 			node.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			node.setAttribute("fill", "none");															
 			wrapper.appendChild(node);
-											
+			
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));											
 		return wrapper;
 	};
 	
@@ -1316,7 +1361,8 @@
 			zero.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			zero.setAttribute("fill", "none");												
 			wrapper.appendChild( zero );
-													
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));													
 		return wrapper;
 	};
 	
@@ -1346,7 +1392,8 @@
 			one2.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			one2.setAttribute("fill", "none");												
 			wrapper.appendChild( one2 );
-													
+
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
 		return wrapper;
 	};
 		
@@ -1376,7 +1423,8 @@
 			two.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
 			two.setAttribute("fill", "none");												
 			wrapper.appendChild( two );
-													
+		
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));													
 		return wrapper;
 	};	
 			
