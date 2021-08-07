@@ -1713,8 +1713,6 @@
 	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274] 
 	 *	}
 	 * 
-	 * @see https://github.com/Kibo/AstroWebService 
-	 * 
 	 * @return {astrology.Radix} radix
 	 */
 	astrology.Chart.prototype.radix = function( data ){

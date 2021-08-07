@@ -1,21 +1,22 @@
 # AstroChart
-A free and open-source JavaScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
 
-**Version**: 2.0.1
+![GitHub release](https://img.shields.io/github/v/release/AstroDraw/AstroChart?style=flat-square)
+
+A free and open-source JavaScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
 
 - Pure Javascript implementation without dependencies.
 - SVG graphics.
 - Tested code.
 
 ### Example
-- [Radix chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/radix/radix.html)
-- [Radix 15. 11. 2016](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/radix/radix_2016_11_15.html)
-- [Radix collision](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/radix/radix_collision.html)
-- [Transit chart](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/transit.html)
-- [Stroke only](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/stroke_only.html)
-- [Animation](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/transit/animate.html)
-- [Calibration](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/debug/calibration.html)
-- [2 charts on page](https://cdn.rawgit.com/Kibo/AstroChart/master/project/examples/2ChartsOnPage/2radix.html)
+- [Radix chart](./project/examples/radix/radix.html)
+- [Radix 15. 11. 2016](./project/examples/radix/radix_2016_11_15.html)
+- [Radix collision](./project/examples/radix/radix_collision.html)
+- [Transit chart](./project/examples/transit/transit.html)
+- [Stroke only](./project/examples/transit/stroke_only.html)
+- [Animation](./project/examples/transit/animate.html)
+- [Calibration](./project/examples/debug/calibration.html)
+- [2 charts on page](./project/examples/2ChartsOnPage/2radix.html)
 
 
 ### How to use
@@ -40,7 +41,7 @@ Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron
 ```
 
 ### Chart settings
-Look into the [settings.js](https://github.com/Kibo/AstroChart/blob/master/project/src/settings.js)
+Look into the [settings.js](https://github.com/AstroDraw/AstroChart/blob/main/project/src/settings.js)
 ```
 var settings = {SYMBOL_SCALE:2};
 var chart = new astrology.Chart( 'paper', 800, 800, settings);

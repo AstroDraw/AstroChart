@@ -9,14 +9,10 @@
     "zodiac",
     "ephemetis"
   ],
-  "author": {
-    "name": "Tomas Jurman",
-    "email": "tomasjurman@gmail.com"
-  },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Kibo/AstroChart.git"
+    "url": "https://github.com/AstroDraw/AstroChart.git"
   },
   "dependencies": {},
   "devDependencies": {
