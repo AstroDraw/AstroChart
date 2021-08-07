@@ -117,7 +117,7 @@
 					
 		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius);
 		var startPosition, endPosition;
-																					
+		
 		for (var planet in this.data.planets) {
  		   if (this.data.planets.hasOwnProperty( planet )) {
  		   	 		   	 		   		 		   		
