@@ -42,7 +42,7 @@ module.exports = function( grunt ) {
 			},
 			dist : {
 				files : {
-					'project/build/<%= pkg.name %>.min.js' : ['<%= concat.dist.dest %>']
+					'build/<%= pkg.name %>.min.js' : ['<%= concat.dist.dest %>']
 				}
 			}
 		},
