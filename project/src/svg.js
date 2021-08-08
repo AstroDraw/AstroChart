@@ -879,7 +879,7 @@
 			node.setAttribute("fill", "none");												
 			wrapper.appendChild(node);
 			
-		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 6, y - 12));
+		if(astrology.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 6, y));
 		return wrapper;
 	};
 	
