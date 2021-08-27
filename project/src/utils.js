@@ -3,6 +3,7 @@
 	
 	astrology.utils = {};
 	
+
 	/**
 	 * Calculate position of the point on the circle.
 	 * 
@@ -344,5 +345,54 @@
 	astrology.utils.comparePoints = function( pointA, pointB){		
 		return pointA.angle - pointB.angle; 			
 	};
-									
+
+	/*
+	* Get custom SVG icon for sign or planet
+	*
+	* @param {string} path
+	* @param {int} x
+	* @param {int} y
+	* @param {DOMElement} wrapperElement
+	* @param {string} name
+	*
+	* @return 
+	*/
+	astrology.utils.getCustomIcon = function(path, x, y, wrapperElem, n) {
+
+		//init
+		var name = n + "-custom-icon";
+		var placeholderId = name + "-reference";
+		var iconInstanceClass = name + "-instance";
+
+		// remove existing placeholder reference
+		document.getElementById(placeholderId) !== null ? document.getElementById(placeholderId).remove() : null;
+
+		// remove existing icons
+		(document.getElementsByClassName(iconInstanceClass) !== null && document.getElementsByClassName(iconInstanceClass).length > 0) ? document.getElementsByClassName(iconInstanceClass).remove() : null;
+
+		var placeholder = document.createElement("object");
+		
+		placeholder.setAttribute('data', path)
+		placeholder.setAttribute('id', placeholderId);
+		placeholder.setAttribute('style', 'position: absolute; top: 0; left: -9999px; opacity: 0');
+
+		placeholder.onload = (function (e) {
+			var paths = document.querySelector("#" + placeholder.id).contentDocument.querySelectorAll("svg > path");
+			paths.forEach(function (p) {
+				var _x = x - 10;
+				var _y = y - 10;
+				p.classList.add(iconInstanceClass);
+				p.classList.add("custom-icon");
+				p.setAttribute("transform", "translate(" + _x + ", " + _y + ") scale(0.5)");
+				wrapperElem.appendChild(p);
+			});
+
+		});
+		document.getElementsByTagName('body')[0].appendChild(placeholder);
+
+	};
+		
+	astrology.utils.getIconReference = function(n) {
+		return "SYMBOL_" + n.toUpperCase() + "_ICON";
+	}
 }( window.astrology = window.astrology || {}));

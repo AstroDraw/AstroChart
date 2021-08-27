@@ -136,6 +136,34 @@
 	astrology.SYMBOL_PISCES = "Pisces";
 	astrology.SYMBOL_SIGNS = [astrology.SYMBOL_ARIES, astrology.SYMBOL_TAURUS, astrology.SYMBOL_GEMINI, astrology.SYMBOL_CANCER, astrology.SYMBOL_LEO, astrology.SYMBOL_VIRGO, astrology.SYMBOL_LIBRA, astrology.SYMBOL_SCORPIO, astrology.SYMBOL_SAGITTARIUS, astrology.SYMBOL_CAPRICORN, astrology.SYMBOL_AQUARIUS, astrology.SYMBOL_PISCES];
 			 
+	// Custom Icons - Path relative to web root
+	astrology.SYMBOL_SUN_ICON = "";
+	astrology.SYMBOL_MOON_ICON = "";
+	astrology.SYMBOL_MERCURY_ICON = "";
+	astrology.SYMBOL_VENUS_ICON = "";
+	astrology.SYMBOL_MARS_ICON = "";
+	astrology.SYMBOL_JUPITER_ICON = "";
+	astrology.SYMBOL_SATURN_ICON = "";
+	astrology.SYMBOL_URANUS_ICON = "";
+	astrology.SYMBOL_NEPTUNE_ICON = "";
+	astrology.SYMBOL_PLUTO_ICON = "";
+	astrology.SYMBOL_CHIRON_ICON = "";
+	astrology.SYMBOL_LILITH_ICON = "";
+	astrology.SYMBOL_NNODE_ICON = "";
+
+	astrology.SYMBOL_ARIES_ICON = "";
+	astrology.SYMBOL_TAURUS_ICON = "";
+	astrology.SYMBOL_GEMINI_ICON = "";
+	astrology.SYMBOL_CANCER_ICON = "";
+	astrology.SYMBOL_LEO_ICON = "";
+	astrology.SYMBOL_VIRGO_ICON = "";
+	astrology.SYMBOL_LIBRA_ICON = "";
+	astrology.SYMBOL_SCORPIO_ICON = "";
+	astrology.SYMBOL_SAGITTARIUS_ICON = "";
+	astrology.SYMBOL_CAPRICORN_ICON = "";
+	astrology.SYMBOL_AQUARIUS_ICON = "";
+	astrology.SYMBOL_PISCES_ICON = "";
+
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
 	astrology.COLOR_ARIES = "#FF4500";
 	astrology.COLOR_TAURUS = "#8B4513";

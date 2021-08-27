@@ -1,3 +1,229 @@
+// ## Settings #############################
+(function( astrology ) {
+	
+	//Scale of symbols	 
+	astrology.SYMBOL_SCALE = 1;
+		
+	// BG color
+	astrology.COLOR_BACKGROUND = "#fff";		 
+				
+	// Color of planet's symbols
+	astrology.POINTS_COLOR = "#000";
+	
+	// Size of description text next to the planet: angle, retrograde, dignities, ...
+	astrology.POINTS_TEXT_SIZE = 8;
+	
+	// Points strength of lines
+	astrology.POINTS_STROKE = 1.8;
+		
+	// Font color of signs symbols
+	astrology.SIGNS_COLOR = "#000"; 
+	
+	// Signs strength of lines
+	astrology.SIGNS_STROKE = 1.5;
+	
+	// Chart margin
+	astrology.MARGIN = 50; //px
+		
+	// Chart Padding  
+	astrology.PADDING = 18; //px
+	
+	// Module wrapper element ID
+	astrology.ID_CHART = "astrology";
+	
+	// Radix chart element ID
+	astrology.ID_RADIX = "radix";
+	
+	// Transit chart element ID
+	astrology.ID_TRANSIT = "transit";
+	
+	// Aspects wrapper element ID
+	astrology.ID_ASPECTS = "aspects";
+	
+	// Aspects wrapper element ID
+	astrology.ID_POINTS = "planets"; 
+	
+	// Signs wrapper element ID
+	astrology.ID_SIGNS = "signs"; 
+	
+	// Circles wrapper element ID
+	astrology.ID_CIRCLES = "circles";
+	
+	// Axis wrapper element ID
+	astrology.ID_AXIS = "axis";
+	
+	// Cusps wrapper element ID
+	astrology.ID_CUSPS = "cusps";
+		
+	// Cusps wrapper element ID
+	astrology.ID_RULER = "ruler";
+	
+	// Background wrapper element ID
+	astrology.ID_BG = "bg";
+	
+	// Color of circles in charts
+	astrology.CIRCLE_COLOR = "#333";
+	
+	// Circles strength of lines
+	astrology.CIRCLE_STRONG = 2;
+	
+	// Color of lines in charts
+	astrology.LINE_COLOR = "#333";
+	
+	// radius / INDOOR_CIRCLE_RADIUS_RATIO
+	astrology.INDOOR_CIRCLE_RADIUS_RATIO = 2;
+	
+	// radius - radius/INNER_CIRCLE_RADIUS_RATIO
+	astrology.INNER_CIRCLE_RADIUS_RATIO = 8;
+	
+	// ( radius / astrology.INNER_CIRCLE_RADIUS_RATIO ) / astrology.RULER_RADIUS 
+	astrology.RULER_RADIUS = 4;
+		
+	// Points
+	astrology.SYMBOL_SUN = "Sun";
+	astrology.SYMBOL_MOON = "Moon";
+	astrology.SYMBOL_MERCURY = "Mercury";
+	astrology.SYMBOL_VENUS = "Venus";
+	astrology.SYMBOL_MARS = "Mars";
+	astrology.SYMBOL_JUPITER = "Jupiter";
+	astrology.SYMBOL_SATURN = "Saturn";
+	astrology.SYMBOL_URANUS = "Uranus";
+	astrology.SYMBOL_NEPTUNE = "Neptune";
+	astrology.SYMBOL_PLUTO = "Pluto";
+	astrology.SYMBOL_CHIRON = "Chiron";
+	astrology.SYMBOL_LILITH = "Lilith";
+	astrology.SYMBOL_NNODE = "NNode";
+	
+	// Axis
+	astrology.SYMBOL_AS = "As";
+	astrology.SYMBOL_DS = "Ds";
+	astrology.SYMBOL_MC = "Mc";
+	astrology.SYMBOL_IC = "Ic";
+		
+	astrology.SYMBOL_AXIS_FONT_COLOR = "#333";
+	astrology.SYMBOL_AXIS_STROKE = 1.6;
+		
+	// Cusps
+	astrology.SYMBOL_CUSP_1 = "1";
+	astrology.SYMBOL_CUSP_2 = "2";
+	astrology.SYMBOL_CUSP_3 = "3";
+	astrology.SYMBOL_CUSP_4 = "4";
+	astrology.SYMBOL_CUSP_5 = "5";
+	astrology.SYMBOL_CUSP_6 = "6";
+	astrology.SYMBOL_CUSP_7 = "7";
+	astrology.SYMBOL_CUSP_8 = "8";
+	astrology.SYMBOL_CUSP_9 = "9";
+	astrology.SYMBOL_CUSP_10 = "10";
+	astrology.SYMBOL_CUSP_11 = "11";
+	astrology.SYMBOL_CUSP_12 = "12";
+	
+	// Cusps strength of lines
+	astrology.CUSPS_STROKE = 1;
+	astrology.CUSPS_FONT_COLOR = "#000";	
+	
+	//Signs
+	astrology.SYMBOL_ARIES = "Aries";
+	astrology.SYMBOL_TAURUS = "Taurus";
+	astrology.SYMBOL_GEMINI= "Gemini";
+	astrology.SYMBOL_CANCER = "Cancer"; 
+	astrology.SYMBOL_LEO = "Leo"; 
+	astrology.SYMBOL_VIRGO = "Virgo"; 
+	astrology.SYMBOL_LIBRA = "Libra";  
+	astrology.SYMBOL_SCORPIO = "Scorpio";  
+	astrology.SYMBOL_SAGITTARIUS = "Sagittarius";
+	astrology.SYMBOL_CAPRICORN = "Capricorn"; 
+	astrology.SYMBOL_AQUARIUS = "Aquarius"; 
+	astrology.SYMBOL_PISCES = "Pisces";
+	astrology.SYMBOL_SIGNS = [astrology.SYMBOL_ARIES, astrology.SYMBOL_TAURUS, astrology.SYMBOL_GEMINI, astrology.SYMBOL_CANCER, astrology.SYMBOL_LEO, astrology.SYMBOL_VIRGO, astrology.SYMBOL_LIBRA, astrology.SYMBOL_SCORPIO, astrology.SYMBOL_SAGITTARIUS, astrology.SYMBOL_CAPRICORN, astrology.SYMBOL_AQUARIUS, astrology.SYMBOL_PISCES];
+			 
+	// Custom Icons - Path relative to web root
+	astrology.SYMBOL_SUN_ICON = "";
+	astrology.SYMBOL_MOON_ICON = "";
+	astrology.SYMBOL_MERCURY_ICON = "";
+	astrology.SYMBOL_VENUS_ICON = "";
+	astrology.SYMBOL_MARS_ICON = "";
+	astrology.SYMBOL_JUPITER_ICON = "";
+	astrology.SYMBOL_SATURN_ICON = "";
+	astrology.SYMBOL_URANUS_ICON = "";
+	astrology.SYMBOL_NEPTUNE_ICON = "";
+	astrology.SYMBOL_PLUTO_ICON = "";
+	astrology.SYMBOL_CHIRON_ICON = "";
+	astrology.SYMBOL_LILITH_ICON = "";
+	astrology.SYMBOL_NNODE_ICON = "";
+
+	astrology.SYMBOL_ARIES_ICON = "";
+	astrology.SYMBOL_TAURUS_ICON = "";
+	astrology.SYMBOL_GEMINI_ICON = "";
+	astrology.SYMBOL_CANCER_ICON = "";
+	astrology.SYMBOL_LEO_ICON = "";
+	astrology.SYMBOL_VIRGO_ICON = "";
+	astrology.SYMBOL_LIBRA_ICON = "";
+	astrology.SYMBOL_SCORPIO_ICON = "";
+	astrology.SYMBOL_SAGITTARIUS_ICON = "";
+	astrology.SYMBOL_CAPRICORN_ICON = "";
+	astrology.SYMBOL_AQUARIUS_ICON = "";
+	astrology.SYMBOL_PISCES_ICON = "";
+
+	// http://www.rapidtables.com/web/color/html-color-codes.htm
+	astrology.COLOR_ARIES = "#FF4500";
+	astrology.COLOR_TAURUS = "#8B4513";
+	astrology.COLOR_GEMINI= "#87CEEB";
+	astrology.COLOR_CANCER = "#27AE60"; 
+	astrology.COLOR_LEO = "#FF4500"; 
+	astrology.COLOR_VIRGO = "#8B4513"; 
+	astrology.COLOR_LIBRA = "#87CEEB";  
+	astrology.COLOR_SCORPIO = "#27AE60";  
+	astrology.COLOR_SAGITTARIUS = "#FF4500";
+	astrology.COLOR_CAPRICORN = "#8B4513"; 
+	astrology.COLOR_AQUARIUS = "#87CEEB"; 
+	astrology.COLOR_PISCES = "#27AE60"; 	        	
+	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
+	
+	// 0 degree is on the West 
+	astrology.SHIFT_IN_DEGREES = 180;
+	
+	// No fill, only stroke
+	astrology.STROKE_ONLY = false;
+
+	astrology.ADD_CLICK_AREA = false;
+	
+	// Planets collision circle radius for astrology.SYMBOL_SCALE = 1
+	// Scaling changes the collision radius 
+	astrology.COLLISION_RADIUS = 10; //px
+	
+	// Aspects	
+	astrology.ASPECTS = { 
+		"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
+		"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+		"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
+		"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
+		};	
+	
+	// Dignities
+	astrology.DIGNITIES_RULERSHIP = "r";			
+	astrology.DIGNITIES_DETRIMENT = "d";			
+	astrology.DIGNITIES_EXALTATION = "e";			
+	astrology.DIGNITIES_EXACT_EXALTATION = "E";		
+	astrology.DIGNITIES_FALL = "f";	
+	
+	// Source: Aleister Crowley
+	astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT = [
+		{"name":"Sun", "position":19, "orbit":2}, // 19 Arise
+		{"name":"Moon", "position":33, "orbit":2}, //3 Taurus
+		{"name":"Mercury", "position":155, "orbit":2}, //15 Virgo
+		{"name":"Venus", "position":357, "orbit":2}, //27 Pisces
+		{"name":"Mars", "position":298, "orbit":2}, //28 Capricorn
+		{"name":"Jupiter", "position":105, "orbit":2}, //15 Cancer
+		{"name":"Saturn", "position":201, "orbit":2}, //21 Libra
+		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
+	];
+	
+	// 0 - 4
+	astrology.ANIMATION_CUSPS_ROTATION_SPEED = 2;
+	
+	astrology.DEBUG = false;
+									       	      
+}( window.astrology = window.astrology || {}));
 // ## SVG #####################
 (function (astrology) {
 
@@ -1749,3 +1975,2072 @@
 	};
 
 }(window.astrology = window.astrology || {}));
+// ## CHART ###################################
+(function( astrology ) {
+    
+	/**
+	 * Displays astrology charts.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor
+ 	 * @param {String} elementId - root DOMElement 
+	 * @param {int} width
+	 * @param {int} height
+	 * @param {Object} settings
+	 */
+	astrology.Chart = function( elementId, width, height, settings ){
+		
+		if(settings){
+			Object.assign(astrology, settings);
+			if(!('COLORS_SIGNS' in settings)) astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
+		}
+		
+		if (elementId && !document.getElementById( elementId )){
+			var paper = document.createElement('div');					
+			paper.setAttribute('id', elementId);			
+			document.body.appendChild( paper );
+		}
+										
+		this.paper = new astrology.SVG( elementId, width, height); 
+		this.cx = this.paper.width/2;
+		this.cy = this.paper.height/2;
+		this.radius = this.paper.height/2 - astrology.MARGIN;
+									
+		return this;
+	};
+	
+	/**
+	 * Display radix horoscope
+	 * 
+	 * @param {Object} data
+	 * @example
+	 *	{
+	 *		"points":{"Moon":[0], "Sun":[30],  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274] 
+	 *	}
+	 * 
+	 * @return {astrology.Radix} radix
+	 */
+	astrology.Chart.prototype.radix = function( data ){
+												
+		var radix = new astrology.Radix(this.paper, this.cx, this.cy, this.radius, data);
+		
+		radix.drawBg();				
+		radix.drawUniverse();									
+		radix.drawRuler();									
+		radix.drawPoints();
+		radix.drawCusps();		
+		radix.drawAxis();	 
+		radix.drawCircles();
+										 							
+		return radix;
+	 };
+	 	
+	 /**
+	 * Scale chart
+	 * 
+	 * @param {int} factor 
+	 */
+	astrology.Chart.prototype.scale = function( factor ){			
+		this.paper.root.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
+	};
+	
+	/**
+	 * Draw the symbol on the axis.
+	 * For debug only.
+	 * 	
+	 */
+	astrology.Chart.prototype.calibrate = function calibrate(){
+		var positions, circle, line;
+		var startRadius = 60;
+		
+		var planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Chiron", "Lilith", "NNode"];
+		
+		for(var i = 0; i < planets.length; i++){		
+			positions = astrology.utils.getPointPosition(this.cx, this.cy, this.radius*2, i * 30 );
+			
+			line = this.paper.line(this.cx, this.cy, positions.x, positions.y);
+			line.setAttribute("stroke", astrology.LINE_COLOR);	
+			this.paper.root.appendChild( line);
+			
+			circle = this.paper.circle(this.cx, this.cy, startRadius + startRadius * i );
+			circle.setAttribute("stroke", astrology.LINE_COLOR);		 
+			circle.setAttribute("stroke-width", 1);
+			this.paper.root.appendChild( circle );
+						
+		}
+						
+		for(var n = 0, ln = planets.length; n < ln; n++){
+			
+			var radius = startRadius + startRadius*n; 
+			
+			for(var i = 0; i < 12; i++){
+				positions = astrology.utils.getPointPosition(this.cx, this.cy, radius, i * 30 );
+			
+				circle = this.paper.circle(positions.x, positions.y, astrology.COLLISION_RADIUS *astrology.SYMBOL_SCALE );
+				circle.setAttribute("stroke", "red");		 
+				circle.setAttribute("stroke-width", 1);
+				this.paper.root.appendChild( circle );
+							
+				this.paper.root.appendChild( this.paper.getSymbol( planets[n], positions.x, positions.y));	
+			}
+		
+		}
+											
+		return this;		
+	};
+		 		  
+}( window.astrology = window.astrology || {}));
+
+// ## Radix chart ###################################
+(function( astrology ) {
+	
+	var context;
+    
+	/**
+	 * Radix charts.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor
+ 	 * @param {astrology.SVG} paper 
+	 * @param {int} cx
+	 * @param {int} cy
+	 * @param {int} radius
+	 * @param {Object} data
+	 */
+	astrology.Radix = function( paper, cx, cy, radius, data ){
+		
+		// Validate data
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
+			throw new Error( status.messages );
+		}
+		
+		this.data = data;								
+		this.paper = paper; 
+		this.cx = cx;
+		this.cy = cy;
+		this.radius = radius;
+		
+		// after calling this.drawPoints() it contains current position of point
+		this.locatedPoints = [];
+		this.rulerRadius = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/astrology.RULER_RADIUS);
+		this.pointRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + 2*this.rulerRadius + (astrology.PADDING * astrology.SYMBOL_SCALE));
+					
+		//@see astrology.Radix.prototype.aspects()
+		//@see astrology.Radix.prototype.setPointsOfInterest() 
+        this.toPoints = JSON.parse(JSON.stringify(this.data.planets)); // Clone object
+                	
+		this.shift = 0;		
+		if(this.data.cusps && this.data.cusps[0]){
+			var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+			this.shift = deg360 - this.data.cusps[0];	
+		}	
+		
+		// preparing wrapper for aspects. It is the lowest layer
+		var divisionForAspects = document.createElementNS(this.paper.root.namespaceURI, "g");
+		divisionForAspects.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_ASPECTS);
+		this.paper.root.appendChild( divisionForAspects );
+				
+		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
+		this.universe.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_RADIX);
+		this.paper.root.appendChild( this.universe );														
+						
+		context = this;
+			
+		return this;
+	};
+	
+	/**
+	 * Draw background
+	 */
+	astrology.Radix.prototype.drawBg = function(){				
+		var universe = this.universe;	
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_BG);	
+		
+		var LARGE_ARC_FLAG = 1;	
+		var start = 0; //degree
+		var end = 359.99; //degree 				
+		var hemisphere = this.paper.segment( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
+		hemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
+		wrapper.appendChild( hemisphere );					
+	};
+		
+	/**
+	 * Draw universe.
+	 */
+	astrology.Radix.prototype.drawUniverse = function(){
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_SIGNS);
+						
+		// colors 
+        for( var i = 0, step = 30, start = this.shift, len = astrology.COLORS_SIGNS.length; i < len; i++ ){ 
+        	        	        	       	        	                	        	        	     
+        	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);        	        	
+					segment.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLORS_SIGNS[i]);
+					segment.setAttribute("id", astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_SIGNS + "-" + i)
+        	segment.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.CIRCLE_COLOR: "none");		 				 				 		
+ 					segment.setAttribute("stroke-width", astrology.STROKE_ONLY ? 1 : 0); 				
+        	wrapper.appendChild( segment );
+        	        	        	        	        	        	               	
+					start += step;
+        };
+                       
+        // signs
+        for( var i = 0, step = 30, start = 15 + this.shift, len = astrology.SYMBOL_SIGNS.length; i < len; i++ ){ 
+        	var position = astrology.utils.getPointPosition( this.cx, this.cy, this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/2, start);       	        	                	
+        	wrapper.appendChild( this.paper.getSymbol( astrology.SYMBOL_SIGNS[i], position.x, position.y));        	        	        	               		
+			start += step;
+        }        
+	};
+	
+	/**
+	 * Draw points
+	 */
+	astrology.Radix.prototype.drawPoints = function(){
+		if(this.data.planets == null){
+			return;
+		}
+				
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS);
+					
+		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
+		var step = ( gap - 2*(astrology.PADDING* astrology.SYMBOL_SCALE) ) / Object.keys(this.data.planets).length;
+					
+		var pointerRadius = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius);
+		var startPosition, endPosition;
+		
+		for (var planet in this.data.planets) {
+ 		   if (this.data.planets.hasOwnProperty( planet )) {
+ 		   	 		   	 		   		 		   		
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, this.data.planets[planet][0] + this.shift); 		   	
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), angle:this.data.planets[planet][0] + this.shift, pointer:this.data.planets[planet][0] + this.shift}; 		   		 		   		 		   		 		  
+ 		   		this.locatedPoints = astrology.utils.assemble(this.locatedPoints, point, {cx:this.cx, cy:this.cy, r:this.pointRadius});   
+ 		   	} 		
+		}
+		
+		if( astrology.DEBUG ) console.log( "Radix count of points: " + this.locatedPoints.length );
+		if( astrology.DEBUG ) console.log( "Radix located points:\n" + JSON.stringify(this.locatedPoints) );
+											
+		this.locatedPoints.forEach(function(point){
+						        
+        	// draw pointer        	
+        	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift);
+        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius-this.rulerRadius/2, this.data.planets[point.name][0] + this.shift );
+        	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+        	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+			pointer.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
+        	wrapper.appendChild(pointer);
+        	
+        	// draw pointer line
+        	if( !astrology.STROKE_ONLY && (this.data.planets[point.name][0] + this.shift) != point.angle){	        	
+	        	startPosition = endPosition;
+	        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, this.pointRadius + (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), point.angle );
+	        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+	        	line.setAttribute("stroke", astrology.LINE_COLOR);	
+	        	line.setAttribute("stroke-width", 0.5 * (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));        	
+	        	wrapper.appendChild(line);
+        	}        	
+        	
+        	// draw symbol						
+			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
+        	symbol.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_POINTS + "-" + point.name);        	
+        	wrapper.appendChild( symbol );
+        	        	        	        
+        	// draw point descriptions
+        	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
+        	
+        	var zodiac = new astrology.Zodiac(this.data.cusps);
+        	
+        	if(this.data.planets[point.name][1] && zodiac.isRetrograde(this.data.planets[point.name][1])){
+        		textsToShow.push("R");
+        	}else{
+        		textsToShow.push("");
+        	}
+        	textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":this.data.planets[point.name][0]}, astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT).join(","));        	
+        	        	        	        	        	        	      	        	         	        	        	      
+        	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
+        	pointDescriptions.forEach(function(dsc){        		        		        		     
+				wrapper.appendChild( this.paper.text( dsc.text, dsc.x, dsc.y, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR) );	        		
+        	}, this);
+        	        	        	        	       	              	        	          			
+		}, this);		
+	};
+	
+	astrology.Radix.prototype.drawAxis = function(){
+		if(this.data.cusps == null){
+			return;
+		}
+		
+		var universe = this.universe;
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
+		
+		var axisRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/4);
+					
+		var AS = 0;
+		var IC = 3;
+		var DC = 6;
+		var MC = 9;
+		var overlapLine, 
+		startPosition, 
+		endPosition, 
+		line,
+		lines;
+				
+		[AS,IC,DC,MC].forEach( function(i) {
+																    								    								    								    								    																		 	 					 				 				 
+			// overlap 												
+			startPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, this.data.cusps[i] + this.shift);
+			endPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius, this.data.cusps[i] + this.shift);
+			overlapLine = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y); 				 			
+			overlapLine.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
+			overlapLine.setAttribute("stroke-width", (astrology.SYMBOL_AXIS_STROKE * astrology.SYMBOL_SCALE));
+			wrapper.appendChild( overlapLine ); 
+						 				 																
+			// As
+		 	if(i == AS){ 
+		 		// Text
+		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (20 * astrology.SYMBOL_SCALE), this.data.cusps[i] + this.shift);
+		 		wrapper.appendChild( this.paper.getSymbol( astrology.SYMBOL_AS, textPosition.x, textPosition.y));
+		 	}
+		 	 		 	 		 	 		
+		 	// Ds
+		 	if(i == DC){  		 		 		 		 		 		 		 
+		 		// Text
+		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (2 * astrology.SYMBOL_SCALE), this.data.cusps[i] + this.shift);
+		 		wrapper.appendChild( this.paper.getSymbol( astrology.SYMBOL_DS, textPosition.x, textPosition.y));
+		 	}
+		 	 		 	
+		 	// Ic
+		 	if(i == IC){ 
+		 		// Text
+		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (10 * astrology.SYMBOL_SCALE), this.data.cusps[i] - 2 + this.shift);
+		 		wrapper.appendChild( this.paper.getSymbol( astrology.SYMBOL_IC, textPosition.x, textPosition.y));
+		 	}
+		 	
+		 	// Mc
+		 	if(i == MC){ 		 		 		 	
+		 		// Text
+		 		textPosition = astrology.utils.getPointPosition( this.cx, this.cy, axisRadius + (10 * astrology.SYMBOL_SCALE), this.data.cusps[i] + 2 + this.shift);
+		 		wrapper.appendChild( this.paper.getSymbol( astrology.SYMBOL_MC, textPosition.x, textPosition.y));
+		 	} 
+	 	}, this);
+	};
+	
+	/**
+	 * Draw cusps
+	 */
+	astrology.Radix.prototype.drawCusps = function(){
+		if(this.data.cusps == null){
+			return;
+		}
+		
+		var startPosition, endPosition, lines, line;
+		var universe = this.universe;
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_CUSPS);
+				
+		var numbersRadius = this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO + (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
+		
+		var AS = 0;
+		var IC = 3;
+		var DC = 6;
+		var MC = 9;
+		var mainAxis = [AS,IC,DC,MC];
+											
+		//Cusps
+		for (var i = 0, ln = this.data.cusps.length; i < ln; i++) {
+ 			
+ 			// Draws a dashed line when an point is in the way
+ 			lines = astrology.utils.getDashedLinesPositions(
+ 				this.cx, 
+ 				this.cy, 
+ 				this.data.cusps[i] + this.shift, 
+ 				this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, 
+ 				this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius),
+ 				this.pointRadius,
+ 				this.locatedPoints
+ 				);
+ 				
+ 			lines.forEach(function(line){ 				
+ 				line = this.paper.line( line.startX, line.startY, line.endX, line.endY);
+ 				line.setAttribute("stroke", astrology.LINE_COLOR);	 				 			 				 			
+ 				
+ 				if(mainAxis.indexOf(i) != -1){ 					
+ 					line.setAttribute("stroke-width", (astrology.SYMBOL_AXIS_STROKE * astrology.SYMBOL_SCALE));
+ 				}else{
+ 					line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));	 					
+ 				}	 			 			 	
+ 				 				 				 				 			 						 			 			 	
+ 		 		wrapper.appendChild( line );  				
+ 			}, this);	
+ 			 			 			 			 		 			 		 	 		
+ 		 	// Cup number  		 	
+ 		 	var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI );
+ 		 	var startOfCusp = this.data.cusps[i];
+ 		 	var endOfCusp = this.data.cusps[ (i+1)%12 ];
+ 		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
+ 		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
+ 		 	wrapper.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y )); 		 	  		 			  		 			
+		}						      	      
+	};
+	
+	/**
+	 * Draw aspects
+	 * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
+	 */
+	astrology.Radix.prototype.aspects = function( customAspects ){
+															
+		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
+						  customAspects : 
+						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
+						  						  						 						  										
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
+								
+		var duplicateCheck = [];
+		
+		for(var i = 0, ln = aspectsList.length; i < ln; i++){
+			
+			var key 		= aspectsList[i].aspect.name + "-" + aspectsList[i].point.name + "-" + aspectsList[i].toPoint.name;
+			var opositeKey	= aspectsList[i].aspect.name + "-" + aspectsList[i].toPoint.name + "-" + aspectsList[i].point.name;									
+			if( duplicateCheck.indexOf( opositeKey ) == -1 ){			
+				duplicateCheck.push( key );
+																			
+				var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].toPoint.position + this.shift );
+				var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].point.position + this.shift);
+									
+				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+				line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
+				line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));    
+				
+				line.setAttribute("data-name", aspectsList[i].aspect.name);
+				line.setAttribute("data-degree", aspectsList[i].aspect.degree);				
+				line.setAttribute("data-point", aspectsList[i].point.name);   		
+				line.setAttribute("data-toPoint", aspectsList[i].toPoint.name);
+				line.setAttribute("data-precision", aspectsList[i].precision);
+				
+				wrapper.appendChild( line );			
+			}
+		}
+										     
+        // this
+        return context;
+	};
+	
+	/**
+	 * Add points of interest for aspects calculation
+	 * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]} 
+	 * @see (astrology.AspectCalculator( toPoints) )
+	 */
+	astrology.Radix.prototype.addPointsOfInterest = function( points ){
+		
+		for(point in points){
+			this.toPoints[ point ] = points[point]; 	
+		}
+						
+        return context;	
+	};
+		
+	astrology.Radix.prototype.drawRuler = function drawRuler(){
+		
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_RULER);
+				
+		var startRadius = (this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.rulerRadius));		
+		var rays = astrology.utils.getRulerPositions( this.cx, this.cy, startRadius, startRadius + this.rulerRadius, this.shift);
+		
+		rays.forEach(function( ray ){
+			var line = this.paper.line( ray.startX, ray.startY, ray.endX, ray.endY);       		       		       
+			line.setAttribute("stroke", astrology.CIRCLE_COLOR);		 				 				 		
+			line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));       		
+			wrapper.appendChild( line );				
+		}, this);
+
+		var circle;			
+		circle = this.paper.circle( this.cx, this.cy, startRadius);
+		circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
+        wrapper.appendChild( circle );       	       	
+	};
+	
+	/**
+	 * Draw circles
+	 */
+	astrology.Radix.prototype.drawCircles = function drawCircles(){
+	
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_CIRCLES);
+														
+		var circle;
+						      
+        //indoor circle
+        circle = this.paper.circle( this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);
+        circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", (astrology.CIRCLE_STRONG * astrology.SYMBOL_SCALE));		
+       	wrapper.appendChild( circle );     
+       	
+       	//outdoor circle
+		circle = this.paper.circle( this.cx, this.cy, this.radius);
+		circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", (astrology.CIRCLE_STRONG * astrology.SYMBOL_SCALE));
+        wrapper.appendChild( circle );
+       	
+       	//inner circle
+       	circle = this.paper.circle( this.cx, this.cy, this.radius-this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);
+       	circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", (astrology.CIRCLE_STRONG * astrology.SYMBOL_SCALE));
+        wrapper.appendChild( circle );  	       	       	       	       	   
+	};
+			
+	/**
+	 * Display transit horoscope
+	 * 
+	 * @param {Object} data
+	 * @example
+	 *	{
+	 *		"planets":{"Moon":[0], "Sun":[30],  ... },
+	 *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],	*		 
+	 *	} 
+	 * 
+	 * @return {astrology.Transit} transit
+	 */
+	astrology.Radix.prototype.transit = function( data ){
+		
+		// remove axis (As, Ds, Mc, Ic) from radix
+		astrology.utils.getEmptyWrapper( this.universe, astrology._paperElementId + "-" + astrology.ID_RADIX + "-" + astrology.ID_AXIS);
+		
+		var transit = new astrology.Transit(context, data);
+		transit.drawBg();					
+		transit.drawPoints();		
+		transit.drawCusps();	
+		transit.drawRuler();			
+		transit.drawCircles();	
+		return transit; 			
+	};
+		
+}( window.astrology = window.astrology || {}));
+
+// ## Transit chart ###################################
+(function( astrology ) {
+	
+	var context;
+    
+	/**
+	 * Transit charts.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor
+ 	 * @param {astrology.Radix} radix 
+	 * @param {Object} data
+	 */
+	astrology.Transit = function( radix, data ){
+		
+		// Validate data
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
+			throw new Error( status.messages );
+		}
+						
+		this.data = data;								
+		this.paper = radix.paper; 
+		this.cx = radix.cx;
+		this.cy = radix.cy;
+		this.toPoints = radix.toPoints;
+		this.radius = radix.radius;
+				
+		this.rulerRadius = ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO)/astrology.RULER_RADIUS);
+		this.pointRadius = this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO +  (astrology.PADDING * astrology.SYMBOL_SCALE));
+											
+		this.shift = radix.shift;		
+						
+		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
+		this.universe.setAttribute('id', this.paper.elementId + "-" + astrology.ID_TRANSIT);
+		this.paper.root.appendChild( this.universe );
+					
+		context = this; 
+												
+		return this;
+	};
+	
+	/**
+	 * Draw background
+	 */
+	astrology.Transit.prototype.drawBg = function(){				
+		var universe = this.universe;		
+						
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_BG);	
+		
+		var LARGE_ARC_FLAG = 1;	
+		var start = 0; //degree
+		var end = 359.99; //degree 				
+		var hemisphere = this.paper.segment( this.cx, this.cy, this.radius+this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG);
+		hemisphere.setAttribute("fill", astrology.STROKE_ONLY ? "none" : astrology.COLOR_BACKGROUND);				
+		wrapper.appendChild( hemisphere );							
+	};
+				
+	/**
+	 * Draw planets
+	 * 
+	 * @param{undefined | Object} planetsData, posible data planets to draw
+	 */
+	astrology.Transit.prototype.drawPoints = function( planetsData ){
+		
+		var planets = (planetsData == null) ? this.data.planets : planetsData;		
+		if(planets == null){
+			return;
+		}
+		
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS);
+					
+		var gap = this.radius - (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO + this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO);								
+		var step = ( gap - 2*(astrology.PADDING * astrology.SYMBOL_SCALE)) / Object.keys(planets).length;
+					
+		var pointerRadius = this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO);
+		var startPosition, endPosition;
+		
+		this.locatedPoints = [];																			
+		for (var planet in planets) {
+ 		   if (planets.hasOwnProperty( planet )) {
+ 		   	 		   	 		   		 		   		
+ 		   		var position = astrology.utils.getPointPosition( this.cx, this.cy, this.pointRadius, planets[planet][0] + this.shift); 		   	
+ 		   		var point = {name:planet, x:position.x, y:position.y, r:(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), angle:planets[planet][0] + this.shift, pointer:planets[planet][0] + this.shift}; 		   		
+ 		   		this.locatedPoints = astrology.utils.assemble(this.locatedPoints, point, {cx:this.cx, cy:this.cy, r:this.pointRadius});   
+ 		   	} 		
+		}
+		
+		if( astrology.DEBUG ) console.log( "Transit count of points: " + this.locatedPoints.length );
+		if( astrology.DEBUG ) console.log( "Transit located points:\n" + JSON.stringify(this.locatedPoints) );
+													
+		this.locatedPoints.forEach(function(point){
+						        
+        	// draw pointer        	
+        	startPosition = astrology.utils.getPointPosition( this.cx, this.cy, pointerRadius, planets[point.name][0] + this.shift);
+        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, pointerRadius+this.rulerRadius/2, planets[point.name][0] + this.shift );
+        	var pointer = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+        	pointer.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+			pointer.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
+        	wrapper.appendChild(pointer);
+        	
+        	// draw pointer line
+        	if( !astrology.STROKE_ONLY && (planets[point.name][0] + this.shift) != point.angle){	        	
+	        	startPosition = endPosition;
+	        	endPosition = astrology.utils.getPointPosition(this.cx, this.cy, this.pointRadius-(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), point.angle );
+	        	var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+	        	line.setAttribute("stroke", astrology.LINE_COLOR);		        	
+	        	line.setAttribute("stroke-width", 0.5 * (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));       	
+	        	wrapper.appendChild(line);
+        	}        	
+        	
+        	// draw symbol						
+			var symbol = this.paper.getSymbol(point.name, point.x, point.y);
+        	symbol.setAttribute('id', astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_POINTS + "-" + point.name);
+        	wrapper.appendChild( symbol );
+        	        	        	        
+        	// draw point descriptions
+        	var textsToShow = [(Math.round(planets[point.name][0]) % 30).toString()];
+        	
+        	var zodiac = new astrology.Zodiac(this.data.cusps);
+        	if(planets[point.name][1] && zodiac.isRetrograde(planets[point.name][1])){
+        		textsToShow.push("R");
+        	}else{
+        		textsToShow.push("");
+        	}
+        	textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":planets[point.name][0]}, astrology.DIGNITIES_EXACT_EXALTATION_DEFAULT).join(","));        	
+        	         	           	        	        	        	 
+        	var pointDescriptions = astrology.utils.getDescriptionPosition(point, textsToShow);         	
+        	pointDescriptions.forEach(function(dsc){        		        		        		     
+				wrapper.appendChild( this.paper.text( dsc.text, dsc.x, dsc.y, astrology.POINTS_TEXT_SIZE, astrology.SIGNS_COLOR) );	        		
+        	}, this);
+        	        	        	        	       	              	        	          			
+		}, this);										
+	};
+	
+	/**
+	 * Draw circles
+	 */
+	astrology.Transit.prototype.drawCircles = function drawCircles(){
+		
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CIRCLES);
+		var radius = this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO;
+			
+		var circle;			
+		circle = this.paper.circle( this.cx, this.cy, radius);
+		circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", (astrology.CIRCLE_STRONG * astrology.SYMBOL_SCALE));
+        wrapper.appendChild( circle );										
+	};
+	
+	/**
+	 * Draw cusps
+	 * @param{undefined | Object} cuspsData, posible data cusps to draw
+	 */
+	astrology.Transit.prototype.drawCusps = function( cuspsData ){
+		
+		var cusps = (cuspsData == null) ? this.data.cusps : cuspsData;		
+		if(cusps == null){
+			return;
+		}
+						
+		var startPosition, endPosition, lines, line;
+		var universe = this.universe;
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);		
+		var numbersRadius = this.radius + ((this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius)/2);
+		
+		var AS = 0;
+		var IC = 3;
+		var DC = 6;
+		var MC = 9;
+		var mainAxis = [AS,IC,DC,MC];
+		
+		//Cusps
+		for (var i = 0, ln = cusps.length; i < ln; i++) {
+			// Lines 			 			 		 		
+ 			var startPosition = bottomPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius, cusps[i] + this.shift);
+ 			var endPosition = astrology.utils.getPointPosition( this.cx, this.cy, this.radius + this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius, cusps[i] + this.shift);
+ 			var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
+ 			line.setAttribute("stroke", astrology.LINE_COLOR);		 				 				 		
+ 			line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE)); 
+ 			
+ 			wrapper.appendChild( line );
+ 			 			 		
+ 			// Cup number  		 	
+ 		 	var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI );
+ 		 	var startOfCusp = cusps[i];
+ 		 	var endOfCusp = cusps[ (i+1)%12 ];
+ 		 	var gap = endOfCusp - startOfCusp > 0 ? endOfCusp - startOfCusp : endOfCusp - startOfCusp + deg360;
+ 		 	var textPosition = astrology.utils.getPointPosition( this.cx, this.cy, numbersRadius, ((startOfCusp + gap/2) % deg360) + this.shift );
+ 		 	wrapper.appendChild( this.paper.getSymbol( (i+1).toString(), textPosition.x, textPosition.y )); 						
+		}				
+	};
+		
+	astrology.Transit.prototype.drawRuler = function drawRuler(){
+		
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_RULER);
+				
+		var startRadius = (this.radius + (this.radius/astrology.INNER_CIRCLE_RADIUS_RATIO));		
+		var rays = astrology.utils.getRulerPositions( this.cx, this.cy, startRadius, startRadius - this.rulerRadius, this.shift);
+		
+		rays.forEach(function( ray ){
+			var line = this.paper.line( ray.startX, ray.startY, ray.endX, ray.endY);       		       		       
+			line.setAttribute("stroke", astrology.CIRCLE_COLOR);		 				 				 		
+			line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));       		
+			wrapper.appendChild( line );				
+		}, this);
+
+		var circle;			
+		circle = this.paper.circle( this.cx, this.cy, startRadius - this.rulerRadius);
+		circle.setAttribute("stroke", astrology.CIRCLE_COLOR);		 
+		circle.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));
+        wrapper.appendChild( circle );       	       	
+	};
+		
+	/**
+	 * Draw aspects
+	 * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
+	 */
+	astrology.Transit.prototype.aspects = function( customAspects ){
+		
+		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
+						  customAspects : 
+						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
+							
+		var universe = this.universe;		
+		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
+																										
+		for(var i = 0, ln = aspectsList.length; i < ln; i++){
+														
+			var startPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].toPoint.position + this.shift );
+			var endPoint = astrology.utils.getPointPosition(this.cx, this.cy, this.radius/astrology.INDOOR_CIRCLE_RADIUS_RATIO, aspectsList[i].point.position + this.shift);
+								
+			var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
+			line.setAttribute("stroke", astrology.STROKE_ONLY ? astrology.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
+			line.setAttribute("stroke-width", (astrology.CUSPS_STROKE * astrology.SYMBOL_SCALE));  
+			
+			line.setAttribute("data-name", aspectsList[i].aspect.name);
+			line.setAttribute("data-degree", aspectsList[i].aspect.degree);				
+			line.setAttribute("data-point", aspectsList[i].point.name);   		
+			line.setAttribute("data-toPoint", aspectsList[i].toPoint.name);
+			line.setAttribute("data-precision", aspectsList[i].precision);
+						     	
+			wrapper.appendChild( line );				
+		}         
+		         
+        // this
+        return context;				
+	};
+		
+	/**
+	 * Moves points to another position.
+	 * 
+ 	 * @param {Object} data - planets target positions.
+ 	 * @param {Integer} duration - in seconds
+ 	 * @param {boolean} isReverse 	  	 
+ 	 * @param {Function | undefined} callbck - the function executed at the end of animation
+	 */
+	astrology.Transit.prototype.animate = function( data, duration, isReverse, callback ){
+		// Validate data
+		var status = astrology.utils.validate(data);		 		
+		if( status.hasError ) {										
+			throw new Error( status.messages );
+		}
+							
+		// remove aspects
+		astrology.utils.getEmptyWrapper( this.universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
+																				
+		var animator = new astrology.Animator( context );			
+		animator.animate( data, duration, isReverse, (function(){
+			
+			// animation is finished
+			this.data = data;
+			this.drawPoints();		
+			this.drawCusps();
+			this.aspects();
+			
+			if(typeof callback == 'function'){
+				callback();
+			}
+						
+		}).bind(this));
+																											
+		 // this
+        return context;				
+	};
+		
+}( window.astrology = window.astrology || {}));
+// ## Transit chart ###################################
+(function( astrology ) {
+		
+	var context;
+    
+	/**
+	 * Aspects calculator
+	 * 
+	 * @class
+	 * @public
+	 * @constructor 	 
+	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
+	 * @param {Object | null } settings
+	 */
+	astrology.AspectCalculator = function( toPoints, settings ){
+		
+		if(toPoints == null){
+			throw new Error( "Param 'toPoint' must not be empty." );
+		}
+		
+		this.settings = settings || {}; 		
+		this.settings.aspects = settings && settings.aspects || astrology.ASPECTS;
+							
+		this.toPoints = toPoints;
+																																												
+		context = this; 
+												 
+		return this;
+	};
+	
+	/**
+	 * Getter for this.toPoints
+	 * @see constructor
+	 * 
+	 * @return {Object} 
+	 */
+	astrology.AspectCalculator.prototype.getToPoints = function(){
+		return this.this.toPoints;
+	};
+	
+	/**
+	 * Radix aspects
+	 * 
+	 * In radix calculation is the param "points" the same as param "toPoints" in constructor 
+	 * , but without special points such as: As,Ds, Mc, Ic, ...
+	 * 
+	 * @param {Object} points; {"Sun":[0], "Moon":[90]}
+	 * 
+	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
+	 */
+	astrology.AspectCalculator.prototype.radix = function( points ){
+		if(!points){
+			return []; 
+		}
+							
+		var aspects = [];			
+		
+		for (var point in points) {
+ 		   if (points.hasOwnProperty( point )) {
+ 		   	 		   	 		   
+ 		   	for (var toPoint in this.toPoints) {
+ 		   		if (this.toPoints.hasOwnProperty( toPoint )) { 		   			 		   			 		   		
+ 		   			
+ 		   			if( point != toPoint){ 		   				 		   			 		   			 		   
+	 		   			for(var aspect in this.settings.aspects){ 		   				
+	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){
+	 		   						
+	 		   					aspects.push(
+	 		   								{
+	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
+	 		   								"point":{"name":point, "position":points[point][0]}, 
+	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
+	 		   								"precision": calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]).toFixed(4)
+	 		   								}
+	 		   							)
+	 		   				}
+	 		   				
+	 		   			}
+ 		   			} 		   		 		   						 
+ 		   		} 		   		
+ 		   	} 		   	 		   	 		  
+ 		   } 		
+ 		}
+ 		 		 		  		 		 
+		return aspects.sort( compareAspectsByPrecision );
+	}; 
+			
+	/**
+	 * Transit aspects
+	 *
+	 * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]}; 
+	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
+	 */
+	astrology.AspectCalculator.prototype.transit = function( points ){	
+		if(!points){
+			return []; 
+		}
+		
+		var aspects = [];
+		
+		for (var point in points) {
+ 		   if (points.hasOwnProperty( point )) { 		   	
+ 		   		for (var toPoint in this.toPoints) {
+ 		   			if (this.toPoints.hasOwnProperty( toPoint )) {
+ 		   		
+ 		   				for(var aspect in this.settings.aspects){ 		   				
+	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){	 
+	 		   					
+	 		   					var precision = calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);
+	 		   					
+	 		   					// -1 : is approaching to aspect
+	 		   					// +1 : is moving away
+	 		   					if(isTransitPointApproachingToAspect( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0] )){
+	 		   						precision *= -1;
+	 		   					}
+	 		   					
+	 		   					// if transit has speed value && transit is retrograde
+	 		   					if(points[point][1] && points[point][1] < 0 ){ 
+	 		   						precision *= -1;
+	 		   					}
+	 		   						 		   						 		   						 		   							   				
+	 		   					aspects.push(
+	 		   								{
+	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
+	 		   								"point":{"name":point, "position":points[point][0]}, 
+	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
+	 		   								"precision":precision.toFixed(4)
+	 		   								}
+	 		   							)
+	 		   				}	 		   				
+	 		   			} 		   		 		   		 		   	
+ 		   			}
+ 		   		} 		   	
+ 		   } 		
+ 		}
+ 		 		   						
+		return aspects.sort( compareAspectsByPrecision );
+	};
+	
+	/*
+	* @private
+ 	* @param {double} point
+ 	* @param {double} toPoint
+ 	* @param {Array} aspects; [DEGREE, ORBIT]
+	 */
+	function hasAspect(point, toPoint, aspect){
+		var result = false;
+		
+		var gap = Math.abs( point - toPoint );
+		
+		if( gap > astrology.utils.radiansToDegree( Math.PI)){
+			gap = astrology.utils.radiansToDegree( 2 * Math.PI) - gap;
+		}
+		
+		var orbitMin = aspect["degree"] - (aspect["orbit"] / 2);
+		var orbitMax = aspect["degree"] + (aspect["orbit"] / 2);
+		
+		if(orbitMin <= gap && gap <= orbitMax){											
+			result = true;
+		}
+								
+		return result;	
+	}
+	
+	/*
+	* @private 
+ 	* @param {Object} pointAngle
+ 	* @param {Object} toPointAngle
+ 	* @param {double} aspectDegree;
+	 */
+	function calcPrecision(point, toPoint, aspect){
+		var gap = Math.abs( point - toPoint );
+		
+		if( gap > astrology.utils.radiansToDegree( Math.PI)){
+			gap = astrology.utils.radiansToDegree( 2 * Math.PI) - gap;
+		}			
+		return Math.abs( gap - aspect);
+	}
+	
+	/*
+	 * Calculate direction of aspect
+	 * whether the transiting planet is approaching or is falling
+	 * @private
+	 * 
+	 * //TODO
+	 * This method is tested, and for tests gives the right results. 
+	 * But the code is totally unclear. It needs to be rewritten.
+	 * @param {double} aspect - aspect degree; for example 90.	
+	 * @param {double} toPoint - angle of standing point
+	 * @param {double} point - angle of transiting planet
+	 * @return {boolean}
+	 */
+	function isTransitPointApproachingToAspect(aspect, toPoint, point){
+		
+		if( (point - toPoint) > 0 ){
+			
+			if((point - toPoint) > astrology.utils.radiansToDegree( Math.PI)){
+				point = (point + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+			}else{
+				toPoint = (toPoint + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+			}			
+		}else{
+			
+			if((toPoint - point) > astrology.utils.radiansToDegree( Math.PI)){
+				toPoint = (toPoint + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+			}else{
+				point = (point + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+			}										
+		}
+		
+		var _point = point;
+		var _toPoint = toPoint;
+		
+		var difference = _point - _toPoint;
+		
+		if( Math.abs( difference ) > astrology.utils.radiansToDegree( Math.PI)){			
+			_point = toPoint;
+			_toPoint = point;
+		}
+							
+		return (_point - _toPoint < 0);				
+	}
+	
+	/*
+	 * Aspects comparator
+	 * by precision
+	 * @private
+	 * @param {Object} a 
+	 * @param {Object} b 
+	 */
+	function compareAspectsByPrecision( a , b ) {		
+		return a.precision - b.precision;								
+	}
+		
+}( window.astrology = window.astrology || {}));
+
+// ## Zodiac ###################################
+(function( astrology ) {
+	
+	// Zodiac
+	var SIGNS_ARIES 		= 1;
+	var SIGNS_TAURUS 		= 2;
+	var SIGNS_GEMINI 		= 3;
+	var SIGNS_CANCER 		= 4;
+	var SIGNS_LEO 			= 5;
+	var SIGNS_VIRGO 		= 6;
+	var SIGNS_LIBRA 		= 7;
+	var SIGNS_SCORPIO 		= 8;
+	var SIGNS_SAGITTARIUS 	= 9;
+	var SIGNS_CAPRICORN 	= 10;
+	var SIGNS_AQUARIUS 		= 11;
+	var SIGNS_PISCES 		= 12;
+    
+	/**
+	 * Zodiac
+	 * 
+	 * Gives the position of points in the zodiac.
+	 * Position of point in the zodiac.
+	 * Position of point in houses.
+	 * Dignities of planets.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor 	
+	 * @param {Array} cusps - cusprs in zodiac; [296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
+	 * @param {Object | null } settings
+	 */
+	astrology.Zodiac = function( cusps, settings){
+		
+		if(cusps == null){
+			throw new Error( "Param 'cusps' must not be empty." );
+		}
+		
+		if( !( Array.isArray(cusps) && cusps.length == 12) ){
+			throw new Error( "Param 'cusps' is not 12 length Array." );
+		}
+		
+		this.cusps = cusps;
+		this.settings = settings || {}; 
+						
+		return this;
+	};
+	
+	/**
+	 * Get astrological sign
+	 * 1 - Arise, ... , 12 - Pisces
+	 * 
+	 * @param {double} point - angle of point in circle
+	 * @return { \[1-9] | 1[0-2]\ } 
+	 */
+	astrology.Zodiac.prototype.getSign = function( point ){
+		var angle = point % astrology.utils.radiansToDegree( 2 * Math.PI);											
+		return Math.floor((angle  / 30) + 1);			
+	};
+	
+	/**
+	 * Is retrograde
+	 * 
+ 	 * @param {double} speed
+ 	 * @return {boolean}
+	 */
+	astrology.Zodiac.prototype.isRetrograde = function( speed ){
+		return speed < 0;
+	};
+	 
+	 /**
+	 * Get house number
+	 * 1 - 12
+	 * 
+	 * @param {double} point - angle of point in circle
+	 * @return { \[1-9] | 1[0-2]\ }
+	 */
+	 astrology.Zodiac.prototype.getHouseNumber = function( point ){
+	 	var angle = point % astrology.utils.radiansToDegree( 2 * Math.PI);	
+	 	
+	 	for(var i = 0, ln = this.cusps.length; i < ln; i++){
+	 		if(angle >= this.cusps[i] && angle < this.cusps[ (i % (ln-1)) + 1 ]){
+	 			return i + 1;
+	 		}
+	 	}
+	 	
+	 	// cusp passes over zero
+	 	for(var i = 0, ln = this.cusps.length; i < ln; i++){
+	 		if( this.cusps[i] > this.cusps[ (i % (ln-1)) + 1 ]){
+	 			return i+1;
+	 		}	
+	 	}
+	 		 	
+		throw new Error( "Oops, serious error in the method: 'astrology.Zodiac.getHouseNumber'." );
+	 };
+	 
+	 /**
+	  * Calculate dignities of planet
+	  *   
+	  * r - Rulership 
+	  * d - Detriment  
+	  * e - Exaltation  
+	  * E - Exalatation - Exact exaltation
+	  * f - Fall 
+	  *  
+ 	  * @param {Object} planet, { name:"Sun", position:60.2 }
+ 	  * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
+ 	  * @return {Array<String>}
+	  */
+	 astrology.Zodiac.prototype.getDignities = function( planet, exactExaltation ){
+	 	if(!(planet && planet.name && planet.position != null)){
+	 		return [];
+	 	}
+	 	
+	 	var result = [];	 	
+	 	var sign = this.getSign(planet.position);
+	 		 		 
+	 	var position = planet.position % astrology.utils.radiansToDegree( 2 * Math.PI);
+	 	
+	 	switch ( planet.name ) {
+		  case astrology.SYMBOL_SUN:
+		  		
+		  		if(sign == SIGNS_LEO){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_AQUARIUS){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_ARIES){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_VIRGO){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;	
+		    
+		    case astrology.SYMBOL_MOON:
+		  		
+		  		if(sign == SIGNS_CANCER){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_CAPRICORN){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_TAURUS){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_SCORPIO){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;
+		    
+		    case astrology.SYMBOL_MERCURY:
+		  		
+		  		if(sign == SIGNS_GEMINI){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_SAGITTARIUS){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_VIRGO){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_PISCES){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;	
+		    
+		    case astrology.SYMBOL_VENUS:
+		  		
+		  		if(sign == SIGNS_TAURUS || sign == SIGNS_LIBRA){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_ARIES || sign == SIGNS_SCORPIO){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_PISCES){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_VIRGO){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break; 
+		    
+		    case astrology.SYMBOL_MARS:
+		  		
+		  		if(sign == SIGNS_ARIES || sign == SIGNS_SCORPIO){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_TAURUS || sign == SIGNS_LIBRA){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_CAPRICORN){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_CANCER){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;
+		    
+		    case astrology.SYMBOL_JUPITER:
+		  		
+		  		if(sign == SIGNS_SAGITTARIUS || sign == SIGNS_PISCES){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_GEMINI || sign == SIGNS_VIRGO){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_CANCER){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_CAPRICORN){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break; 
+		    
+		    case astrology.SYMBOL_SATURN:
+		  		
+		  		if(sign == SIGNS_CAPRICORN || sign == SIGNS_AQUARIUS){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_CANCER || sign == SIGNS_LEO){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_LIBRA){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_ARIES){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;
+		    
+		    case astrology.SYMBOL_URANUS:
+		  		
+		  		if(sign == SIGNS_AQUARIUS ){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_LEO ){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_SCORPIO){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_TAURUS){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;
+		    
+		    case astrology.SYMBOL_NEPTUNE:
+		  		
+		  		if(sign == SIGNS_PISCES ){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_VIRGO ){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_LEO || sign == SIGNS_SAGITTARIUS){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_AQUARIUS || sign == SIGNS_GEMINI){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;
+		    
+		    case astrology.SYMBOL_PLUTO:
+		  		
+		  		if(sign == SIGNS_SCORPIO ){
+					result.push(astrology.DIGNITIES_RULERSHIP);
+				
+				}else if(sign == SIGNS_TAURUS ){										
+					result.push(astrology.DIGNITIES_DETRIMENT);
+				}
+											
+				if( sign == SIGNS_ARIES ){
+					result.push(astrology.DIGNITIES_EXALTATION);	
+																						
+				}else if(sign == SIGNS_LIBRA){
+					result.push(astrology.DIGNITIES_FALL);
+				}
+																				  		  		  	
+		    break;
+		     
+		    
+		    
+		    
+		  default:		    
+		    break;
+		}
+									
+		if( exactExaltation != null && Array.isArray(exactExaltation)){			
+			for(var i = 0, ln = exactExaltation.length; i < ln; i++){
+				if(planet.name == exactExaltation[i].name){					
+					if( hasConjunction( planet.position, exactExaltation[i].position, exactExaltation[i].orbit)){
+						result.push(astrology.DIGNITIES_EXACT_EXALTATION);		
+					}								
+				}				
+			}
+		}
+			 		 		 		 		 
+	 	return result;
+	 };
+	 
+	  /*
+	 * To hours:minutes:seconds
+	 * @param {Double} d
+	 * @return {String}
+	 */
+	 astrology.Zodiac.prototype.toDMS = function ( d ) {  
+	 	d += 0.5/3600./10000.;	// round to 1/1000 of a second
+		var deg = parseInt(d);
+		d = (d - deg) * 60;
+		var min = parseInt(d);
+		d = (d - min) * 60;
+		var sec = parseInt(d);
+		
+		return deg + "° " + min + "' " + sec;
+	 };
+	 
+	 /*
+	  * Has conjunction with point
+	  * 
+	  * @private
+	  * 
+	  * @param {Double} planetPosition
+ 	  * @param {Double} poitPosition
+ 	  * @param {Integer} orbit
+ 	  * @return {boolean}
+	  */
+	 function hasConjunction(planetPosition, pointPosition, orbit){
+	 	var result = false;
+	 		 		 		
+			var minOrbit = (pointPosition - orbit/2) < 0 ?
+				astrology.utils.radiansToDegree( 2 * Math.PI) - (pointPosition - orbit/2) : 
+				pointPosition - orbit/2;
+				
+			var maxOrbit = (pointPosition + orbit/2) >= astrology.utils.radiansToDegree( 2 * Math.PI) ?
+				(pointPosition + orbit/2) - astrology.utils.radiansToDegree( 2 * Math.PI) :
+				(pointPosition + orbit/2);
+			
+			if( minOrbit > maxOrbit){ //crossing over zero
+			
+				if( minOrbit >= planetPosition && planetPosition <= minOrbit){
+					result = true;
+				}
+									
+			}else{
+				
+				if( minOrbit <= planetPosition && planetPosition <= maxOrbit){
+					result = true;
+				}				
+			}				 						
+								 		 		 	
+	 	return result;
+	 };
+	 
+	
+	 					 
+}( window.astrology = window.astrology || {}));
+
+// ## Timer ###################################
+(function( astrology ) {
+		   
+	/**
+	 * Timer
+	 * 
+	 * Animation timer
+	 * 
+	 * @class
+	 * @public
+	 * @constructor 	
+	 */
+	astrology.Timer = function( callback ){
+						
+		if(typeof callback !== "function"){
+			throw new Error( "param 'callback' has to be a function." );
+		}				
+						
+		this.callback = callback;				
+		this.boundTick_ = this.tick.bind(this); 
+										
+		return this;
+	};
+	
+	astrology.Timer.prototype.start = function(){	
+		if (!this.requestID_){
+			this.lastGameLoopFrame = new Date().getTime();	
+			this.tick();	
+			if( astrology.DEBUG ) console.log("[astrology.Timer] start"); 
+		}
+	};
+	
+	astrology.Timer.prototype.stop = function(){	
+		if(this.requestID_){    		
+			window.cancelAnimationFrame( this.requestID_ );	
+			this.requestID_ = undefined;
+			if(astrology.DEBUG) console.log("[astrology.Timer] stop");
+		}	
+	};
+	
+	astrology.Timer.prototype.isRunning = function(){
+		return this.requestID_ ? true : false;
+	};
+	
+	astrology.Timer.prototype.tick = function(){	
+		var now = new Date().getTime(); 				
+		this.requestID_ = window.requestAnimationFrame( this.boundTick_ );		
+		this.callback( now - this.lastGameLoopFrame );		
+		this.lastGameLoopFrame = now;				
+	};
+	 					 
+}( window.astrology = window.astrology || {}));
+// ## Animator ###################################
+(function( astrology ) {
+	
+	var context;
+			  
+	/**
+	 * Transit chart animator
+	 * 
+	 * Animates the object on a circle.
+	 * 
+	 * @class
+	 * @public
+	 * @constructor 	
+	 * @param {Object} from, {"Sun":[12], "Moon":[60]}
+	 * @param {Object} to, {"Sun":[30], "Moon":[180]}
+	 * @param {Object} settings, {cx:100, cy:100, radius:200, prefix:"astro-chart-"}
+	 */
+	astrology.Animator = function( transit ){
+		
+		this.transit = transit;
+		
+		// Copy data
+		this.actualPlanetPos = {};
+		for(var planet in this.transit.data.planets){
+			this.actualPlanetPos[planet] = this.transit.data.planets[planet];
+		}
+										
+		this.timer = new astrology.Timer( this.update.bind(this) );
+		
+		// time, passed since the start of the loop
+		this.timeSinceLoopStart = 0;
+		
+		context = this;
+									
+		return this;
+	};
+		
+	/**
+	 * Animate objects
+	 
+	 * @param {Object} data, targetPositions 
+ 	 * @param {Integer} duration - seconds
+ 	 * @param {boolean} isReverse 
+ 	 * @param {Function} callbck - start et the end of animation
+	 */
+	astrology.Animator.prototype.animate = function( data, duration, isReverse, callback){
+		this.data = data;		 			
+		this.duration = duration * 1000;
+		this.isReverse = isReverse || false;					
+		this.callback = callback; 
+		
+		this.rotation = 0;				
+		this.cuspsElement = document.getElementById(astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
+		
+		this.timer.start();									
+	};
+	
+	astrology.Animator.prototype.update = function( deltaTime ){
+		deltaTime = deltaTime || 1; //									
+		this.timeSinceLoopStart += deltaTime;					
+		if (this.timeSinceLoopStart >= this.duration) {
+			this.timer.stop();					
+								
+			if( typeof this.callback  === "function"){
+				this.callback();	
+			}
+			
+			return;					
+		}
+									
+		var expectedNumberOfLoops = (this.duration - this.timeSinceLoopStart) < deltaTime ? 
+							1 :		
+		 					Math.round( (this.duration - this.timeSinceLoopStart) / deltaTime);		
+						 											 
+		updatePlanets( expectedNumberOfLoops );
+		updateCusps( expectedNumberOfLoops );														
+	};
+	
+	/*
+	 * @private
+	 */
+	function updateCusps( expectedNumberOfLoops ){	
+		
+		var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI);							
+		var targetCuspAngle = context.transit.data.cusps[0] - context.data.cusps[0];					
+					
+		if( targetCuspAngle < 0 ){
+			targetCuspAngle += deg360; 		
+		}
+						
+		// speed
+		if(  astrology.ANIMATION_CUSPS_ROTATION_SPEED > 0 ){
+			targetCuspAngle += (context.isReverse)?
+		 		-1 * ((astrology.ANIMATION_CUSPS_ROTATION_SPEED * deg360) + deg360) :
+				astrology.ANIMATION_CUSPS_ROTATION_SPEED * deg360;
+		}
+																																													
+		var difference = (context.isReverse) ? 
+			context.rotation - targetCuspAngle : 
+			targetCuspAngle - context.rotation;
+								
+		// zero crossing
+		if( difference < 0 ){
+			difference += deg360; 		
+		}
+			 				
+		var increment = difference /  expectedNumberOfLoops;
+						
+		if(context.isReverse){
+			increment *= -1; 				
+		}						
+		context.rotation += increment;
+														 
+		context.cuspsElement.setAttribute("transform", "rotate(" + context.rotation + " " + context.transit.cx + " " + context.transit.cy +")");
+					
+		if( expectedNumberOfLoops == 1){
+			context.cuspsElement.removeAttribute("transform");
+		}								
+	};
+	
+	/*
+	 * @private
+	 */
+	function updatePlanets( expectedNumberOfLoops ){
+		
+		for(var planet in context.data.planets){
+			var actualPlanetAngle = context.actualPlanetPos[planet][0]; 		
+			var targetPlanetAngle = context.data.planets[planet][0];
+			var isRetrograde = context.actualPlanetPos[planet][1] != null && context.actualPlanetPos[planet][1] < 0;
+								
+			var difference;
+			if( context.isReverse && isRetrograde){
+				difference = targetPlanetAngle - actualPlanetAngle;
+			
+			}else if( context.isReverse || isRetrograde ){
+				difference = actualPlanetAngle - targetPlanetAngle;
+								
+			}else{
+				difference = targetPlanetAngle - actualPlanetAngle;
+			}
+																
+			// zero crossing
+			if( difference < 0 ){
+				difference += astrology.utils.radiansToDegree( 2 * Math.PI); 		
+			}
+			
+			var increment = difference /  expectedNumberOfLoops;
+																																								
+			if(context.isReverse){
+				increment *= -1; 				
+			}
+			
+			if(isRetrograde){
+				increment *= -1; 
+			}
+			
+			var newPos = actualPlanetAngle + increment;
+			if( newPos < 0 ){
+				newPos += astrology.utils.radiansToDegree( 2 * Math.PI);
+			}
+			
+			context.actualPlanetPos[planet][0] = newPos;										
+		}
+								
+		context.transit.drawPoints( context.actualPlanetPos );		
+	}
+						 		
+}( window.astrology = window.astrology || {}));
+// ## UTILS #############################
+(function( astrology ) {
+	
+	astrology.utils = {};
+	
+
+	/**
+	 * Calculate position of the point on the circle.
+	 * 
+	 * @param {int} cx - center x 
+	 * @param {int} cy - center y
+	 * @param {int} radius
+	 * @param {double} angle - degree			
+	 * 
+	 * @return {Object} - {x:10, y:20}
+	 */	
+	astrology.utils.getPointPosition = function( cx, cy, radius, angle ){		
+		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
+		var xPos = cx + radius * Math.cos( angleInRadius );
+		var yPos = cy + radius * Math.sin( angleInRadius );							  		  			
+		return {x:xPos, y:yPos};
+	};
+	
+	astrology.utils.degreeToRadians = function( degree ){
+		return degrees * Math.PI / 180;
+	};
+
+	astrology.utils.radiansToDegree = function( radians ){
+		return radians * 180 / Math.PI;
+	};
+	
+	/**
+	 * Calculates positions of the point description
+	 * 
+	 * @param {Object} point
+	 * @param {Array<String>} texts
+	 * 
+	 * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
+	 */
+	astrology.utils.getDescriptionPosition = function( point, texts ){
+		var RATION = 1.4;
+		var result = [];		
+		var posX = point.x + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE)  ;
+		var posY = point.y - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
+		
+		texts.forEach(function(text, idx){						
+			result.push({text:text, x:posX, y:posY + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE * idx)});					
+		}, this);
+						
+		return result;
+	};
+	
+	/**
+	 * Checks a source data
+	 * @private
+	 * 
+	 * @param {Object} data
+	 * @return {Object} status
+	 */
+	astrology.utils.validate = function( data ){
+		var status = {hasError:false, messages:[]};
+		
+		if( data == null ){			
+			status.messages.push( "Data is not set." );
+			status.hasError = true;
+			return status;
+		}
+		
+		if(data.planets == null){					
+			status.messages.push( "There is not property 'planets'." );
+			status.hasError = true;
+		}
+		
+		for (var property in data.planets) {
+    		if (data.planets.hasOwnProperty(property)) {        		
+        		if(!Array.isArray( data.planets[property] )){
+        			status.messages.push( "The planets property '"+ property +"' has to be Array." );
+					status.hasError = true;	
+        		}
+    		}
+		}
+					
+		if(data.cusps != null && !Array.isArray(data.cusps)){
+			status.messages.push( "Property 'cusps' has to be Array." );
+			status.hasError = true;
+		}
+		
+		if(data.cusps != null && data.cusps.length != 12){			
+			status.messages.push( "Count of 'cusps' values has to be 12." );
+			status.hasError = true;
+		}
+									
+		return status;		
+	};
+	
+	/**
+	 * Get empty DOMElement with ID
+	 * 
+	 * @param{String} elementID
+	 * @param{DOMElement} parent
+	 * @return {DOMElement}
+	 */
+	astrology.utils.getEmptyWrapper = function( parent, elementID ){
+		
+		var wrapper = document.getElementById( elementID );		
+		if(wrapper){
+			astrology.utils.removeChilds( wrapper );
+		}else{					
+			wrapper = document.createElementNS( document.getElementById( astrology._paperElementId ).namespaceURI, "g");
+			wrapper.setAttribute('id', elementID);
+			parent.appendChild( wrapper );			
+		} 
+		
+		return wrapper;
+	};
+	
+	/**
+	* Remove childs
+	* 
+	* @param{DOMElement} parent
+	*/
+	astrology.utils.removeChilds = function(parent){
+		if( parent == null ){
+			return;
+		}
+		
+		var last;
+    	while (last = parent.lastChild){
+    		parent.removeChild(last);
+    	}
+	};
+	
+	/**
+	 * Check circle collision between two objects 
+	 * 
+ 	 * @param {Object} circle1, {x:123, y:123, r:50}
+ 	 * @param {Object} circle2, {x:456, y:456, r:60}
+ 	 * @return {boolean} 	 
+	 */
+	astrology.utils.isCollision = function(circle1, circle2){			
+		//Calculate the vector between the circles’ center points
+  		var vx = circle1.x - circle2.x;
+  		var vy = circle1.y - circle2.y;
+  		
+  		var magnitude = Math.sqrt(vx * vx + vy * vy);
+  		
+  		//circle.radius has been set to astrology.COLLISION_RADIUS;
+  		var totalRadii = circle1.r + circle2.r;
+  		  		  		  		   		  		   	
+		return magnitude <= totalRadii; 
+	};
+		
+	/**
+	 * Places a new point in the located list 
+	 * 
+ 	 * @param {Array<Object>} locatedPoints, [{name:"Mars", x:123, y:123, r:50, ephemeris:45.96}, {name:"Sun", x:1234, y:1234, r:50, ephemeris:100.96}]
+ 	 * @param {Object} point, {name:"Venus", x:78, y:56, r:50, angle:15.96} 
+ 	 * @param {Object} universe - current universe
+ 	 * @return {Array<Object>} locatedPoints 	 
+	 */
+	astrology.utils.assemble = function( locatedPoints, point, universe){
+		
+		// first item
+		if(locatedPoints.length == 0){
+			locatedPoints.push(point);
+			return locatedPoints; //================>
+		}
+								
+		if( (2 * Math.PI * universe.r) - ( 2 * (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) * (locatedPoints.length+2))  <= 0){							
+			if( astrology.DEBUG ) console.log( "Universe circumference: " + (2 * Math.PI * universe.r) + ", Planets circumference: " + ( 2 * (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) * (locatedPoints.length+2)));							
+			throw new Error("Unresolved planet collision. Try change SYMBOL_SCALE or paper size.");
+		}
+													
+		var isCollision = false;				
+		locatedPoints.sort( astrology.utils.comparePoints );
+		for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
+			
+			if(astrology.utils.isCollision(locatedPoints[i], point)){
+				isCollision = true;
+				var locatedButInCollisionPoint =  locatedPoints[i];
+				locatedButInCollisionPoint.index = i;
+				
+				if( astrology.DEBUG ) console.log( "Resolve collision: " + locatedButInCollisionPoint.name + " X " + point.name); 
+												
+				break;
+			}
+		}
+						
+		if( isCollision ){
+			
+			astrology.utils.placePointsInCollision(locatedButInCollisionPoint, point);
+																																																																 						 										    				  			  																													
+			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
+			locatedButInCollisionPoint.x = newPointPosition.x;
+			locatedButInCollisionPoint.y = newPointPosition.y;
+			
+			newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, point.angle);
+			point.x = newPointPosition.x;
+			point.y = newPointPosition.y;
+																		  		
+			// remove locatedButInCollisionPoint from locatedPoints									
+			locatedPoints.splice(locatedButInCollisionPoint.index, 1);
+																
+			// call recursive	
+			locatedPoints = astrology.utils.assemble(locatedPoints, locatedButInCollisionPoint, universe);	
+			locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);	
+														
+		}else{
+			locatedPoints.push(point);	
+		}
+		locatedPoints.sort( astrology.utils.comparePoints );									
+		return locatedPoints;	
+	};
+	
+	/**
+	 * Sets the positions of two points that are in collision.
+	 * 
+	 * @param {Object} p1, {..., pointer:123, angle:456}
+	 * @param {Object} p2, {..., pointer:23, angle:56}
+	 */
+	astrology.utils.placePointsInCollision = function(p1, p2){
+		
+		var step = 1;
+		var adjustedP1Pointer = p1.pointer == undefined ? p1.angle : p1.pointer;
+		var adjustedP2Pointer = p2.pointer == undefined ? p2.angle : p2.pointer;
+
+		// solving problems with zero crossing
+		if(Math.abs(adjustedP1Pointer - adjustedP2Pointer) > 180) {
+			adjustedP1Pointer = (adjustedP1Pointer + 180) % 360
+			adjustedP2Pointer = (adjustedP2Pointer + 180) % 360
+		}
+		
+		if(adjustedP1Pointer <= adjustedP2Pointer){
+			p1.angle = p1.angle - step;
+			p2.angle = p2.angle + step;											
+		} else if(adjustedP1Pointer >= adjustedP2Pointer)
+		{
+			p1.angle = p1.angle + step;
+			p2.angle = p2.angle - step;	
+		}
+							
+		p1.angle = (p1.angle + 360) % 360;
+		p2.angle = (p2.angle + 360) % 360;		 					
+	};
+		
+	/**
+	 * Check collision between angle and object 
+	 * 
+ 	 * @param {double} angle
+ 	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
+ 	 * @return {boolean} 	 
+	 */
+	astrology.utils.isInCollision = function(angle, points){		
+		var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+		var collisionRadius = (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) / 2;
+							
+		var result = false;					
+		for(var i = 0, ln = points.length; i < ln ; i++ ){
+										
+			if( Math.abs(points[i].angle - angle) <= collisionRadius || 
+			(deg360 - Math.abs(points[i].angle - angle)) <= collisionRadius){
+				result = true;
+				break;
+			}					
+		}				
+					
+		return result;			
+	};
+		
+	/**
+	 * Calculates positions of the dashed line passing through the obstacle.
+	 * 	* 
+	 * @param {double} centerX
+	 * @param {double} centerY
+	 * @param {double} angle - line angle
+ 	 * @param {double} lineStartRadius
+ 	 * @param {double} lineEndRadius
+ 	 * @param {double} obstacleRadius 	
+ 	 * @param {Array<Object>} obstacles, [{x:456, y:456, r:60, angle:123}, ...]
+ 	 * 
+ 	 * @return {Array<Object>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
+	 */
+	astrology.utils.getDashedLinesPositions = function( centerX, centerY, angle, lineStartRadius, lineEndRadius, obstacleRadius, obstacles){
+		var startPos, endPos;
+		var result = [];	
+		
+		if( astrology.utils.isInCollision( angle, obstacles)){
+			
+			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
+			endPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), angle);			
+			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );
+			
+			// the second part of the line when is space
+			if( (obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE)) < lineEndRadius){
+				startPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE),angle); 			
+				endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);				
+				result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} ); 														
+			}					
+								
+		}else{
+			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
+			endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);
+			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );	
+		}	
+						
+		return result;		
+	};
+	
+	/**
+	 * Calculate ruler positions.
+	 * 
+	 * @param {Double} centerX
+	 * @param {Double} centerY
+	 * @param {Double} startRadius
+	 * @param {Double} endRadius
+	 * @param {Boolean} startAngle
+	 * 
+	 * @return {Array<Object>} [ {startX:1,startY:2, endX:3, endX:4 }, ...]
+	 */
+	astrology.utils.getRulerPositions = function( centerX, centerY, startRadius, endRadius, startAngle ){	
+		var result = [];
+		
+		var rayRadius = endRadius;
+		var halfRayRadius = (startRadius <= endRadius) ? rayRadius - (Math.abs(endRadius-startRadius)/2): rayRadius + (Math.abs(endRadius-startRadius)/2); 
+		
+		for(var i = 0, start = 0, step = 5; i < 72; i++ ){ 
+			    var angle = start + startAngle;
+			    var startPos = astrology.utils.getPointPosition( centerX, centerY, startRadius, angle);
+				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? rayRadius : halfRayRadius), angle);				
+				result.push({startX:startPos.x,startY:startPos.y, endX:endPos.x, endY:endPos.y });				
+				
+				start += step;
+		} 
+												
+		return result;		
+	};
+	
+	/**
+	* Compare two points
+	* 
+	* @param {Object} pointA, {name:"Venus", x:78, y:56, r:50, angle:15.96}
+	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
+	* @return 
+	*/
+	astrology.utils.comparePoints = function( pointA, pointB){		
+		return pointA.angle - pointB.angle; 			
+	};
+
+	/*
+	* Get custom SVG icon for sign or planet
+	*
+	* @param {string} path
+	* @param {int} x
+	* @param {int} y
+	* @param {DOMElement} wrapperElement
+	* @param {string} name
+	*
+	* @return 
+	*/
+	astrology.utils.getCustomIcon = function(path, x, y, wrapperElem, n) {
+
+		//init
+		var name = n + "-custom-icon";
+		var placeholderId = name + "-reference";
+		var iconInstanceClass = name + "-instance";
+
+		// remove existing placeholder reference
+		document.getElementById(placeholderId) !== null ? document.getElementById(placeholderId).remove() : null;
+
+		// remove existing icons
+		(document.getElementsByClassName(iconInstanceClass) !== null && document.getElementsByClassName(iconInstanceClass).length > 0) ? document.getElementsByClassName(iconInstanceClass).remove() : null;
+
+		var placeholder = document.createElement("object");
+		
+		placeholder.setAttribute('data', path)
+		placeholder.setAttribute('id', placeholderId);
+		placeholder.setAttribute('style', 'position: absolute; top: 0; left: -9999px; opacity: 0');
+
+		placeholder.onload = (function (e) {
+			var paths = document.querySelector("#" + placeholder.id).contentDocument.querySelectorAll("svg > path");
+			paths.forEach(function (p) {
+				var _x = x - 10;
+				var _y = y - 10;
+				p.classList.add(iconInstanceClass);
+				p.classList.add("custom-icon");
+				p.setAttribute("transform", "translate(" + _x + ", " + _y + ") scale(0.5)");
+				wrapperElem.appendChild(p);
+			});
+
+		});
+		document.getElementsByTagName('body')[0].appendChild(placeholder);
+
+	};
+		
+	astrology.utils.getIconReference = function(n) {
+		return "SYMBOL_" + n.toUpperCase() + "_ICON";
+	}
+}( window.astrology = window.astrology || {}));
