@@ -361,9 +361,6 @@
 			case astrology.SYMBOL_IC:
 				return immumCoeli(x, y);
 				break;
-			case astrology.SYMBOL_IC:
-				return immumCoeli(x, y);
-				break;
 			case astrology.SYMBOL_CUSP_1:
 				return number1(x, y);
 				break;
