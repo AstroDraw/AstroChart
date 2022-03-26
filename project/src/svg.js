@@ -37,16 +37,7 @@
 		context = this;
 	};	
 	
-	/**
-	 * Get a required symbol. 
-	 * 
-	 * @param {String} name
-	 * @param {int} x
-	 * @param {int} y
-	 * 
-	 * @return {SVG g}
-	 */
-	astrology.SVG.prototype.getSymbol = function( name, x, y){
+	astrology.SVG.prototype._getSymbol = function( name, x, y){
 		switch(name) {
 			case astrology.SYMBOL_SUN:		        
 		        return sun( x, y);		        
@@ -182,6 +173,26 @@
 		    	return unknownPoint;	 
 		}			
 	};
+
+
+	/**
+	 * Get a required symbol. 
+	 * 
+	 * @param {String} name
+	 * @param {int} x
+	 * @param {int} y
+	 * 
+	 * @return {SVG g}
+	 */
+	 astrology.SVG.prototype.getSymbol = function( name, x, y){
+		if(astrology.CUSTOM_SYMBOL_FN == null) return astrology.SVG.prototype._getSymbol(name, x, y);
+
+		const symbol = astrology.CUSTOM_SYMBOL_FN(name, x, y, context);
+		if(symbol == null || symbol == undefined) return astrology.SVG.prototype._getSymbol(name, x, y);
+
+		return symbol;
+	}
+
 
 	/**
 	 * Create transparent rectangle. 
