@@ -150,6 +150,8 @@
 	astrology.COLOR_AQUARIUS = "#87CEEB"; 
 	astrology.COLOR_PISCES = "#27AE60"; 	        	
 	astrology.COLORS_SIGNS = [astrology.COLOR_ARIES, astrology.COLOR_TAURUS, astrology.COLOR_GEMINI, astrology.COLOR_CANCER, astrology.COLOR_LEO, astrology.COLOR_VIRGO, astrology.COLOR_LIBRA, astrology.COLOR_SCORPIO, astrology.COLOR_SAGITTARIUS, astrology.COLOR_CAPRICORN, astrology.COLOR_AQUARIUS, astrology.COLOR_PISCES];
+
+	astrology.CUSTOM_SYMBOL_FN = null
 	
 	// 0 degree is on the West 
 	astrology.SHIFT_IN_DEGREES = 180;
