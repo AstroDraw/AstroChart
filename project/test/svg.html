@@ -74,6 +74,14 @@
 					assert.true(element.getElementsByTagName("rect").length == 1)
 				});
 			});
+
+			QUnit.test( "should call custom getSymbol function", function( assert ) {
+				window.astrology.SVG("qunit-fixture", 100, 100);
+				let calledFunction = false;
+				window.astrology.CUSTOM_SYMBOL_FN = (symbol, x, y) => calledFunction = symbol == astrology.SYMBOL_URANUS && x == 1 && y == 2;
+				var element = window.astrology.SVG.prototype.getSymbol(astrology.SYMBOL_URANUS, 1, 2);
+				assert.true(calledFunction)
+			});
 		</script>
 	</head>
 	<body>
