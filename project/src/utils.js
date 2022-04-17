@@ -1,8 +1,4 @@
-// ## UTILS #############################
-(function( astrology ) {
-	
-	astrology.utils = {};
-	
+
 	/**
 	 * Calculate position of the point on the circle.
 	 * 
@@ -13,18 +9,18 @@
 	 * 
 	 * @return {Object} - {x:10, y:20}
 	 */	
-	astrology.utils.getPointPosition = function( cx, cy, radius, angle ){		
+	export const getPointPosition = function( cx, cy, radius, angle, astrology ){		
 		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
 		var xPos = cx + radius * Math.cos( angleInRadius );
 		var yPos = cy + radius * Math.sin( angleInRadius );							  		  			
 		return {x:xPos, y:yPos};
 	};
 	
-	astrology.utils.degreeToRadians = function( degree ){
+	export const degreeToRadians = function( degree ){
 		return degrees * Math.PI / 180;
 	};
 
-	astrology.utils.radiansToDegree = function( radians ){
+	export const radiansToDegree = function( radians ){
 		return radians * 180 / Math.PI;
 	};
 	
@@ -36,7 +32,7 @@
 	 * 
 	 * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
 	 */
-	astrology.utils.getDescriptionPosition = function( point, texts ){
+	 export const getDescriptionPosition = function( point, texts, astrology ){
 		var RATION = 1.4;
 		var result = [];		
 		var posX = point.x + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE)  ;
@@ -56,7 +52,7 @@
 	 * @param {Object} data
 	 * @return {Object} status
 	 */
-	astrology.utils.validate = function( data ){
+	 export const validate = function( data ){
 		var status = {hasError:false, messages:[]};
 		
 		if( data == null ){			
@@ -99,13 +95,13 @@
 	 * @param{DOMElement} parent
 	 * @return {DOMElement}
 	 */
-	astrology.utils.getEmptyWrapper = function( parent, elementID ){
+	 export const getEmptyWrapper = function( parent, elementID, _paperElementId ){
 		
 		var wrapper = document.getElementById( elementID );		
 		if(wrapper){
-			astrology.utils.removeChilds( wrapper );
+			removeChilds( wrapper );
 		}else{					
-			wrapper = document.createElementNS( document.getElementById( astrology._paperElementId ).namespaceURI, "g");
+			wrapper = document.createElementNS( document.getElementById( _paperElementId ).namespaceURI, "g");
 			wrapper.setAttribute('id', elementID);
 			parent.appendChild( wrapper );			
 		} 
@@ -118,7 +114,7 @@
 	* 
 	* @param{DOMElement} parent
 	*/
-	astrology.utils.removeChilds = function(parent){
+	export const removeChilds = function(parent){
 		if( parent == null ){
 			return;
 		}
@@ -136,7 +132,7 @@
  	 * @param {Object} circle2, {x:456, y:456, r:60}
  	 * @return {boolean} 	 
 	 */
-	astrology.utils.isCollision = function(circle1, circle2){			
+	 export const isCollision = function(circle1, circle2){			
 		//Calculate the vector between the circles’ center points
   		var vx = circle1.x - circle2.x;
   		var vy = circle1.y - circle2.y;
@@ -157,7 +153,7 @@
  	 * @param {Object} universe - current universe
  	 * @return {Array<Object>} locatedPoints 	 
 	 */
-	astrology.utils.assemble = function( locatedPoints, point, universe){
+	 export const assemble = function( locatedPoints, point, universe, astrology){
 		
 		// first item
 		if(locatedPoints.length == 0){
@@ -170,12 +166,12 @@
 			throw new Error("Unresolved planet collision. Try change SYMBOL_SCALE or paper size.");
 		}
 													
-		var isCollision = false;				
-		locatedPoints.sort( astrology.utils.comparePoints );
+		var hasCollision = false;				
+		locatedPoints.sort( comparePoints );
 		for(var i = 0, ln = locatedPoints.length; i < ln; i++ ){
 			
-			if(astrology.utils.isCollision(locatedPoints[i], point)){
-				isCollision = true;
+			if(isCollision(locatedPoints[i], point)){
+				hasCollision = true;
 				var locatedButInCollisionPoint =  locatedPoints[i];
 				locatedButInCollisionPoint.index = i;
 				
@@ -185,15 +181,15 @@
 			}
 		}
 						
-		if( isCollision ){
+		if( hasCollision ){
 			
-			astrology.utils.placePointsInCollision(locatedButInCollisionPoint, point);
+			placePointsInCollision(locatedButInCollisionPoint, point);
 																																																																 						 										    				  			  																													
-			var newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle);
+			var newPointPosition = getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle, astrology);
 			locatedButInCollisionPoint.x = newPointPosition.x;
 			locatedButInCollisionPoint.y = newPointPosition.y;
 			
-			newPointPosition = astrology.utils.getPointPosition(universe.cx, universe.cy, universe.r, point.angle);
+			newPointPosition = getPointPosition(universe.cx, universe.cy, universe.r, point.angle, astrology);
 			point.x = newPointPosition.x;
 			point.y = newPointPosition.y;
 																		  		
@@ -201,13 +197,13 @@
 			locatedPoints.splice(locatedButInCollisionPoint.index, 1);
 																
 			// call recursive	
-			locatedPoints = astrology.utils.assemble(locatedPoints, locatedButInCollisionPoint, universe);	
-			locatedPoints = astrology.utils.assemble(locatedPoints, point, universe);	
+			locatedPoints = assemble(locatedPoints, locatedButInCollisionPoint, universe, astrology);	
+			locatedPoints = assemble(locatedPoints, point, universe, astrology);	
 														
 		}else{
 			locatedPoints.push(point);	
 		}
-		locatedPoints.sort( astrology.utils.comparePoints );									
+		locatedPoints.sort( comparePoints );									
 		return locatedPoints;	
 	};
 	
@@ -217,7 +213,7 @@
 	 * @param {Object} p1, {..., pointer:123, angle:456}
 	 * @param {Object} p2, {..., pointer:23, angle:56}
 	 */
-	astrology.utils.placePointsInCollision = function(p1, p2){
+	 export const placePointsInCollision = function(p1, p2){
 		
 		var step = 1;
 		var adjustedP1Pointer = p1.pointer == undefined ? p1.angle : p1.pointer;
@@ -249,8 +245,8 @@
  	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
  	 * @return {boolean} 	 
 	 */
-	astrology.utils.isInCollision = function(angle, points){		
-		var deg360 = astrology.utils.radiansToDegree(2*Math.PI);
+	 export const isInCollision = function(angle, points, astrology){		
+		var deg360 = radiansToDegree(2*Math.PI);
 		var collisionRadius = (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) / 2;
 							
 		var result = false;					
@@ -279,26 +275,26 @@
  	 * 
  	 * @return {Array<Object>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
 	 */
-	astrology.utils.getDashedLinesPositions = function( centerX, centerY, angle, lineStartRadius, lineEndRadius, obstacleRadius, obstacles){
+	 export const getDashedLinesPositions = function( centerX, centerY, angle, lineStartRadius, lineEndRadius, obstacleRadius, obstacles, astrology){
 		var startPos, endPos;
 		var result = [];	
 		
-		if( astrology.utils.isInCollision( angle, obstacles)){
+		if( isInCollision( angle, obstacles, astrology)){
 			
-			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
-			endPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), angle);			
+			startPos = getPointPosition( centerX, centerY, lineStartRadius, angle, astrology);
+			endPos = getPointPosition( centerX, centerY, obstacleRadius - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE), angle, astrology);			
 			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );
 			
 			// the second part of the line when is space
 			if( (obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE)) < lineEndRadius){
-				startPos = astrology.utils.getPointPosition( centerX, centerY, obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE),angle); 			
-				endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);				
+				startPos = getPointPosition( centerX, centerY, obstacleRadius + 2*(astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE),angle, astrology); 			
+				endPos = getPointPosition( centerX, centerY, lineEndRadius, angle, astrology);				
 				result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} ); 														
 			}					
 								
 		}else{
-			startPos = astrology.utils.getPointPosition( centerX, centerY, lineStartRadius, angle);
-			endPos = astrology.utils.getPointPosition( centerX, centerY, lineEndRadius, angle);
+			startPos = getPointPosition( centerX, centerY, lineStartRadius, angle, astrology);
+			endPos = getPointPosition( centerX, centerY, lineEndRadius, angle, astrology);
 			result.push( {startX:startPos.x, startY:startPos.y, endX:endPos.x, endY:endPos.y} );	
 		}	
 						
@@ -316,7 +312,7 @@
 	 * 
 	 * @return {Array<Object>} [ {startX:1,startY:2, endX:3, endX:4 }, ...]
 	 */
-	astrology.utils.getRulerPositions = function( centerX, centerY, startRadius, endRadius, startAngle ){	
+	 export const getRulerPositions = function( centerX, centerY, startRadius, endRadius, startAngle, astrology ){	
 		var result = [];
 		
 		var rayRadius = endRadius;
@@ -324,8 +320,8 @@
 		
 		for(var i = 0, start = 0, step = 5; i < 72; i++ ){ 
 			    var angle = start + startAngle;
-			    var startPos = astrology.utils.getPointPosition( centerX, centerY, startRadius, angle);
-				var endPos = astrology.utils.getPointPosition( centerX, centerY, (i%2 == 0 ? rayRadius : halfRayRadius), angle);				
+			    var startPos = getPointPosition( centerX, centerY, startRadius, angle, astrology);
+				var endPos = getPointPosition( centerX, centerY, (i%2 == 0 ? rayRadius : halfRayRadius), angle, astrology);				
 				result.push({startX:startPos.x,startY:startPos.y, endX:endPos.x, endY:endPos.y });				
 				
 				start += step;
@@ -341,8 +337,7 @@
 	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
 	* @return 
 	*/
-	astrology.utils.comparePoints = function( pointA, pointB){		
+	export const comparePoints = function( pointA, pointB){		
 		return pointA.angle - pointB.angle; 			
 	};
 									
-}( window.astrology = window.astrology || {}));

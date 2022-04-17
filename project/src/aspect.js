@@ -1,8 +1,11 @@
-// ## Transit chart ###################################
-(function( astrology ) {
-		
-	var context;
-    
+import { radiansToDegree } from './utils'
+
+const DEFAULT_ASPECTS = { 
+	"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
+	"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+	"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
+	"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
+};	
 	/**
 	 * Aspects calculator
 	 * 
@@ -12,29 +15,27 @@
 	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
 	 * @param {Object | null } settings
 	 */
-	astrology.AspectCalculator = function( toPoints, settings ){
-		
+class AspectCalculator { 
+	constructor( toPoints, settings ){
 		if(toPoints == null){
 			throw new Error( "Param 'toPoint' must not be empty." );
 		}
 		
 		this.settings = settings || {}; 		
-		this.settings.aspects = settings && settings.aspects || astrology.ASPECTS;
+		this.settings.aspects = settings && settings.aspects || DEFAULT_ASPECTS;
 							
 		this.toPoints = toPoints;
 																																												
-		context = this; 
-												 
-		return this;
+		this.context = this; 
 	};
-	
+
 	/**
 	 * Getter for this.toPoints
 	 * @see constructor
 	 * 
 	 * @return {Object} 
 	 */
-	astrology.AspectCalculator.prototype.getToPoints = function(){
+	 getToPoints = function(){
 		return this.this.toPoints;
 	};
 	
@@ -48,7 +49,7 @@
 	 * 
 	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
-	astrology.AspectCalculator.prototype.radix = function( points ){
+	radix = function( points ){
 		if(!points){
 			return []; 
 		}
@@ -63,14 +64,14 @@
  		   			
  		   			if( point != toPoint){ 		   				 		   			 		   			 		   
 	 		   			for(var aspect in this.settings.aspects){ 		   				
-	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){
+	 		   				if(this.hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){
 	 		   						
 	 		   					aspects.push(
 	 		   								{
 	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
 	 		   								"point":{"name":point, "position":points[point][0]}, 
 	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
-	 		   								"precision": calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]).toFixed(4)
+	 		   								"precision": this.calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]).toFixed(4)
 	 		   								}
 	 		   							)
 	 		   				}
@@ -82,7 +83,7 @@
  		   } 		
  		}
  		 		 		  		 		 
-		return aspects.sort( compareAspectsByPrecision );
+		return aspects.sort( this.compareAspectsByPrecision );
 	}; 
 			
 	/**
@@ -91,7 +92,7 @@
 	 * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]}; 
 	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
-	astrology.AspectCalculator.prototype.transit = function( points ){	
+	transit = function( points ){	
 		if(!points){
 			return []; 
 		}
@@ -104,13 +105,13 @@
  		   			if (this.toPoints.hasOwnProperty( toPoint )) {
  		   		
  		   				for(var aspect in this.settings.aspects){ 		   				
-	 		   				if(hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){	 
+	 		   				if(this.hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){	 
 	 		   					
-	 		   					var precision = calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);
+	 		   					var precision = this.calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]);
 	 		   					
 	 		   					// -1 : is approaching to aspect
 	 		   					// +1 : is moving away
-	 		   					if(isTransitPointApproachingToAspect( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0] )){
+	 		   					if(this.isTransitPointApproachingToAspect( this.settings.aspects[aspect]["degree"], this.toPoints[toPoint][0], points[point][0] )){
 	 		   						precision *= -1;
 	 		   					}
 	 		   					
@@ -134,7 +135,7 @@
  		   } 		
  		}
  		 		   						
-		return aspects.sort( compareAspectsByPrecision );
+		return aspects.sort( this.compareAspectsByPrecision );
 	};
 	
 	/*
@@ -143,13 +144,13 @@
  	* @param {double} toPoint
  	* @param {Array} aspects; [DEGREE, ORBIT]
 	 */
-	function hasAspect(point, toPoint, aspect){
+	hasAspect(point, toPoint, aspect){
 		var result = false;
 		
 		var gap = Math.abs( point - toPoint );
 		
-		if( gap > astrology.utils.radiansToDegree( Math.PI)){
-			gap = astrology.utils.radiansToDegree( 2 * Math.PI) - gap;
+		if( gap > radiansToDegree( Math.PI)){
+			gap = radiansToDegree( 2 * Math.PI) - gap;
 		}
 		
 		var orbitMin = aspect["degree"] - (aspect["orbit"] / 2);
@@ -168,11 +169,11 @@
  	* @param {Object} toPointAngle
  	* @param {double} aspectDegree;
 	 */
-	function calcPrecision(point, toPoint, aspect){
+	calcPrecision(point, toPoint, aspect){
 		var gap = Math.abs( point - toPoint );
 		
-		if( gap > astrology.utils.radiansToDegree( Math.PI)){
-			gap = astrology.utils.radiansToDegree( 2 * Math.PI) - gap;
+		if( gap > radiansToDegree( Math.PI)){
+			gap = radiansToDegree( 2 * Math.PI) - gap;
 		}			
 		return Math.abs( gap - aspect);
 	}
@@ -190,21 +191,21 @@
 	 * @param {double} point - angle of transiting planet
 	 * @return {boolean}
 	 */
-	function isTransitPointApproachingToAspect(aspect, toPoint, point){
+	isTransitPointApproachingToAspect(aspect, toPoint, point){
 		
 		if( (point - toPoint) > 0 ){
 			
-			if((point - toPoint) > astrology.utils.radiansToDegree( Math.PI)){
-				point = (point + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+			if((point - toPoint) > radiansToDegree( Math.PI)){
+				point = (point + aspect) % radiansToDegree( 2 * Math.PI);
 			}else{
-				toPoint = (toPoint + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+				toPoint = (toPoint + aspect) % radiansToDegree( 2 * Math.PI);
 			}			
 		}else{
 			
-			if((toPoint - point) > astrology.utils.radiansToDegree( Math.PI)){
-				toPoint = (toPoint + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+			if((toPoint - point) > radiansToDegree( Math.PI)){
+				toPoint = (toPoint + aspect) % radiansToDegree( 2 * Math.PI);
 			}else{
-				point = (point + aspect) % astrology.utils.radiansToDegree( 2 * Math.PI);
+				point = (point + aspect) % radiansToDegree( 2 * Math.PI);
 			}										
 		}
 		
@@ -213,7 +214,7 @@
 		
 		var difference = _point - _toPoint;
 		
-		if( Math.abs( difference ) > astrology.utils.radiansToDegree( Math.PI)){			
+		if( Math.abs( difference ) > radiansToDegree( Math.PI)){			
 			_point = toPoint;
 			_toPoint = point;
 		}
@@ -228,8 +229,10 @@
 	 * @param {Object} a 
 	 * @param {Object} b 
 	 */
-	function compareAspectsByPrecision( a , b ) {		
+	compareAspectsByPrecision( a , b ) {		
 		return a.precision - b.precision;								
 	}
-		
-}( window.astrology = window.astrology || {}));
+}
+
+export default AspectCalculator;
+	
