@@ -1,6 +1,7 @@
 import default_settings from './settings'
 import Radix from './radix'
 import SVG from './svg'
+import { getPointPosition } from './utils'
 /**
  * Displays astrology charts.
  * 
@@ -82,14 +83,14 @@ class Chart {
 		var planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Chiron", "Lilith", "NNode"];
 		
 		for(var i = 0; i < planets.length; i++){		
-			positions = astrology.utils.getPointPosition(this.cx, this.cy, this.radius*2, i * 30 );
+			positions = getPointPosition(this.cx, this.cy, this.radius*2, i * 30, this.settings );
 			
 			line = this.paper.line(this.cx, this.cy, positions.x, positions.y);
-			line.setAttribute("stroke", astrology.LINE_COLOR);	
+			line.setAttribute("stroke", this.settings.LINE_COLOR);	
 			this.paper.root.appendChild( line);
 			
 			circle = this.paper.circle(this.cx, this.cy, startRadius + startRadius * i );
-			circle.setAttribute("stroke", astrology.LINE_COLOR);		 
+			circle.setAttribute("stroke", this.settings.LINE_COLOR);		 
 			circle.setAttribute("stroke-width", 1);
 			this.paper.root.appendChild( circle );
 						
@@ -100,9 +101,9 @@ class Chart {
 			var radius = startRadius + startRadius*n; 
 			
 			for(var i = 0; i < 12; i++){
-				positions = astrology.utils.getPointPosition(this.cx, this.cy, radius, i * 30 );
+				positions = getPointPosition(this.cx, this.cy, radius, i * 30, this.settings );
 			
-				circle = this.paper.circle(positions.x, positions.y, astrology.COLLISION_RADIUS *astrology.SYMBOL_SCALE );
+				circle = this.paper.circle(positions.x, positions.y, this.settings.COLLISION_RADIUS *this.settings.SYMBOL_SCALE );
 				circle.setAttribute("stroke", "red");		 
 				circle.setAttribute("stroke-width", 1);
 				this.paper.root.appendChild( circle );
