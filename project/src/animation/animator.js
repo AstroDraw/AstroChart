@@ -1,8 +1,5 @@
-// ## Animator ###################################
-(function( astrology ) {
-	
-	var context;
-			  
+  import { radiansToDegree } from '../utils'
+	import Timer from './timer';
 	/**
 	 * Transit chart animator
 	 * 
@@ -15,27 +12,29 @@
 	 * @param {Object} to, {"Sun":[30], "Moon":[180]}
 	 * @param {Object} settings, {cx:100, cy:100, radius:200, prefix:"astro-chart-"}
 	 */
-	astrology.Animator = function( transit ){
-		
-		this.transit = transit;
-		
-		// Copy data
-		this.actualPlanetPos = {};
-		for(var planet in this.transit.data.planets){
-			this.actualPlanetPos[planet] = this.transit.data.planets[planet];
-		}
-										
-		this.timer = new astrology.Timer( this.update.bind(this) );
-		
-		// time, passed since the start of the loop
-		this.timeSinceLoopStart = 0;
-		
-		context = this;
-									
-		return this;
-	};
-		
-	/**
+	class Animator { 
+		constructor( transit, settings ){
+			
+			this.transit = transit;
+			this.isReverse = false;
+			this.rotation = 0;
+			this.settings = settings;
+			// Copy data
+			this.actualPlanetPos = {};
+			for(var planet in this.transit.data.planets){
+				this.actualPlanetPos[planet] = this.transit.data.planets[planet];
+			}
+											
+			this.timer = new Timer( this.update.bind(this), this.settings.DEBUG );
+			
+			// time, passed since the start of the loop
+			this.timeSinceLoopStart = 0;
+			
+			this.context = this;
+			this.cuspsElement = null;
+		};
+
+			/**
 	 * Animate objects
 	 
 	 * @param {Object} data, targetPositions 
@@ -43,19 +42,19 @@
  	 * @param {boolean} isReverse 
  	 * @param {Function} callbck - start et the end of animation
 	 */
-	astrology.Animator.prototype.animate = function( data, duration, isReverse, callback){
+	animate = function( data, duration, isReverse, callback){
 		this.data = data;		 			
 		this.duration = duration * 1000;
 		this.isReverse = isReverse || false;					
 		this.callback = callback; 
 		
 		this.rotation = 0;				
-		this.cuspsElement = document.getElementById(astrology._paperElementId + "-" + astrology.ID_TRANSIT + "-" + astrology.ID_CUSPS);
+		this.cuspsElement = document.getElementById(this.transit.paper._paperElementId + "-" + this.settings.ID_TRANSIT + "-" + this.settings.ID_CUSPS, this.transit.paper._paperElementId);
 		
 		this.timer.start();									
 	};
-	
-	astrology.Animator.prototype.update = function( deltaTime ){
+
+	update = function( deltaTime ){
 		deltaTime = deltaTime || 1; //									
 		this.timeSinceLoopStart += deltaTime;					
 		if (this.timeSinceLoopStart >= this.duration) {
@@ -72,32 +71,32 @@
 							1 :		
 		 					Math.round( (this.duration - this.timeSinceLoopStart) / deltaTime);		
 						 											 
-		updatePlanets( expectedNumberOfLoops );
-		updateCusps( expectedNumberOfLoops );														
+		this.updatePlanets( expectedNumberOfLoops );
+		this.updateCusps( expectedNumberOfLoops );														
 	};
 	
 	/*
 	 * @private
 	 */
-	function updateCusps( expectedNumberOfLoops ){	
+	updateCusps( expectedNumberOfLoops ){	
 		
-		var deg360 = astrology.utils.radiansToDegree( 2 * Math.PI);							
-		var targetCuspAngle = context.transit.data.cusps[0] - context.data.cusps[0];					
+		var deg360 = radiansToDegree( 2 * Math.PI);							
+		var targetCuspAngle = this.transit.data.cusps[0] - this.data.cusps[0];					
 					
 		if( targetCuspAngle < 0 ){
 			targetCuspAngle += deg360; 		
 		}
 						
 		// speed
-		if(  astrology.ANIMATION_CUSPS_ROTATION_SPEED > 0 ){
-			targetCuspAngle += (context.isReverse)?
-		 		-1 * ((astrology.ANIMATION_CUSPS_ROTATION_SPEED * deg360) + deg360) :
-				astrology.ANIMATION_CUSPS_ROTATION_SPEED * deg360;
+		if(  this.settings.ANIMATION_CUSPS_ROTATION_SPEED > 0 ){
+			targetCuspAngle += (this.isReverse)?
+		 		-1 * ((this.settings.ANIMATION_CUSPS_ROTATION_SPEED * deg360) + deg360) :
+				this.settings.ANIMATION_CUSPS_ROTATION_SPEED * deg360;
 		}
 																																													
-		var difference = (context.isReverse) ? 
-			context.rotation - targetCuspAngle : 
-			targetCuspAngle - context.rotation;
+		var difference = (this.isReverse) ? 
+			this.rotation - targetCuspAngle : 
+			targetCuspAngle - this.rotation;
 								
 		// zero crossing
 		if( difference < 0 ){
@@ -106,33 +105,33 @@
 			 				
 		var increment = difference /  expectedNumberOfLoops;
 						
-		if(context.isReverse){
+		if(this.isReverse){
 			increment *= -1; 				
 		}						
-		context.rotation += increment;
+		this.rotation += increment;
 														 
-		context.cuspsElement.setAttribute("transform", "rotate(" + context.rotation + " " + context.transit.cx + " " + context.transit.cy +")");
+		this.cuspsElement.setAttribute("transform", "rotate(" + this.rotation + " " + this.transit.cx + " " + this.transit.cy +")");
 					
 		if( expectedNumberOfLoops == 1){
-			context.cuspsElement.removeAttribute("transform");
+			this.cuspsElement.removeAttribute("transform");
 		}								
 	};
 	
 	/*
 	 * @private
 	 */
-	function updatePlanets( expectedNumberOfLoops ){
+	updatePlanets( expectedNumberOfLoops ){
 		
-		for(var planet in context.data.planets){
-			var actualPlanetAngle = context.actualPlanetPos[planet][0]; 		
-			var targetPlanetAngle = context.data.planets[planet][0];
-			var isRetrograde = context.actualPlanetPos[planet][1] != null && context.actualPlanetPos[planet][1] < 0;
+		for(var planet in this.data.planets){
+			var actualPlanetAngle = this.actualPlanetPos[planet][0]; 		
+			var targetPlanetAngle = this.data.planets[planet][0];
+			var isRetrograde = this.actualPlanetPos[planet][1] != null && this.actualPlanetPos[planet][1] < 0;
 								
 			var difference;
-			if( context.isReverse && isRetrograde){
+			if( this.isReverse && isRetrograde){
 				difference = targetPlanetAngle - actualPlanetAngle;
 			
-			}else if( context.isReverse || isRetrograde ){
+			}else if( this.isReverse || isRetrograde ){
 				difference = actualPlanetAngle - targetPlanetAngle;
 								
 			}else{
@@ -141,12 +140,12 @@
 																
 			// zero crossing
 			if( difference < 0 ){
-				difference += astrology.utils.radiansToDegree( 2 * Math.PI); 		
+				difference += radiansToDegree( 2 * Math.PI); 		
 			}
 			
 			var increment = difference /  expectedNumberOfLoops;
 																																								
-			if(context.isReverse){
+			if(this.isReverse){
 				increment *= -1; 				
 			}
 			
@@ -156,13 +155,15 @@
 			
 			var newPos = actualPlanetAngle + increment;
 			if( newPos < 0 ){
-				newPos += astrology.utils.radiansToDegree( 2 * Math.PI);
+				newPos += radiansToDegree( 2 * Math.PI);
 			}
 			
-			context.actualPlanetPos[planet][0] = newPos;										
+			this.actualPlanetPos[planet][0] = newPos;										
 		}
 								
-		context.transit.drawPoints( context.actualPlanetPos );		
+		this.transit.drawPoints( this.actualPlanetPos );		
 	}
-						 		
-}( window.astrology = window.astrology || {}));
+}
+
+
+export default Animator;

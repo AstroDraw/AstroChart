@@ -32,6 +32,7 @@ class Chart {
 		this.cy = this.paper.height/2;
 		this.radius = this.paper.height/2 - chartSettings.MARGIN;
 		this.settings = chartSettings
+		
 	}
 
 	/**

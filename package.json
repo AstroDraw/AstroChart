@@ -17,7 +17,8 @@
   "scripts": {
     "test": "grunt test",
     "build": "grunt build",
-    "wp": "webpack"
+    "wp": "webpack",
+    "wp:w": "webpack --watch"
   },
   "devDependencies": {
     "grunt": "^0.4.4",

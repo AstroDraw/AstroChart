@@ -1,5 +1,6 @@
 import Zodiac from './zodiac'
 import AspectCalculator from './aspect'
+import Transit from './transit'
 import { 
 	validate
 	, radiansToDegree
@@ -423,8 +424,7 @@ import {
 		
 		// remove axis (As, Ds, Mc, Ic) from radix
 		getEmptyWrapper( this.universe, this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_AXIS, this.paper.root.id);
-		
-		var transit = new this.settings.Transit(context, data);
+		var transit = new Transit(this.context, data, this.settings);
 		transit.drawBg();					
 		transit.drawPoints();		
 		transit.drawCusps();	
