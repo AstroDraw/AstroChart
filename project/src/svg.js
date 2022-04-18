@@ -421,7 +421,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");													
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y-3));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y-3));
 	
 	return wrapper;
 };
@@ -492,7 +492,7 @@ import default_settings from "./settings";
 		body.setAttribute("fill", "none");	 									
 		wrapper.appendChild( body );
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 												
 	return wrapper;
 };
@@ -695,7 +695,7 @@ import default_settings from "./settings";
 		
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y-4));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y-4));
 	
 	return wrapper;
 };
@@ -728,7 +728,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -760,7 +760,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -792,7 +792,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 		
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x-18, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x-18, y));
 	return wrapper;
 };
 
@@ -824,7 +824,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 6, y - 13));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 6, y - 13));
 	return wrapper;
 };
 
@@ -856,7 +856,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 		
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -888,7 +888,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 		
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 6, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 6, y));
 	return wrapper;
 };
 
@@ -920,7 +920,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");													
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -952,7 +952,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x - 12, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 12, y));
 	return wrapper;
 };
 
@@ -984,7 +984,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 		
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1016,7 +1016,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");													
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));			
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));			
 	return wrapper;
 };
 
@@ -1048,7 +1048,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");												
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));										
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));										
 	return wrapper;
 };
 
@@ -1163,7 +1163,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1185,7 +1185,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1207,7 +1207,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1229,7 +1229,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 
-		if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+		if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1251,7 +1251,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1274,7 +1274,7 @@ import default_settings from "./settings";
 		wrapper.appendChild(node);
 										
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1296,7 +1296,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));											
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));											
 	return wrapper;
 };
 
@@ -1318,7 +1318,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 
@@ -1340,7 +1340,7 @@ import default_settings from "./settings";
 		node.setAttribute("fill", "none");															
 		wrapper.appendChild(node);
 		
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));											
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));											
 	return wrapper;
 };
 
@@ -1371,7 +1371,7 @@ import default_settings from "./settings";
 		zero.setAttribute("fill", "none");												
 		wrapper.appendChild( zero );
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));													
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));													
 	return wrapper;
 };
 
@@ -1402,7 +1402,7 @@ import default_settings from "./settings";
 		one2.setAttribute("fill", "none");												
 		wrapper.appendChild( one2 );
 
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));
 	return wrapper;
 };
 	
@@ -1433,7 +1433,7 @@ import default_settings from "./settings";
 		two.setAttribute("fill", "none");												
 		wrapper.appendChild( two );
 	
-	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(createRectForClick(x, y));													
+	if(this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y));													
 	return wrapper;
 };	
 		
