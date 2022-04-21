@@ -1,6 +1,9 @@
 
 class Timer {
-	constructor( callback, debug ){
+	debug: boolean;
+	callback: any;
+	boundTick_: any;
+	constructor( callback: any, debug: boolean ){
 						
 		if(typeof callback !== "function"){
 			throw new Error( "param 'callback' has to be a function." );

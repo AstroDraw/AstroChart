@@ -1,3 +1,4 @@
+import { Settings } from './settings';
 import { radiansToDegree } from './utils'
 
 const DEFAULT_ASPECTS = { 
@@ -15,14 +16,17 @@ const DEFAULT_ASPECTS = {
 	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
 	 * @param {Object | null } settings
 	 */
-class AspectCalculator { 
-	constructor( toPoints, settings ){
+class AspectCalculator {
+	settings: Partial<Settings>;
+	toPoints: any;
+	context: this; 
+	constructor( toPoints: any, settings?: Settings ){
 		if(toPoints == null){
 			throw new Error( "Param 'toPoint' must not be empty." );
 		}
 		
 		this.settings = settings || {}; 		
-		this.settings.aspects = settings && settings.aspects || DEFAULT_ASPECTS;
+		this.settings.ASPECTS = settings && settings.ASPECTS || DEFAULT_ASPECTS;
 							
 		this.toPoints = toPoints;
 																																												
@@ -49,7 +53,7 @@ class AspectCalculator {
 	 * 
 	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
-	radix = function( points ){
+	radix = function( points: any){
 		if(!points){
 			return []; 
 		}
@@ -92,7 +96,7 @@ class AspectCalculator {
 	 * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]}; 
 	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
-	transit = function( points ){	
+	transit = function( points: any ){	
 		if(!points){
 			return []; 
 		}
@@ -144,7 +148,7 @@ class AspectCalculator {
  	* @param {double} toPoint
  	* @param {Array} aspects; [DEGREE, ORBIT]
 	 */
-	hasAspect(point, toPoint, aspect){
+	hasAspect(point: number, toPoint: number, aspect: { [x: string]: number; }){
 		var result = false;
 		
 		var gap = Math.abs( point - toPoint );
@@ -169,7 +173,7 @@ class AspectCalculator {
  	* @param {Object} toPointAngle
  	* @param {double} aspectDegree;
 	 */
-	calcPrecision(point, toPoint, aspect){
+	calcPrecision(point: number, toPoint: number, aspect: number){
 		var gap = Math.abs( point - toPoint );
 		
 		if( gap > radiansToDegree( Math.PI)){
@@ -191,7 +195,7 @@ class AspectCalculator {
 	 * @param {double} point - angle of transiting planet
 	 * @return {boolean}
 	 */
-	isTransitPointApproachingToAspect(aspect, toPoint, point){
+	isTransitPointApproachingToAspect(aspect: any, toPoint: number, point: number){
 		
 		if( (point - toPoint) > 0 ){
 			
@@ -229,7 +233,7 @@ class AspectCalculator {
 	 * @param {Object} a 
 	 * @param {Object} b 
 	 */
-	compareAspectsByPrecision( a , b ) {		
+	compareAspectsByPrecision( a: { precision: number; } , b: { precision: number; } ) {		
 		return a.precision - b.precision;								
 	}
 }

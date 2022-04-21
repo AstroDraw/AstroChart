@@ -7,20 +7,20 @@
 	 * @param {int} radius
 	 * @param {double} angle - degree			
 	 * 
-	 * @return {Object} - {x:10, y:20}
+	 * @return {{x: number, y: number}} Obj - {x:10, y:20}
 	 */	
-	export const getPointPosition = function( cx, cy, radius, angle, astrology ){		
+	export const getPointPosition = function( cx: number, cy: number, radius: number, angle: number, astrology: { SHIFT_IN_DEGREES: number; } ){		
 		var angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180;
 		var xPos = cx + radius * Math.cos( angleInRadius );
 		var yPos = cy + radius * Math.sin( angleInRadius );							  		  			
 		return {x:xPos, y:yPos};
 	};
 	
-	export const degreeToRadians = function( degree ){
+	export const degreeToRadians = function( degrees: number ){
 		return degrees * Math.PI / 180;
 	};
 
-	export const radiansToDegree = function( radians ){
+	export const radiansToDegree = function( radians: number ){
 		return radians * 180 / Math.PI;
 	};
 	
@@ -32,9 +32,9 @@
 	 * 
 	 * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
 	 */
-	 export const getDescriptionPosition = function( point, texts, astrology ){
+	 export const getDescriptionPosition = function( point: { x: number; y: number; }, texts: any[], astrology: { COLLISION_RADIUS: number; SYMBOL_SCALE: number; } ){
 		var RATION = 1.4;
-		var result = [];		
+		var result: { text: any; x: number; y: number; }[] = [];		
 		var posX = point.x + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE)  ;
 		var posY = point.y - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
 		
@@ -50,10 +50,10 @@
 	 * @private
 	 * 
 	 * @param {Object} data
-	 * @return {Object} status
+	 * @return {{hasError: boolean, messages: string[]}} status
 	 */
-	 export const validate = function( data ){
-		var status = {hasError:false, messages:[]};
+	 export const validate = function( data: any ){
+		var status = {hasError:false, messages: <string[]>[]};
 		
 		if( data == null ){			
 			status.messages.push( "Data is not set." );
@@ -95,16 +95,16 @@
 	 * @param{DOMElement} parent
 	 * @return {DOMElement}
 	 */
-	 export const getEmptyWrapper = function( parent, elementID, _paperElementId ){
-		
-		var wrapper = document.getElementById( elementID );		
-		if(wrapper){
-			removeChilds( wrapper );
-		}else{					
-			wrapper = document.createElementNS( document.getElementById( _paperElementId ).namespaceURI, "g");
-			wrapper.setAttribute('id', elementID);
-			parent.appendChild( wrapper );			
-		} 
+	 export const getEmptyWrapper = function( parent: Element, elementID: string, _paperElementId: string ){
+		const element = document.getElementById( elementID );
+		if(element){
+			removeChilds( element );
+			return element;
+		}
+
+		let wrapper = document.createElementNS( document.getElementById( _paperElementId ).namespaceURI, "g");
+		wrapper.setAttribute('id', elementID);
+		parent.appendChild( wrapper );			
 		
 		return wrapper;
 	};
@@ -114,7 +114,7 @@
 	* 
 	* @param{DOMElement} parent
 	*/
-	export const removeChilds = function(parent){
+	export const removeChilds = function(parent: HTMLElement){
 		if( parent == null ){
 			return;
 		}
@@ -132,7 +132,7 @@
  	 * @param {Object} circle2, {x:456, y:456, r:60}
  	 * @return {boolean} 	 
 	 */
-	 export const isCollision = function(circle1, circle2){			
+	 export const isCollision = function(circle1: { x: number; y: number; r: any; }, circle2: { x: number; y: number; r: any; }){			
 		//Calculate the vector between the circles’ center points
   		var vx = circle1.x - circle2.x;
   		var vy = circle1.y - circle2.y;
@@ -153,12 +153,12 @@
  	 * @param {Object} universe - current universe
  	 * @return {Array<Object>} locatedPoints 	 
 	 */
-	 export const assemble = function( locatedPoints, point, universe, astrology){
+	 export const assemble = function( locatedPoints: any[], point: { name?: any; x: any; y: any; r: any; angle: any; pointer: any; }, universe: { cx: any; cy: any; r: any; }, astrology: { COLLISION_RADIUS?: any; SYMBOL_SCALE?: any; DEBUG?: any; SHIFT_IN_DEGREES: number; }){
 		
 		// first item
 		if(locatedPoints.length == 0){
 			locatedPoints.push(point);
-			return locatedPoints; //================>
+			return locatedPoints;
 		}
 								
 		if( (2 * Math.PI * universe.r) - ( 2 * (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) * (locatedPoints.length+2))  <= 0){							
@@ -213,7 +213,7 @@
 	 * @param {Object} p1, {..., pointer:123, angle:456}
 	 * @param {Object} p2, {..., pointer:23, angle:56}
 	 */
-	 export const placePointsInCollision = function(p1, p2){
+	 export const placePointsInCollision = function(p1: { pointer: any; angle: number; }, p2: { name?: any; x?: any; y?: any; r?: any; angle: any; pointer: any; }){
 		
 		var step = 1;
 		var adjustedP1Pointer = p1.pointer == undefined ? p1.angle : p1.pointer;
@@ -245,7 +245,7 @@
  	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
  	 * @return {boolean} 	 
 	 */
-	 export const isInCollision = function(angle, points, astrology){		
+	 export const isInCollision = function(angle: number, points: string | any[], astrology: { COLLISION_RADIUS: number; SYMBOL_SCALE: number; }){		
 		var deg360 = radiansToDegree(2*Math.PI);
 		var collisionRadius = (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) / 2;
 							
@@ -273,9 +273,9 @@
  	 * @param {double} obstacleRadius 	
  	 * @param {Array<Object>} obstacles, [{x:456, y:456, r:60, angle:123}, ...]
  	 * 
- 	 * @return {Array<Object>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
+ 	 * @return {Array<any>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
 	 */
-	 export const getDashedLinesPositions = function( centerX, centerY, angle, lineStartRadius, lineEndRadius, obstacleRadius, obstacles, astrology){
+	 export const getDashedLinesPositions = function( centerX: number, centerY: number, angle: number, lineStartRadius: number, lineEndRadius: number, obstacleRadius: number, obstacles: string | any[], astrology: { COLLISION_RADIUS: any; SYMBOL_SCALE: any; SHIFT_IN_DEGREES: number; }){
 		var startPos, endPos;
 		var result = [];	
 		
@@ -312,7 +312,7 @@
 	 * 
 	 * @return {Array<Object>} [ {startX:1,startY:2, endX:3, endX:4 }, ...]
 	 */
-	 export const getRulerPositions = function( centerX, centerY, startRadius, endRadius, startAngle, astrology ){	
+	 export const getRulerPositions = function( centerX: number, centerY: number, startRadius: number, endRadius: number, startAngle: number, astrology: { SHIFT_IN_DEGREES: number; } ){	
 		var result = [];
 		
 		var rayRadius = endRadius;
@@ -337,7 +337,7 @@
 	* @param {Object} pointB, {name:"Mercury", x:78, y:56, r:50, angle:20.26}
 	* @return 
 	*/
-	export const comparePoints = function( pointA, pointB){		
+	export const comparePoints = function( pointA: { angle: number; }, pointB: { angle: number; }){		
 		return pointA.angle - pointB.angle; 			
 	};
 									

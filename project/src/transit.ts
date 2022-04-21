@@ -13,12 +13,24 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	 * @param {Object} data
 	 */
 	class Transit {
-		constructor( radix, data, settings ){
+		data: any;
+		paper: any;
+		cx: any;
+		cy: any;
+		toPoints: any;
+		radius: any;
+		settings: any;
+		rulerRadius: number;
+		pointRadius: any;
+		shift: any;
+		universe: HTMLElement;
+		context: this;
+		constructor( radix: { paper: any; cx: any; cy: any; toPoints: any; radius: any; shift: any; }, data: any, settings: any ){
 		
 		// Validate data
 		var status = validate(data);		 		
 		if( status.hasError ) {										
-			throw new Error( status.messages );
+			throw new Error( status.messages.join(' | ') );
 		}
 						
 		this.data = data;								
@@ -62,7 +74,7 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	 * 
 	 * @param{undefined | Object} planetsData, posible data planets to draw
 	 */
- drawPoints = function( planetsData ){
+ drawPoints = function( planetsData?: any ){
 		
 	var planets = (planetsData == null) ? this.data.planets : planetsData;		
 	if(planets == null){
@@ -91,7 +103,7 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	if( this.settings.DEBUG ) console.log( "Transit count of points: " + this.locatedPoints.length );
 	if( this.settings.DEBUG ) console.log( "Transit located points:\n" + JSON.stringify(this.locatedPoints) );
 												
-	this.locatedPoints.forEach(function(point){
+	this.locatedPoints.forEach(function(point: { name?: any; angle?: any; x: any; y: any; }){
 									
 				// draw pointer        	
 				startPosition = getPointPosition( this.cx, this.cy, pointerRadius, planets[point.name][0] + this.shift, this.settings);
@@ -155,14 +167,14 @@ drawCircles = function drawCircles(){
  * Draw cusps
  * @param{undefined | Object} cuspsData, posible data cusps to draw
  */
-drawCusps = function( cuspsData ){
+drawCusps = function( cuspsData? : any ){
 	
 	var cusps = (cuspsData == null) ? this.data.cusps : cuspsData;		
 	if(cusps == null){
 		return;
 	}
 					
-	var startPosition, endPosition, bottomPosition, lines, line;
+	let bottomPosition
 	var universe = this.universe;
 	var wrapper = getEmptyWrapper( universe, this.paper._paperElementId + "-" + this.settings.ID_TRANSIT + "-" + this.settings.ID_CUSPS, this.paper._paperElementId);		
 	var numbersRadius = this.radius + ((this.radius/this.settings.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius)/2);
@@ -220,7 +232,7 @@ drawRuler = function drawRuler(){
  * Draw aspects
  * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
  */
-aspects = function( customAspects ){
+aspects = function( customAspects: any ){
 	
 	var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
 						customAspects : 
@@ -259,11 +271,11 @@ aspects = function( customAspects ){
 	* @param {boolean} isReverse 	  	 
 	* @param {Function | undefined} callbck - the function executed at the end of animation
  */
-animate = function( data, duration, isReverse, callback ){
+animate = function( data: Object, duration: any, isReverse: boolean, callback: () => void ){
 	// Validate data
 	var status = validate(data);		 		
 	if( status.hasError ) {										
-		throw new Error( status.messages );
+		throw new Error( status.messages.join(' | ') );
 	}
 						
 	// remove aspects

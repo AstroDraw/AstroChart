@@ -10,6 +10,8 @@ import {
 	, getDescriptionPosition
 	, getDashedLinesPositions
 	, assemble } from './utils'
+import SVG from './svg'
+import { Settings } from './settings'
     
 	/**
 	 * Radix charts.
@@ -24,12 +26,25 @@ import {
 	 * @param {Object} data
 	 */
 	class Radix {
-		constructor( paper, cx, cy, radius, data, settings ){
+		settings: Settings
+		data: any
+		paper: SVG
+		cx: number
+		cy: number
+		radius: number
+		locatedPoints: any[]
+		rulerRadius: number
+		pointRadius: number
+		toPoints: any
+		shift: number
+		universe: Element
+		context: this
+		constructor( paper: SVG, cx: number, cy: number, radius: number, data: Object, settings: Settings ){
 			this.settings = settings
 			// Validate data
 			var status = validate(data);		 		
 			if( status.hasError ) {										
-				throw new Error( status.messages );
+				throw new Error( status.messages.join(' | ') );
 			}
 			
 			this.data = data;								
@@ -93,8 +108,8 @@ import {
         	var segment = this.paper.segment( this.cx, this.cy, this.radius, start, start+step, this.radius-this.radius/this.settings.INNER_CIRCLE_RADIUS_RATIO);        	        	
 					segment.setAttribute("fill", this.settings.STROKE_ONLY ? "none" : this.settings.COLORS_SIGNS[i]);
 					segment.setAttribute("id", this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_SIGNS + "-" + i)
-        	segment.setAttribute("stroke", this.settings.STROKE_ONLY ? this.settings.CIRCLE_COLOR: "none");		 				 				 		
- 					segment.setAttribute("stroke-width", this.settings.STROKE_ONLY ? 1 : 0); 				
+        	segment.setAttribute("stroke", this.settings.STROKE_ONLY ? this.settings.CIRCLE_COLOR: "none");
+ 					segment.setAttribute("stroke-width", this.settings.STROKE_ONLY ? '1' : '0');
         	wrapper.appendChild( segment );
         	        	        	        	        	        	               	
 					start += step;
@@ -138,7 +153,7 @@ import {
 		if( this.settings.DEBUG ) console.log( "Radix count of points: " + this.locatedPoints.length );
 		if( this.settings.DEBUG ) console.log( "Radix located points:\n" + JSON.stringify(this.locatedPoints) );
 											
-		this.locatedPoints.forEach(function(point){
+		this.locatedPoints.forEach(function(point: any){
 						        
         	// draw pointer        	
         	startPosition = getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift, this.settings);
@@ -279,16 +294,16 @@ import {
  				);
  				
  			lines.forEach(function(line){ 				
- 				line = this.paper.line( line.startX, line.startY, line.endX, line.endY);
- 				line.setAttribute("stroke", this.settings.LINE_COLOR);	 				 			 				 			
+ 				let newLine = this.paper.line( line.startX, line.startY, line.endX, line.endY);
+ 				newLine.setAttribute("stroke", this.settings.LINE_COLOR);	 				 			 				 			
  				
  				if(mainAxis.indexOf(i) != -1){ 					
- 					line.setAttribute("stroke-width", (this.settings.SYMBOL_AXIS_STROKE * this.settings.SYMBOL_SCALE));
+					newLine.setAttribute("stroke-width", (this.settings.SYMBOL_AXIS_STROKE * this.settings.SYMBOL_SCALE));
  				}else{
- 					line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE));	 					
+					newLine.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE));	 					
  				}	 			 			 	
  				 				 				 				 			 						 			 			 	
- 		 		wrapper.appendChild( line );  				
+ 		 		wrapper.appendChild( newLine );  				
  			}, this);	
  			 			 			 			 		 			 		 	 		
  		 	// Cup number  		 	
@@ -305,7 +320,7 @@ import {
 	 * Draw aspects
 	 * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
 	 */
-	aspects = function( customAspects ){
+	aspects = function( customAspects: any ){
 															
 		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
 						  customAspects : 
@@ -348,7 +363,7 @@ import {
 	 * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]} 
 	 * @see (this.settings.AspectCalculator( toPoints) )
 	 */
-	addPointsOfInterest = function( points ){
+	addPointsOfInterest = function( points: { [x: string]: any } ){
 		
 		for(const point in points){
 			this.toPoints[ point ] = points[point]; 	
@@ -420,7 +435,7 @@ import {
 	 * 
 	 * @return {this.settings.Transit} transit
 	 */
-	transit = function( data ){
+	transit = function( data: any ){
 		
 		// remove axis (As, Ds, Mc, Ic) from radix
 		getEmptyWrapper( this.universe, this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_AXIS, this.paper.root.id);

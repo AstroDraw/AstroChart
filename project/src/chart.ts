@@ -1,4 +1,4 @@
-import default_settings from './settings'
+import default_settings, { Settings } from './settings'
 import Radix from './radix'
 import SVG from './svg'
 import { getPointPosition } from './utils'
@@ -15,7 +15,12 @@ import { getPointPosition } from './utils'
  */
 
 class Chart {
-	constructor(elementId, width, height, settings) {
+	paper: SVG;
+	cx: number;
+	cy: number;
+	radius: number;
+	settings: Settings;
+	constructor(elementId: string, width: number, height: number, settings: Settings) {
 		const chartSettings = default_settings;
 		if(settings){
 			Object.assign(chartSettings, settings);
@@ -48,7 +53,7 @@ class Chart {
 	* 
 	* @return {astrology.Radix} radix
 	*/
-	radix( data ) {									
+	radix( data: any ) {									
 		var radix = new Radix(this.paper, this.cx, this.cy, this.radius, data, this.settings);
 		
 		radix.drawBg();				
@@ -67,7 +72,7 @@ class Chart {
 	 * 
 	 * @param {int} factor 
 	 */
-	scale( factor ) {			
+	scale( factor: number ) {			
 		this.paper.root.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");		
 	};
 
@@ -91,7 +96,7 @@ class Chart {
 			
 			circle = this.paper.circle(this.cx, this.cy, startRadius + startRadius * i );
 			circle.setAttribute("stroke", this.settings.LINE_COLOR);		 
-			circle.setAttribute("stroke-width", 1);
+			circle.setAttribute("stroke-width", '1');
 			this.paper.root.appendChild( circle );
 						
 		}
@@ -105,7 +110,7 @@ class Chart {
 			
 				circle = this.paper.circle(positions.x, positions.y, this.settings.COLLISION_RADIUS *this.settings.SYMBOL_SCALE );
 				circle.setAttribute("stroke", "red");		 
-				circle.setAttribute("stroke-width", 1);
+				circle.setAttribute("stroke-width", '1');
 				this.paper.root.appendChild( circle );
 							
 				this.paper.root.appendChild( this.paper.getSymbol( planets[n], positions.x, positions.y));	

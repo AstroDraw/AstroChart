@@ -1,4 +1,5 @@
-  import { radiansToDegree } from '../utils'
+  import { Settings } from '../settings';
+import { radiansToDegree } from '../utils'
 	import Timer from './timer';
 	/**
 	 * Transit chart animator
@@ -12,8 +13,18 @@
 	 * @param {Object} to, {"Sun":[30], "Moon":[180]}
 	 * @param {Object} settings, {cx:100, cy:100, radius:200, prefix:"astro-chart-"}
 	 */
-	class Animator { 
-		constructor( transit, settings ){
+	class Animator {
+		transit: any;
+		isReverse: boolean;
+		rotation: number;
+		settings: Settings;
+		actualPlanetPos: any;
+		timer: Timer;
+		timeSinceLoopStart: number;
+		context: this;
+		cuspsElement: any;
+		data: any; 
+		constructor( transit: any, settings: Settings ){
 			
 			this.transit = transit;
 			this.isReverse = false;
@@ -42,19 +53,19 @@
  	 * @param {boolean} isReverse 
  	 * @param {Function} callbck - start et the end of animation
 	 */
-	animate = function( data, duration, isReverse, callback){
+	animate = function( data: Object, duration: number, isReverse: boolean, callback: any){
 		this.data = data;		 			
 		this.duration = duration * 1000;
 		this.isReverse = isReverse || false;					
 		this.callback = callback; 
 		
 		this.rotation = 0;				
-		this.cuspsElement = document.getElementById(this.transit.paper._paperElementId + "-" + this.settings.ID_TRANSIT + "-" + this.settings.ID_CUSPS, this.transit.paper._paperElementId);
+		this.cuspsElement = document.getElementById(this.transit.paper._paperElementId + "-" + this.settings.ID_TRANSIT + "-" + this.settings.ID_CUSPS);
 		
 		this.timer.start();									
 	};
 
-	update = function( deltaTime ){
+	update = function( deltaTime: number ){
 		deltaTime = deltaTime || 1; //									
 		this.timeSinceLoopStart += deltaTime;					
 		if (this.timeSinceLoopStart >= this.duration) {
@@ -78,7 +89,7 @@
 	/*
 	 * @private
 	 */
-	updateCusps( expectedNumberOfLoops ){	
+	updateCusps( expectedNumberOfLoops: number ){	
 		
 		var deg360 = radiansToDegree( 2 * Math.PI);							
 		var targetCuspAngle = this.transit.data.cusps[0] - this.data.cusps[0];					
@@ -120,7 +131,7 @@
 	/*
 	 * @private
 	 */
-	updatePlanets( expectedNumberOfLoops ){
+	updatePlanets( expectedNumberOfLoops: number ){
 		
 		for(var planet in this.data.planets){
 			var actualPlanetAngle = this.actualPlanetPos[planet][0]; 		

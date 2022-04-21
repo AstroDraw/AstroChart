@@ -1,3 +1,4 @@
+import { Settings } from './settings';
 import { radiansToDegree } from './utils'
 	// Zodiac
 	var SIGNS_ARIES 		= 1;
@@ -28,7 +29,9 @@ import { radiansToDegree } from './utils'
 	 * @param {Object | null } settings
 	 */
 	class Zodiac {
-		constructor( cusps, settings){
+		cusps: number[];
+		settings: Partial<Settings>;
+		constructor( cusps: number[], settings?: Settings){
 			if(cusps == null){
 				throw new Error( "Param 'cusps' must not be empty." );
 			}
@@ -48,7 +51,7 @@ import { radiansToDegree } from './utils'
 	 * @param {double} point - angle of point in circle
 	 * @return { \[1-9] | 1[0-2]\ } 
 	 */
-	getSign = function( point ){
+	getSign = function( point: number ){
 		var angle = point % radiansToDegree( 2 * Math.PI);											
 		return Math.floor((angle  / 30) + 1);			
 	};
@@ -60,7 +63,7 @@ import { radiansToDegree } from './utils'
  	 * @param {double} speed
  	 * @return {boolean}
 	 */
-	 isRetrograde = function( speed ){
+	 isRetrograde = function( speed: number ){
 		return speed < 0;
 	};
 
@@ -71,7 +74,7 @@ import { radiansToDegree } from './utils'
 	 * @param {double} point - angle of point in circle
 	 * @return { \[1-9] | 1[0-2]\ }
 	 */
-	 getHouseNumber = function( point ){
+	 getHouseNumber = function( point: number ){
 		var angle = point % radiansToDegree( 2 * Math.PI);	
 		
 		for(var i = 0, ln = this.cusps.length; i < ln; i++){
@@ -103,7 +106,7 @@ import { radiansToDegree } from './utils'
  	  * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
  	  * @return {Array<String>}
 	  */
-	getDignities = function( planet, exactExaltation, astrology ){
+	getDignities = function( planet: { name: any; position: any; }, exactExaltation: string | any[], astrology: Settings ){
 		if(!(planet && planet.name && planet.position != null)){
 			return [];
 		}
@@ -314,13 +317,13 @@ import { radiansToDegree } from './utils'
 	 * @param {Double} d
 	 * @return {String}
 	 */
-	toDMS = function ( d ) {  
+	toDMS = function ( d: number ) {  
 			d += 0.5/3600./10000.;	// round to 1/1000 of a second
-		 var deg = parseInt(d);
+		 const deg = d;
 		 d = (d - deg) * 60;
-		 var min = parseInt(d);
+		 const min = d;
 		 d = (d - min) * 60;
-		 var sec = parseInt(d);
+		 const sec = d;
 		 
 		 return deg + "° " + min + "' " + sec;
 		};
@@ -336,7 +339,7 @@ import { radiansToDegree } from './utils'
  	  * @param {Integer} orbit
  	  * @return {boolean}
 	  */
-	 hasConjunction(planetPosition, pointPosition, orbit){
+	 hasConjunction(planetPosition: number, pointPosition: number, orbit: number){
 		var result = false;
 								
 		 var minOrbit = (pointPosition - orbit/2) < 0 ?
