@@ -1,10 +1,11 @@
 import SVG from "./svg";
+export interface AspectData {
+    degree: number;
+    orbit: number;
+    color: string;
+}
 export interface Aspect {
-    [key: string]: {
-        degree: number;
-        orbit: number;
-        color: string;
-    };
+    [key: string]: AspectData;
 }
 export interface Dignity {
     name: string;

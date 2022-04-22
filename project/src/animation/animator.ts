@@ -1,6 +1,8 @@
-  import { Settings } from '../settings';
+import { AstroData } from '../radix';
+import { Settings } from '../settings';
+import Transit from '../transit';
 import { radiansToDegree } from '../utils'
-	import Timer from './timer';
+import Timer from './timer';
 	/**
 	 * Transit chart animator
 	 * 
@@ -14,7 +16,7 @@ import { radiansToDegree } from '../utils'
 	 * @param {Object} settings, {cx:100, cy:100, radius:200, prefix:"astro-chart-"}
 	 */
 	class Animator {
-		transit: any;
+		transit: Transit;
 		isReverse: boolean;
 		rotation: number;
 		settings: Settings;
@@ -23,8 +25,8 @@ import { radiansToDegree } from '../utils'
 		timeSinceLoopStart: number;
 		context: this;
 		cuspsElement: any;
-		data: any; 
-		constructor( transit: any, settings: Settings ){
+		data: AstroData; 
+		constructor( transit: Transit, settings: Settings ){
 			
 			this.transit = transit;
 			this.isReverse = false;
@@ -53,7 +55,7 @@ import { radiansToDegree } from '../utils'
  	 * @param {boolean} isReverse 
  	 * @param {Function} callbck - start et the end of animation
 	 */
-	animate = function( data: Object, duration: number, isReverse: boolean, callback: any){
+	animate = function( data: Object, duration: number, isReverse: boolean, callback: () => void){
 		this.data = data;		 			
 		this.duration = duration * 1000;
 		this.isReverse = isReverse || false;					

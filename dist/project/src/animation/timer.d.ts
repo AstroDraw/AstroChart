@@ -1,11 +1,13 @@
 declare class Timer {
     debug: boolean;
-    callback: any;
-    boundTick_: any;
-    constructor(callback: any, debug: boolean);
-    start: () => void;
-    stop: () => void;
-    isRunning: () => boolean;
-    tick: () => void;
+    callback: (delta: number) => void;
+    boundTick_: FrameRequestCallback;
+    lastGameLoopFrame: number;
+    requestID_: number;
+    constructor(callback: (delta: number) => void, debug: boolean);
+    start(): void;
+    stop(): void;
+    isRunning(): boolean;
+    tick(): void;
 }
 export default Timer;

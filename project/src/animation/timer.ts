@@ -1,9 +1,11 @@
 
 class Timer {
 	debug: boolean;
-	callback: any;
-	boundTick_: any;
-	constructor( callback: any, debug: boolean ){
+	callback: (delta: number) => void;
+	boundTick_: FrameRequestCallback;
+	lastGameLoopFrame: number;
+	requestID_: number;
+	constructor( callback: (delta: number) => void, debug: boolean ){
 						
 		if(typeof callback !== "function"){
 			throw new Error( "param 'callback' has to be a function." );
@@ -16,7 +18,7 @@ class Timer {
 	};
 
 
-	start = function(){	
+	start(){	
 		if (!this.requestID_){
 			this.lastGameLoopFrame = new Date().getTime();	
 			this.tick();	
@@ -24,7 +26,7 @@ class Timer {
 		}
 	};
 	
-	stop = function(){	
+	stop(){	
 		if(this.requestID_){    		
 			window.cancelAnimationFrame( this.requestID_ );	
 			this.requestID_ = undefined;
@@ -32,11 +34,11 @@ class Timer {
 		}	
 	};
 	
-	isRunning = function(){
+	isRunning(){
 		return this.requestID_ ? true : false;
 	};
 	
-	tick = function(){	
+	tick(){	
 		var now = new Date().getTime(); 				
 		this.requestID_ = window.requestAnimationFrame( this.boundTick_ );		
 		this.callback( now - this.lastGameLoopFrame );		

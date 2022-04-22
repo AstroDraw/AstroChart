@@ -1,6 +1,23 @@
+import { FormedAspect } from './aspect';
 import Transit from './transit';
 import SVG from './svg';
 import { Settings } from './settings';
+export declare type Points = {
+    [key: string]: number[];
+};
+export declare type LocatedPoint = {
+    name?: string;
+    x: number;
+    y: number;
+    r: number;
+    angle: number;
+    pointer: number;
+    index?: number;
+};
+export declare type AstroData = {
+    planets: Points;
+    cusps: number[];
+};
 /**
  * Radix charts.
  *
@@ -15,19 +32,19 @@ import { Settings } from './settings';
  */
 declare class Radix {
     settings: Settings;
-    data: any;
+    data: AstroData;
     paper: SVG;
     cx: number;
     cy: number;
     radius: number;
-    locatedPoints: any[];
+    locatedPoints: LocatedPoint[];
     rulerRadius: number;
     pointRadius: number;
-    toPoints: any;
+    toPoints: Points;
     shift: number;
     universe: Element;
     context: this;
-    constructor(paper: SVG, cx: number, cy: number, radius: number, data: Object, settings: Settings);
+    constructor(paper: SVG, cx: number, cy: number, radius: number, data: AstroData, settings: Settings);
     /**
  * Draw background
  */
@@ -39,30 +56,28 @@ declare class Radix {
     /**
      * Draw points
      */
-    drawPoints: () => void;
-    drawAxis: () => void;
+    drawPoints(): void;
+    drawAxis(): void;
     /**
      * Draw cusps
      */
-    drawCusps: () => void;
+    drawCusps(): void;
     /**
      * Draw aspects
      * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
      */
-    aspects: (customAspects: any) => any;
+    aspects(customAspects?: FormedAspect[] | null): this;
     /**
      * Add points of interest for aspects calculation
      * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]}
      * @see (this.settings.AspectCalculator( toPoints) )
      */
-    addPointsOfInterest: (points: {
-        [x: string]: any;
-    }) => any;
-    drawRuler: () => void;
+    addPointsOfInterest(points: Points): this;
+    drawRuler(): void;
     /**
      * Draw circles
      */
-    drawCircles: () => void;
+    drawCircles(): void;
     /**
      * Display transit horoscope
      *
@@ -75,6 +90,6 @@ declare class Radix {
      *
      * @return {this.settings.Transit} transit
      */
-    transit: (data: any) => Transit;
+    transit(data: AstroData): Transit;
 }
 export default Radix;

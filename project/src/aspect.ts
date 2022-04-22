@@ -1,5 +1,24 @@
-import { Settings } from './settings';
+import { Points } from './radix';
+import { Aspect, AspectData, Settings } from './settings';
 import { radiansToDegree } from './utils'
+
+export interface FormedAspect {
+  point: {
+    name: string
+    position: number
+  }
+  toPoint: {
+    name: string
+    position: number
+  }
+  aspect: {
+    name: string
+    degree: number
+		color: string
+		orbit: number
+  }
+  precision: number
+}
 
 const DEFAULT_ASPECTS = { 
 	"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
@@ -13,14 +32,14 @@ const DEFAULT_ASPECTS = {
 	 * @class
 	 * @public
 	 * @constructor 	 
-	 * @param {Object} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
+	 * @param {AspectPoints} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
 	 * @param {Object | null } settings
 	 */
 class AspectCalculator {
 	settings: Partial<Settings>;
-	toPoints: any;
+	toPoints: Points;
 	context: this; 
-	constructor( toPoints: any, settings?: Settings ){
+	constructor( toPoints: Points, settings?: Settings ){
 		if(toPoints == null){
 			throw new Error( "Param 'toPoint' must not be empty." );
 		}
@@ -39,8 +58,8 @@ class AspectCalculator {
 	 * 
 	 * @return {Object} 
 	 */
-	 getToPoints = function(){
-		return this.this.toPoints;
+	 getToPoints(){
+		return this.toPoints;
 	};
 	
 	/**
@@ -53,12 +72,12 @@ class AspectCalculator {
 	 * 
 	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
-	radix = function( points: any){
+	radix( points: Points){
 		if(!points){
 			return []; 
 		}
 							
-		var aspects = [];			
+		var aspects: FormedAspect[] = [];			
 		
 		for (var point in points) {
  		   if (points.hasOwnProperty( point )) {
@@ -67,15 +86,15 @@ class AspectCalculator {
  		   		if (this.toPoints.hasOwnProperty( toPoint )) { 		   			 		   			 		   		
  		   			
  		   			if( point != toPoint){ 		   				 		   			 		   			 		   
-	 		   			for(var aspect in this.settings.aspects){ 		   				
-	 		   				if(this.hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect])){
+	 		   			for(var aspect in this.settings.ASPECTS){ 		   				
+	 		   				if(this.hasAspect( points[point][0], this.toPoints[toPoint][0], this.settings.ASPECTS[aspect])){
 	 		   						
 	 		   					aspects.push(
 	 		   								{
-	 		   								"aspect":{"name":aspect, "degree":this.settings.aspects[aspect].degree, "orbit":this.settings.aspects[aspect].orbit, "color":this.settings.aspects[aspect].color}, 	 		   								 
+	 		   								"aspect":{"name":aspect, "degree":this.settings.ASPECTS[aspect].degree, "orbit":this.settings.ASPECTS[aspect].orbit, "color":this.settings.ASPECTS[aspect].color}, 	 		   								 
 	 		   								"point":{"name":point, "position":points[point][0]}, 
 	 		   								"toPoint":{"name":toPoint, "position":this.toPoints[toPoint][0]},
-	 		   								"precision": this.calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.aspects[aspect]["degree"]).toFixed(4)
+	 		   								"precision": parseFloat(this.calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.ASPECTS[aspect]["degree"]).toFixed(4))
 	 		   								}
 	 		   							)
 	 		   				}
@@ -96,7 +115,7 @@ class AspectCalculator {
 	 * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]}; 
 	 * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
 	 */
-	transit = function( points: any ){	
+	transit = function( points: Points ){	
 		if(!points){
 			return []; 
 		}
@@ -148,7 +167,7 @@ class AspectCalculator {
  	* @param {double} toPoint
  	* @param {Array} aspects; [DEGREE, ORBIT]
 	 */
-	hasAspect(point: number, toPoint: number, aspect: { [x: string]: number; }){
+	hasAspect(point: number, toPoint: number, aspect: AspectData){
 		var result = false;
 		
 		var gap = Math.abs( point - toPoint );
@@ -157,7 +176,7 @@ class AspectCalculator {
 			gap = radiansToDegree( 2 * Math.PI) - gap;
 		}
 		
-		var orbitMin = aspect["degree"] - (aspect["orbit"] / 2);
+		var orbitMin = aspect["degree"] + (aspect["orbit"] / 2);
 		var orbitMax = aspect["degree"] + (aspect["orbit"] / 2);
 		
 		if(orbitMin <= gap && gap <= orbitMax){											
@@ -195,7 +214,7 @@ class AspectCalculator {
 	 * @param {double} point - angle of transiting planet
 	 * @return {boolean}
 	 */
-	isTransitPointApproachingToAspect(aspect: any, toPoint: number, point: number){
+	isTransitPointApproachingToAspect(aspect: number, toPoint: number, point: number){
 		
 		if( (point - toPoint) > 0 ){
 			
@@ -233,7 +252,7 @@ class AspectCalculator {
 	 * @param {Object} a 
 	 * @param {Object} b 
 	 */
-	compareAspectsByPrecision( a: { precision: number; } , b: { precision: number; } ) {		
+	compareAspectsByPrecision( a: FormedAspect , b: FormedAspect ) {		
 		return a.precision - b.precision;								
 	}
 }

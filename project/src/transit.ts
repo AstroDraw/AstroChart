@@ -1,7 +1,10 @@
 import Zodiac from './zodiac'
-import AspectCalculator from './aspect';
+import AspectCalculator, { FormedAspect } from './aspect';
 import Animator from './animation/animator';
 import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDescriptionPosition, assemble, radiansToDegree } from './utils'
+import Radix, { AstroData, LocatedPoint, Points } from './radix';
+import SVG from './svg';
+import { Settings } from './settings';
     
 	/**
 	 * Transit charts.
@@ -13,19 +16,20 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	 * @param {Object} data
 	 */
 	class Transit {
-		data: any;
-		paper: any;
-		cx: any;
-		cy: any;
-		toPoints: any;
-		radius: any;
-		settings: any;
+		data: AstroData;
+		paper: SVG;
+		cx: number;
+		cy: number;
+		toPoints: Points;
+		radius: number;
+		settings: Settings;
 		rulerRadius: number;
-		pointRadius: any;
-		shift: any;
-		universe: HTMLElement;
+		pointRadius: number;
+		shift: number;
+		universe: Element;
 		context: this;
-		constructor( radix: { paper: any; cx: any; cy: any; toPoints: any; radius: any; shift: any; }, data: any, settings: any ){
+		locatedPoints: LocatedPoint[]
+		constructor( radix: Radix, data: AstroData, settings: Settings ){
 		
 		// Validate data
 		var status = validate(data);		 		
@@ -47,7 +51,7 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 		this.shift = radix.shift;		
 						
 		this.universe = document.createElementNS(this.paper.root.namespaceURI, "g");
-		this.universe.setAttribute('id', this.paper.elementId + "-" + this.settings.ID_TRANSIT);
+		this.universe.setAttribute('id', this.paper._paperElementId + "-" + this.settings.ID_TRANSIT);
 		this.paper.root.appendChild( this.universe );
 					
 		this.context = this; 
@@ -56,7 +60,7 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	/**
 	 * Draw background
 	 */
-	 drawBg = function(){				
+	 drawBg(){				
 		var universe = this.universe;		
 						
 		var wrapper = getEmptyWrapper( universe, this.paper._paperElementId + "-" + this.settings.ID_BG, this.paper._paperElementId);	
@@ -74,8 +78,8 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	 * 
 	 * @param{undefined | Object} planetsData, posible data planets to draw
 	 */
- drawPoints = function( planetsData?: any ){
-		
+ drawPoints( planetsData?: Points ){
+	
 	var planets = (planetsData == null) ? this.data.planets : planetsData;		
 	if(planets == null){
 		return;
@@ -103,7 +107,7 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 	if( this.settings.DEBUG ) console.log( "Transit count of points: " + this.locatedPoints.length );
 	if( this.settings.DEBUG ) console.log( "Transit located points:\n" + JSON.stringify(this.locatedPoints) );
 												
-	this.locatedPoints.forEach(function(point: { name?: any; angle?: any; x: any; y: any; }){
+	this.locatedPoints.forEach(function(point){
 									
 				// draw pointer        	
 				startPosition = getPointPosition( this.cx, this.cy, pointerRadius, planets[point.name][0] + this.shift, this.settings);
@@ -150,7 +154,7 @@ import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDesc
 /**
  * Draw circles
  */
-drawCircles = function drawCircles(){
+drawCircles(){
 	
 	var universe = this.universe;		
 	var wrapper = getEmptyWrapper( universe, this.paper._paperElementId + "-" + this.settings.ID_TRANSIT + "-" + this.settings.ID_CIRCLES, this.paper._paperElementId);
@@ -159,7 +163,7 @@ drawCircles = function drawCircles(){
 	var circle;			
 	circle = this.paper.circle( this.cx, this.cy, radius);
 	circle.setAttribute("stroke", this.settings.CIRCLE_COLOR);		 
-	circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE));
+	circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE).toString());
 			wrapper.appendChild( circle );										
 };
 
@@ -167,7 +171,7 @@ drawCircles = function drawCircles(){
  * Draw cusps
  * @param{undefined | Object} cuspsData, posible data cusps to draw
  */
-drawCusps = function( cuspsData? : any ){
+drawCusps( cuspsData? : number[] ){
 	
 	var cusps = (cuspsData == null) ? this.data.cusps : cuspsData;		
 	if(cusps == null){
@@ -192,7 +196,7 @@ drawCusps = function( cuspsData? : any ){
 		 var endPosition = getPointPosition( this.cx, this.cy, this.radius + this.radius/this.settings.INNER_CIRCLE_RADIUS_RATIO - this.rulerRadius, cusps[i] + this.shift, this.settings);
 		 var line = this.paper.line( startPosition.x, startPosition.y, endPosition.x, endPosition.y);
 		 line.setAttribute("stroke", this.settings.LINE_COLOR);		 				 				 		
-		 line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE)); 
+		 line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString()); 
 		 
 		 wrapper.appendChild( line );
 								 
@@ -206,7 +210,7 @@ drawCusps = function( cuspsData? : any ){
 	}				
 };
 	
-drawRuler = function drawRuler(){
+drawRuler(){
 	
 	var universe = this.universe;		
 	var wrapper = getEmptyWrapper( universe, this.paper.root.id + "-" + this.settings.ID_TRANSIT + "-" + this.settings.ID_RULER, this.paper._paperElementId);
@@ -224,7 +228,7 @@ drawRuler = function drawRuler(){
 	var circle;			
 	circle = this.paper.circle( this.cx, this.cy, startRadius - this.rulerRadius);
 	circle.setAttribute("stroke", this.settings.CIRCLE_COLOR);		 
-	circle.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE));
+	circle.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString());
 			wrapper.appendChild( circle );       	       	
 };
 	
@@ -232,7 +236,7 @@ drawRuler = function drawRuler(){
  * Draw aspects
  * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
  */
-aspects = function( customAspects: any ){
+aspects( customAspects: FormedAspect[] ){
 	
 	var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
 						customAspects : 
@@ -248,13 +252,13 @@ aspects = function( customAspects: any ){
 							
 		var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
 		line.setAttribute("stroke", this.settings.STROKE_ONLY ? this.settings.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
-		line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE));  
+		line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString());  
 		
 		line.setAttribute("data-name", aspectsList[i].aspect.name);
-		line.setAttribute("data-degree", aspectsList[i].aspect.degree);				
+		line.setAttribute("data-degree", aspectsList[i].aspect.degree.toString());				
 		line.setAttribute("data-point", aspectsList[i].point.name);   		
 		line.setAttribute("data-toPoint", aspectsList[i].toPoint.name);
-		line.setAttribute("data-precision", aspectsList[i].precision);
+		line.setAttribute("data-precision", aspectsList[i].precision.toString());
 								 
 		wrapper.appendChild( line );				
 	}         
@@ -271,7 +275,7 @@ aspects = function( customAspects: any ){
 	* @param {boolean} isReverse 	  	 
 	* @param {Function | undefined} callbck - the function executed at the end of animation
  */
-animate = function( data: Object, duration: any, isReverse: boolean, callback: () => void ){
+animate( data: AstroData, duration: number, isReverse: boolean, callback: () => void ){
 	// Validate data
 	var status = validate(data);		 		
 	if( status.hasError ) {										

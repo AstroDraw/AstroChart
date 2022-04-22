@@ -1,3 +1,5 @@
+import { AstroData, LocatedPoint } from "./radix";
+import { Settings } from "./settings";
 /**
  * Calculate position of the point on the circle.
  *
@@ -16,6 +18,11 @@ export declare const getPointPosition: (cx: number, cy: number, radius: number, 
 };
 export declare const degreeToRadians: (degrees: number) => number;
 export declare const radiansToDegree: (radians: number) => number;
+interface TextLocation {
+    text: string;
+    x: number;
+    y: number;
+}
 /**
  * Calculates positions of the point description
  *
@@ -27,14 +34,10 @@ export declare const radiansToDegree: (radians: number) => number;
 export declare const getDescriptionPosition: (point: {
     x: number;
     y: number;
-}, texts: any[], astrology: {
+}, texts: string[], astrology: {
     COLLISION_RADIUS: number;
     SYMBOL_SCALE: number;
-}) => {
-    text: any;
-    x: number;
-    y: number;
-}[];
+}) => TextLocation[];
 /**
  * Checks a source data
  * @private
@@ -42,7 +45,7 @@ export declare const getDescriptionPosition: (point: {
  * @param {Object} data
  * @return {{hasError: boolean, messages: string[]}} status
  */
-export declare const validate: (data: any) => {
+export declare const validate: (data: AstroData) => {
     hasError: boolean;
     messages: string[];
 };
@@ -70,11 +73,11 @@ export declare const removeChilds: (parent: HTMLElement) => void;
 export declare const isCollision: (circle1: {
     x: number;
     y: number;
-    r: any;
+    r: number;
 }, circle2: {
     x: number;
     y: number;
-    r: any;
+    r: number;
 }) => boolean;
 /**
  * Places a new point in the located list
@@ -84,40 +87,18 @@ export declare const isCollision: (circle1: {
  * @param {Object} universe - current universe
  * @return {Array<Object>} locatedPoints
  */
-export declare const assemble: (locatedPoints: any[], point: {
-    name?: any;
-    x: any;
-    y: any;
-    r: any;
-    angle: any;
-    pointer: any;
-}, universe: {
-    cx: any;
-    cy: any;
-    r: any;
-}, astrology: {
-    COLLISION_RADIUS?: any;
-    SYMBOL_SCALE?: any;
-    DEBUG?: any;
-    SHIFT_IN_DEGREES: number;
-}) => any[];
+export declare const assemble: (locatedPoints: LocatedPoint[], point: LocatedPoint, universe: {
+    cx: number;
+    cy: number;
+    r: number;
+}, astrology: Settings) => LocatedPoint[];
 /**
  * Sets the positions of two points that are in collision.
  *
  * @param {Object} p1, {..., pointer:123, angle:456}
  * @param {Object} p2, {..., pointer:23, angle:56}
  */
-export declare const placePointsInCollision: (p1: {
-    pointer: any;
-    angle: number;
-}, p2: {
-    name?: any;
-    x?: any;
-    y?: any;
-    r?: any;
-    angle: any;
-    pointer: any;
-}) => void;
+export declare const placePointsInCollision: (p1: LocatedPoint, p2: LocatedPoint) => void;
 /**
  * Check collision between angle and object
  *
@@ -125,10 +106,7 @@ export declare const placePointsInCollision: (p1: {
  * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
  * @return {boolean}
  */
-export declare const isInCollision: (angle: number, points: string | any[], astrology: {
-    COLLISION_RADIUS: number;
-    SYMBOL_SCALE: number;
-}) => boolean;
+export declare const isInCollision: (angle: number, points: string | any[], astrology: Settings) => boolean;
 /**
  * Calculates positions of the dashed line passing through the obstacle.
  * 	*
@@ -142,11 +120,7 @@ export declare const isInCollision: (angle: number, points: string | any[], astr
  *
  * @return {Array<any>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
  */
-export declare const getDashedLinesPositions: (centerX: number, centerY: number, angle: number, lineStartRadius: number, lineEndRadius: number, obstacleRadius: number, obstacles: string | any[], astrology: {
-    COLLISION_RADIUS: any;
-    SYMBOL_SCALE: any;
-    SHIFT_IN_DEGREES: number;
-}) => {
+export declare const getDashedLinesPositions: (centerX: number, centerY: number, angle: number, lineStartRadius: number, lineEndRadius: number, obstacleRadius: number, obstacles: LocatedPoint[], astrology: Settings) => {
     startX: number;
     startY: number;
     endX: number;
@@ -183,3 +157,4 @@ export declare const comparePoints: (pointA: {
 }, pointB: {
     angle: number;
 }) => number;
+export {};

@@ -1,5 +1,5 @@
 import { Settings } from './settings';
-import Radix from './radix';
+import Radix, { AstroData } from './radix';
 import SVG from './svg';
 /**
  * Displays astrology charts.
@@ -31,7 +31,7 @@ declare class Chart {
     *
     * @return {astrology.Radix} radix
     */
-    radix(data: any): Radix;
+    radix(data: AstroData): Radix;
     /**
      * Scale chart
      *

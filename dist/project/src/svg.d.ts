@@ -17,7 +17,7 @@ declare class SVG {
     width: number;
     height: number;
     context: this;
-    constructor(elementId: string, width: number, height: number, settings: any);
+    constructor(elementId: string, width: number, height: number, settings: Settings);
     _getSymbol(name: string, x: number, y: number): Element;
     /**
  * Get a required symbol.

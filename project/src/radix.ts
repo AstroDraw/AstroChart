@@ -1,5 +1,5 @@
 import Zodiac from './zodiac'
-import AspectCalculator from './aspect'
+import AspectCalculator, { FormedAspect } from './aspect'
 import Transit from './transit'
 import { 
 	validate
@@ -12,7 +12,14 @@ import {
 	, assemble } from './utils'
 import SVG from './svg'
 import { Settings } from './settings'
-    
+
+export type Points = { [key: string]: number[] }
+export type LocatedPoint = { name?: string; x: number; y: number; r: number; angle: number; pointer: number; index?: number }
+export type AstroData = {
+  planets: Points
+  cusps: number[]
+}
+
 	/**
 	 * Radix charts.
 	 * 
@@ -27,19 +34,19 @@ import { Settings } from './settings'
 	 */
 	class Radix {
 		settings: Settings
-		data: any
+		data: AstroData
 		paper: SVG
 		cx: number
 		cy: number
 		radius: number
-		locatedPoints: any[]
+		locatedPoints: LocatedPoint[]
 		rulerRadius: number
 		pointRadius: number
-		toPoints: any
+		toPoints: Points
 		shift: number
 		universe: Element
 		context: this
-		constructor( paper: SVG, cx: number, cy: number, radius: number, data: Object, settings: Settings ){
+		constructor( paper: SVG, cx: number, cy: number, radius: number, data: AstroData, settings: Settings ){
 			this.settings = settings
 			// Validate data
 			var status = validate(data);		 		
@@ -127,7 +134,7 @@ import { Settings } from './settings'
 	/**
 	 * Draw points
 	 */
-	 drawPoints = function(){
+	 drawPoints(){
 		if(this.data.planets == null){
 			return;
 		}
@@ -153,7 +160,7 @@ import { Settings } from './settings'
 		if( this.settings.DEBUG ) console.log( "Radix count of points: " + this.locatedPoints.length );
 		if( this.settings.DEBUG ) console.log( "Radix located points:\n" + JSON.stringify(this.locatedPoints) );
 											
-		this.locatedPoints.forEach(function(point: any){
+		this.locatedPoints.forEach(function(point: LocatedPoint){
 						        
         	// draw pointer        	
         	startPosition = getPointPosition( this.cx, this.cy, pointerRadius, this.data.planets[point.name][0] + this.shift, this.settings);
@@ -198,7 +205,7 @@ import { Settings } from './settings'
 		}, this);		
 	};
 	
-	drawAxis = function(){
+	drawAxis(){
 		if(this.data.cusps == null){
 			return;
 		}
@@ -261,7 +268,7 @@ import { Settings } from './settings'
 	/**
 	 * Draw cusps
 	 */
-	drawCusps = function(){
+	drawCusps(){
 		if(this.data.cusps == null){
 			return;
 		}
@@ -320,7 +327,7 @@ import { Settings } from './settings'
 	 * Draw aspects
 	 * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
 	 */
-	aspects = function( customAspects: any ){
+	aspects( customAspects?: FormedAspect[] | null ){
 															
 		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
 						  customAspects : 
@@ -343,13 +350,13 @@ import { Settings } from './settings'
 									
 				var line = this.paper.line( startPoint.x, startPoint.y, endPoint.x, endPoint.y);       		       		       
 				line.setAttribute("stroke", this.settings.STROKE_ONLY ? this.settings.LINE_COLOR : aspectsList[i].aspect.color);		 				 				 		
-				line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE));    
+				line.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString());    
 				
 				line.setAttribute("data-name", aspectsList[i].aspect.name);
-				line.setAttribute("data-degree", aspectsList[i].aspect.degree);				
+				line.setAttribute("data-degree", aspectsList[i].aspect.degree.toString());				
 				line.setAttribute("data-point", aspectsList[i].point.name);   		
 				line.setAttribute("data-toPoint", aspectsList[i].toPoint.name);
-				line.setAttribute("data-precision", aspectsList[i].precision);
+				line.setAttribute("data-precision", aspectsList[i].precision.toString());
 				
 				wrapper.appendChild( line );			
 			}
@@ -363,7 +370,7 @@ import { Settings } from './settings'
 	 * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]} 
 	 * @see (this.settings.AspectCalculator( toPoints) )
 	 */
-	addPointsOfInterest = function( points: { [x: string]: any } ){
+	addPointsOfInterest( points: Points){
 		
 		for(const point in points){
 			this.toPoints[ point ] = points[point]; 	
@@ -372,7 +379,7 @@ import { Settings } from './settings'
         return this.context;	
 	};
 		
-	drawRuler = function drawRuler(){
+	drawRuler(){
 		
 		var universe = this.universe;		
 		var wrapper = getEmptyWrapper( universe, this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_RULER, this.paper.root.id);
@@ -390,14 +397,14 @@ import { Settings } from './settings'
 		var circle;			
 		circle = this.paper.circle( this.cx, this.cy, startRadius);
 		circle.setAttribute("stroke", this.settings.CIRCLE_COLOR);		 
-		circle.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE));
+		circle.setAttribute("stroke-width", (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString());
         wrapper.appendChild( circle );       	       	
 	};
 	
 	/**
 	 * Draw circles
 	 */
-	drawCircles = function drawCircles(){
+	drawCircles(){
 	
 		var universe = this.universe;		
 		var wrapper = getEmptyWrapper( universe, this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_CIRCLES, this.paper.root.id);
@@ -407,19 +414,19 @@ import { Settings } from './settings'
         //indoor circle
         circle = this.paper.circle( this.cx, this.cy, this.radius/this.settings.INDOOR_CIRCLE_RADIUS_RATIO);
         circle.setAttribute("stroke", this.settings.CIRCLE_COLOR);		 
-		circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE));		
+		circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE).toString());		
        	wrapper.appendChild( circle );     
        	
        	//outdoor circle
 		circle = this.paper.circle( this.cx, this.cy, this.radius);
 		circle.setAttribute("stroke", this.settings.CIRCLE_COLOR);		 
-		circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE));
+		circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE).toString());
         wrapper.appendChild( circle );
        	
        	//inner circle
        	circle = this.paper.circle( this.cx, this.cy, this.radius-this.radius/this.settings.INNER_CIRCLE_RADIUS_RATIO);
        	circle.setAttribute("stroke", this.settings.CIRCLE_COLOR);		 
-		circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE));
+		circle.setAttribute("stroke-width", (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE).toString());
         wrapper.appendChild( circle );  	       	       	       	       	   
 	};
 			
@@ -435,7 +442,7 @@ import { Settings } from './settings'
 	 * 
 	 * @return {this.settings.Transit} transit
 	 */
-	transit = function( data: any ){
+	transit( data: AstroData ){
 		
 		// remove axis (As, Ds, Mc, Ic) from radix
 		getEmptyWrapper( this.universe, this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_AXIS, this.paper.root.id);

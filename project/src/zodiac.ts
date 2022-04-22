@@ -1,4 +1,4 @@
-import { Settings } from './settings';
+import { Dignity, Settings } from './settings';
 import { radiansToDegree } from './utils'
 	// Zodiac
 	var SIGNS_ARIES 		= 1;
@@ -51,7 +51,7 @@ import { radiansToDegree } from './utils'
 	 * @param {double} point - angle of point in circle
 	 * @return { \[1-9] | 1[0-2]\ } 
 	 */
-	getSign = function( point: number ){
+	getSign( point: number ){
 		var angle = point % radiansToDegree( 2 * Math.PI);											
 		return Math.floor((angle  / 30) + 1);			
 	};
@@ -63,7 +63,7 @@ import { radiansToDegree } from './utils'
  	 * @param {double} speed
  	 * @return {boolean}
 	 */
-	 isRetrograde = function( speed: number ){
+	 isRetrograde( speed: number ){
 		return speed < 0;
 	};
 
@@ -74,7 +74,7 @@ import { radiansToDegree } from './utils'
 	 * @param {double} point - angle of point in circle
 	 * @return { \[1-9] | 1[0-2]\ }
 	 */
-	 getHouseNumber = function( point: number ){
+	 getHouseNumber( point: number ){
 		var angle = point % radiansToDegree( 2 * Math.PI);	
 		
 		for(var i = 0, ln = this.cusps.length; i < ln; i++){
@@ -106,7 +106,7 @@ import { radiansToDegree } from './utils'
  	  * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
  	  * @return {Array<String>}
 	  */
-	getDignities = function( planet: { name: any; position: any; }, exactExaltation: string | any[], astrology: Settings ){
+	getDignities( planet: { name: string; position: number; }, exactExaltation: Dignity[], astrology: Settings ){
 		if(!(planet && planet.name && planet.position != null)){
 			return [];
 		}
@@ -317,7 +317,7 @@ import { radiansToDegree } from './utils'
 	 * @param {Double} d
 	 * @return {String}
 	 */
-	toDMS = function ( d: number ) {  
+	toDMS( d: number ) {  
 			d += 0.5/3600./10000.;	// round to 1/1000 of a second
 		 const deg = d;
 		 d = (d - deg) * 60;

@@ -1,3 +1,7 @@
+import { FormedAspect } from './aspect';
+import Radix, { AstroData, LocatedPoint, Points } from './radix';
+import SVG from './svg';
+import { Settings } from './settings';
 /**
  * Transit charts.
  *
@@ -8,51 +12,45 @@
  * @param {Object} data
  */
 declare class Transit {
-    data: any;
-    paper: any;
-    cx: any;
-    cy: any;
-    toPoints: any;
-    radius: any;
-    settings: any;
+    data: AstroData;
+    paper: SVG;
+    cx: number;
+    cy: number;
+    toPoints: Points;
+    radius: number;
+    settings: Settings;
     rulerRadius: number;
-    pointRadius: any;
-    shift: any;
-    universe: HTMLElement;
+    pointRadius: number;
+    shift: number;
+    universe: Element;
     context: this;
-    constructor(radix: {
-        paper: any;
-        cx: any;
-        cy: any;
-        toPoints: any;
-        radius: any;
-        shift: any;
-    }, data: any, settings: any);
+    locatedPoints: LocatedPoint[];
+    constructor(radix: Radix, data: AstroData, settings: Settings);
     /**
      * Draw background
      */
-    drawBg: () => void;
+    drawBg(): void;
     /**
          * Draw planets
          *
          * @param{undefined | Object} planetsData, posible data planets to draw
          */
-    drawPoints: (planetsData?: any) => void;
+    drawPoints(planetsData?: Points): void;
     /**
      * Draw circles
      */
-    drawCircles: () => void;
+    drawCircles(): void;
     /**
      * Draw cusps
      * @param{undefined | Object} cuspsData, posible data cusps to draw
      */
-    drawCusps: (cuspsData?: any) => void;
-    drawRuler: () => void;
+    drawCusps(cuspsData?: number[]): void;
+    drawRuler(): void;
     /**
      * Draw aspects
      * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
      */
-    aspects: (customAspects: any) => any;
+    aspects(customAspects: FormedAspect[]): this;
     /**
      * Moves points to another position.
      *
@@ -61,6 +59,6 @@ declare class Transit {
         * @param {boolean} isReverse
         * @param {Function | undefined} callbck - the function executed at the end of animation
      */
-    animate: (data: Object, duration: any, isReverse: boolean, callback: () => void) => any;
+    animate(data: AstroData, duration: number, isReverse: boolean, callback: () => void): this;
 }
 export default Transit;

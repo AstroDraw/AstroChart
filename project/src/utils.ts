@@ -1,3 +1,5 @@
+import { AstroData, LocatedPoint } from "./radix";
+import { Settings } from "./settings";
 
 	/**
 	 * Calculate position of the point on the circle.
@@ -24,6 +26,8 @@
 		return radians * 180 / Math.PI;
 	};
 	
+interface TextLocation { text: string; x: number; y: number; }
+
 	/**
 	 * Calculates positions of the point description
 	 * 
@@ -32,9 +36,9 @@
 	 * 
 	 * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
 	 */
-	 export const getDescriptionPosition = function( point: { x: number; y: number; }, texts: any[], astrology: { COLLISION_RADIUS: number; SYMBOL_SCALE: number; } ){
+	 export const getDescriptionPosition = function( point: { x: number; y: number; }, texts: string[], astrology: { COLLISION_RADIUS: number; SYMBOL_SCALE: number; } ){
 		var RATION = 1.4;
-		var result: { text: any; x: number; y: number; }[] = [];		
+		var result: TextLocation[] = [];		
 		var posX = point.x + (astrology.COLLISION_RADIUS/RATION * astrology.SYMBOL_SCALE)  ;
 		var posY = point.y - (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE);
 		
@@ -52,7 +56,7 @@
 	 * @param {Object} data
 	 * @return {{hasError: boolean, messages: string[]}} status
 	 */
-	 export const validate = function( data: any ){
+	 export const validate = function( data: AstroData ){
 		var status = {hasError:false, messages: <string[]>[]};
 		
 		if( data == null ){			
@@ -132,7 +136,7 @@
  	 * @param {Object} circle2, {x:456, y:456, r:60}
  	 * @return {boolean} 	 
 	 */
-	 export const isCollision = function(circle1: { x: number; y: number; r: any; }, circle2: { x: number; y: number; r: any; }){			
+	 export const isCollision = function(circle1: { x: number; y: number; r: number; }, circle2: { x: number; y: number; r: number; }){			
 		//Calculate the vector between the circles’ center points
   		var vx = circle1.x - circle2.x;
   		var vy = circle1.y - circle2.y;
@@ -144,7 +148,7 @@
   		  		  		  		   		  		   	
 		return magnitude <= totalRadii; 
 	};
-		
+	
 	/**
 	 * Places a new point in the located list 
 	 * 
@@ -153,7 +157,7 @@
  	 * @param {Object} universe - current universe
  	 * @return {Array<Object>} locatedPoints 	 
 	 */
-	 export const assemble = function( locatedPoints: any[], point: { name?: any; x: any; y: any; r: any; angle: any; pointer: any; }, universe: { cx: any; cy: any; r: any; }, astrology: { COLLISION_RADIUS?: any; SYMBOL_SCALE?: any; DEBUG?: any; SHIFT_IN_DEGREES: number; }){
+	 export const assemble = function( locatedPoints: LocatedPoint[], point: LocatedPoint, universe: { cx: number; cy: number; r: number; }, astrology: Settings){
 		
 		// first item
 		if(locatedPoints.length == 0){
@@ -213,7 +217,7 @@
 	 * @param {Object} p1, {..., pointer:123, angle:456}
 	 * @param {Object} p2, {..., pointer:23, angle:56}
 	 */
-	 export const placePointsInCollision = function(p1: { pointer: any; angle: number; }, p2: { name?: any; x?: any; y?: any; r?: any; angle: any; pointer: any; }){
+	 export const placePointsInCollision = function(p1: LocatedPoint, p2: LocatedPoint){
 		
 		var step = 1;
 		var adjustedP1Pointer = p1.pointer == undefined ? p1.angle : p1.pointer;
@@ -245,7 +249,7 @@
  	 * @param {Array<Object>} points, [{x:456, y:456, r:60, angle:123}, ...]
  	 * @return {boolean} 	 
 	 */
-	 export const isInCollision = function(angle: number, points: string | any[], astrology: { COLLISION_RADIUS: number; SYMBOL_SCALE: number; }){		
+	 export const isInCollision = function(angle: number, points: string | any[], astrology: Settings){		
 		var deg360 = radiansToDegree(2*Math.PI);
 		var collisionRadius = (astrology.COLLISION_RADIUS * astrology.SYMBOL_SCALE) / 2;
 							
@@ -275,7 +279,7 @@
  	 * 
  	 * @return {Array<any>} [{startX:1, startY:1, endX:4, endY:4}, {startX:6, startY:6, endX:8, endY:8}]
 	 */
-	 export const getDashedLinesPositions = function( centerX: number, centerY: number, angle: number, lineStartRadius: number, lineEndRadius: number, obstacleRadius: number, obstacles: string | any[], astrology: { COLLISION_RADIUS: any; SYMBOL_SCALE: any; SHIFT_IN_DEGREES: number; }){
+	 export const getDashedLinesPositions = function( centerX: number, centerY: number, angle: number, lineStartRadius: number, lineEndRadius: number, obstacleRadius: number, obstacles: LocatedPoint[], astrology: Settings){
 		var startPos, endPos;
 		var result = [];	
 		

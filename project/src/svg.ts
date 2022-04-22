@@ -18,7 +18,7 @@ import default_settings, { Settings } from "./settings";
 		width: number;
 		height: number;
 		context: this;
-		constructor( elementId: string, width: number, height: number, settings: any){		
+		constructor( elementId: string, width: number, height: number, settings: Settings){		
 			this.settings = settings;
 			var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");		
 			svg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");

@@ -1,6 +1,7 @@
 import SVG from "./svg"
 
-export interface Aspect { [key: string]: { degree: number, orbit: number, color: string } }
+export interface AspectData { degree: number, orbit: number, color: string }
+export interface Aspect { [key: string]: AspectData }
 export interface Dignity {
 	name: string
 	position: number

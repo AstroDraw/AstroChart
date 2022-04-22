@@ -1,4 +1,4 @@
-import { Settings } from './settings';
+import { Dignity, Settings } from './settings';
 /**
  * Zodiac
  *
@@ -24,14 +24,14 @@ declare class Zodiac {
      * @param {double} point - angle of point in circle
      * @return { \[1-9] | 1[0-2]\ }
      */
-    getSign: (point: number) => number;
+    getSign(point: number): number;
     /**
      * Is retrograde
      *
      * @param {double} speed
      * @return {boolean}
      */
-    isRetrograde: (speed: number) => boolean;
+    isRetrograde(speed: number): boolean;
     /**
      * Get house number
      * 1 - 12
@@ -39,7 +39,7 @@ declare class Zodiac {
      * @param {double} point - angle of point in circle
      * @return { \[1-9] | 1[0-2]\ }
      */
-    getHouseNumber: (point: number) => number;
+    getHouseNumber(point: number): number;
     /**
          * Calculate dignities of planet
          *
@@ -53,11 +53,11 @@ declare class Zodiac {
          * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
          * @return {Array<String>}
          */
-    getDignities: (planet: {
-        name: any;
-        position: any;
-    }, exactExaltation: string | any[], astrology: Settings) => string[];
-    toDMS: (d: number) => string;
+    getDignities(planet: {
+        name: string;
+        position: number;
+    }, exactExaltation: Dignity[], astrology: Settings): string[];
+    toDMS(d: number): string;
     hasConjunction(planetPosition: number, pointPosition: number, orbit: number): boolean;
 }
 export default Zodiac;

@@ -1,5 +1,5 @@
 import default_settings, { Settings } from './settings'
-import Radix from './radix'
+import Radix, { AstroData } from './radix'
 import SVG from './svg'
 import { getPointPosition } from './utils'
 /**
@@ -53,7 +53,7 @@ class Chart {
 	* 
 	* @return {astrology.Radix} radix
 	*/
-	radix( data: any ) {									
+	radix( data: AstroData ) {									
 		var radix = new Radix(this.paper, this.cx, this.cy, this.radius, data, this.settings);
 		
 		radix.drawBg();				
