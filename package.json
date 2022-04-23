@@ -17,12 +17,13 @@
   "main": "./dist/astrochart.js",
   "types": "./dist/project/src/chart.d.ts",
   "scripts": {
-    "test": "grunt test",
-    "build": "grunt build",
-    "wp": "webpack",
-    "wp:w": "webpack --watch"
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "build": "webpack",
+    "build:w": "webpack --watch"
   },
   "devDependencies": {
+    "@types/jest": "^27.4.1",
     "grunt": "^0.4.4",
     "grunt-cli": "^1.4.3",
     "grunt-contrib-concat": "^0.4.0",
@@ -30,8 +31,10 @@
     "grunt-contrib-qunit": "^5.0.1",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-watch": "~0.6.1",
+    "jest": "^27.5.1",
     "load-grunt-tasks": "~0.4.0",
     "terser-webpack-plugin": "^5.3.1",
+    "ts-jest": "^27.1.4",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.3",
     "webpack": "^5.72.0",

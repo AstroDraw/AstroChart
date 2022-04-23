@@ -14,7 +14,7 @@ import SVG from './svg'
 import { Settings } from './settings'
 
 export type Points = { [key: string]: number[] }
-export type LocatedPoint = { name?: string; x: number; y: number; r: number; angle: number; pointer: number; index?: number }
+export type LocatedPoint = { name?: string; x: number; y: number; r: number; angle: number; pointer?: number; index?: number }
 export type AstroData = {
   planets: Points
   cusps: number[]
