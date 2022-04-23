@@ -141,7 +141,7 @@ import { Settings } from './settings';
 				}else{
 					textsToShow.push("");
 				}
-				textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":planets[point.name][0]}, this.settings.DIGNITIES_EXACT_EXALTATION_DEFAULT, this.settings).join(","));        	
+				textsToShow = textsToShow.concat(zodiac.getDignities({"name":point.name, "position":planets[point.name][0]}, this.settings.DIGNITIES_EXACT_EXALTATION_DEFAULT).join(","));        	
 																															 
 				var pointDescriptions = getDescriptionPosition(point, textsToShow, this.settings);         	
 				pointDescriptions.forEach(function(dsc){        		        		        		     

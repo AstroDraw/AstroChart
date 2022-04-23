@@ -1,4 +1,4 @@
-import { Dignity, Settings } from './settings';
+import default_settings, { Dignity, Settings } from './settings';
 import { radiansToDegree } from './utils'
 	// Zodiac
 	var SIGNS_ARIES 		= 1;
@@ -41,7 +41,7 @@ import { radiansToDegree } from './utils'
 			}
 			
 			this.cusps = cusps;
-			this.settings = settings || {}; 
+			this.settings = settings || default_settings;
 		};
 
 	/**
@@ -106,7 +106,7 @@ import { radiansToDegree } from './utils'
  	  * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
  	  * @return {Array<String>}
 	  */
-	getDignities( planet: { name: string; position: number; }, exactExaltation: Dignity[], astrology: Settings ){
+	getDignities( planet: { name: string; position: number; }, exactExaltation?: Dignity[] ){
 		if(!(planet && planet.name && planet.position != null)){
 			return [];
 		}
@@ -117,182 +117,182 @@ import { radiansToDegree } from './utils'
 		var position = planet.position % radiansToDegree( 2 * Math.PI);
 		
 		switch ( planet.name ) {
-		 case astrology.SYMBOL_SUN:
+		 case this.settings.SYMBOL_SUN:
 				 
 				 if(sign == SIGNS_LEO){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_AQUARIUS){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_ARIES){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_VIRGO){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;	
 			 
-			 case astrology.SYMBOL_MOON:
+			 case this.settings.SYMBOL_MOON:
 				 
 				 if(sign == SIGNS_CANCER){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_CAPRICORN){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_TAURUS){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_SCORPIO){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;
 			 
-			 case astrology.SYMBOL_MERCURY:
+			 case this.settings.SYMBOL_MERCURY:
 				 
 				 if(sign == SIGNS_GEMINI){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_SAGITTARIUS){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_VIRGO){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_PISCES){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;	
 			 
-			 case astrology.SYMBOL_VENUS:
+			 case this.settings.SYMBOL_VENUS:
 				 
 				 if(sign == SIGNS_TAURUS || sign == SIGNS_LIBRA){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_ARIES || sign == SIGNS_SCORPIO){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_PISCES){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_VIRGO){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break; 
 			 
-			 case astrology.SYMBOL_MARS:
+			 case this.settings.SYMBOL_MARS:
 				 
 				 if(sign == SIGNS_ARIES || sign == SIGNS_SCORPIO){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_TAURUS || sign == SIGNS_LIBRA){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_CAPRICORN){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_CANCER){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;
 			 
-			 case astrology.SYMBOL_JUPITER:
+			 case this.settings.SYMBOL_JUPITER:
 				 
 				 if(sign == SIGNS_SAGITTARIUS || sign == SIGNS_PISCES){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_GEMINI || sign == SIGNS_VIRGO){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_CANCER){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_CAPRICORN){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break; 
 			 
-			 case astrology.SYMBOL_SATURN:
+			 case this.settings.SYMBOL_SATURN:
 				 
 				 if(sign == SIGNS_CAPRICORN || sign == SIGNS_AQUARIUS){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_CANCER || sign == SIGNS_LEO){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_LIBRA){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_ARIES){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;
 			 
-			 case astrology.SYMBOL_URANUS:
+			 case this.settings.SYMBOL_URANUS:
 				 
 				 if(sign == SIGNS_AQUARIUS ){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_LEO ){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_SCORPIO){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_TAURUS){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;
 			 
-			 case astrology.SYMBOL_NEPTUNE:
+			 case this.settings.SYMBOL_NEPTUNE:
 				 
 				 if(sign == SIGNS_PISCES ){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_VIRGO ){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_LEO || sign == SIGNS_SAGITTARIUS){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_AQUARIUS || sign == SIGNS_GEMINI){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }
 																											 
 			 break;
 			 
-			 case astrology.SYMBOL_PLUTO:
+			 case this.settings.SYMBOL_PLUTO:
 				 
 				 if(sign == SIGNS_SCORPIO ){
-				 result.push(astrology.DIGNITIES_RULERSHIP);
+				 result.push(this.settings.DIGNITIES_RULERSHIP);
 			 
 			 }else if(sign == SIGNS_TAURUS ){										
-				 result.push(astrology.DIGNITIES_DETRIMENT);
+				 result.push(this.settings.DIGNITIES_DETRIMENT);
 			 }
 										 
 			 if( sign == SIGNS_ARIES ){
-				 result.push(astrology.DIGNITIES_EXALTATION);	
+				 result.push(this.settings.DIGNITIES_EXALTATION);	
 																					 
 			 }else if(sign == SIGNS_LIBRA){
-				 result.push(astrology.DIGNITIES_FALL);
+				 result.push(this.settings.DIGNITIES_FALL);
 			 }																						 
 			 break;
 		 default:		    
@@ -303,7 +303,7 @@ import { radiansToDegree } from './utils'
 		 for(var i = 0, ln = exactExaltation.length; i < ln; i++){
 			 if(planet.name == exactExaltation[i].name){					
 				 if( this.hasConjunction( planet.position, exactExaltation[i].position, exactExaltation[i].orbit)){
-					 result.push(astrology.DIGNITIES_EXACT_EXALTATION);		
+					 result.push(this.settings.DIGNITIES_EXACT_EXALTATION);		
 				 }								
 			 }				
 		 }
@@ -318,14 +318,12 @@ import { radiansToDegree } from './utils'
 	 * @return {String}
 	 */
 	toDMS( d: number ) {  
-			d += 0.5/3600./10000.;	// round to 1/1000 of a second
-		 const deg = d;
-		 d = (d - deg) * 60;
-		 const min = d;
-		 d = (d - min) * 60;
-		 const sec = d;
-		 
-		 return deg + "° " + min + "' " + sec;
+		d += 0.5/3600./10000.;	// round to 1/1000 of a second
+		const deg = parseInt(d.toString(), 10);
+		d = (d - deg) * 60
+		const min = parseInt(d.toString(),10);
+		const sec = parseInt(((d - min) * 60).toString(),10);
+		return deg + "° " + min + "' " + sec;
 		};
 
 
