@@ -1,7 +1,7 @@
 import default_settings from "./settings";
 import SVG from "./svg";
 
-describe.only('getSymbol', () => {
+describe('getSymbol', () => {
   beforeAll(() => {
     document.body.innerHTML =
       '<div id="test-element">' +
@@ -53,7 +53,7 @@ describe.only('getSymbol', () => {
     });
   })
   
-  test.only('should call custom getSymbol function', () => {
+  test('should call custom getSymbol function', () => {
     const mockFn = jest.fn()
     const svg = new SVG("test-element", 100, 100, {...default_settings, CUSTOM_SYMBOL_FN : mockFn})
     svg.getSymbol(default_settings.SYMBOL_URANUS, 1, 2);
