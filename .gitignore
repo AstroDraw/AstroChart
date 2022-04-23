@@ -3,5 +3,6 @@
 .project
 .DS_Store
 build/
+coverage/
 
 
