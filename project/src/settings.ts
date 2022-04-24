@@ -112,12 +112,12 @@ export type Settings = {
 
 const settings: Settings = {
 
-	//Scale of symbols	 
+	// Scale of symbols
 	SYMBOL_SCALE : 1,
-		
+
 	// BG color
-	COLOR_BACKGROUND : "#fff",		 
-				
+	COLOR_BACKGROUND : "#fff",
+
 	// Color of planet's symbols
 	POINTS_COLOR : "#000",
 
@@ -126,18 +126,18 @@ const settings: Settings = {
 
 	// Points strength of lines
 	POINTS_STROKE : 1.8,
-		
+
 	// Font color of signs symbols
-	SIGNS_COLOR : "#000", 
+	SIGNS_COLOR : "#000",
 
 	// Signs strength of lines
 	SIGNS_STROKE : 1.5,
 
 	// Chart margin
-	MARGIN : 50, //px
-		
-	// Chart Padding  
-	PADDING : 18, //px
+	MARGIN : 50, // px
+
+	// Chart Padding
+	PADDING : 18, // px
 
 	// Module wrapper element ID
 	ID_CHART : "astrology",
@@ -152,10 +152,10 @@ const settings: Settings = {
 	ID_ASPECTS : "aspects",
 
 	// Aspects wrapper element ID
-	ID_POINTS : "planets", 
+	ID_POINTS : "planets",
 
 	// Signs wrapper element ID
-	ID_SIGNS : "signs", 
+	ID_SIGNS : "signs",
 
 	// Circles wrapper element ID
 	ID_CIRCLES : "circles",
@@ -165,7 +165,7 @@ const settings: Settings = {
 
 	// Cusps wrapper element ID
 	ID_CUSPS : "cusps",
-		
+
 	// Cusps wrapper element ID
 	ID_RULER : "ruler",
 
@@ -187,9 +187,9 @@ const settings: Settings = {
 	// radius - radius/INNER_CIRCLE_RADIUS_RATIO
 	INNER_CIRCLE_RADIUS_RATIO : 8,
 
-	// ( radius / INNER_CIRCLE_RADIUS_RATIO ) / RULER_RADIUS 
+	// ( radius / INNER_CIRCLE_RADIUS_RATIO ) / RULER_RADIUS
 	RULER_RADIUS : 4,
-		
+
 	// Points
 	SYMBOL_SUN : "Sun",
 	SYMBOL_MOON : "Moon",
@@ -210,10 +210,10 @@ const settings: Settings = {
 	SYMBOL_DS : "Ds",
 	SYMBOL_MC : "Mc",
 	SYMBOL_IC : "Ic",
-		
+
 	SYMBOL_AXIS_FONT_COLOR : "#333",
 	SYMBOL_AXIS_STROKE : 1.6,
-		
+
 	// Cusps
 	SYMBOL_CUSP_1 : "1",
 	SYMBOL_CUSP_2 : "2",
@@ -230,41 +230,41 @@ const settings: Settings = {
 
 	// Cusps strength of lines
 	CUSPS_STROKE : 1,
-	CUSPS_FONT_COLOR : "#000",	
+	CUSPS_FONT_COLOR : "#000",
 
-	//Signs
+	// Signs
 	SYMBOL_ARIES : "Aries",
 	SYMBOL_TAURUS : "Taurus",
 	SYMBOL_GEMINI: "Gemini",
-	SYMBOL_CANCER : "Cancer", 
-	SYMBOL_LEO : "Leo", 
-	SYMBOL_VIRGO : "Virgo", 
-	SYMBOL_LIBRA : "Libra",  
-	SYMBOL_SCORPIO : "Scorpio",  
+	SYMBOL_CANCER : "Cancer",
+	SYMBOL_LEO : "Leo",
+	SYMBOL_VIRGO : "Virgo",
+	SYMBOL_LIBRA : "Libra",
+	SYMBOL_SCORPIO : "Scorpio",
 	SYMBOL_SAGITTARIUS : "Sagittarius",
-	SYMBOL_CAPRICORN : "Capricorn", 
-	SYMBOL_AQUARIUS : "Aquarius", 
+	SYMBOL_CAPRICORN : "Capricorn",
+	SYMBOL_AQUARIUS : "Aquarius",
 	SYMBOL_PISCES : "Pisces",
 	SYMBOL_SIGNS : ["Aries", "Taurus", "Gemini", "Cancer", "Leo", "Virgo", "Libra",  "Scorpio",  "Sagittarius","Capricorn", "Aquarius", "Pisces"],
-				
+
 	// http://www.rapidtables.com/web/color/html-color-codes.htm
 	COLOR_ARIES : "#FF4500",
 	COLOR_TAURUS : "#8B4513",
 	COLOR_GEMINI: "#87CEEB",
-	COLOR_CANCER : "#27AE60", 
-	COLOR_LEO : "#FF4500", 
-	COLOR_VIRGO : "#8B4513", 
-	COLOR_LIBRA : "#87CEEB",  
-	COLOR_SCORPIO : "#27AE60",  
+	COLOR_CANCER : "#27AE60",
+	COLOR_LEO : "#FF4500",
+	COLOR_VIRGO : "#8B4513",
+	COLOR_LIBRA : "#87CEEB",
+	COLOR_SCORPIO : "#27AE60",
 	COLOR_SAGITTARIUS : "#FF4500",
-	COLOR_CAPRICORN : "#8B4513", 
-	COLOR_AQUARIUS : "#87CEEB", 
-	COLOR_PISCES : "#27AE60", 	        	
+	COLOR_CAPRICORN : "#8B4513",
+	COLOR_AQUARIUS : "#87CEEB",
+	COLOR_PISCES : "#27AE60",
 	COLORS_SIGNS : ["#FF4500", "#8B4513", "#87CEEB", "#27AE60",  "#FF4500",  "#8B4513",  "#87CEEB",   "#27AE60",   "#FF4500", "#8B4513",  "#87CEEB",  "#27AE60", ],
 
 	CUSTOM_SYMBOL_FN : null,
 
-	// 0 degree is on the West 
+	// 0 degree is on the West
 	SHIFT_IN_DEGREES : 180,
 
 	// No fill, only stroke
@@ -273,34 +273,34 @@ const settings: Settings = {
 	ADD_CLICK_AREA : false,
 
 	// Planets collision circle radius for SYMBOL_SCALE : 1
-	// Scaling changes the collision radius 
-	COLLISION_RADIUS : 10, //px
+	// Scaling changes the collision radius
+	COLLISION_RADIUS : 10, // px
 
-	// Aspects	
-	ASPECTS : { 
-		"conjunction":{"degree":0, "orbit":10, "color":"transparent"}, 
-		"square":{"degree":90, "orbit":8, "color":"#FF4500"}, 
+	// Aspects
+	ASPECTS : {
+		"conjunction":{"degree":0, "orbit":10, "color":"transparent"},
+		"square":{"degree":90, "orbit":8, "color":"#FF4500"},
 		"trine":{"degree":120, "orbit":8, "color":"#27AE60"},
 		"opposition":{"degree":180, "orbit":10, "color":"#27AE60"}
-		},	
+		},
 
 	// Dignities
-	DIGNITIES_RULERSHIP : "r",			
-	DIGNITIES_DETRIMENT : "d",			
-	DIGNITIES_EXALTATION : "e",			
-	DIGNITIES_EXACT_EXALTATION : "E",		
-	DIGNITIES_FALL : "f",	
+	DIGNITIES_RULERSHIP : "r",
+	DIGNITIES_DETRIMENT : "d",
+	DIGNITIES_EXALTATION : "e",
+	DIGNITIES_EXACT_EXALTATION : "E",
+	DIGNITIES_FALL : "f",
 
 	// Source: Aleister Crowley
 	DIGNITIES_EXACT_EXALTATION_DEFAULT : [
 		{"name":"Sun", "position":19, "orbit":2}, // 19 Arise
-		{"name":"Moon", "position":33, "orbit":2}, //3 Taurus
-		{"name":"Mercury", "position":155, "orbit":2}, //15 Virgo
-		{"name":"Venus", "position":357, "orbit":2}, //27 Pisces
-		{"name":"Mars", "position":298, "orbit":2}, //28 Capricorn
-		{"name":"Jupiter", "position":105, "orbit":2}, //15 Cancer
-		{"name":"Saturn", "position":201, "orbit":2}, //21 Libra
-		{"name":"NNode", "position":63, "orbit":2}, //3 Geminy
+		{"name":"Moon", "position":33, "orbit":2}, // 3 Taurus
+		{"name":"Mercury", "position":155, "orbit":2}, // 15 Virgo
+		{"name":"Venus", "position":357, "orbit":2}, // 27 Pisces
+		{"name":"Mars", "position":298, "orbit":2}, // 28 Capricorn
+		{"name":"Jupiter", "position":105, "orbit":2}, // 15 Cancer
+		{"name":"Saturn", "position":201, "orbit":2}, // 21 Libra
+		{"name":"NNode", "position":63, "orbit":2}, // 3 Geminy
 	],
 
 	// 0 - 4
@@ -309,5 +309,6 @@ const settings: Settings = {
 	DEBUG : false,
 };
 
+// tslint:disable-next-line: variable-name
 const default_settings = settings;
 export default default_settings;
