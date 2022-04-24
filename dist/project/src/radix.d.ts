@@ -11,7 +11,7 @@ export declare type LocatedPoint = {
     y: number;
     r: number;
     angle: number;
-    pointer: number;
+    pointer?: number;
     index?: number;
 };
 export declare type AstroData = {

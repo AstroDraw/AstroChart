@@ -56,7 +56,7 @@ declare class Zodiac {
     getDignities(planet: {
         name: string;
         position: number;
-    }, exactExaltation: Dignity[], astrology: Settings): string[];
+    }, exactExaltation?: Dignity[]): string[];
     toDMS(d: number): string;
     hasConjunction(planetPosition: number, pointPosition: number, orbit: number): boolean;
 }

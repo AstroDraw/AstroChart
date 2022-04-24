@@ -15,7 +15,7 @@ export interface FormedAspect {
         color: string;
         orbit: number;
     };
-    precision: number;
+    precision: string;
 }
 /**
  * Aspects calculator
@@ -55,12 +55,12 @@ declare class AspectCalculator {
      * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]};
      * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
      */
-    transit: (points: Points) => {
+    transit(points: Points): {
         aspect: {
             name: string;
-            degree: any;
-            orbit: any;
-            color: any;
+            degree: number;
+            orbit: number;
+            color: string;
         };
         point: {
             name: string;
@@ -68,9 +68,9 @@ declare class AspectCalculator {
         };
         toPoint: {
             name: string;
-            position: any;
+            position: number;
         };
-        precision: any;
+        precision: string;
     }[];
     hasAspect(point: number, toPoint: number, aspect: AspectData): boolean;
     calcPrecision(point: number, toPoint: number, aspect: number): number;

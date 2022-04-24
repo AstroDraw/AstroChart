@@ -34,7 +34,7 @@ declare class Animator {
 * @param {boolean} isReverse
 * @param {Function} callbck - start et the end of animation
 */
-    animate: (data: Object, duration: number, isReverse: boolean, callback: () => void) => void;
+    animate: (data: any, duration: number, isReverse: boolean, callback: () => void) => void;
     update: (deltaTime: number) => void;
     updateCusps(expectedNumberOfLoops: number): void;
     updatePlanets(expectedNumberOfLoops: number): void;

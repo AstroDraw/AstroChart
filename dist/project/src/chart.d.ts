@@ -18,19 +18,19 @@ declare class Chart {
     cy: number;
     radius: number;
     settings: Settings;
-    constructor(elementId: string, width: number, height: number, settings: Settings);
+    constructor(elementId: string, width: number, height: number, settings?: Settings);
     /**
- * Display radix horoscope
- *
- * @param {Object} data
- * @example
- *	{
- *		"points":{"Moon":[0], "Sun":[30],  ... },
-    *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
-    *	}
-    *
-    * @return {astrology.Radix} radix
-    */
+     * Display radix horoscope
+     *
+     * @param {Object} data
+     * @example
+     *	{
+     *		"points":{"Moon":[0], "Sun":[30],  ... },
+     *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
+     *	}
+     *
+     * @return {astrology.Radix} radix
+     */
     radix(data: AstroData): Radix;
     /**
      * Scale chart
