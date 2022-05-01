@@ -20,7 +20,7 @@ class Chart {
 	cy: number;
 	radius: number;
 	settings: Settings;
-	constructor(elementId: string, width: number, height: number, settings?: Settings) {
+	constructor(elementId: string, width: number, height: number, settings?: Partial<Settings>) {
 		const chartSettings = default_settings;
 		if(settings){
 			Object.assign(chartSettings, settings);

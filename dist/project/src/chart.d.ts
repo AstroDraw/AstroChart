@@ -18,7 +18,7 @@ declare class Chart {
     cy: number;
     radius: number;
     settings: Settings;
-    constructor(elementId: string, width: number, height: number, settings?: Settings);
+    constructor(elementId: string, width: number, height: number, settings?: Partial<Settings>);
     /**
      * Display radix horoscope
      *
