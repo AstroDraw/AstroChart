@@ -274,8 +274,8 @@
 			
 			// animation is finished
 			this.data = data;
-			this.drawPoints();		
 			this.drawCusps();
+			this.drawPoints();
 			this.aspects();
 			
 			if(typeof callback == 'function'){
