@@ -224,7 +224,7 @@
 		
 		var aspectsList = customAspects != null && Array.isArray(customAspects) ? 
 						  customAspects : 
-						  new astrology.AspectCalculator( this.toPoints ).radix( this.data.planets );
+						  new astrology.AspectCalculator( this.toPoints ).transit( this.data.planets );
 							
 		var universe = this.universe;		
 		var wrapper = astrology.utils.getEmptyWrapper( universe, astrology._paperElementId + "-" + astrology.ID_ASPECTS);
