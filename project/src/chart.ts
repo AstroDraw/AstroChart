@@ -57,13 +57,13 @@ class Chart {
 		const radix = new Radix(this.paper, this.cx, this.cy, this.radius, data, this.settings);
 
 		radix.drawBg();
-		radix.drawUniverse();
 		radix.drawRuler();
-		radix.drawPoints();
 		radix.drawCusps();
 		radix.drawAxis();
 		radix.drawCircles();
-
+		radix.drawUniverse();
+		radix.drawPoints();
+		
 		return radix;
 	};
 
