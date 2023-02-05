@@ -243,7 +243,7 @@ aspects( customAspects: FormedAspect[] ){
 
 	const aspectsList = customAspects != null && Array.isArray(customAspects) ?
 						customAspects :
-						new AspectCalculator( this.toPoints, this.settings ).radix( this.data.planets );
+						new AspectCalculator( this.toPoints, this.settings ).transit( this.data.planets );
 
 	const universe = this.universe;
 	const wrapper = getEmptyWrapper( universe, this.paper.root.id + "-" + this.settings.ID_ASPECTS, this.paper._paperElementId);
