@@ -419,10 +419,10 @@
 		
 		var transit = new astrology.Transit(context, data);
 		transit.drawBg();					
+		transit.drawPoints();		
 		transit.drawCusps();	
 		transit.drawRuler();			
 		transit.drawCircles();	
-		transit.drawPoints();
 		return transit; 			
 	};
 		
