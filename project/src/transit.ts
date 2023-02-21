@@ -293,8 +293,8 @@ animate( data: AstroData, duration: number, isReverse: boolean, callback: () => 
 
 		// animation is finished
 		this.data = data;
-		this.drawCusps();
 		this.drawPoints();
+		this.drawCusps();
 		this.aspects();
 
 		if(typeof callback === 'function'){

@@ -448,10 +448,10 @@ export type AstroData = {
 		getEmptyWrapper( this.universe, this.paper.root.id + "-" + this.settings.ID_RADIX + "-" + this.settings.ID_AXIS, this.paper.root.id);
 		const transit = new Transit(this.context, data, this.settings);
 		transit.drawBg();
+		transit.drawPoints();
 		transit.drawCusps();
 		transit.drawRuler();
 		transit.drawCircles();
-		transit.drawPoints();
 		return transit;
 	};
 }
