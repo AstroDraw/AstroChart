@@ -1,6 +1,6 @@
 {
   "name": "@astrodraw/astrochart",
-  "version": "3.0.0-rc1",
+  "version": "3.0.0-rc2",
   "description": "A free and open-source JavaScript library for generating SVG charts to display planets in astrology.",
   "keywords": [
     "astrology",
