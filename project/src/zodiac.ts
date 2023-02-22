@@ -41,7 +41,7 @@ class Zodiac {
     }
 
     this.cusps = cusps
-    this.settings = (settings != null) || default_settings
+    this.settings = settings ?? default_settings
   };
 
   /**

@@ -20,6 +20,9 @@ class SVG {
   context: this
   constructor (elementId: string, width: number, height: number, settings: Settings) {
     this.settings = settings
+    const rootElement = document.getElementById(elementId)
+    if (rootElement == null) throw new Error('Root element not found')
+
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
     svg.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink')
     svg.setAttribute('style', 'position: relative; overflow: hidden;')
@@ -27,7 +30,7 @@ class SVG {
     svg.setAttribute('width', width.toString())
     svg.setAttribute('height', height.toString())
     svg.setAttribute('viewBox', '0 0 ' + width + ' ' + height)
-    document.getElementById(elementId).appendChild(svg)
+    rootElement.appendChild(svg)
 
     this._paperElementId = elementId + '-' + this.settings.ID_CHART
 

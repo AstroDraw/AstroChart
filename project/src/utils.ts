@@ -101,8 +101,10 @@ export const getEmptyWrapper = (parent: Element, elementID: string, _paperElemen
     removeChilds(element)
     return element
   }
+  const paper = document.getElementById(_paperElementId)
+  if (paper == null) throw new Error('Paper element should exist')
 
-  const wrapper = document.createElementNS(document.getElementById(_paperElementId).namespaceURI, 'g')
+  const wrapper = document.createElementNS(paper.namespaceURI, 'g')
   wrapper.setAttribute('id', elementID)
   parent.appendChild(wrapper)
 
@@ -180,7 +182,7 @@ export const assemble = (locatedPoints: LocatedPoint[], point: LocatedPoint, uni
     }
   }
 
-  if (hasCollision && locatedButInCollisionPoint != null) {
+  if (hasCollision && locatedButInCollisionPoint != null && locatedButInCollisionPoint.index != null) {
     placePointsInCollision(locatedButInCollisionPoint, point)
 
     let newPointPosition = getPointPosition(universe.cx, universe.cy, universe.r, locatedButInCollisionPoint.angle, astrology)
