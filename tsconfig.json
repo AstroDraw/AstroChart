@@ -9,5 +9,5 @@
     "moduleResolution": "node",
     "declaration": true,
   },
-  "exclude": ["project/src/**/*.test.ts"]
+  "exclude": ["project/src/**/*.test.ts", "dist"]
 }
