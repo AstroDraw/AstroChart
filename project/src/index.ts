@@ -1,5 +1,5 @@
-import Chart  from './chart';
+import Chart from './chart'
 
-export default Chart;
+export default Chart
 
-export { Chart };
+export { Chart }

@@ -8,6 +8,7 @@
     "allowJs": true,
     "moduleResolution": "node",
     "declaration": true,
+    "strictNullChecks": true
   },
   "exclude": ["project/src/**/*.test.ts", "dist"]
 }

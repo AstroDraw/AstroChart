@@ -1,5 +1,5 @@
-import default_settings, { Settings } from './settings'
-import Radix, { AstroData } from './radix'
+import default_settings, { type Settings } from './settings'
+import Radix, { type AstroData } from './radix'
 import SVG from './svg'
 import { getPointPosition } from './utils'
 /**
@@ -15,113 +15,109 @@ import { getPointPosition } from './utils'
  */
 
 class Chart {
-	paper: SVG;
-	cx: number;
-	cy: number;
-	radius: number;
-	settings: Settings;
-	constructor(elementId: string, width: number, height: number, settings?: Partial<Settings>) {
-		const chartSettings = default_settings;
-		if(settings){
-			Object.assign(chartSettings, settings);
-			if(!('COLORS_SIGNS' in settings)) chartSettings.COLORS_SIGNS = [default_settings.COLOR_ARIES, default_settings.COLOR_TAURUS, default_settings.COLOR_GEMINI, default_settings.COLOR_CANCER, default_settings.COLOR_LEO, default_settings.COLOR_VIRGO, default_settings.COLOR_LIBRA, default_settings.COLOR_SCORPIO, default_settings.COLOR_SAGITTARIUS, default_settings.COLOR_CAPRICORN, default_settings.COLOR_AQUARIUS, default_settings.COLOR_PISCES];
-		}
+  paper: SVG
+  cx: number
+  cy: number
+  radius: number
+  settings: Settings
+  constructor (elementId: string, width: number, height: number, settings?: Partial<Settings>) {
+    const chartSettings = default_settings
+    if (settings != null) {
+      Object.assign(chartSettings, settings)
+      if (!('COLORS_SIGNS' in settings)) chartSettings.COLORS_SIGNS = [default_settings.COLOR_ARIES, default_settings.COLOR_TAURUS, default_settings.COLOR_GEMINI, default_settings.COLOR_CANCER, default_settings.COLOR_LEO, default_settings.COLOR_VIRGO, default_settings.COLOR_LIBRA, default_settings.COLOR_SCORPIO, default_settings.COLOR_SAGITTARIUS, default_settings.COLOR_CAPRICORN, default_settings.COLOR_AQUARIUS, default_settings.COLOR_PISCES]
+    }
 
-		if (elementId && !document.getElementById( elementId )){
-			const paper = document.createElement('div');
-			paper.setAttribute('id', elementId);
-			document.body.appendChild( paper );
-		}
+    if ((elementId !== '') && (document.getElementById(elementId) == null)) {
+      const paper = document.createElement('div')
+      paper.setAttribute('id', elementId)
+      document.body.appendChild(paper)
+    }
 
-		this.paper = new SVG( elementId, width, height, chartSettings);
-		this.cx = this.paper.width/2;
-		this.cy = this.paper.height/2;
-		this.radius = this.paper.height/2 - chartSettings.MARGIN;
-		this.settings = chartSettings
+    this.paper = new SVG(elementId, width, height, chartSettings)
+    this.cx = this.paper.width / 2
+    this.cy = this.paper.height / 2
+    this.radius = this.paper.height / 2 - chartSettings.MARGIN
+    this.settings = chartSettings
+  }
 
-	}
-
-/**
+  /**
  * Display radix horoscope
  *
  * @param {Object} data
  * @example
- *	{
- *		"points":{"Moon":[0], "Sun":[30],  ... },
- *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
- *	}
+ *  {
+ *    "points":{"Moon":[0], "Sun":[30],  ... },
+ *    "cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]
+ *  }
  *
- * @return {astrology.Radix} radix
+ * @return {Radix} radix
  */
-	radix( data: AstroData ) {
-		const radix = new Radix(this.paper, this.cx, this.cy, this.radius, data, this.settings);
+  radix (data: AstroData): Radix {
+    const radix = new Radix(this.paper, this.cx, this.cy, this.radius, data, this.settings)
 
-		radix.drawBg();
-		radix.drawUniverse();
-		radix.drawRuler();
-		radix.drawPoints();
-		radix.drawCusps();
-		radix.drawAxis();
-		radix.drawCircles();
+    radix.drawBg()
+    radix.drawUniverse()
+    radix.drawRuler()
+    radix.drawPoints()
+    radix.drawCusps()
+    radix.drawAxis()
+    radix.drawCircles()
 
-		return radix;
-	};
+    return radix
+  };
 
-	/**
-	 * Scale chart
-	 *
-	 * @param {int} factor
-	 */
-	scale( factor: number ) {
-		this.paper.root.setAttribute("transform", "translate(" + ( -this.cx * (factor - 1)) + "," + (-this.cy * (factor - 1)) + ") scale(" + factor + ")");
-	};
+  /**
+   * Scale chart
+   *
+   * @param {int} factor
+   */
+  scale (factor: number): void {
+    this.paper.root.setAttribute('transform', 'translate(' + (-this.cx * (factor - 1)) + ',' + (-this.cy * (factor - 1)) + ') scale(' + factor + ')')
+  };
 
-	/**
-	 * Draw the symbol on the axis.
-	 * For debug only.
-	 *
-	 */
-	calibrate(){
-		let positions
-		let circle
-		let line
-		const startRadius = 60;
+  /**
+   * Draw the symbol on the axis.
+   * For debug only.
+   *
+   */
+  calibrate (): Chart {
+    let positions
+    let circle
+    let line
+    const startRadius = 60
 
-		const planets = ["Sun", "Moon", "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto", "Chiron", "Lilith", "NNode"];
+    const planets = ['Sun', 'Moon', 'Mercury', 'Venus', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune', 'Pluto', 'Chiron', 'Lilith', 'NNode']
 
-		for(let planet = 0; planet < planets.length; planet++){
-			positions = getPointPosition(this.cx, this.cy, this.radius*2, planet * 30, this.settings );
+    for (let planet = 0; planet < planets.length; planet++) {
+      positions = getPointPosition(this.cx, this.cy, this.radius * 2, planet * 30, this.settings)
 
-			line = this.paper.line(this.cx, this.cy, positions.x, positions.y);
-			line.setAttribute("stroke", this.settings.LINE_COLOR);
-			this.paper.root.appendChild( line);
+      line = this.paper.line(this.cx, this.cy, positions.x, positions.y)
+      line.setAttribute('stroke', this.settings.LINE_COLOR)
+      this.paper.root.appendChild(line)
 
-			circle = this.paper.circle(this.cx, this.cy, startRadius + startRadius * planet );
-			circle.setAttribute("stroke", this.settings.LINE_COLOR);
-			circle.setAttribute("stroke-width", '1');
-			this.paper.root.appendChild( circle );
+      circle = this.paper.circle(this.cx, this.cy, startRadius + startRadius * planet)
+      circle.setAttribute('stroke', this.settings.LINE_COLOR)
+      circle.setAttribute('stroke-width', '1')
+      this.paper.root.appendChild(circle)
+    }
 
-		}
+    for (let n = 0, ln = planets.length; n < ln; n++) {
+      const radius = startRadius + startRadius * n
 
-		for(let n = 0, ln = planets.length; n < ln; n++){
+      for (let i = 0; i < 12; i++) {
+        positions = getPointPosition(this.cx, this.cy, radius, i * 30, this.settings)
 
-			const radius = startRadius + startRadius*n;
+        circle = this.paper.circle(positions.x, positions.y, this.settings.COLLISION_RADIUS * this.settings.SYMBOL_SCALE)
+        circle.setAttribute('stroke', 'red')
+        circle.setAttribute('stroke-width', '1')
+        this.paper.root.appendChild(circle)
 
-			for(let i = 0; i < 12; i++){
-				positions = getPointPosition(this.cx, this.cy, radius, i * 30, this.settings );
+        this.paper.root.appendChild(this.paper.getSymbol(planets[n], positions.x, positions.y))
+      }
+    }
 
-				circle = this.paper.circle(positions.x, positions.y, this.settings.COLLISION_RADIUS *this.settings.SYMBOL_SCALE );
-				circle.setAttribute("stroke", "red");
-				circle.setAttribute("stroke-width", '1');
-				this.paper.root.appendChild( circle );
-
-				this.paper.root.appendChild( this.paper.getSymbol( planets[n], positions.x, positions.y));
-			}
-
-		}
-
-		return this;
-	};
+    return this
+  };
 }
 
-export default Chart;
+export default Chart
