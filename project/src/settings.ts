@@ -1,6 +1,6 @@
 import type SVG from './svg'
 
-export interface AspectData { degree: number, orbit: number, color: string }
+export interface AspectData { degree: number; orbit: number; color: string }
 export type Aspect = Record<string, AspectData>
 export interface Dignity {
   name: string

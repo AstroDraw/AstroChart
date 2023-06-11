@@ -41,7 +41,7 @@ class AspectCalculator {
   context: this
   constructor (toPoints: Points, settings?: Settings) {
     if (toPoints == null) {
-      throw new Error("Param 'toPoint' must not be empty.")
+      throw new Error('Param \'toPoint\' must not be empty.')
     }
 
     this.settings = settings ?? {}
@@ -50,7 +50,7 @@ class AspectCalculator {
     this.toPoints = toPoints
 
     this.context = this
-  };
+  }
 
   /**
    * Getter for this.toPoints
@@ -60,7 +60,7 @@ class AspectCalculator {
    */
   getToPoints (): Points {
     return this.toPoints
-  };
+  }
 
   /**
    * Radix aspects
@@ -103,7 +103,7 @@ class AspectCalculator {
     }
 
     return aspects.sort(this.compareAspectsByPrecision)
-  };
+  }
 
   /**
    * Transit aspects
@@ -153,7 +153,7 @@ class AspectCalculator {
     }
 
     return aspects.sort(this.compareAspectsByPrecision)
-  };
+  }
 
   /*
   * @private

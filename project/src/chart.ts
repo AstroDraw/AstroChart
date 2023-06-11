@@ -64,7 +64,7 @@ class Chart {
     radix.drawCircles()
 
     return radix
-  };
+  }
 
   /**
    * Scale chart
@@ -73,7 +73,7 @@ class Chart {
    */
   scale (factor: number): void {
     this.paper.root.setAttribute('transform', 'translate(' + (-this.cx * (factor - 1)) + ',' + (-this.cy * (factor - 1)) + ') scale(' + factor + ')')
-  };
+  }
 
   /**
    * Draw the symbol on the axis.
@@ -117,7 +117,7 @@ class Chart {
     }
 
     return this
-  };
+  }
 }
 
 export default Chart

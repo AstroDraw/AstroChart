@@ -44,7 +44,7 @@ class SVG {
     this.height = height
 
     this.context = this
-  };
+  }
 
   _getSymbol (name: string, x: number, y: number): Element {
     switch (name) {
@@ -138,7 +138,7 @@ class SVG {
         return unknownPoint
       }
     }
-  };
+  }
 
   /**
    * Get a required symbol.
@@ -227,7 +227,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Moon path
@@ -256,7 +256,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Mercury path
@@ -294,7 +294,7 @@ class SVG {
     wrapper.appendChild(crown)
 
     return wrapper
-  };
+  }
 
   /*
  * Venus path
@@ -323,7 +323,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Mars path
@@ -352,7 +352,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Jupiter path
@@ -383,7 +383,7 @@ class SVG {
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y - 3))
 
     return wrapper
-  };
+  }
 
   /*
  * Saturn path
@@ -412,7 +412,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Uranus path
@@ -452,7 +452,7 @@ class SVG {
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
 
     return wrapper
-  };
+  }
 
   /*
  * Neptune path
@@ -481,7 +481,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Pluto path
@@ -519,7 +519,7 @@ class SVG {
     wrapper.appendChild(head)
 
     return wrapper
-  };
+  }
 
   /*
  * Chiron path
@@ -557,7 +557,7 @@ class SVG {
     wrapper.appendChild(head)
 
     return wrapper
-  };
+  }
 
   /*
  * Lilith path
@@ -586,7 +586,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * NNode path
@@ -615,7 +615,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /*
  * Aries symbol path
@@ -648,7 +648,7 @@ class SVG {
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y - 4))
 
     return wrapper
-  };
+  }
 
   /*
  * Taurus symbol path
@@ -679,7 +679,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /*
  * Gemini symbol path
@@ -710,7 +710,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /*
  * Cancer symbol path
@@ -741,7 +741,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 18, y))
     return wrapper
-  };
+  }
 
   /*
  * Leo symbol path
@@ -772,7 +772,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 6, y - 13))
     return wrapper
-  };
+  }
 
   /*
  * Virgo symbol path
@@ -803,7 +803,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /*
  * Libra symbol path
@@ -834,7 +834,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 6, y))
     return wrapper
-  };
+  }
 
   /*
  * Scorpio symbol path
@@ -865,7 +865,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /*
  * Sagittarius symbol path
@@ -896,7 +896,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x - 12, y))
     return wrapper
-  };
+  }
 
   /*
  * Capricorn symbol path
@@ -927,7 +927,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /*
  * Aquarius symbol path
@@ -958,7 +958,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /*
  * Pisces symbol path
@@ -989,7 +989,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /**
  * Draw As symbol
@@ -1013,7 +1013,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /**
  * Draw Ds symbol
@@ -1036,7 +1036,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /**
  * Draw MC symbol
@@ -1059,7 +1059,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   /**
  * Draw IC symbol
@@ -1082,7 +1082,7 @@ class SVG {
     wrapper.appendChild(node)
 
     return wrapper
-  };
+  }
 
   number1 (x: number, y: number): Element {
     // center symbol
@@ -1104,7 +1104,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number2 (x: number, y: number): Element {
     // center symbol
@@ -1126,7 +1126,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number3 (x: number, y: number): Element {
     // center symbol
@@ -1148,7 +1148,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number4 (x: number, y: number): Element {
     // center symbol
@@ -1170,7 +1170,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number5 (x: number, y: number): Element {
     // center symbol
@@ -1192,7 +1192,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number6 (x: number, y: number): Element {
     // center symbol
@@ -1214,7 +1214,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number7 (x: number, y: number): Element {
     // center symbol
@@ -1236,7 +1236,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number8 (x: number, y: number): Element {
     // center symbol
@@ -1258,7 +1258,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number9 (x: number, y: number): Element {
     // center symbol
@@ -1280,7 +1280,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number10 (x: number, y: number): Element {
     // center symbol
@@ -1311,7 +1311,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number11 (x: number, y: number): Element {
     // center symbol
@@ -1342,7 +1342,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   number12 (x: number, y: number): Element {
     // center symbol
@@ -1373,7 +1373,7 @@ class SVG {
 
     if (this.settings.ADD_CLICK_AREA) wrapper.appendChild(this.createRectForClick(x, y))
     return wrapper
-  };
+  }
 
   /**
  * Draw circular sector
@@ -1401,7 +1401,7 @@ class SVG {
     segment.setAttribute('d', 'M ' + (x + thickness * Math.cos(a1)) + ', ' + (y + thickness * Math.sin(a1)) + ' l ' + ((radius - thickness) * Math.cos(a1)) + ', ' + ((radius - thickness) * Math.sin(a1)) + ' A ' + radius + ', ' + radius + ',0 ,' + LARGE_ARC_FLAG + ', ' + SWEET_FLAG + ', ' + (x + radius * Math.cos(a2)) + ', ' + (y + radius * Math.sin(a2)) + ' l ' + ((radius - thickness) * -Math.cos(a2)) + ', ' + ((radius - thickness) * -Math.sin(a2)) + ' A ' + thickness + ', ' + thickness + ',0 ,' + LARGE_ARC_FLAG + ', ' + 1 + ', ' + (x + thickness * Math.cos(a1)) + ', ' + (y + thickness * Math.sin(a1)))
     segment.setAttribute('fill', 'none')
     return segment
-  };
+  }
 
   /**
  * Draw line in circle
@@ -1421,7 +1421,7 @@ class SVG {
     line.setAttribute('x2', x2.toString())
     line.setAttribute('y2', y2.toString())
     return line
-  };
+  }
 
   /**
  * Draw a circle
@@ -1439,7 +1439,7 @@ class SVG {
     circle.setAttribute('r', radius.toString())
     circle.setAttribute('fill', 'none')
     return circle
-  };
+  }
 
   /**
  * Draw a text
@@ -1463,7 +1463,7 @@ class SVG {
     text.appendChild(document.createTextNode(txt))
     text.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 1)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 1)) + ') scale(' + this.settings.SYMBOL_SCALE + ')')
     return text
-  };
+  }
 }
 
 export default SVG

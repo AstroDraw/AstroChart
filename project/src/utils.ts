@@ -11,7 +11,7 @@ import { type Settings } from './settings'
    *
    * @return {{x: number, y: number}} Obj - {x:10, y:20}
    */
-export const getPointPosition = (cx: number, cy: number, radius: number, angle: number, astrology: { SHIFT_IN_DEGREES: number }): { x: number, y: number } => {
+export const getPointPosition = (cx: number, cy: number, radius: number, angle: number, astrology: { SHIFT_IN_DEGREES: number }): { x: number; y: number } => {
   const angleInRadius = (astrology.SHIFT_IN_DEGREES - angle) * Math.PI / 180
   const xPos = cx + radius * Math.cos(angleInRadius)
   const yPos = cy + radius * Math.sin(angleInRadius)
@@ -22,7 +22,7 @@ export const degreeToRadians = (degrees: number): number => degrees * Math.PI / 
 
 export const radiansToDegree = (radians: number): number => radians * 180 / Math.PI
 
-interface TextLocation { text: string, x: number, y: number }
+interface TextLocation { text: string; x: number; y: number }
 
 /**
    * Calculates positions of the point description
@@ -32,7 +32,7 @@ interface TextLocation { text: string, x: number, y: number }
    *
    * @return {Array<Object>} [{text:"abc", x:123, y:456}, {text:"cvb", x:456, y:852}, ...]
    */
-export const getDescriptionPosition = function (point: { x: number, y: number }, texts: string[], astrology: { COLLISION_RADIUS: number, SYMBOL_SCALE: number }): TextLocation[] {
+export const getDescriptionPosition = function (point: { x: number; y: number }, texts: string[], astrology: { COLLISION_RADIUS: number; SYMBOL_SCALE: number }): TextLocation[] {
   const RATION = 1.4
   const result: TextLocation[] = []
   const posX = point.x + (astrology.COLLISION_RADIUS / RATION * astrology.SYMBOL_SCALE)
@@ -52,7 +52,7 @@ export const getDescriptionPosition = function (point: { x: number, y: number },
    * @param {Object} data
    * @return {{hasError: boolean, messages: string[]}} status
    */
-export const validate = (data: AstroData): { hasError: boolean, messages: string[] } => {
+export const validate = (data: AstroData): { hasError: boolean; messages: string[] } => {
   const status = { hasError: false, messages: [] as string[] }
 
   if (data == null) {
@@ -62,26 +62,26 @@ export const validate = (data: AstroData): { hasError: boolean, messages: string
   }
 
   if (data.planets == null) {
-    status.messages.push("There is not property 'planets'.")
+    status.messages.push('There is not property \'planets\'.')
     status.hasError = true
   }
 
   for (const property in data.planets) {
     if (data.planets.hasOwnProperty(property)) {
       if (!Array.isArray(data.planets[property])) {
-        status.messages.push("The planets property '" + property + "' has to be Array.")
+        status.messages.push('The planets property \'' + property + '\' has to be Array.')
         status.hasError = true
       }
     }
   }
 
   if (data.cusps != null && !Array.isArray(data.cusps)) {
-    status.messages.push("Property 'cusps' has to be Array.")
+    status.messages.push('Property \'cusps\' has to be Array.')
     status.hasError = true
   }
 
   if (data.cusps != null && data.cusps.length !== 12) {
-    status.messages.push("Count of 'cusps' values has to be 12.")
+    status.messages.push('Count of \'cusps\' values has to be 12.')
     status.hasError = true
   }
 
@@ -134,7 +134,7 @@ export const removeChilds = (parent: HTMLElement): void => {
     * @param {Object} circle2, {x:456, y:456, r:60}
     * @return {boolean}
    */
-export const isCollision = (circle1: { x: number, y: number, r: number }, circle2: { x: number, y: number, r: number }): boolean => {
+export const isCollision = (circle1: { x: number; y: number; r: number }, circle2: { x: number; y: number; r: number }): boolean => {
   // Calculate the vector between the circles’ center points
   const vx = circle1.x - circle2.x
   const vy = circle1.y - circle2.y
@@ -155,7 +155,7 @@ export const isCollision = (circle1: { x: number, y: number, r: number }, circle
     * @param {Object} universe - current universe
     * @return {Array<Object>} locatedPoints
    */
-export const assemble = (locatedPoints: LocatedPoint[], point: LocatedPoint, universe: { cx: number, cy: number, r: number }, astrology: Settings): LocatedPoint[] => {
+export const assemble = (locatedPoints: LocatedPoint[], point: LocatedPoint, universe: { cx: number; cy: number; r: number }, astrology: Settings): LocatedPoint[] => {
   // first item
   if (locatedPoints.length === 0) {
     locatedPoints.push(point)

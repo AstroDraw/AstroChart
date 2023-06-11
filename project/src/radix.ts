@@ -15,7 +15,7 @@ import type SVG from './svg'
 import { type Settings } from './settings'
 
 export type Points = Record<string, number[]>
-export interface LocatedPoint { name?: string, x: number, y: number, r: number, angle: number, pointer?: number, index?: number }
+export interface LocatedPoint { name?: string; x: number; y: number; r: number; angle: number; pointer?: number; index?: number }
 export interface AstroData {
   planets: Points
   cusps: number[]
@@ -86,7 +86,7 @@ class Radix {
     this.paper.root.appendChild(this.universe)
 
     this.context = this
-  };
+  }
 
   /**
    * Draw background
@@ -101,7 +101,7 @@ class Radix {
     const hemisphere = this.paper.segment(this.cx, this.cy, this.radius - this.radius / this.settings.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius / this.settings.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG)
     hemisphere.setAttribute('fill', this.settings.STROKE_ONLY ? 'none' : this.settings.COLOR_BACKGROUND)
     wrapper.appendChild(hemisphere)
-  };
+  }
 
   /**
    * Draw universe.
@@ -120,7 +120,7 @@ class Radix {
       wrapper.appendChild(segment)
 
       start += step
-    };
+    }
 
     // signs
     for (let i = 0, step = 30, start = 15 + this.shift, len = this.settings.SYMBOL_SIGNS.length; i < len; i++) {
@@ -128,7 +128,7 @@ class Radix {
       wrapper.appendChild(this.paper.getSymbol(this.settings.SYMBOL_SIGNS[i], position.x, position.y))
       start += step
     }
-  };
+  }
 
   /**
    * Draw points
@@ -200,7 +200,7 @@ class Radix {
         wrapper.appendChild(this.paper.text(dsc.text, dsc.x, dsc.y, this.settings.POINTS_TEXT_SIZE, this.settings.SIGNS_COLOR))
       }, this)
     }, this)
-  };
+  }
 
   drawAxis (): void {
     if (this.data.cusps == null) {
@@ -258,7 +258,7 @@ class Radix {
         wrapper.appendChild(this.paper.getSymbol(this.settings.SYMBOL_MC, textPosition.x, textPosition.y))
       }
     }, this)
-  };
+  }
 
   /**
    * Draw cusps
@@ -315,7 +315,7 @@ class Radix {
       const textPosition = getPointPosition(this.cx, this.cy, numbersRadius, ((startOfCusp + gap / 2) % deg360) + this.shift, this.settings)
       wrapper.appendChild(this.paper.getSymbol((i + 1).toString(), textPosition.x, textPosition.y))
     }
-  };
+  }
 
   /**
    * Draw aspects
@@ -355,7 +355,7 @@ class Radix {
     }
 
     return this.context
-  };
+  }
 
   /**
    * Add points of interest for aspects calculation
@@ -370,7 +370,7 @@ class Radix {
     }
 
     return this.context
-  };
+  }
 
   drawRuler (): void {
     const universe = this.universe
@@ -390,7 +390,7 @@ class Radix {
     circle.setAttribute('stroke', this.settings.CIRCLE_COLOR)
     circle.setAttribute('stroke-width', (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString())
     wrapper.appendChild(circle)
-  };
+  }
 
   /**
    * Draw circles
@@ -416,7 +416,7 @@ class Radix {
     circle.setAttribute('stroke', this.settings.CIRCLE_COLOR)
     circle.setAttribute('stroke-width', (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE).toString())
     wrapper.appendChild(circle)
-  };
+  }
 
   /**
    * Display transit horoscope
@@ -440,7 +440,7 @@ class Radix {
     transit.drawRuler()
     transit.drawCircles()
     return transit
-  };
+  }
 }
 
 export default Radix
