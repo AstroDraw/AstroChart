@@ -48,7 +48,7 @@ class Animator {
 
     this.context = this
     this.cuspsElement = null
-  };
+  }
 
   /**
    * Animate objects
@@ -130,7 +130,7 @@ class Animator {
     if (expectedNumberOfLoops === 1) {
       this.cuspsElement.removeAttribute('transform')
     }
-  };
+  }
 
   /*
    * @private

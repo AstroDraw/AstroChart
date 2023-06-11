@@ -1,18 +1,16 @@
-import SVG from "./svg";
+import type SVG from './svg';
 export interface AspectData {
     degree: number;
     orbit: number;
     color: string;
 }
-export interface Aspect {
-    [key: string]: AspectData;
-}
+export type Aspect = Record<string, AspectData>;
 export interface Dignity {
     name: string;
     position: number;
     orbit: number;
 }
-export declare type Settings = {
+export interface Settings {
     SYMBOL_SCALE: number;
     COLOR_BACKGROUND: string;
     POINTS_COLOR: string;
@@ -98,7 +96,7 @@ export declare type Settings = {
     COLOR_AQUARIUS: string;
     COLOR_PISCES: string;
     COLORS_SIGNS: string[];
-    CUSTOM_SYMBOL_FN: (name: string, x: number, y: number, context: SVG) => Element | null;
+    CUSTOM_SYMBOL_FN: null | ((name: string, x: number, y: number, context: SVG) => Element);
     SHIFT_IN_DEGREES: number;
     STROKE_ONLY: boolean;
     ADD_CLICK_AREA: boolean;
@@ -112,6 +110,6 @@ export declare type Settings = {
     DIGNITIES_EXACT_EXALTATION_DEFAULT: Dignity[];
     ANIMATION_CUSPS_ROTATION_SPEED: number;
     DEBUG: boolean;
-};
+}
 declare const default_settings: Settings;
 export default default_settings;

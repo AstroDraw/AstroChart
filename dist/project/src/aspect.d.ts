@@ -1,5 +1,5 @@
-import { Points } from './radix';
-import { AspectData, Settings } from './settings';
+import { type Points } from './radix';
+import { type AspectData, type Settings } from './settings';
 export interface FormedAspect {
     point: {
         name: string;
@@ -18,14 +18,14 @@ export interface FormedAspect {
     precision: string;
 }
 /**
- * Aspects calculator
- *
- * @class
- * @public
- * @constructor
- * @param {AspectPoints} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
- * @param {Object | null } settings
- */
+   * Aspects calculator
+   *
+   * @class
+   * @public
+   * @constructor
+   * @param {AspectPoints} points; {"Sun":[0], "Moon":[90], "Neptune":[120], "As":[30]}
+   * @param {Object | null } settings
+   */
 declare class AspectCalculator {
     settings: Partial<Settings>;
     toPoints: Points;
@@ -55,23 +55,7 @@ declare class AspectCalculator {
      * @param {Object} points - transiting points; {"Sun":[0, 1], "Uranus":[90, -1], "NAME":[ANGLE, SPEED]};
      * @return {Array<Object>} [{"aspect":{"name":"conjunction", "degree":120}"", "point":{"name":"Sun", "position":123}, "toPoint":{"name":"Moon", "position":345}, "precision":0.5}]]
      */
-    transit(points: Points): {
-        aspect: {
-            name: string;
-            degree: number;
-            orbit: number;
-            color: string;
-        };
-        point: {
-            name: string;
-            position: number;
-        };
-        toPoint: {
-            name: string;
-            position: number;
-        };
-        precision: string;
-    }[];
+    transit(points: Points): FormedAspect[];
     hasAspect(point: number, toPoint: number, aspect: AspectData): boolean;
     calcPrecision(point: number, toPoint: number, aspect: number): number;
     isTransitPointApproachingToAspect(aspect: number, toPoint: number, point: number): boolean;

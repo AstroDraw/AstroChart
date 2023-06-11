@@ -30,7 +30,7 @@ class Transit {
   universe: Element
   context: this
   locatedPoints: LocatedPoint[]
-  constructor (radix: Radix, data: AstroData, settings: Settings) {
+  constructor(radix: Radix, data: AstroData, settings: Settings) {
     // Validate data
     const status = validate(data)
     if (status.hasError) {
@@ -55,12 +55,12 @@ class Transit {
     this.paper.root.appendChild(this.universe)
 
     this.context = this
-  };
+  }
 
   /**
    * Draw background
    */
-  drawBg (): void {
+  drawBg(): void {
     const universe = this.universe
 
     const wrapper = getEmptyWrapper(universe, this.paper._paperElementId + '-' + this.settings.ID_BG, this.paper._paperElementId)
@@ -71,14 +71,14 @@ class Transit {
     const hemisphere = this.paper.segment(this.cx, this.cy, this.radius + this.radius / this.settings.INNER_CIRCLE_RADIUS_RATIO, start, end, this.radius / this.settings.INDOOR_CIRCLE_RADIUS_RATIO, LARGE_ARC_FLAG)
     hemisphere.setAttribute('fill', this.settings.STROKE_ONLY ? 'none' : this.settings.COLOR_BACKGROUND)
     wrapper.appendChild(hemisphere)
-  };
+  }
 
   /**
    * Draw planets
    *
    * @param{undefined | Object} planetsData, posible data planets to draw
    */
-  drawPoints (planetsData?: Points): void {
+  drawPoints(planetsData?: Points): void {
     const planets = (planetsData == null) ? this.data.planets : planetsData
     if (planets == null) {
       return
@@ -146,12 +146,12 @@ class Transit {
         wrapper.appendChild(this.paper.text(dsc.text, dsc.x, dsc.y, this.settings.POINTS_TEXT_SIZE, this.settings.SIGNS_COLOR))
       }, this)
     }, this)
-  };
+  }
 
   /**
  * Draw circles
  */
-  drawCircles (): void {
+  drawCircles(): void {
     const universe = this.universe
     const wrapper = getEmptyWrapper(universe, this.paper._paperElementId + '-' + this.settings.ID_TRANSIT + '-' + this.settings.ID_CIRCLES, this.paper._paperElementId)
     const radius = this.radius + this.radius / this.settings.INNER_CIRCLE_RADIUS_RATIO
@@ -160,13 +160,13 @@ class Transit {
     circle.setAttribute('stroke', this.settings.CIRCLE_COLOR)
     circle.setAttribute('stroke-width', (this.settings.CIRCLE_STRONG * this.settings.SYMBOL_SCALE).toString())
     wrapper.appendChild(circle)
-  };
+  }
 
   /**
  * Draw cusps
  * @param{undefined | Object} cuspsData, posible data cusps to draw
  */
-  drawCusps (cuspsData?: number[]): void {
+  drawCusps(cuspsData?: number[]): void {
     const cusps = (cuspsData == null) ? this.data.cusps : cuspsData
     if (cusps == null) {
       return
@@ -202,9 +202,9 @@ class Transit {
       const textPosition = getPointPosition(this.cx, this.cy, numbersRadius, ((startOfCusp + gap / 2) % deg360) + this.shift, this.settings)
       wrapper.appendChild(this.paper.getSymbol((i + 1).toString(), textPosition.x, textPosition.y))
     }
-  };
+  }
 
-  drawRuler (): void {
+  drawRuler(): void {
     const universe = this.universe
     const wrapper = getEmptyWrapper(universe, this.paper.root.id + '-' + this.settings.ID_TRANSIT + '-' + this.settings.ID_RULER, this.paper._paperElementId)
 
@@ -222,13 +222,13 @@ class Transit {
     circle.setAttribute('stroke', this.settings.CIRCLE_COLOR)
     circle.setAttribute('stroke-width', (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString())
     wrapper.appendChild(circle)
-  };
+  }
 
   /**
  * Draw aspects
  * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
  */
-  aspects (customAspects: FormedAspect[]): Transit {
+  aspects(customAspects: FormedAspect[]): Transit {
     const aspectsList = customAspects != null && Array.isArray(customAspects)
       ? customAspects
       : new AspectCalculator(this.toPoints, this.settings).transit(this.data.planets)
@@ -255,7 +255,7 @@ class Transit {
 
     // this
     return this.context
-  };
+  }
 
   /**
  * Moves points to another position.
@@ -265,7 +265,7 @@ class Transit {
   * @param {boolean} isReverse
   * @param {Function | undefined} callbck - the function executed at the end of animation
  */
-  animate (data: AstroData, duration: number, isReverse: boolean, callback: () => void): Transit {
+  animate(data: AstroData, duration: number, isReverse: boolean, callback: () => void): Transit {
     // Validate data
     const status = validate(data)
     if (status.hasError) {
@@ -290,7 +290,7 @@ class Transit {
 
     // this
     return this.context
-  };
+  }
 }
 
 export default Transit

@@ -33,16 +33,16 @@ class Zodiac {
   settings: Settings
   constructor (cusps: number[], settings?: Settings) {
     if (cusps === null) {
-      throw new Error("Param 'cusps' must not be empty.")
+      throw new Error('Param \'cusps\' must not be empty.')
     }
 
     if (!(Array.isArray(cusps) && cusps.length === 12)) {
-      throw new Error("Param 'cusps' is not 12 length Array.")
+      throw new Error('Param \'cusps\' is not 12 length Array.')
     }
 
     this.cusps = cusps
     this.settings = settings ?? default_settings
-  };
+  }
 
   /**
    * Get astrological sign
@@ -54,7 +54,7 @@ class Zodiac {
   getSign (point: number): number {
     const angle = point % radiansToDegree(2 * Math.PI)
     return Math.floor((angle / 30) + 1)
-  };
+  }
 
   /**
    * Is retrograde
@@ -64,7 +64,7 @@ class Zodiac {
    */
   isRetrograde (speed: number): boolean {
     return speed < 0
-  };
+  }
 
   /**
    * Get house number
@@ -89,8 +89,8 @@ class Zodiac {
       }
     }
 
-    throw new Error("Oops, serious error in the method: 'astrology.Zodiac.getHouseNumber'.")
-  };
+    throw new Error('Oops, serious error in the method: \'astrology.Zodiac.getHouseNumber\'.')
+  }
 
   /**
     * Calculate dignities of planet
@@ -105,7 +105,7 @@ class Zodiac {
      * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
      * @return {Array<String>}
     */
-  getDignities (planet: { name: string, position: number }, exactExaltation?: Dignity[]): string[] {
+  getDignities (planet: { name: string; position: number }, exactExaltation?: Dignity[]): string[] {
     if (!(planet && planet.name && planet.position != null)) {
       return []
     }
@@ -289,7 +289,7 @@ class Zodiac {
     }
 
     return result
-  };
+  }
 
   /*
    * To hours:minutes:seconds
@@ -302,8 +302,8 @@ class Zodiac {
     d = (d - deg) * 60
     const min = parseInt(d.toString(), 10)
     const sec = parseInt(((d - min) * 60).toString(), 10)
-    return deg + '° ' + min + "' " + sec
-  };
+    return deg + '° ' + min + '\' ' + sec
+  }
 
   /*
     * Has conjunction with point
@@ -337,7 +337,7 @@ class Zodiac {
     }
 
     return result
-  };
+  }
 }
 
 export default Zodiac

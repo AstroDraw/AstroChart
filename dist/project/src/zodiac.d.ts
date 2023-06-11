@@ -1,21 +1,21 @@
-import { Dignity, Settings } from './settings';
+import { type Dignity, type Settings } from './settings';
 /**
- * Zodiac
- *
- * Gives the position of points in the zodiac.
- * Position of point in the zodiac.
- * Position of point in houses.
- * Dignities of planets.
- *
- * @class
- * @public
- * @constructor
- * @param {Array} cusps - cusprs in zodiac; [296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
- * @param {Object | null } settings
- */
+   * Zodiac
+   *
+   * Gives the position of points in the zodiac.
+   * Position of point in the zodiac.
+   * Position of point in houses.
+   * Dignities of planets.
+   *
+   * @class
+   * @public
+   * @constructor
+   * @param {Array} cusps - cusprs in zodiac; [296, 350, 30, 56, 75, 94, 116, 170, 210, 236, 255, 274]
+   * @param {Object | null } settings
+   */
 declare class Zodiac {
     cusps: number[];
-    settings: Partial<Settings>;
+    settings: Settings;
     constructor(cusps: number[], settings?: Settings);
     /**
      * Get astrological sign
@@ -28,8 +28,8 @@ declare class Zodiac {
     /**
      * Is retrograde
      *
-     * @param {double} speed
-     * @return {boolean}
+      * @param {double} speed
+      * @return {boolean}
      */
     isRetrograde(speed: number): boolean;
     /**
@@ -41,18 +41,18 @@ declare class Zodiac {
      */
     getHouseNumber(point: number): number;
     /**
-         * Calculate dignities of planet
-         *
-         * r - Rulership
-         * d - Detriment
-         * e - Exaltation
-         * E - Exalatation - Exact exaltation
-         * f - Fall
-         *
-         * @param {Object} planet, { name:"Sun", position:60.2 }
-         * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
-         * @return {Array<String>}
-         */
+      * Calculate dignities of planet
+      *
+      * r - Rulership
+      * d - Detriment
+      * e - Exaltation
+      * E - Exalatation - Exact exaltation
+      * f - Fall
+      *
+       * @param {Object} planet, { name:"Sun", position:60.2 }
+       * @param {Array<Object> | null } exactExaltation - list of named angles, [{ name:"Sun", position:278, orbit:2 }, { name:"Moon", position:3, , orbit:2 }]
+       * @return {Array<String>}
+      */
     getDignities(planet: {
         name: string;
         position: number;
