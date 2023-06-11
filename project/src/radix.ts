@@ -15,7 +15,7 @@ import type SVG from './svg'
 import { type Settings } from './settings'
 
 export type Points = Record<string, number[]>
-export interface LocatedPoint { name?: string; x: number; y: number; r: number; angle: number; pointer?: number; index?: number }
+export interface LocatedPoint { name: string; x: number; y: number; r: number; angle: number; pointer?: number; index?: number }
 export interface AstroData {
   planets: Points
   cusps: number[]
@@ -47,7 +47,7 @@ class Radix {
   shift: number
   universe: Element
   context: this
-  constructor (paper: SVG, cx: number, cy: number, radius: number, data: AstroData, settings: Settings) {
+  constructor(paper: SVG, cx: number, cy: number, radius: number, data: AstroData, settings: Settings) {
     this.settings = settings
     // Validate data
     const status = validate(data)
@@ -91,7 +91,7 @@ class Radix {
   /**
    * Draw background
    */
-  drawBg (): void {
+  drawBg(): void {
     const universe = this.universe
     const wrapper = getEmptyWrapper(universe, this.paper.root.id + '-' + this.settings.ID_BG, this.paper.root.id)
 
@@ -106,7 +106,7 @@ class Radix {
   /**
    * Draw universe.
    */
-  drawUniverse (): void {
+  drawUniverse(): void {
     const universe = this.universe
     const wrapper = getEmptyWrapper(universe, this.paper.root.id + '-' + this.settings.ID_RADIX + '-' + this.settings.ID_SIGNS, this.paper.root.id)
 
@@ -133,7 +133,7 @@ class Radix {
   /**
    * Draw points
    */
-  drawPoints (): void {
+  drawPoints(): void {
     if (this.data.planets == null) {
       return
     }
@@ -202,7 +202,7 @@ class Radix {
     }, this)
   }
 
-  drawAxis (): void {
+  drawAxis(): void {
     if (this.data.cusps == null) {
       return
     }
@@ -263,7 +263,7 @@ class Radix {
   /**
    * Draw cusps
    */
-  drawCusps (): void {
+  drawCusps(): void {
     if (this.data.cusps == null) {
       return
     }
@@ -321,7 +321,7 @@ class Radix {
    * Draw aspects
    * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
    */
-  aspects (customAspects?: FormedAspect[] | null): Radix {
+  aspects(customAspects?: FormedAspect[] | null): Radix {
     const aspectsList = customAspects != null && Array.isArray(customAspects)
       ? customAspects
       : new AspectCalculator(this.toPoints).radix(this.data.planets)
@@ -362,7 +362,7 @@ class Radix {
    * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]}
    * @see (this.settings.AspectCalculator( toPoints) )
    */
-  addPointsOfInterest (points: Points): Radix {
+  addPointsOfInterest(points: Points): Radix {
     for (const point in points) {
       if (points.hasOwnProperty(point)) {
         this.toPoints[point] = points[point]
@@ -372,7 +372,7 @@ class Radix {
     return this.context
   }
 
-  drawRuler (): void {
+  drawRuler(): void {
     const universe = this.universe
     const wrapper = getEmptyWrapper(universe, this.paper.root.id + '-' + this.settings.ID_RADIX + '-' + this.settings.ID_RULER, this.paper.root.id)
 
@@ -395,7 +395,7 @@ class Radix {
   /**
    * Draw circles
    */
-  drawCircles (): void {
+  drawCircles(): void {
     const universe = this.universe
     const wrapper = getEmptyWrapper(universe, this.paper.root.id + '-' + this.settings.ID_RADIX + '-' + this.settings.ID_CIRCLES, this.paper.root.id)
 
@@ -430,7 +430,7 @@ class Radix {
    *
    * @return {Transit} transit
    */
-  transit (data: AstroData): Transit {
+  transit(data: AstroData): Transit {
     // remove axis (As, Ds, Mc, Ic) from radix
     getEmptyWrapper(this.universe, this.paper.root.id + '-' + this.settings.ID_RADIX + '-' + this.settings.ID_AXIS, this.paper.root.id)
     const transit = new Transit(this.context, data, this.settings)

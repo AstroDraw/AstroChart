@@ -1,35 +1,33 @@
-import { FormedAspect } from './aspect';
+import { type FormedAspect } from './aspect';
 import Transit from './transit';
-import SVG from './svg';
-import { Settings } from './settings';
-export declare type Points = {
-    [key: string]: number[];
-};
-export declare type LocatedPoint = {
-    name?: string;
+import type SVG from './svg';
+import { type Settings } from './settings';
+export type Points = Record<string, number[]>;
+export interface LocatedPoint {
+    name: string;
     x: number;
     y: number;
     r: number;
     angle: number;
     pointer?: number;
     index?: number;
-};
-export declare type AstroData = {
+}
+export interface AstroData {
     planets: Points;
     cusps: number[];
-};
+}
 /**
- * Radix charts.
- *
- * @class
- * @public
- * @constructor
- * @param {this.settings.SVG} paper
- * @param {int} cx
- * @param {int} cy
- * @param {int} radius
- * @param {Object} data
- */
+   * Radix charts.
+   *
+   * @class
+   * @public
+   * @constructor
+    * @param {this.settings.SVG} paper
+   * @param {int} cx
+   * @param {int} cy
+   * @param {int} radius
+   * @param {Object} data
+   */
 declare class Radix {
     settings: Settings;
     data: AstroData;
@@ -46,8 +44,8 @@ declare class Radix {
     context: this;
     constructor(paper: SVG, cx: number, cy: number, radius: number, data: AstroData, settings: Settings);
     /**
- * Draw background
- */
+     * Draw background
+     */
     drawBg(): void;
     /**
      * Draw universe.
@@ -66,13 +64,13 @@ declare class Radix {
      * Draw aspects
      * @param{Array<Object> | null} customAspects - posible custom aspects to draw;
      */
-    aspects(customAspects?: FormedAspect[] | null): this;
+    aspects(customAspects?: FormedAspect[] | null): Radix;
     /**
      * Add points of interest for aspects calculation
      * @param {Obect} points, {"As":[0],"Ic":[90],"Ds":[180],"Mc":[270]}
      * @see (this.settings.AspectCalculator( toPoints) )
      */
-    addPointsOfInterest(points: Points): this;
+    addPointsOfInterest(points: Points): Radix;
     drawRuler(): void;
     /**
      * Draw circles
@@ -83,12 +81,12 @@ declare class Radix {
      *
      * @param {Object} data
      * @example
-     *	{
-     *		"planets":{"Moon":[0], "Sun":[30],  ... },
-     *		"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],	*
-     *	}
+     *  {
+     *    "planets":{"Moon":[0], "Sun":[30],  ... },
+     *    "cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274],  *
+     *  }
      *
-     * @return {this.settings.Transit} transit
+     * @return {Transit} transit
      */
     transit(data: AstroData): Transit;
 }
