@@ -1,4 +1,5 @@
-import default_settings, { type Dignity, type Settings } from './settings'
+import default_settings from './settings'
+import type { Dignity, Settings } from './settings'
 import { radiansToDegree } from './utils'
 // Zodiac
 const SIGNS_ARIES = 1

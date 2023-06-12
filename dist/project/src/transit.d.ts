@@ -1,8 +1,8 @@
-import { type FormedAspect } from './aspect';
-import { type AstroData, type LocatedPoint, type Points } from './radix';
+import type { FormedAspect } from './aspect';
+import type { AstroData, type LocatedPoint, type Points } from './radix';
 import type Radix from './radix';
 import type SVG from './svg';
-import { type Settings } from './settings';
+import type { Settings } from './settings';
 /**
    * Transit charts.
    *

@@ -1,5 +1,5 @@
-import { type Points } from './radix'
-import { type AspectData, type Settings } from './settings'
+import type { Points } from './radix'
+import type { AspectData, Settings } from './settings'
 import { radiansToDegree } from './utils'
 
 export interface FormedAspect {

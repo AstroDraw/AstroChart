@@ -1,5 +1,5 @@
-import { type AstroData, type LocatedPoint } from './radix';
-import { type Settings } from './settings';
+import type { AstroData, type LocatedPoint } from './radix';
+import type { Settings } from './settings';
 /**
    * Calculate position of the point on the circle.
    *

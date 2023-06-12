@@ -1,7 +1,7 @@
-import { type FormedAspect } from './aspect';
+import type { FormedAspect } from './aspect';
 import Transit from './transit';
 import type SVG from './svg';
-import { type Settings } from './settings';
+import type { Settings } from './settings';
 export type Points = Record<string, number[]>;
 export interface LocatedPoint {
     name: string;

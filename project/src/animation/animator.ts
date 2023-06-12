@@ -1,5 +1,5 @@
-import { type AstroData } from '../radix'
-import { type Settings } from '../settings'
+import type { AstroData } from '../radix'
+import type { Settings } from '../settings'
 import type Transit from '../transit'
 import { radiansToDegree } from '../utils'
 import Timer from './timer'

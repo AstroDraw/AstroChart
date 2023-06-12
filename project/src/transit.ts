@@ -1,11 +1,12 @@
 import Zodiac from './zodiac'
-import AspectCalculator, { type FormedAspect } from './aspect'
+import AspectCalculator from './aspect'
+import  type { FormedAspect } from './aspect'
 import Animator from './animation/animator'
 import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDescriptionPosition, assemble, radiansToDegree } from './utils'
-import { type AstroData, type LocatedPoint, type Points } from './radix'
+import type { AstroData, LocatedPoint, Points } from './radix'
 import type Radix from './radix'
 import type SVG from './svg'
-import { type Settings } from './settings'
+import type { Settings } from './settings'
 
 /**
    * Transit charts.

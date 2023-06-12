@@ -1,4 +1,4 @@
-import { type Settings } from './settings';
+import type { Settings } from './settings';
 /**
    * SVG tools.
    *

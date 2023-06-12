@@ -1,5 +1,7 @@
-import default_settings, { type Settings } from './settings'
-import Radix, { type AstroData } from './radix'
+import default_settings from './settings' 
+import type { Settings } from './settings'
+import Radix from './radix'
+import type { AstroData } from './radix'
 import SVG from './svg'
 import { getPointPosition } from './utils'
 /**

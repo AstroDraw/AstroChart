@@ -1,5 +1,6 @@
 import Zodiac from './zodiac'
-import AspectCalculator, { type FormedAspect } from './aspect'
+import AspectCalculator from './aspect'
+import type { FormedAspect } from './aspect'
 import Transit from './transit'
 import {
   validate
@@ -12,7 +13,7 @@ import {
   , assemble
 } from './utils'
 import type SVG from './svg'
-import { type Settings } from './settings'
+import type { Settings } from './settings'
 
 export type Points = Record<string, number[]>
 export interface LocatedPoint { name: string; x: number; y: number; r: number; angle: number; pointer?: number; index?: number }
