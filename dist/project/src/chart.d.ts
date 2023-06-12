@@ -1,5 +1,6 @@
 import type { Settings } from './settings';
-import Radix, type { AstroData } from './radix';
+import Radix from './radix';
+import type { AstroData } from './radix';
 import SVG from './svg';
 /**
  * Displays astrology charts.

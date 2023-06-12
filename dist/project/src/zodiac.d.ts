@@ -1,4 +1,4 @@
-import type { Dignity, type Settings } from './settings';
+import type { Dignity, Settings } from './settings';
 /**
    * Zodiac
    *
