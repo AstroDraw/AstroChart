@@ -15,7 +15,7 @@
     "url": "https://github.com/AstroDraw/AstroChart.git"
   },
   "main": "./dist/astrochart.js",
-  "types": "./dist/project/src/chart.d.ts",
+  "types": "./dist/project/src/index.d.ts",
   "scripts": {
     "test": "jest",
     "test:coverage": "jest --coverage",

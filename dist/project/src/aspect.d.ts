@@ -30,7 +30,7 @@ declare class AspectCalculator {
     settings: Partial<Settings>;
     toPoints: Points;
     context: this;
-    constructor(toPoints: Points, settings?: Settings);
+    constructor(toPoints: Points, settings?: Partial<Settings>);
     /**
      * Getter for this.toPoints
      * @see constructor

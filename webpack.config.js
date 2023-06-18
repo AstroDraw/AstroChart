@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require('path')
 
 module.exports = {
   entry: './project/src/index.ts',
@@ -24,4 +24,4 @@ module.exports = {
       type: 'umd'
     }
   },
-};
+}

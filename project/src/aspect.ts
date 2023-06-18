@@ -39,7 +39,7 @@ class AspectCalculator {
   settings: Partial<Settings>
   toPoints: Points
   context: this
-  constructor (toPoints: Points, settings?: Settings) {
+  constructor (toPoints: Points, settings?: Partial<Settings>) {
     if (toPoints == null) {
       throw new Error('Param \'toPoint\' must not be empty.')
     }
