@@ -117,7 +117,7 @@
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
-        	var textsToShow = [(Math.round(planets[point.name][0]) % 30).toString()];
+        	var textsToShow = [(Math.floor(planets[point.name][0]) % 30).toString()];
         	
         	var zodiac = new astrology.Zodiac(this.data.cusps);
         	if(planets[point.name][1] && zodiac.isRetrograde(planets[point.name][1])){
