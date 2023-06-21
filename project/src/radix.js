@@ -156,7 +156,7 @@
         	wrapper.appendChild( symbol );
         	        	        	        
         	// draw point descriptions
-        	var textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()];
+        	var textsToShow = [(Math.floor(this.data.planets[point.name][0]) % 30).toString()];
         	
         	var zodiac = new astrology.Zodiac(this.data.cusps);
         	
