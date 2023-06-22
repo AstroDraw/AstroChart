@@ -185,7 +185,7 @@ class Radix {
       wrapper.appendChild(symbol)
 
       // draw point descriptions
-      let textsToShow = [(Math.round(this.data.planets[point.name][0]) % 30).toString()]
+      let textsToShow = [(Math.floor(this.data.planets[point.name][0]) % 30).toString()]
 
       const zodiac = new Zodiac(this.data.cusps, this.settings)
 

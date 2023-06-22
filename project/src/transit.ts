@@ -1,6 +1,6 @@
 import Zodiac from './zodiac'
 import AspectCalculator from './aspect'
-import  type { FormedAspect } from './aspect'
+import type { FormedAspect } from './aspect'
 import Animator from './animation/animator'
 import { validate, getEmptyWrapper, getPointPosition, getRulerPositions, getDescriptionPosition, assemble, radiansToDegree } from './utils'
 import type { AstroData, LocatedPoint, Points } from './radix'
@@ -132,7 +132,7 @@ class Transit {
       wrapper.appendChild(symbol)
 
       // draw point descriptions
-      let textsToShow = [(Math.round(planets[point.name][0]) % 30).toString()]
+      let textsToShow = [(Math.floor(planets[point.name][0]) % 30).toString()]
 
       const zodiac = new Zodiac(this.data.cusps, this.settings)
       if (planets[point.name][1] && zodiac.isRetrograde(planets[point.name][1])) {
