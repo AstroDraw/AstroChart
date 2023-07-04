@@ -12,7 +12,7 @@
     <body>    	    
         <div id="paper"></div>
                                       
-        <script src="../../build/astrochart.js"></script>
+        <script src="../../../dist/astrochart.js"></script>
         <script type="text/javascript"> 
         
         	var data = {
@@ -24,7 +24,7 @@
 			};
 												      
         	window.onload = function () {
-            	var chart = new astrology.Chart('paper', 800, 800, {DEBUG:true});
+            	var chart = new astrochart.Chart('paper', 800, 800, {DEBUG:true});
 				chart.radix( data );									
 			};
 		</script>		    

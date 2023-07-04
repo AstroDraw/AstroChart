@@ -12,14 +12,14 @@
     <body>    	        	    	   
         <div id="paper"></div>
                                       
-        <script src="../../build/astrochart.js"></script>
+        <script src="../../../dist/astrochart.js"></script>
         <script type="text/javascript"> 
         
         												     
         	window.onload = function () {
             	
             	var color= "#eee";
-            	var chart = new astrology.Chart('paper', 2000, 2000, {MARGIN:120, SYMBOL_SCALE:1, STROKE_ONLY:true, LINE_COLOR:color, CIRCLE_STRONG:1, CIRCLE_COLOR:color});  
+            	var chart = new astrochart.Chart('paper', 2000, 2000, {MARGIN:120, SYMBOL_SCALE:1, STROKE_ONLY:true, LINE_COLOR:color, CIRCLE_STRONG:1, CIRCLE_COLOR:color, DEBUG: true});  
 				chart.calibrate();								
 			};
 		</script>		    

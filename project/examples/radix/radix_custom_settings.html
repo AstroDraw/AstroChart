@@ -12,7 +12,7 @@
     <body>          
         <div id="paper"></div>
                                       
-        <script src="../../build/astrochart.js"></script>
+        <script src="../../../dist/astrochart.js"></script>
         <script type="text/javascript"> 
         
           var data = {
@@ -39,7 +39,7 @@
                           COLOR_PISCES : "#113311"}*/
 
           window.onload = function () {                   
-            var radix = new astrology.Chart('paper', 600, 600, settings).radix( data );    
+            var radix = new astrochart.Chart('paper', 600, 600, settings).radix( data );    
           };
     </script>        
     </body>

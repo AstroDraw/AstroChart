@@ -17,7 +17,7 @@
     	    	    	    	  
         <div id="paper"></div>
                                                            
-        <script src="../../build/astrochart.js"></script>
+        <script src="../../../dist/astrochart.js"></script>
         <script type="text/javascript">  
         
         	var dataRadix = {	
@@ -36,7 +36,7 @@
 		    };
 			                              	        	        	        	            
         	window.onload = function () {
-            	var chart = new astrology.Chart( 'paper', 800, 800, {MARGIN:100});
+            	var chart = new astrochart.Chart( 'paper', 800, 800, {MARGIN:100});
             	var radix = chart.radix( dataRadix );            	            
 				var transit = radix.transit( dataTransit );
 				
