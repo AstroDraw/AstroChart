@@ -49,6 +49,7 @@ export interface Settings {
   SYMBOL_LILITH: string
   SYMBOL_NNODE: string
   SYMBOL_SNODE: string
+  SYMBOL_FORTUNE: string
   SYMBOL_AS: string
   SYMBOL_DS: string
   SYMBOL_MC: string
@@ -206,6 +207,7 @@ const settings: Settings = {
   SYMBOL_LILITH: 'Lilith',
   SYMBOL_NNODE: 'NNode',
   SYMBOL_SNODE: 'SNode',
+  SYMBOL_FORTUNE: 'Fortune',
 
   // Axis
   SYMBOL_AS: 'As',

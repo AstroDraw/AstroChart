@@ -51,6 +51,7 @@ export interface Settings {
     SYMBOL_LILITH: string;
     SYMBOL_NNODE: string;
     SYMBOL_SNODE: string;
+    SYMBOL_FORTUNE: string;
     SYMBOL_AS: string;
     SYMBOL_DS: string;
     SYMBOL_MC: string;

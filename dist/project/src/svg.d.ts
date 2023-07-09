@@ -70,6 +70,7 @@ declare class SVG {
     lilith(x: number, y: number): Element;
     nnode(x: number, y: number): Element;
     snode(x: number, y: number): Element;
+    fortune(x: number, y: number): Element;
     aries(x: number, y: number): Element;
     taurus(x: number, y: number): Element;
     gemini(x: number, y: number): Element;
