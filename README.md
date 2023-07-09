@@ -2,56 +2,27 @@
 
 ![GitHub release](https://img.shields.io/github/v/release/AstroDraw/AstroChart?style=flat-square)
 
-A free and open-source JavaScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
+A free and open-source TypeScript library for generating SVG charts to display planets in astrology. It does not calculate any positions of the planets in Universe.
 
-- Pure Javascript implementation without dependencies.
+- Pure TypeScript implementation without dependencies.
 - SVG graphics.
 - Tested code.
 
-### Example
-- [Radix chart](./project/examples/radix/radix.html)
-- [Radix 15. 11. 2016](./project/examples/radix/radix_2016_11_15.html)
-- [Radix collision](./project/examples/radix/radix_collision.html)
-- [Transit chart](./project/examples/transit/transit.html)
-- [Stroke only](./project/examples/transit/stroke_only.html)
-- [Animation](./project/examples/transit/animate.html)
-- [Calibration](./project/examples/debug/calibration.html)
-- [2 charts on page](./project/examples/2ChartsOnPage/2radix.html)
+## Documentation
+A documentation is in progress, please checkout [website](astrodraw.github.io).
 
+## Contribution
+Contribution is always welcome. You can contribute in different ways:
+ - Start or participate in the [discussions](https://github.com/AstroDraw/AstroChart/discussions)
+ - Check opened issues, or improve our documentation
+ - Open [an issue](https://github.com/AstroDraw/AstroChart/issues) to report a bug or give some enchancement idea
+ - Open a PR with bug fixes or new features. To avoid rework, if is not small, is always good to open an issue to discuss before.
 
-### How to use
-```
-<script src="js/astrochart.min.js"></script>
-<script>
-	window.onload = function(){	
-		var chart = new astrology.Chart( 'paper', 800, 800);
-		chart.radix( data );					
-	};			
-</script>
-```
-### Known points
-Sun, Moon, Mercury, Venus, Mars, Jupiter, Saturn, Uranus, Neptune, Pluto, Chiron, Lilith, NNode.
+## Support
+Do you want to support the development of AstroChart? Here is some ways:
 
-### Data example
-``` 
-{
-	"planets":{"Moon":[0], "Sun":[30], "Mercury":[60], ... },
-	"cusps":[300, 340, 30, 60, 75, 90, 116, 172, 210, 236, 250, 274]	
-}
-```
+Is your project using? Please [comment here](https://github.com/AstroDraw/AstroChart/discussions/48) so we can share nice projects that are using.
 
-### Chart settings
-Look into the [settings.js](https://github.com/AstroDraw/AstroChart/blob/main/project/src/settings.js)
-```
-var settings = {SYMBOL_SCALE:2};
-var chart = new astrology.Chart( 'paper', 800, 800, settings);
-```
+A nice way to support is sharing this project with other people.
 
-### People  
-**Creator**: [Kibo](https://github.com/Kibo)  
-**Mantainer**: [afucher](https://github.com/afucher)  
-
-### It might interest you
-- [The Swiss Ephemeris](http://www.astro.com/swisseph/swephinfo_e.htm)
-- [AstroWebService](https://github.com/Kibo/AstroWebService)
-- [AstroAPI](https://github.com/Kibo/AstroAPI)
+Also, if you are a company consider sponsoring the project or [buying me a coffee](https://ko-fi.com/afucher)
