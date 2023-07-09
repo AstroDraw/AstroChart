@@ -48,6 +48,7 @@ export interface Settings {
   SYMBOL_CHIRON: string
   SYMBOL_LILITH: string
   SYMBOL_NNODE: string
+  SYMBOL_SNODE: string
   SYMBOL_AS: string
   SYMBOL_DS: string
   SYMBOL_MC: string
@@ -204,6 +205,7 @@ const settings: Settings = {
   SYMBOL_CHIRON: 'Chiron',
   SYMBOL_LILITH: 'Lilith',
   SYMBOL_NNODE: 'NNode',
+  SYMBOL_SNODE: 'SNode',
 
   // Axis
   SYMBOL_AS: 'As',
