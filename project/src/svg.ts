@@ -76,6 +76,8 @@ class SVG {
         return this.nnode(x, y)
       case this.settings.SYMBOL_SNODE:
         return this.snode(x, y)
+      case this.settings.SYMBOL_FORTUNE:
+        return this.fortune(x, y)
       case this.settings.SYMBOL_ARIES:
         return this.aries(x, y)
       case this.settings.SYMBOL_TAURUS:
@@ -636,7 +638,7 @@ class SVG {
     y = Math.round(y + (yShift * this.settings.SYMBOL_SCALE))
 
     const wrapper = document.createElementNS(this.context.root.namespaceURI, 'g')
-    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 1)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 1)) + ')')// scale(-1,1)
+    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 1)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 1)) + ')')
 
     const node = document.createElementNS(this.context.root.namespaceURI, 'path')
     node.setAttribute('d', 'm' + x + ', ' + y + ' l1.3333282470703125,0.666656494140625l0.6666717529296875,0l1.3333282470703125,-0.666656494140625l0.6666717529296875,-1.333343505859375l0,-0.666656494140625l-0.6666717529296875,-1.333343505859375l-1.3333282470703125,-0.666656494140625l-0.6666717529296875,0l-1.3333282470703125,0.666656494140625l-0.6666717529296875,1.333343505859375l0,0.666656494140625l0.6666717529296875,1.333343505859375l2,2.666656494140625l0.6666717529296875,2l0,1.333343505859375l-0.6666717529296875,2l-1.3333282470703125,1.333343505859375l-2,0.666656494140625l-2.6666717529296875,0l-2,-0.666656494140625l-1.3333282470703125,-1.333343505859375l-0.6666717529296875,-2l0,-1.333343505859375l0.6666717529296875,-2l2,-2.666656494140625l0.666656494140625,-1.333343505859375l0,-0.666656494140625l-0.666656494140625,-1.333343505859375l-1.333343505859375,-0.666656494140625l-0.666656494140625,0l-1.333343505859375,0.666656494140625l-0.666656494140625,1.333343505859375l0,0.666656494140625l0.666656494140625,1.333343505859375l1.333343505859375,0.666656494140625l0.666656494140625,0l1.333343505859375,-0.666656494140625m8,6l-0.6666717529296875,1.333343505859375l-1.3333282470703125,1.33331298828125l-2,0.66668701171875l-2.6666717529296875,0l-2,-0.66668701171875l-1.3333282470703125,-1.33331298828125l-0.6666717529296875,-1.333343505859375')
@@ -647,6 +649,42 @@ class SVG {
 
     return wrapper
   }
+ 
+  /*
+ * Fortune path
+ * @private
+ *
+ * @param {int} x
+ * @param {int} y
+ *
+ * @return {SVGPathElement} path
+ */
+  fortune (x: number, y: number): Element {
+    // center symbol
+    const xShift = -10
+    const yShift = -8
+    x = Math.round(x + (xShift * this.settings.SYMBOL_SCALE))
+    y = Math.round(y + (yShift * this.settings.SYMBOL_SCALE))
+
+    const wrapper = document.createElementNS(this.context.root.namespaceURI, 'g')
+    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 2)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 2)) + ')')
+
+    const path1 = document.createElementNS(this.context.root.namespaceURI, 'path')
+    path1.setAttribute('d', 'M15.971322059631348,8.000000953674316A7.971322252863855,7.971322252863855,0,0,1,8,15.97132396697998A7.971322252863855,7.971322252863855,0,0,1,0.028678132221102715,8.000000953674316A7.971322252863855,7.971322252863855,0,0,1,8,0.028677448630332947A7.971322252863855,7.971322252863855,0,0,1,15.971322059631348,8.000000953674316Z')
+    const path2 = document.createElementNS(this.context.root.namespaceURI, 'path')
+    path2.setAttribute('d', 'M2.668839454650879,2.043858766555786C6.304587364196777,5.906839370727539,9.94033432006836,9.769822120666504,13.576082229614258,13.632804870605469')
+    const path3 = document.createElementNS(this.context.root.namespaceURI, 'path')
+    path3.setAttribute('d', 'm2.5541272163391113,13.747519493103027c3.635746955871582,-3.8629846572875977,7.271494388580322,-7.72596549987793,10.90724229812622,-11.588947772979736')
+
+    wrapper.setAttribute('stroke', this.settings.POINTS_COLOR)
+    wrapper.setAttribute('stroke-width', this.settings.POINTS_STROKE.toString())
+    wrapper.setAttribute('fill', 'none')
+    wrapper.appendChild(path1)
+    wrapper.appendChild(path2)
+    wrapper.appendChild(path3)
+
+    return wrapper
+  } 
 
   /*
  * Aries symbol path
