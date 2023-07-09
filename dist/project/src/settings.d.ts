@@ -50,6 +50,7 @@ export interface Settings {
     SYMBOL_CHIRON: string;
     SYMBOL_LILITH: string;
     SYMBOL_NNODE: string;
+    SYMBOL_SNODE: string;
     SYMBOL_AS: string;
     SYMBOL_DS: string;
     SYMBOL_MC: string;
