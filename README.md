@@ -9,7 +9,7 @@ A free and open-source TypeScript library for generating SVG charts to display p
 - Tested code.
 
 ## Documentation
-A documentation is in progress, please checkout [website](astrodraw.github.io).
+A documentation is in progress, please checkout [website](https://astrodraw.github.io/).
 
 ## Contribution
 Contribution is always welcome. You can contribute in different ways:
