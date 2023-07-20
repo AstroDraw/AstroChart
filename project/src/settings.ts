@@ -102,6 +102,7 @@ export interface Settings {
   ADD_CLICK_AREA: boolean
   COLLISION_RADIUS: number
   ASPECTS: Aspect
+  SHOW_DIGNITIES_TEXT: boolean
   DIGNITIES_RULERSHIP: string
   DIGNITIES_DETRIMENT: string
   DIGNITIES_EXALTATION: string
@@ -289,6 +290,7 @@ const settings: Settings = {
   },
 
   // Dignities
+  SHOW_DIGNITIES_TEXT: true,
   DIGNITIES_RULERSHIP: 'r',
   DIGNITIES_DETRIMENT: 'd',
   DIGNITIES_EXALTATION: 'e',
