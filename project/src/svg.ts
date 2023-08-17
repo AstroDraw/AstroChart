@@ -18,7 +18,7 @@ class SVG {
   width: number
   height: number
   context: this
-  constructor (elementId: string, width: number, height: number, settings: Settings) {
+  constructor(elementId: string, width: number, height: number, settings: Settings) {
     this.settings = settings
     const rootElement = document.getElementById(elementId)
     if (rootElement == null) throw new Error('Root element not found')
@@ -46,7 +46,7 @@ class SVG {
     this.context = this
   }
 
-  _getSymbol (name: string, x: number, y: number): Element {
+  _getSymbol(name: string, x: number, y: number): Element {
     switch (name) {
       case this.settings.SYMBOL_SUN:
         return this.sun(x, y)
@@ -153,7 +153,7 @@ class SVG {
    *
    * @return {SVGElement g}
    */
-  getSymbol (name: string, x: number, y: number): Element {
+  getSymbol(name: string, x: number, y: number): Element {
     if (this.settings.CUSTOM_SYMBOL_FN == null) return this._getSymbol(name, x, y)
 
     const symbol = this.settings.CUSTOM_SYMBOL_FN(name, x, y, this.context)
@@ -172,7 +172,7 @@ class SVG {
    *
    * @return {Element} rect
    */
-  createRectForClick (x: number, y: number): Element {
+  createRectForClick(x: number, y: number): Element {
     const rect = document.createElementNS(this.context.root.namespaceURI, 'rect')
     rect.setAttribute('x', (x - this.settings.SIGNS_STROKE).toString())
     rect.setAttribute('y', (y - this.settings.SIGNS_STROKE).toString())
@@ -189,7 +189,7 @@ class SVG {
    *
    * @return {String id}
    */
-  getSignWrapperId (sign: string): string {
+  getSignWrapperId(sign: string): string {
     return this._paperElementId + '-' + this.settings.ID_RADIX + '-' + this.settings.ID_SIGNS + '-' + sign
   }
 
@@ -200,7 +200,7 @@ class SVG {
    *
    * @return {String id}
    */
-  getHouseIdWrapper (house: string): string {
+  getHouseIdWrapper(house: string): string {
     return this._paperElementId + '-' + this.settings.ID_RADIX + '-' + this.settings.ID_CUSPS + '-' + house
   }
 
@@ -213,7 +213,7 @@ class SVG {
    *
    * @return {SVG g}
    */
-  sun (x: number, y: number): Element {
+  sun(x: number, y: number): Element {
     // center symbol
     const xShift = -1 // px
     const yShift = -8 // px
@@ -242,7 +242,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  moon (x: number, y: number): Element {
+  moon(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = -7 // px
@@ -271,7 +271,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  mercury (x: number, y: number): Element {
+  mercury(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = 7 // px
@@ -309,7 +309,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  venus (x: number, y: number): Element {
+  venus(x: number, y: number): Element {
     // center symbol
     const xShift = 2 // px
     const yShift = 7 // px
@@ -338,7 +338,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  mars (x: number, y: number): Element {
+  mars(x: number, y: number): Element {
     // center symbol
     const xShift = 2 // px
     const yShift = -2 // px
@@ -367,7 +367,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  jupiter (x: number, y: number): Element {
+  jupiter(x: number, y: number): Element {
     // center symbol
     const xShift = -5 // px
     const yShift = -2 // px
@@ -398,7 +398,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  saturn (x: number, y: number): Element {
+  saturn(x: number, y: number): Element {
     // center symbol
     const xShift = 5 // px
     const yShift = 10 // px
@@ -427,7 +427,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  uranus (x: number, y: number): Element {
+  uranus(x: number, y: number): Element {
     // center symbol
     const xShift = -5 // px
     const yShift = -7 // px
@@ -467,7 +467,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  neptune (x: number, y: number): Element {
+  neptune(x: number, y: number): Element {
     // center symbol
     const xShift = 3 // px
     const yShift = -5 // px
@@ -496,7 +496,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  pluto (x: number, y: number): Element {
+  pluto(x: number, y: number): Element {
     // center symbol
     const xShift = 5 // px
     const yShift = -5 // px
@@ -534,7 +534,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  chiron (x: number, y: number): Element {
+  chiron(x: number, y: number): Element {
     // center symbol
     const xShift = 3 // px
     const yShift = 5 // px
@@ -572,7 +572,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  lilith (x: number, y: number): Element {
+  lilith(x: number, y: number): Element {
     // center symbol
     const xShift = 2 // px
     const yShift = 4 // px
@@ -601,7 +601,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  nnode (x: number, y: number): Element {
+  nnode(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = 3 // px
@@ -630,15 +630,16 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  snode (x: number, y: number): Element {
+  snode(x: number, y: number): Element {
     // center symbol
     const xShift = 0
-    const yShift = 0
+    const yShift = -5
+
     x = Math.round(x + (xShift * this.settings.SYMBOL_SCALE))
     y = Math.round(y + (yShift * this.settings.SYMBOL_SCALE))
 
     const wrapper = document.createElementNS(this.context.root.namespaceURI, 'g')
-    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 1)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 1)) + ')')
+    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 1)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 1)) + ') scale(' + this.settings.SYMBOL_SCALE + ')')
 
     const node = document.createElementNS(this.context.root.namespaceURI, 'path')
     node.setAttribute('d', 'm' + x + ', ' + y + ' l1.3333282470703125,0.666656494140625l0.6666717529296875,0l1.3333282470703125,-0.666656494140625l0.6666717529296875,-1.333343505859375l0,-0.666656494140625l-0.6666717529296875,-1.333343505859375l-1.3333282470703125,-0.666656494140625l-0.6666717529296875,0l-1.3333282470703125,0.666656494140625l-0.6666717529296875,1.333343505859375l0,0.666656494140625l0.6666717529296875,1.333343505859375l2,2.666656494140625l0.6666717529296875,2l0,1.333343505859375l-0.6666717529296875,2l-1.3333282470703125,1.333343505859375l-2,0.666656494140625l-2.6666717529296875,0l-2,-0.666656494140625l-1.3333282470703125,-1.333343505859375l-0.6666717529296875,-2l0,-1.333343505859375l0.6666717529296875,-2l2,-2.666656494140625l0.666656494140625,-1.333343505859375l0,-0.666656494140625l-0.666656494140625,-1.333343505859375l-1.333343505859375,-0.666656494140625l-0.666656494140625,0l-1.333343505859375,0.666656494140625l-0.666656494140625,1.333343505859375l0,0.666656494140625l0.666656494140625,1.333343505859375l1.333343505859375,0.666656494140625l0.666656494140625,0l1.333343505859375,-0.666656494140625m8,6l-0.6666717529296875,1.333343505859375l-1.3333282470703125,1.33331298828125l-2,0.66668701171875l-2.6666717529296875,0l-2,-0.66668701171875l-1.3333282470703125,-1.33331298828125l-0.6666717529296875,-1.333343505859375')
@@ -649,7 +650,7 @@ class SVG {
 
     return wrapper
   }
- 
+
   /*
  * Fortune path
  * @private
@@ -659,7 +660,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  fortune (x: number, y: number): Element {
+  fortune(x: number, y: number): Element {
     // center symbol
     const xShift = -10
     const yShift = -8
@@ -667,7 +668,8 @@ class SVG {
     y = Math.round(y + (yShift * this.settings.SYMBOL_SCALE))
 
     const wrapper = document.createElementNS(this.context.root.namespaceURI, 'g')
-    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 2)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 2)) + ')')
+
+    wrapper.setAttribute('transform', 'translate(' + (-x * (this.settings.SYMBOL_SCALE - 1)) + ',' + (-y * (this.settings.SYMBOL_SCALE - 1)) + ') scale(' + this.settings.SYMBOL_SCALE + ')')
 
     const path1 = document.createElementNS(this.context.root.namespaceURI, 'path')
     path1.setAttribute('d', 'M15.971322059631348,8.000000953674316A7.971322252863855,7.971322252863855,0,0,1,8,15.97132396697998A7.971322252863855,7.971322252863855,0,0,1,0.028678132221102715,8.000000953674316A7.971322252863855,7.971322252863855,0,0,1,8,0.028677448630332947A7.971322252863855,7.971322252863855,0,0,1,15.971322059631348,8.000000953674316Z')
@@ -675,16 +677,21 @@ class SVG {
     path2.setAttribute('d', 'M2.668839454650879,2.043858766555786C6.304587364196777,5.906839370727539,9.94033432006836,9.769822120666504,13.576082229614258,13.632804870605469')
     const path3 = document.createElementNS(this.context.root.namespaceURI, 'path')
     path3.setAttribute('d', 'm2.5541272163391113,13.747519493103027c3.635746955871582,-3.8629846572875977,7.271494388580322,-7.72596549987793,10.90724229812622,-11.588947772979736')
+    const fortuneGroup = document.createElementNS(this.context.root.namespaceURI, 'g')
+    fortuneGroup.setAttribute('transform', 'translate(' + x + ',' + y + ')')
+    fortuneGroup.appendChild(path1)
+    fortuneGroup.appendChild(path2)
+    fortuneGroup.appendChild(path3)
+
 
     wrapper.setAttribute('stroke', this.settings.POINTS_COLOR)
     wrapper.setAttribute('stroke-width', this.settings.POINTS_STROKE.toString())
     wrapper.setAttribute('fill', 'none')
-    wrapper.appendChild(path1)
-    wrapper.appendChild(path2)
-    wrapper.appendChild(path3)
+    wrapper.appendChild(fortuneGroup)
+
 
     return wrapper
-  } 
+  }
 
   /*
  * Aries symbol path
@@ -695,7 +702,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  aries (x: number, y: number): Element {
+  aries(x: number, y: number): Element {
     // center symbol
     const xShift = -9 // px
     const yShift = -2 // px
@@ -728,7 +735,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  taurus (x: number, y: number): Element {
+  taurus(x: number, y: number): Element {
     // center symbol
     const xShift = -9 // px
     const yShift = -11 // px
@@ -759,7 +766,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  gemini (x: number, y: number): Element {
+  gemini(x: number, y: number): Element {
     // center symbol
     const xShift = -6 // px
     const yShift = -6 // px
@@ -790,7 +797,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  cancer (x: number, y: number): Element {
+  cancer(x: number, y: number): Element {
     // center symbol
     const xShift = 9 // px
     const yShift = -9 // px
@@ -821,7 +828,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  leo (x: number, y: number): Element {
+  leo(x: number, y: number): Element {
     // center symbol
     const xShift = -3 // px
     const yShift = 4 // px
@@ -852,7 +859,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  virgo (x: number, y: number): Element {
+  virgo(x: number, y: number): Element {
     // center symbol
     const xShift = -9 // px
     const yShift = -5 // px
@@ -883,7 +890,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  libra (x: number, y: number): Element {
+  libra(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = -8 // px
@@ -914,7 +921,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  scorpio (x: number, y: number): Element {
+  scorpio(x: number, y: number): Element {
     // center symbol
     const xShift = -9 // px
     const yShift = -4 // px
@@ -945,7 +952,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  sagittarius (x: number, y: number): Element {
+  sagittarius(x: number, y: number): Element {
     // center symbol
     const xShift = 7 // px
     const yShift = -9 // px
@@ -976,7 +983,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  capricorn (x: number, y: number): Element {
+  capricorn(x: number, y: number): Element {
     // center symbol
     const xShift = -9 // px
     const yShift = -3 // px
@@ -1007,7 +1014,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  aquarius (x: number, y: number): Element {
+  aquarius(x: number, y: number): Element {
     // center symbol
     const xShift = -8 // px
     const yShift = -2 // px
@@ -1038,7 +1045,7 @@ class SVG {
  *
  * @return {SVGPathElement} path
  */
-  pisces (x: number, y: number): Element {
+  pisces(x: number, y: number): Element {
     // center symbol
     const xShift = -8 // px
     const yShift = -8 // px
@@ -1063,7 +1070,7 @@ class SVG {
   /**
  * Draw As symbol
  */
-  ascendant (x: number, y: number): Element {
+  ascendant(x: number, y: number): Element {
     // center symbol
     const xShift = 12 // px
     const yShift = -2 // px
@@ -1087,7 +1094,7 @@ class SVG {
   /**
  * Draw Ds symbol
  */
-  descendant (x: number, y: number): Element {
+  descendant(x: number, y: number): Element {
     // center symbol
     const xShift = 22 // px
     const yShift = -1 // px
@@ -1110,7 +1117,7 @@ class SVG {
   /**
  * Draw MC symbol
  */
-  mediumCoeli (x: number, y: number): Element {
+  mediumCoeli(x: number, y: number): Element {
     // center symbol
     const xShift = 19 // px
     const yShift = -4 // px
@@ -1133,7 +1140,7 @@ class SVG {
   /**
  * Draw IC symbol
  */
-  immumCoeli (x: number, y: number): Element {
+  immumCoeli(x: number, y: number): Element {
     // center symbol
     const xShift = 19 // px
     const yShift = 2 // px
@@ -1153,7 +1160,7 @@ class SVG {
     return wrapper
   }
 
-  number1 (x: number, y: number): Element {
+  number1(x: number, y: number): Element {
     // center symbol
     const xShift = 0 // px
     const yShift = -3 // px
@@ -1175,7 +1182,7 @@ class SVG {
     return wrapper
   }
 
-  number2 (x: number, y: number): Element {
+  number2(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = -3 // px
@@ -1197,7 +1204,7 @@ class SVG {
     return wrapper
   }
 
-  number3 (x: number, y: number): Element {
+  number3(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = -3 // px
@@ -1219,7 +1226,7 @@ class SVG {
     return wrapper
   }
 
-  number4 (x: number, y: number): Element {
+  number4(x: number, y: number): Element {
     // center symbol
     const xShift = 1 // px
     const yShift = -4 // px
@@ -1241,7 +1248,7 @@ class SVG {
     return wrapper
   }
 
-  number5 (x: number, y: number): Element {
+  number5(x: number, y: number): Element {
     // center symbol
     const xShift = -2 // px
     const yShift = -5 // px
@@ -1263,7 +1270,7 @@ class SVG {
     return wrapper
   }
 
-  number6 (x: number, y: number): Element {
+  number6(x: number, y: number): Element {
     // center symbol
     const xShift = 3 // px
     const yShift = -3 // px
@@ -1285,7 +1292,7 @@ class SVG {
     return wrapper
   }
 
-  number7 (x: number, y: number): Element {
+  number7(x: number, y: number): Element {
     // center symbol
     const xShift = -4 // px
     const yShift = -4 // px
@@ -1307,7 +1314,7 @@ class SVG {
     return wrapper
   }
 
-  number8 (x: number, y: number): Element {
+  number8(x: number, y: number): Element {
     // center symbol
     const xShift = -1 // px
     const yShift = -5 // px
@@ -1329,7 +1336,7 @@ class SVG {
     return wrapper
   }
 
-  number9 (x: number, y: number): Element {
+  number9(x: number, y: number): Element {
     // center symbol
     const xShift = 1 // px
     const yShift = -2 // px
@@ -1351,7 +1358,7 @@ class SVG {
     return wrapper
   }
 
-  number10 (x: number, y: number): Element {
+  number10(x: number, y: number): Element {
     // center symbol
     const xShift = -3 // px
     const yShift = -3.5 // px
@@ -1382,7 +1389,7 @@ class SVG {
     return wrapper
   }
 
-  number11 (x: number, y: number): Element {
+  number11(x: number, y: number): Element {
     // center symbol
     const xShift = -3 // px
     const yShift = -3 // px
@@ -1413,7 +1420,7 @@ class SVG {
     return wrapper
   }
 
-  number12 (x: number, y: number): Element {
+  number12(x: number, y: number): Element {
     // center symbol
     const xShift = -3 // px
     const yShift = -3 // px
@@ -1458,7 +1465,7 @@ class SVG {
  *
  * @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
  */
-  segment (x: number, y: number, radius: number, a1: number, a2: number, thickness: number, lFlag?: number, sFlag?: number): Element {
+  segment(x: number, y: number, radius: number, a1: number, a2: number, thickness: number, lFlag?: number, sFlag?: number): Element {
     // @see SVG Path arc: https://www.w3.org/TR/SVG/paths.html#PathData
     const LARGE_ARC_FLAG = lFlag || 0
     const SWEET_FLAG = sFlag || 0
@@ -1483,7 +1490,7 @@ class SVG {
  *
  * @return {SVGElement} line
  */
-  line (x1: number, y1: number, x2: number, y2: number): Element {
+  line(x1: number, y1: number, x2: number, y2: number): Element {
     const line = document.createElementNS(this.context.root.namespaceURI, 'line')
     line.setAttribute('x1', x1.toString())
     line.setAttribute('y1', y1.toString())
@@ -1501,7 +1508,7 @@ class SVG {
  *
  * @return {SVGElement} circle
  */
-  circle (cx: number, cy: number, radius: number): Element {
+  circle(cx: number, cy: number, radius: number): Element {
     const circle = document.createElementNS(this.context.root.namespaceURI, 'circle')
     circle.setAttribute('cx', cx.toString())
     circle.setAttribute('cy', cy.toString())
@@ -1521,7 +1528,7 @@ class SVG {
  *
  * @return {SVGElement} text
  */
-  text (txt: string, x: number, y: number, size: string, color: string): Element {
+  text(txt: string, x: number, y: number, size: string, color: string): Element {
     const text = document.createElementNS(this.context.root.namespaceURI, 'text')
     text.setAttribute('x', x.toString())
     text.setAttribute('y', y.toString())
