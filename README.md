@@ -8,6 +8,10 @@ A free and open-source TypeScript library for generating SVG charts to display p
 - SVG graphics.
 - Tested code.
 
+## Example:
+
+<img width="764" alt="Chart wheel with transits" src="https://github.com/AstroDraw/AstroChart/blob/main/doc/images/transits.png?raw=true">
+
 ## Documentation
 A documentation is in progress, please checkout [website](https://astrodraw.github.io/).
 
