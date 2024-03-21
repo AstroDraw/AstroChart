@@ -18,6 +18,7 @@
   "types": "./dist/project/src/index.d.ts",
   "scripts": {
     "test": "jest",
+    "test:w": "jest --watch",
     "test:coverage": "jest --coverage",
     "build": "webpack",
     "build:w": "webpack --watch",
