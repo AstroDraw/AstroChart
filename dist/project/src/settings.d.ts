@@ -3,6 +3,7 @@ export interface AspectData {
     degree: number;
     orbit: number;
     color: string;
+    width: number;
 }
 export type Aspect = Record<string, AspectData>;
 export interface Dignity {
