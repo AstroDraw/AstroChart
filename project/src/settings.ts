@@ -1,6 +1,6 @@
 import type SVG from './svg'
 
-export interface AspectData { degree: number; orbit: number; color: string }
+export interface AspectData { degree: number; orbit: number; color: string; width: number; }
 export type Aspect = Record<string, AspectData>
 export interface Dignity {
   name: string
@@ -283,10 +283,10 @@ const settings: Settings = {
 
   // Aspects
   ASPECTS: {
-    conjunction: { degree: 0, orbit: 10, color: 'transparent' },
-    square: { degree: 90, orbit: 8, color: '#FF4500' },
-    trine: { degree: 120, orbit: 8, color: '#27AE60' },
-    opposition: { degree: 180, orbit: 10, color: '#27AE60' }
+    conjunction: { degree: 0, orbit: 10, color: 'transparent', width: 4  },
+    square: { degree: 90, orbit: 8, color: '#FF4500', width: 4 },
+    trine: { degree: 120, orbit: 8, color: '#27AE60', width: 4 },
+    opposition: { degree: 180, orbit: 10, color: '#27AE60', width: 4 }
   },
 
   // Dignities

@@ -13,6 +13,7 @@ export interface FormedAspect {
         name: string;
         degree: number;
         color: string;
+        width: number;
         orbit: number;
     };
     precision: string;

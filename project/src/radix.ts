@@ -345,7 +345,7 @@ class Radix {
 
         const line = this.paper.line(startPoint.x, startPoint.y, endPoint.x, endPoint.y)
         line.setAttribute('stroke', this.settings.STROKE_ONLY ? this.settings.LINE_COLOR : aspectsList[i].aspect.color)
-        line.setAttribute('stroke-width', (this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString())
+        line.setAttribute('stroke-width', (aspectsList[i].aspect?.width ? aspectsList[i].aspect.width : this.settings.CUSPS_STROKE * this.settings.SYMBOL_SCALE).toString())
 
         line.setAttribute('data-name', aspectsList[i].aspect.name)
         line.setAttribute('data-degree', aspectsList[i].aspect.degree.toString())

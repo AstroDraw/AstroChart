@@ -15,16 +15,17 @@ export interface FormedAspect {
     name: string
     degree: number
     color: string
+    width: number
     orbit: number
   }
   precision: string
 }
 
 const DEFAULT_ASPECTS = {
-  conjunction: { degree: 0, orbit: 10, color: 'transparent' },
-  square: { degree: 90, orbit: 8, color: '#FF4500' },
-  trine: { degree: 120, orbit: 8, color: '#27AE60' },
-  opposition: { degree: 180, orbit: 10, color: '#27AE60' }
+  conjunction: { degree: 0, orbit: 10, color: 'transparent', width: 4 },
+  square: { degree: 90, orbit: 8, color: '#FF4500', width: 4 },
+  trine: { degree: 120, orbit: 8, color: '#27AE60', width: 4 },
+  opposition: { degree: 180, orbit: 10, color: '#27AE60', width: 4 }
 }
 /**
    * Aspects calculator
@@ -88,7 +89,7 @@ class AspectCalculator {
                 if (this.hasAspect(points[point][0], this.toPoints[toPoint][0], this.settings.ASPECTS[aspect])) {
                   aspects.push(
                     {
-                      aspect: { name: aspect, degree: this.settings.ASPECTS[aspect].degree, orbit: this.settings.ASPECTS[aspect].orbit, color: this.settings.ASPECTS[aspect].color },
+                      aspect: { name: aspect, degree: this.settings.ASPECTS[aspect].degree, orbit: this.settings.ASPECTS[aspect].orbit, color: this.settings.ASPECTS[aspect].color, width: this.settings.ASPECTS[aspect].width },
                       point: { name: point, position: points[point][0] },
                       toPoint: { name: toPoint, position: this.toPoints[toPoint][0] },
                       precision: this.calcPrecision(points[point][0], this.toPoints[toPoint][0], this.settings.ASPECTS[aspect].degree).toFixed(4)
@@ -139,7 +140,7 @@ class AspectCalculator {
 
                 aspects.push(
                   {
-                    aspect: { name: aspect, degree: this.settings.ASPECTS[aspect].degree, orbit: this.settings.ASPECTS[aspect].orbit, color: this.settings.ASPECTS[aspect].color },
+                    aspect: { name: aspect, degree: this.settings.ASPECTS[aspect].degree, orbit: this.settings.ASPECTS[aspect].orbit, color: this.settings.ASPECTS[aspect].color, width: this.settings.ASPECTS[aspect].width },
                     point: { name: point, position: points[point][0] },
                     toPoint: { name: toPoint, position: this.toPoints[toPoint][0] },
                     precision: precision.toFixed(4)
