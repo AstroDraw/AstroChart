@@ -10,5 +10,5 @@
     "declaration": true,
     "strictNullChecks": true
   },
-  "exclude": ["project/src/**/*.test.ts", "dist"]
+  "exclude": ["project/src/**/*.test.ts", "dist", "website"]
 }
