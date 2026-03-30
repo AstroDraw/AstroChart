@@ -27,10 +27,10 @@ export const defaultRadixData: AstroData = {
     Neptune: [210.12, 0],   // Scorpio 0°07'
     Pluto: [238.34, 0],     // Sagittarius 28°20'
     Chiron: [125.67, 0],    // Leo 5°40'
-    NorthNode: [95.45, 0],  // Gemini 5°27'
-    SouthNode: [275.45, 0], // Sagittarius 5°27'
+    NNode: [95.45, 0],      // Gemini 5°27'
+    SNode: [275.45, 0],     // Sagittarius 5°27'
     Lilith: [145.23, 0],    // Leo 25°14'
-    Vertex: [325.67, 0]     // Aquarius 25°40'
+    Fortune: [325.67, 0]    // Aquarius 25°40'
   },
   cusps: [
     315.45,  // Asc (Aquarius 15°27')
@@ -66,10 +66,10 @@ export const defaultTransitData: AstroData = {
     Neptune: [325.12, 0],   // Pisces 25°07'
     Pluto: [300.34, 0],     // Aquarius 0°20'
     Chiron: [168.67, 0],    // Virgo 18°40'
-    NorthNode: [62.45, 0],  // Taurus 2°27'
-    SouthNode: [242.45, 0], // Sagittarius 2°27'
+    NNode: [62.45, 0],      // Taurus 2°27'
+    SNode: [242.45, 0],     // Sagittarius 2°27'
     Lilith: [215.23, 0],    // Scorpio 5°14'
-    Vertex: [45.67, 0]      // Taurus 15°40'
+    Fortune: [45.67, 0]     // Taurus 15°40'
   },
   cusps: [
     315.45,  // Asc (Aquarius 15°27') - same as radix for comparison

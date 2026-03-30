@@ -81,45 +81,56 @@ const codeSnippet = getCodeSnippet()
     transitData: defaultTransitData
   }}
 >
-  // Load the AstroChart library if not already loaded
-  if (typeof window.astrochart === 'undefined') {
-    const script = document.createElement('script')
-    script.src = '/astrochart.js'
-    script.onload = () => {
-      initChart()
-    }
-    document.head.appendChild(script)
-  } else {
-    initChart()
-  }
+  ;(function () {
+    function initChart() {
+      const container = document.getElementById(chartId)
+      if (!container) return
 
-  function initChart() {
-    const container = document.getElementById(chartId)
-    if (!container) return
+      try {
+        const { Chart } = window.astrochart
+        const chart = new Chart(chartId, chartHeight, chartHeight)
 
-    try {
-      const { Chart } = window.astrochart
-      const chart = new Chart(chartId, chartHeight, chartHeight)
-      
-      if (chartMode === 'radix') {
-        chart.radix(radixData)
-      } else if (chartMode === 'transit') {
-        chart.radix(radixData).transit(transitData)
-      } else if (chartMode === 'animate') {
-        const transit = chart.radix(radixData).transit(transitData)
-        
-        // Set up animation button
-        const animateBtn = document.getElementById(chartId + '-animate-btn')
-        if (animateBtn) {
-          animateBtn.addEventListener('click', () => {
-            transit.animate()
-          })
+        if (chartMode === 'radix') {
+          chart.radix(radixData)
+        } else if (chartMode === 'transit') {
+          chart.radix(radixData).transit(transitData)
+        } else if (chartMode === 'animate') {
+          const transit = chart.radix(radixData).transit(transitData)
+
+          const animateBtn = document.getElementById(chartId + '-animate-btn')
+          if (animateBtn) {
+            animateBtn.addEventListener('click', function () {
+              transit.animate()
+            })
+          }
         }
+      } catch (err) {
+        console.error('ChartDemo [' + chartId + '] error:', err)
       }
-    } catch (error) {
-      console.error('ChartDemo error:', error)
     }
-  }
+
+    if (window.astrochart) {
+      // Library already loaded — init immediately
+      initChart()
+    } else if (document.querySelector('script[src="/astrochart.js"]')) {
+      // Another instance is already loading the bundle — queue up
+      window.__astrochartQueue = window.__astrochartQueue || []
+      window.__astrochartQueue.push(initChart)
+    } else {
+      // First instance — load the bundle and flush the queue on load
+      window.__astrochartQueue = window.__astrochartQueue || []
+      window.__astrochartQueue.push(initChart)
+
+      var script = document.createElement('script')
+      script.src = '/astrochart.js'
+      script.onload = function () {
+        var queue = window.__astrochartQueue || []
+        window.__astrochartQueue = []
+        queue.forEach(function (fn) { fn() })
+      }
+      document.head.appendChild(script)
+    }
+  })()
 </script>
 
 <style>
