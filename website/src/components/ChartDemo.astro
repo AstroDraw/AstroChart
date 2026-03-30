@@ -4,51 +4,69 @@
  * Renders a live interactive astrology chart using the AstroChart library.
  * 
  * @param id - Unique element ID for the chart container
- * @param data - AstroData object for the chart
- * @param width - Chart width in pixels (default: 600)
- * @param height - Chart height in pixels (default: 600)
- * @param type - Chart type: 'radix' or 'transit' (default: 'radix')
- * @param showCode - Show code snippet (default: false)
- * @param code - Optional code snippet to display
+ * @param height - Chart height in pixels (default: 500)
+ * @param mode - Chart mode: 'radix', 'transit', or 'animate' (default: 'radix')
+ * @param showCode - Show code snippet (default: true)
  */
 
 export interface Props {
   id: string
-  data: any
-  width?: number
   height?: number
-  type?: 'radix' | 'transit'
+  mode?: 'radix' | 'transit' | 'animate'
   showCode?: boolean
-  code?: string
 }
+
+import { defaultRadixData, defaultTransitData } from '../data/demoData'
 
 const {
   id,
-  data,
-  width = 600,
-  height = 600,
-  type = 'radix',
-  showCode = false,
-  code
+  height = 500,
+  mode = 'radix',
+  showCode = true
 } = Astro.props
+
+// Generate code snippet based on mode
+const getCodeSnippet = () => {
+  if (mode === 'radix') {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data)`
+  } else if (mode === 'transit') {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(radixData).transit(transitData)`
+  } else {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+const transit = chart.radix(radixData).transit(transitData)
+transit.animate()`
+  }
+}
+
+const codeSnippet = getCodeSnippet()
 ---
 
 <div class="chart-demo-wrapper">
-  <div id={id} style={`width: ${width}px; height: ${height}px;`}></div>
+  <div id={id} style={`width: ${height}px; height: ${height}px;`}></div>
   <noscript>
     <p style="color: #666; text-align: center; padding: 2rem;">
       JavaScript is required to display the interactive chart.
     </p>
   </noscript>
   
-  {showCode && code && (
-    <details style="margin-top: 1rem;">
-      <summary style="cursor: pointer; font-weight: 600; color: var(--sl-color-accent);">
-        Show Code
-      </summary>
-      <pre style="background: #f5f5f5; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-top: 0.5rem;">
-        <code>{code}</code>
-      </pre>
+  {mode === 'animate' && (
+    <button id={`${id}-animate-btn`} class="animate-button">
+      Start Animation
+    </button>
+  )}
+  
+  {showCode && (
+    <details class="code-snippet">
+      <summary>Show Code</summary>
+      <pre><code>{codeSnippet}</code></pre>
     </details>
   )}
 </div>
@@ -57,10 +75,10 @@ const {
   is:inline
   define:vars={{
     chartId: id,
-    chartData: data,
-    chartWidth: width,
+    chartMode: mode,
     chartHeight: height,
-    chartType: type
+    radixData: defaultRadixData,
+    transitData: defaultTransitData
   }}
 >
   // Load the AstroChart library if not already loaded
@@ -81,12 +99,22 @@ const {
 
     try {
       const { Chart } = window.astrochart
-      const chart = new Chart(chartId, chartWidth, chartHeight)
+      const chart = new Chart(chartId, chartHeight, chartHeight)
       
-      if (chartType === 'transit' && chartData.transit) {
-        chart.radix(chartData.radix).transit(chartData.transit)
-      } else {
-        chart[chartType](chartData)
+      if (chartMode === 'radix') {
+        chart.radix(radixData)
+      } else if (chartMode === 'transit') {
+        chart.radix(radixData).transit(transitData)
+      } else if (chartMode === 'animate') {
+        const transit = chart.radix(radixData).transit(transitData)
+        
+        // Set up animation button
+        const animateBtn = document.getElementById(chartId + '-animate-btn')
+        if (animateBtn) {
+          animateBtn.addEventListener('click', () => {
+            transit.animate()
+          })
+        }
       }
     } catch (error) {
       console.error('ChartDemo error:', error)
@@ -100,9 +128,10 @@ const {
     flex-direction: column;
     align-items: center;
     margin: 2rem auto;
+    max-width: 100%;
   }
 
-  .chart-demo-wrapper > div {
+  .chart-demo-wrapper > div:first-child {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -111,12 +140,47 @@ const {
     border: 1px solid #e5e5e5;
   }
 
-  pre {
+  .animate-button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--sl-color-accent);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .animate-button:hover {
+    opacity: 0.9;
+  }
+
+  .code-snippet {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .code-snippet summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sl-color-accent);
+    padding: 0.5rem;
+  }
+
+  .code-snippet pre {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-top: 0.5rem;
     font-size: 0.875rem;
     line-height: 1.5;
   }
 
-  code {
+  .code-snippet code {
     font-family: 'Courier New', monospace;
   }
 </style>
