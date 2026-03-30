@@ -1,0 +1,10 @@
+{
+  "extends": "astro/configs/strict",
+  "compilerOptions": {
+    "jsxImportSource": "astro",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "moduleResolution": "bundler",
+    "module": "esnext",
+    "target": "esnext"
+  }
+}

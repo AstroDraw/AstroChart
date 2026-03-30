@@ -1,0 +1,266 @@
+---
+// Custom landing page for AstroChart
+// Overrides Starlight's default home page
+
+import { getCollection } from 'astro:content'
+import Layout from '@astrojs/starlight/layouts/Layout.astro'
+
+const title = 'AstroChart — Pure SVG Astrology Charts'
+const description = 'A lightweight, zero-dependency library for rendering interactive SVG astrology charts in the browser.'
+---
+
+<Layout title={title} description={description}>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>AstroChart</h1>
+        <p class="tagline">Pure SVG astrology charts for the web</p>
+        <p class="description">
+          A lightweight, zero-dependency library for rendering interactive SVG astrology charts 
+          (radix, transit, and more) directly in your web applications.
+        </p>
+        
+        <div class="cta-buttons">
+          <a href="/docs/introduction" class="btn btn-primary">Get Started</a>
+          <a href="https://github.com/AstroDraw/AstroChart" class="btn btn-secondary">View on GitHub</a>
+        </div>
+
+        <div class="install-snippet">
+          <pre><code>npm install @astrodraw/astrochart</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2>Why AstroChart?</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>⚡ Zero Dependencies</h3>
+          <p>Pure SVG and vanilla JavaScript. No React, Vue, or other frameworks required.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🎨 Fully Customizable</h3>
+          <p>Control colors, fonts, sizes, rendering modes, and add custom symbols with simple settings.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📱 Responsive</h3>
+          <p>Charts scale perfectly to any container size and work on all modern browsers.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔧 Framework Agnostic</h3>
+          <p>Use as a standalone library or integrate with React, Vue, Angular, or any other framework.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📊 Complete API</h3>
+          <p>Render radix charts, transit rings, aspects, animations, and click events with ease.</p>
+        </div>
+        <div class="feature-card">
+          <h3>✅ TypeScript Support</h3>
+          <p>Full type definitions included. Write safe, maintainable code with IDE autocompletion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="cta-footer">
+      <h2>Ready to get started?</h2>
+      <p>Check out the <a href="/docs/quickstart">Quick Start guide</a> to render your first chart in minutes.</p>
+      <p style="font-size: 0.9rem; color: var(--sl-color-text-accent); margin-top: 2rem;">
+        <strong>Version:</strong> 3.0.2 · 
+        <a href="/docs/changelog">Changelog</a> · 
+        <a href="/docs/contributing">Contributing</a>
+      </p>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--sl-color-accent-low) 0%, transparent 100%);
+    border-radius: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 0 0 0.5rem 0;
+    color: var(--sl-color-accent);
+  }
+
+  .tagline {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+    margin: 0 0 1rem 0;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: var(--sl-color-text-accent);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    line-height: 1.6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .btn {
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border: 2px solid transparent;
+  }
+
+  .btn-primary {
+    background: var(--sl-color-accent);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--sl-color-accent);
+    border-color: var(--sl-color-accent);
+  }
+
+  .btn-secondary:hover {
+    background: var(--sl-color-accent-low);
+  }
+
+  .install-snippet {
+    display: inline-block;
+    background: var(--sl-color-bg-nav);
+    border-radius: 0.5rem;
+    padding: 1rem 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+  }
+
+  .install-snippet code {
+    color: var(--sl-color-accent);
+  }
+
+  /* Features Section */
+  .features {
+    margin-bottom: 4rem;
+  }
+
+  .features h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  .feature-card {
+    padding: 2rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 0.75rem;
+    border: 1px solid var(--sl-color-border);
+    transition: all 0.2s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--sl-color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .feature-card h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--sl-color-accent);
+    font-size: 1.25rem;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: var(--sl-color-text-accent);
+    line-height: 1.6;
+  }
+
+  /* CTA Footer */
+  .cta-footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-border);
+  }
+
+  .cta-footer h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .cta-footer p {
+    color: var(--sl-color-text-accent);
+    margin: 0.5rem 0;
+  }
+
+  .cta-footer a {
+    color: var(--sl-color-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .cta-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero {
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

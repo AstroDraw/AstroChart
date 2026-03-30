@@ -1,0 +1,122 @@
+---
+/**
+ * ChartDemo Component
+ * Renders a live interactive astrology chart using the AstroChart library.
+ * 
+ * @param id - Unique element ID for the chart container
+ * @param data - AstroData object for the chart
+ * @param width - Chart width in pixels (default: 600)
+ * @param height - Chart height in pixels (default: 600)
+ * @param type - Chart type: 'radix' or 'transit' (default: 'radix')
+ * @param showCode - Show code snippet (default: false)
+ * @param code - Optional code snippet to display
+ */
+
+export interface Props {
+  id: string
+  data: any
+  width?: number
+  height?: number
+  type?: 'radix' | 'transit'
+  showCode?: boolean
+  code?: string
+}
+
+const {
+  id,
+  data,
+  width = 600,
+  height = 600,
+  type = 'radix',
+  showCode = false,
+  code
+} = Astro.props
+---
+
+<div class="chart-demo-wrapper">
+  <div id={id} style={`width: ${width}px; height: ${height}px;`}></div>
+  <noscript>
+    <p style="color: #666; text-align: center; padding: 2rem;">
+      JavaScript is required to display the interactive chart.
+    </p>
+  </noscript>
+  
+  {showCode && code && (
+    <details style="margin-top: 1rem;">
+      <summary style="cursor: pointer; font-weight: 600; color: var(--sl-color-accent);">
+        Show Code
+      </summary>
+      <pre style="background: #f5f5f5; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; margin-top: 0.5rem;">
+        <code>{code}</code>
+      </pre>
+    </details>
+  )}
+</div>
+
+<script
+  is:inline
+  define:vars={{
+    chartId: id,
+    chartData: data,
+    chartWidth: width,
+    chartHeight: height,
+    chartType: type
+  }}
+>
+  // Load the AstroChart library if not already loaded
+  if (typeof window.astrochart === 'undefined') {
+    const script = document.createElement('script')
+    script.src = '/astrochart.js'
+    script.onload = () => {
+      initChart()
+    }
+    document.head.appendChild(script)
+  } else {
+    initChart()
+  }
+
+  function initChart() {
+    const container = document.getElementById(chartId)
+    if (!container) return
+
+    try {
+      const { Chart } = window.astrochart
+      const chart = new Chart(chartId, chartWidth, chartHeight)
+      
+      if (chartType === 'transit' && chartData.transit) {
+        chart.radix(chartData.radix).transit(chartData.transit)
+      } else {
+        chart[chartType](chartData)
+      }
+    } catch (error) {
+      console.error('ChartDemo error:', error)
+    }
+  }
+</script>
+
+<style>
+  .chart-demo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+  }
+
+  .chart-demo-wrapper > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e5e5;
+  }
+
+  pre {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  code {
+    font-family: 'Courier New', monospace;
+  }
+</style>
