@@ -1,5 +1,5 @@
 {
-  "extends": "astro/configs/strict",
+  "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "jsxImportSource": "astro",
     "lib": ["dom", "dom.iterable", "esnext"],

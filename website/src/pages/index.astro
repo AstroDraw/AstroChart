@@ -1,36 +1,29 @@
 ---
 // Custom landing page for AstroChart
-// Overrides Starlight's default home page
+// Uses StarlightPage with splash template to keep the header/footer from Starlight
 
-import { getCollection } from 'astro:content'
-import Layout from '@astrojs/starlight/layouts/Layout.astro'
-
-const title = 'AstroChart — Pure SVG Astrology Charts'
-const description = 'A lightweight, zero-dependency library for rendering interactive SVG astrology charts in the browser.'
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
 ---
 
-<Layout title={title} description={description}>
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="hero-content">
-        <h1>AstroChart</h1>
-        <p class="tagline">Pure SVG astrology charts for the web</p>
-        <p class="description">
-          A lightweight, zero-dependency library for rendering interactive SVG astrology charts 
-          (radix, transit, and more) directly in your web applications.
-        </p>
-        
-        <div class="cta-buttons">
-          <a href="/docs/introduction" class="btn btn-primary">Get Started</a>
-          <a href="https://github.com/AstroDraw/AstroChart" class="btn btn-secondary">View on GitHub</a>
-        </div>
+<StarlightPage frontmatter={{
+  title: 'AstroChart',
+  description: 'Pure SVG astrology charts for the web',
+  template: 'splash',
+  hero: {
+    tagline: 'A lightweight, zero-dependency library for rendering interactive SVG astrology charts directly in web browsers.',
+    actions: [
+      { text: 'Get Started', link: '/introduction', icon: 'right-arrow', variant: 'primary' },
+      { text: 'View on GitHub', link: 'https://github.com/AstroDraw/AstroChart', icon: 'github', variant: 'secondary' }
+    ]
+  }
+}}>
 
-        <div class="install-snippet">
-          <pre><code>npm install @astrodraw/astrochart</code></pre>
-        </div>
-      </div>
-    </section>
+  <div class="landing-content">
+
+    <!-- Install snippet -->
+    <div class="install-snippet">
+      <pre><code>npm install @astrodraw/astrochart</code></pre>
+    </div>
 
     <!-- Features Section -->
     <section class="features">
@@ -63,147 +56,90 @@ const description = 'A lightweight, zero-dependency library for rendering intera
       </div>
     </section>
 
-    <!-- Footer CTA -->
+    <!-- CTA Footer -->
     <section class="cta-footer">
       <h2>Ready to get started?</h2>
-      <p>Check out the <a href="/docs/quickstart">Quick Start guide</a> to render your first chart in minutes.</p>
-      <p style="font-size: 0.9rem; color: var(--sl-color-text-accent); margin-top: 2rem;">
-        <strong>Version:</strong> 3.0.2 · 
-        <a href="/docs/changelog">Changelog</a> · 
-        <a href="/docs/contributing">Contributing</a>
+      <p>Check out the <a href="/quickstart">Quick Start guide</a> to render your first chart in minutes.</p>
+      <p class="version-info">
+        <strong>Version:</strong> 3.0.2 ·
+        <a href="/changelog">Changelog</a> ·
+        <a href="/contributing">Contributing</a>
       </p>
     </section>
-  </main>
-</Layout>
+
+  </div>
+
+</StarlightPage>
 
 <style>
-  main {
-    max-width: 1200px;
+  .landing-content {
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 0 1.5rem;
   }
 
-  /* Hero Section */
-  .hero {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: linear-gradient(135deg, var(--sl-color-accent-low) 0%, transparent 100%);
-    border-radius: 1rem;
-    margin-bottom: 4rem;
-  }
-
-  .hero-content h1 {
-    font-size: 3.5rem;
-    font-weight: 900;
-    margin: 0 0 0.5rem 0;
-    color: var(--sl-color-accent);
-  }
-
-  .tagline {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--sl-color-text);
-    margin: 0 0 1rem 0;
-  }
-
-  .description {
-    font-size: 1.1rem;
-    color: var(--sl-color-text-accent);
-    max-width: 600px;
-    margin: 0 auto 2rem;
-    line-height: 1.6;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-
-  .btn {
-    padding: 0.75rem 2rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    border: 2px solid transparent;
-  }
-
-  .btn-primary {
-    background: var(--sl-color-accent);
-    color: white;
-  }
-
-  .btn-primary:hover {
-    opacity: 0.9;
-    transform: translateY(-2px);
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: var(--sl-color-accent);
-    border-color: var(--sl-color-accent);
-  }
-
-  .btn-secondary:hover {
-    background: var(--sl-color-accent-low);
-  }
-
+  /* Install snippet */
   .install-snippet {
+    text-align: center;
+    margin: 2rem auto;
+  }
+
+  .install-snippet pre {
     display: inline-block;
     background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-border);
     border-radius: 0.5rem;
-    padding: 1rem 1.5rem;
-    font-family: 'Courier New', monospace;
+    padding: 0.75rem 1.5rem;
     font-size: 1rem;
+    margin: 0;
   }
 
   .install-snippet code {
     color: var(--sl-color-accent);
+    font-family: var(--sl-font-mono, 'Courier New', monospace);
   }
 
   /* Features Section */
   .features {
-    margin-bottom: 4rem;
+    margin: 4rem 0;
   }
 
   .features h2 {
     font-size: 2rem;
     text-align: center;
     margin-bottom: 2rem;
+    color: var(--sl-color-white);
   }
 
   .feature-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
   }
 
   .feature-card {
-    padding: 2rem;
+    padding: 1.5rem;
     background: var(--sl-color-bg-nav);
     border-radius: 0.75rem;
     border: 1px solid var(--sl-color-border);
-    transition: all 0.2s ease;
+    transition: border-color 0.2s ease, transform 0.2s ease;
   }
 
   .feature-card:hover {
     border-color: var(--sl-color-accent);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .feature-card h3 {
     margin: 0 0 0.5rem 0;
-    color: var(--sl-color-accent);
-    font-size: 1.25rem;
+    font-size: 1.1rem;
   }
 
   .feature-card p {
     margin: 0;
-    color: var(--sl-color-text-accent);
+    color: var(--sl-color-gray-2);
     line-height: 1.6;
+    font-size: 0.95rem;
   }
 
   /* CTA Footer */
@@ -213,6 +149,7 @@ const description = 'A lightweight, zero-dependency library for rendering intera
     background: var(--sl-color-bg-nav);
     border-radius: 1rem;
     border: 1px solid var(--sl-color-border);
+    margin: 4rem 0;
   }
 
   .cta-footer h2 {
@@ -221,7 +158,7 @@ const description = 'A lightweight, zero-dependency library for rendering intera
   }
 
   .cta-footer p {
-    color: var(--sl-color-text-accent);
+    color: var(--sl-color-gray-2);
     margin: 0.5rem 0;
   }
 
@@ -235,32 +172,20 @@ const description = 'A lightweight, zero-dependency library for rendering intera
     text-decoration: underline;
   }
 
+  .version-info {
+    font-size: 0.9rem;
+    margin-top: 1.5rem !important;
+    color: var(--sl-color-gray-3) !important;
+  }
+
   /* Responsive */
   @media (max-width: 768px) {
-    .hero {
-      padding: 2rem 1rem;
-      margin-bottom: 2rem;
-    }
-
-    .hero-content h1 {
-      font-size: 2rem;
-    }
-
-    .tagline {
-      font-size: 1.25rem;
-    }
-
-    .cta-buttons {
-      flex-direction: column;
-    }
-
-    .btn {
-      width: 100%;
-    }
-
     .feature-grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
+    }
+
+    .features h2 {
+      font-size: 1.5rem;
     }
   }
 </style>

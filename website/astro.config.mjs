@@ -13,35 +13,34 @@ export default defineConfig({
         src: './public/img/logo.svg',
         alt: 'AstroChart Logo'
       },
-      social: {
-        github: 'https://github.com/AstroDraw/AstroChart',
-        'x.com': 'https://x.com'
-      },
+      social: [
+        { icon: 'github', label: 'GitHub', href: 'https://github.com/AstroDraw/AstroChart' }
+      ],
       sidebar: [
         {
           label: 'Getting Started',
           items: [
-            { label: 'Introduction', slug: 'docs/introduction' },
-            { label: 'Installation', slug: 'docs/installation' },
-            { label: 'Quick Start', slug: 'docs/quickstart' }
+            { label: 'Introduction', slug: 'introduction' },
+            { label: 'Installation', slug: 'installation' },
+            { label: 'Quick Start', slug: 'quickstart' }
           ]
         },
         {
           label: 'Guides',
           items: [
-            { label: 'Radix Chart', slug: 'docs/guides/radix-chart' },
-            { label: 'Transit Chart', slug: 'docs/guides/transit-chart' },
-            { label: 'Animation', slug: 'docs/guides/animation' },
-            { label: 'Custom Settings', slug: 'docs/guides/custom-settings' },
-            { label: 'Custom Symbols', slug: 'docs/guides/custom-symbols' },
-            { label: 'Multiple Charts', slug: 'docs/guides/multiple-charts' },
-            { label: 'Click Events', slug: 'docs/guides/click-events' },
+            { label: 'Radix Chart', slug: 'guides/radix-chart' },
+            { label: 'Transit Chart', slug: 'guides/transit-chart' },
+            { label: 'Animation', slug: 'guides/animation' },
+            { label: 'Custom Settings', slug: 'guides/custom-settings' },
+            { label: 'Custom Symbols', slug: 'guides/custom-symbols' },
+            { label: 'Multiple Charts', slug: 'guides/multiple-charts' },
+            { label: 'Click Events', slug: 'guides/click-events' },
             {
               label: 'Framework Integrations',
               items: [
-                { label: 'React', slug: 'docs/guides/frameworks/react' },
-                { label: 'Vue', slug: 'docs/guides/frameworks/vue' },
-                { label: 'Angular', slug: 'docs/guides/frameworks/angular' }
+                { label: 'React', slug: 'guides/frameworks/react' },
+                { label: 'Vue', slug: 'guides/frameworks/vue' },
+                { label: 'Angular', slug: 'guides/frameworks/angular' }
               ]
             }
           ]
@@ -49,20 +48,20 @@ export default defineConfig({
         {
           label: 'API Reference',
           items: [
-            { label: 'Chart', slug: 'docs/api/chart' },
-            { label: 'Radix', slug: 'docs/api/radix' },
-            { label: 'Transit', slug: 'docs/api/transit' },
-            { label: 'Aspect Calculator', slug: 'docs/api/aspect-calculator' },
-            { label: 'Zodiac', slug: 'docs/api/zodiac' },
-            { label: 'Settings Reference', slug: 'docs/api/settings' },
-            { label: 'Types', slug: 'docs/api/types' }
+            { label: 'Chart', slug: 'api/chart' },
+            { label: 'Radix', slug: 'api/radix' },
+            { label: 'Transit', slug: 'api/transit' },
+            { label: 'Aspect Calculator', slug: 'api/aspect-calculator' },
+            { label: 'Zodiac', slug: 'api/zodiac' },
+            { label: 'Settings Reference', slug: 'api/settings' },
+            { label: 'Types', slug: 'api/types' }
           ]
         },
         {
           label: 'Project',
           items: [
-            { label: 'Changelog', slug: 'docs/changelog' },
-            { label: 'Contributing', slug: 'docs/contributing' }
+            { label: 'Changelog', slug: 'changelog' },
+            { label: 'Contributing', slug: 'contributing' }
           ]
         }
       ]
