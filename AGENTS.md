@@ -28,3 +28,8 @@
 - After `npm install`, verify real exports: `cat node_modules/<pkg>/package.json | python3 -c "import json,sys; d=json.load(sys.stdin); print(list(d.get('exports',{}).keys()))"`
 - Run `npm run build` (or `dev`) after creating the first file — don't build 30 files then discover the config is wrong
 - Use `legacy-peer-deps=true` in `.npmrc` when a package's peer range lags behind the latest patch
+
+## Sub-projects isolation (⚠️ hard rule)
+- `website/` is a completely separate project — it must **never** affect the library build or tests
+- Any new sub-project directory **must** be added to the root `tsconfig.json` `exclude` list AND to the `exclude` regex in `webpack.config.js` before committing
+- After adding a sub-project, always run `npm run build` and `npm test` from the **root** to verify isolation
