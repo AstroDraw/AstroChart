@@ -1,0 +1,191 @@
+---
+// Custom landing page for AstroChart
+// Uses StarlightPage with splash template to keep the header/footer from Starlight
+
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+---
+
+<StarlightPage frontmatter={{
+  title: 'AstroChart',
+  description: 'Pure SVG astrology charts for the web',
+  template: 'splash',
+  hero: {
+    tagline: 'A lightweight, zero-dependency library for rendering interactive SVG astrology charts directly in web browsers.',
+    actions: [
+      { text: 'Get Started', link: '/introduction', icon: 'right-arrow', variant: 'primary' },
+      { text: 'View on GitHub', link: 'https://github.com/AstroDraw/AstroChart', icon: 'github', variant: 'secondary' }
+    ]
+  }
+}}>
+
+  <div class="landing-content">
+
+    <!-- Install snippet -->
+    <div class="install-snippet">
+      <pre><code>npm install @astrodraw/astrochart</code></pre>
+    </div>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2>Why AstroChart?</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>⚡ Zero Dependencies</h3>
+          <p>Pure SVG and vanilla JavaScript. No React, Vue, or other frameworks required.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🎨 Fully Customizable</h3>
+          <p>Control colors, fonts, sizes, rendering modes, and add custom symbols with simple settings.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📱 Responsive</h3>
+          <p>Charts scale perfectly to any container size and work on all modern browsers.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🔧 Framework Agnostic</h3>
+          <p>Use as a standalone library or integrate with React, Vue, Angular, or any other framework.</p>
+        </div>
+        <div class="feature-card">
+          <h3>📊 Complete API</h3>
+          <p>Render radix charts, transit rings, aspects, animations, and click events with ease.</p>
+        </div>
+        <div class="feature-card">
+          <h3>✅ TypeScript Support</h3>
+          <p>Full type definitions included. Write safe, maintainable code with IDE autocompletion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Footer -->
+    <section class="cta-footer">
+      <h2>Ready to get started?</h2>
+      <p>Check out the <a href="/quickstart">Quick Start guide</a> to render your first chart in minutes.</p>
+      <p class="version-info">
+        <strong>Version:</strong> 3.0.2 ·
+        <a href="/changelog">Changelog</a> ·
+        <a href="/contributing">Contributing</a>
+      </p>
+    </section>
+
+  </div>
+
+</StarlightPage>
+
+<style>
+  .landing-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Install snippet */
+  .install-snippet {
+    text-align: center;
+    margin: 2rem auto;
+  }
+
+  .install-snippet pre {
+    display: inline-block;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-border);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .install-snippet code {
+    color: var(--sl-color-accent);
+    font-family: var(--sl-font-mono, 'Courier New', monospace);
+  }
+
+  /* Features Section */
+  .features {
+    margin: 4rem 0;
+  }
+
+  .features h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--sl-color-white);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 0.75rem;
+    border: 1px solid var(--sl-color-border);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--sl-color-accent);
+    transform: translateY(-2px);
+  }
+
+  .feature-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* CTA Footer */
+  .cta-footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-border);
+    margin: 4rem 0;
+  }
+
+  .cta-footer h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .cta-footer p {
+    color: var(--sl-color-gray-2);
+    margin: 0.5rem 0;
+  }
+
+  .cta-footer a {
+    color: var(--sl-color-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .cta-footer a:hover {
+    text-decoration: underline;
+  }
+
+  .version-info {
+    font-size: 0.9rem;
+    margin-top: 1.5rem !important;
+    color: var(--sl-color-gray-3) !important;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .features h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>

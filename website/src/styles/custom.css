@@ -1,0 +1,20 @@
+/* AstroChart Custom Styles */
+
+:root {
+  /* Override Starlight theme colors if needed */
+  --sl-color-accent-low: hsl(var(--sl-hue), 100%, 97%);
+  --sl-color-accent: hsl(var(--sl-hue), 100%, 50%);
+  --sl-color-accent-high: hsl(var(--sl-hue), 100%, 20%);
+}
+
+/* Chart demo containers */
+.chart-demo {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.chart-demo svg {
+  max-width: 100%;
+  height: auto;
+}
