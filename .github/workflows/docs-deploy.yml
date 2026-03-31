@@ -19,7 +19,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  build:
+  build-library:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -35,6 +35,30 @@ jobs:
 
       - name: Build library
         run: npm run build
+
+      - name: Upload library bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: astrochart-bundle
+          path: dist/astrochart.js
+
+  build-website:
+    needs: build-library
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Download library bundle
+        uses: actions/download-artifact@v4
+        with:
+          name: astrochart-bundle
+          path: dist
 
       - name: Copy bundle to website
         run: cp dist/astrochart.js website/public/astrochart.js
@@ -53,7 +77,7 @@ jobs:
           path: website/dist
 
   deploy:
-    needs: build
+    needs: build-website
     runs-on: ubuntu-22.04
     environment:
       name: github-pages
