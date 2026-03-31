@@ -105,14 +105,14 @@ chart.radix(radixData).transit(transitData)
 
 ## Retrograde Transits
 
-Transit planets can also be retrograde — use a negative second value:
+Transit planets can also be retrograde — pass a negative velocity as the second element:
 
 ```javascript
 const transitData = {
   planets: {
-    Mercury: [122.34, -1],  // retrograde transit
-    Venus:   [198.56, 0],   // direct transit
-    Mars:    [310.78, -1]   // retrograde transit
+    Mercury: [122.34, -1.2], // retrograde transit (negative velocity)
+    Venus:   [198.56, 1.1],  // direct transit (positive velocity)
+    Mars:    [310.78, -0.8]  // retrograde transit (negative velocity)
   }
 }
 ```

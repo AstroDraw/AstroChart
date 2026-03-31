@@ -80,7 +80,7 @@ radix.aspects()
 | `planets` | `Record<string, number[]>` | Keys must be [valid planet names](/api/types#valid-planet-keys) |
 | `cusps` | `number[]` | Exactly **12** degree values |
 
-Planet array: `[degrees, retrogradeFlag]` — negative second element = retrograde.
+Planet array: `[degrees, velocity]` — the second element is the astrological velocity; a negative value means the planet is retrograde.
 
 ## Next Steps
 

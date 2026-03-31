@@ -41,9 +41,9 @@ Planets are stored in a key-value object (`Record<string, number[]>`):
 
 ```javascript
 planets: {
-  Sun: [degrees, retrogradeFlag]
+  Sun: [degrees, velocity]
   //    ^^^^^^^ 0–360
-  //           ^^^^^^^^^^^^^^ optional: negative = retrograde, 0 or omitted = direct
+  //           ^^^^^^^^ optional: astrological velocity — negative = retrograde, positive or omitted = direct
 }
 ```
 
@@ -113,14 +113,14 @@ chart.radix(data)
 
 ## Retrograde Planets
 
-Mark a planet as retrograde by setting the second array element to a **negative value**. The library automatically renders an **R** symbol next to retrograde planets:
+A planet is retrograde when its **astrological velocity is negative**. Pass the velocity as the second element of the array — the library automatically renders an **R** symbol next to retrograde planets:
 
 ```javascript
 const data = {
   planets: {
-    Mercury: [8.23, -1],    // retrograde (negative value)
-    Venus:   [35.12, 0],    // direct
-    Jupiter: [298.56, -1],  // retrograde
+    Mercury: [8.23, -1.5],  // retrograde (negative velocity)
+    Venus:   [35.12, 1.2],  // direct (positive velocity)
+    Jupiter: [298.56, -0.3], // retrograde (negative velocity)
   },
   cusps: [ /* 12 values */ ]
 }

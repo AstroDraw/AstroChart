@@ -30,7 +30,7 @@ AstroChart needs an `AstroData` object with planets (as a key-value record of de
 ```javascript
 const data = {
   planets: {
-    Sun:  [12.45, 0],      // [degrees, retrograde flag]
+    Sun:  [12.45, 0],      // [degrees, velocity]
     Moon: [145.67, 0],
     Mercury: [8.23, 0],
     Venus: [35.12, 0],
@@ -47,7 +47,7 @@ const data = {
 
 - **`planets`** — Object where each key is a planet/point name and value is an array:
   - First element: degree position (0–360)
-  - Second element (optional): retrograde flag (negative = retrograde, 0 or omitted = direct)
+  - Second element (optional): astrological velocity — negative value means the planet is retrograde, positive (or omitted) means direct
   - Valid planet names: `Sun`, `Moon`, `Mercury`, `Venus`, `Mars`, `Jupiter`, `Saturn`, `Uranus`, `Neptune`, `Pluto`, `Chiron`, `Lilith`, `NNode`, `SNode`, `Fortune`
 
 - **`cusps`** — Array of exactly **12 degree values** (0–360) representing the start of houses 1–12 in order.

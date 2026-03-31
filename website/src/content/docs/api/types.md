@@ -25,7 +25,7 @@ Planet positions are stored as a plain object where each key is a planet name an
 ```typescript
 type Points = Record<string, number[]>
 // number[0] — position in degrees (0–360)
-// number[1] — retrograde flag: negative value = retrograde (e.g. -1)
+// number[1] — astrological velocity: negative value = retrograde, positive = direct
 ```
 
 ### Valid planet keys
@@ -61,7 +61,7 @@ const data = {
     Mercury: [8.23, 0],
     Venus:   [35.12, 0],
     Mars:    [162.34, 0],
-    Jupiter: [298.56, -1],  // retrograde (negative second element)
+    Jupiter: [298.56, -0.3], // retrograde (negative velocity)
     Saturn:  [245.78, 0],
     Uranus:  [178.90, 0],
     Neptune: [210.12, 0],
