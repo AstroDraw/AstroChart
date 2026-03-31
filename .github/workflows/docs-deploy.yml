@@ -1,0 +1,50 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'website/**'
+      - 'project/src/**'
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Copy bundle to website
+        run: cp dist/astrochart.js website/public/astrochart.js
+
+      - name: Install website dependencies
+        run: npm ci
+        working-directory: website
+
+      - name: Build Astro site
+        run: npm run build
+        working-directory: website
+
+      - name: Deploy to astrodraw.github.io
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.DOCS_DEPLOY_KEY }}
+          external_repository: AstroDraw/astrodraw.github.io
+          publish_branch: main
+          publish_dir: website/dist
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'docs: deploy from AstroChart@${{ github.sha }}'
