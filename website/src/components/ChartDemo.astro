@@ -16,7 +16,7 @@ export interface Props {
   showCode?: boolean
 }
 
-import { defaultRadixData, defaultTransitData } from '../data/demoData'
+import { defaultRadixData, defaultTransitData, animateTargetData } from '../data/demoData'
 
 const {
   id,
@@ -84,6 +84,7 @@ const codeSnippet = getCodeSnippet()
     chartHeight: height,
     radixData: defaultRadixData,
     transitData: defaultTransitData,
+    animateTargetData: animateTargetData,
     baseUrl: import.meta.env.BASE_URL
   }}
 >
@@ -104,11 +105,15 @@ const codeSnippet = getCodeSnippet()
           chart.radix(radixData).aspects()
         } else if (chartMode === 'animate') {
           const transit = chart.radix(radixData).transit(transitData)
+          var isForward = true
 
           const animateBtn = document.getElementById(chartId + '-animate-btn')
           if (animateBtn) {
             animateBtn.addEventListener('click', function () {
-              transit.animate()
+              var target = isForward ? animateTargetData : transitData
+              transit.animate(target, 2, false, function () {
+                isForward = !isForward
+              })
             })
           }
         }
@@ -190,16 +195,18 @@ const codeSnippet = getCodeSnippet()
   }
 
   .code-snippet pre {
-    background: #f5f5f5;
+    background: #1e1e2e;
     padding: 1rem;
     border-radius: 0.5rem;
     overflow-x: auto;
     margin-top: 0.5rem;
     font-size: 0.875rem;
     line-height: 1.5;
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .code-snippet code {
     font-family: 'Courier New', monospace;
+    color: #cdd6f4;
   }
 </style>
