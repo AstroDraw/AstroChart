@@ -1,0 +1,428 @@
+---
+// Custom landing page for AstroChart
+// Uses StarlightPage with splash template to keep the header/footer from Starlight
+
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import ChartDemo from '../components/ChartDemo.astro'
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+
+// Read version from package.json at build time
+const packageJsonPath = resolve(process.cwd(), '../package.json')
+const packageJson = JSON.parse(readFileSync(packageJsonPath, 'utf-8'))
+const version = packageJson.version
+---
+
+<StarlightPage frontmatter={{
+  title: 'AstroChart',
+  description: 'A free and open-source JavaScript library for generating SVG astrology charts',
+  template: 'splash',
+  hero: {
+    tagline: 'A free and open-source JavaScript library for generating SVG astrology charts',
+    actions: [
+      { text: 'Get Started', link: '/installation', icon: 'right-arrow', variant: 'primary' },
+      { text: 'View on GitHub', link: 'https://github.com/AstroDraw/AstroChart', icon: 'external', variant: 'secondary' }
+    ]
+  }
+}}>
+
+  <div class="landing-content">
+
+    <!-- Install snippet -->
+    <div class="install-snippet">
+      <pre><code>npm install @astrodraw/astrochart</code></pre>
+    </div>
+
+    <!-- Version Badge -->
+    <div class="version-badge">
+      <a href="/changelog">v{version}</a>
+    </div>
+
+    <!-- Live Demo Section -->
+    <section class="demo-section">
+      <h2>See It In Action</h2>
+      <p class="demo-intro">Interactive astrology charts powered by pure SVG</p>
+      
+      <div class="demo-container">
+        <div class="demo-item">
+          <h3>Radix Chart</h3>
+          <ChartDemo id="demo-radix" height={400} mode="radix" showCode={false} />
+        </div>
+        
+        <div class="demo-item">
+          <h3>Transit Chart</h3>
+          <ChartDemo id="demo-transit" height={400} mode="transit" showCode={false} />
+        </div>
+      </div>
+
+      <details class="demo-code">
+        <summary>Show Code Example</summary>
+        <pre><code>import &#123; Chart &#125; from '@astrodraw/astrochart'
+
+// Create a new chart
+const chart = new Chart('chart', 600, 600)
+
+// Render radix (birth) chart
+chart.radix(&#123;
+  planets: &#123;
+    Sun: [12.45, 0],
+    Moon: [145.67, 0],
+    // ... more planets
+  &#125;,
+  cusps: [315.45, 35.67, 65.23, /* ... 12 total */]
+&#125;)
+
+// Add transit ring
+chart.transit(transitData)</code></pre>
+      </details>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2>Why AstroChart?</h2>
+      <div class="feature-grid">
+        <div class="feature-card">
+          <h3>📊 Pure SVG</h3>
+          <p>Renders crisp, scalable vector graphics that look perfect at any size. No canvas, no images—just clean SVG code.</p>
+        </div>
+        <div class="feature-card">
+          <h3>⚡ Zero Dependencies</h3>
+          <p>Pure vanilla JavaScript with no external dependencies. Lightweight, fast, and works anywhere.</p>
+        </div>
+        <div class="feature-card">
+          <h3>🎨 Fully Customizable</h3>
+          <p>Control colors, fonts, sizes, rendering modes, and add custom symbols with simple settings objects.</p>
+        </div>
+        <div class="feature-card">
+          <h3>✅ TypeScript-first</h3>
+          <p>Built with TypeScript. Full type definitions included for safe, maintainable code with IDE autocompletion.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sponsorship Section -->
+    <section class="sponsorship">
+      <h2>Support AstroChart</h2>
+      <p>AstroChart is free and open-source. If you find it useful, consider supporting its development!</p>
+      
+      <div class="sponsor-buttons">
+        <a href="https://ko-fi.com/afucher" target="_blank" rel="noopener noreferrer" class="sponsor-btn kofi">
+          <span>☕</span> Support on Ko-fi
+        </a>
+        <a href="https://github.com/sponsors/afucher" target="_blank" rel="noopener noreferrer" class="sponsor-btn github">
+          <span>💖</span> GitHub Sponsors
+        </a>
+      </div>
+    </section>
+
+    <!-- CTA Footer -->
+    <section class="cta-footer">
+      <h2>Ready to get started?</h2>
+      <p>Check out the <a href="/installation">Installation guide</a> to add AstroChart to your project, or explore the <a href="/quickstart">Quick Start</a> to render your first chart in minutes.</p>
+    </section>
+
+  </div>
+
+</StarlightPage>
+
+<style>
+  .landing-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* Install snippet */
+  .install-snippet {
+    text-align: center;
+    margin: 2rem auto;
+  }
+
+  .install-snippet pre {
+    display: inline-block;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-border);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .install-snippet code {
+    color: var(--sl-color-accent);
+    font-family: var(--sl-font-mono, 'Courier New', monospace);
+  }
+
+  /* Version Badge */
+  .version-badge {
+    text-align: center;
+    margin: 1rem auto 3rem;
+  }
+
+  .version-badge a {
+    display: inline-block;
+    padding: 0.375rem 0.75rem;
+    background: var(--sl-color-accent);
+    color: white;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 0.375rem;
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .version-badge a:hover {
+    opacity: 0.9;
+  }
+
+  /* Demo Section */
+  .demo-section {
+    margin: 4rem 0;
+    padding: 2rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-border);
+  }
+
+  .demo-section h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin: 0 0 0.5rem 0;
+    color: var(--sl-color-white);
+  }
+
+  .demo-intro {
+    text-align: center;
+    color: var(--sl-color-gray-2);
+    margin: 0 0 2rem 0;
+    font-size: 1.1rem;
+  }
+
+  .demo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .demo-item h3 {
+    text-align: center;
+    margin: 0 0 1rem 0;
+    font-size: 1.2rem;
+    color: var(--sl-color-white);
+  }
+
+  .demo-code {
+    margin-top: 2rem;
+    border-top: 1px solid var(--sl-color-border);
+    padding-top: 1.5rem;
+  }
+
+  .demo-code summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sl-color-accent);
+    padding: 0.5rem;
+    text-align: center;
+    list-style: none;
+  }
+
+  .demo-code summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .demo-code summary::before {
+    content: '▼ ';
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+
+  .demo-code[open] summary::before {
+    transform: rotate(180deg);
+  }
+
+  .demo-code pre {
+    background: #1e1e1e;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .demo-code code {
+    color: #d4d4d4;
+    font-family: var(--sl-font-mono, 'Courier New', monospace);
+  }
+
+  /* Features Section */
+  .features {
+    margin: 4rem 0;
+  }
+
+  .features h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--sl-color-white);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .feature-card {
+    padding: 1.5rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 0.75rem;
+    border: 1px solid var(--sl-color-border);
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .feature-card:hover {
+    border-color: var(--sl-color-accent);
+    transform: translateY(-2px);
+  }
+
+  .feature-card h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+  }
+
+  .feature-card p {
+    margin: 0;
+    color: var(--sl-color-gray-2);
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  /* Sponsorship Section */
+  .sponsorship {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, var(--sl-color-bg-nav) 0%, var(--sl-color-bg-sidebar) 100%);
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-border);
+    margin: 4rem 0;
+  }
+
+  .sponsorship h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem 0;
+    color: var(--sl-color-white);
+  }
+
+  .sponsorship p {
+    color: var(--sl-color-gray-2);
+    margin: 0 0 2rem 0;
+    font-size: 1.05rem;
+  }
+
+  .sponsor-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .sponsor-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .sponsor-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .sponsor-btn.kofi {
+    background: #FF5E5B;
+    color: white;
+  }
+
+  .sponsor-btn.github {
+    background: #6e5494;
+    color: white;
+  }
+
+  .sponsor-btn span {
+    font-size: 1.2rem;
+  }
+
+  /* CTA Footer */
+  .cta-footer {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: var(--sl-color-bg-nav);
+    border-radius: 1rem;
+    border: 1px solid var(--sl-color-border);
+    margin: 4rem 0 2rem;
+  }
+
+  .cta-footer h2 {
+    font-size: 1.75rem;
+    margin: 0 0 1rem 0;
+  }
+
+  .cta-footer p {
+    color: var(--sl-color-gray-2);
+    margin: 0.5rem 0;
+    font-size: 1.05rem;
+  }
+
+  .cta-footer a {
+    color: var(--sl-color-accent);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .cta-footer a:hover {
+    text-decoration: underline;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .demo-container {
+      grid-template-columns: 1fr;
+    }
+
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .features h2,
+    .demo-section h2 {
+      font-size: 1.5rem;
+    }
+
+    .sponsor-buttons {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .sponsor-btn {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .landing-content {
+      padding: 0 1rem;
+    }
+
+    .install-snippet pre {
+      font-size: 0.875rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+</style>

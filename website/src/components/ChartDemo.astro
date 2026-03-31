@@ -1,0 +1,197 @@
+---
+/**
+ * ChartDemo Component
+ * Renders a live interactive astrology chart using the AstroChart library.
+ * 
+ * @param id - Unique element ID for the chart container
+ * @param height - Chart height in pixels (default: 500)
+ * @param mode - Chart mode: 'radix', 'transit', or 'animate' (default: 'radix')
+ * @param showCode - Show code snippet (default: true)
+ */
+
+export interface Props {
+  id: string
+  height?: number
+  mode?: 'radix' | 'transit' | 'animate'
+  showCode?: boolean
+}
+
+import { defaultRadixData, defaultTransitData } from '../data/demoData'
+
+const {
+  id,
+  height = 500,
+  mode = 'radix',
+  showCode = true
+} = Astro.props
+
+// Generate code snippet based on mode
+const getCodeSnippet = () => {
+  if (mode === 'radix') {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data)`
+  } else if (mode === 'transit') {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(radixData).transit(transitData)`
+  } else {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+const transit = chart.radix(radixData).transit(transitData)
+transit.animate()`
+  }
+}
+
+const codeSnippet = getCodeSnippet()
+---
+
+<div class="chart-demo-wrapper">
+  <div id={id} style={`width: ${height}px; height: ${height}px;`}></div>
+  <noscript>
+    <p style="color: #666; text-align: center; padding: 2rem;">
+      JavaScript is required to display the interactive chart.
+    </p>
+  </noscript>
+  
+  {mode === 'animate' && (
+    <button id={`${id}-animate-btn`} class="animate-button">
+      Start Animation
+    </button>
+  )}
+  
+  {showCode && (
+    <details class="code-snippet">
+      <summary>Show Code</summary>
+      <pre><code>{codeSnippet}</code></pre>
+    </details>
+  )}
+</div>
+
+<script
+  is:inline
+  define:vars={{
+    chartId: id,
+    chartMode: mode,
+    chartHeight: height,
+    radixData: defaultRadixData,
+    transitData: defaultTransitData
+  }}
+>
+  ;(function () {
+    function initChart() {
+      const container = document.getElementById(chartId)
+      if (!container) return
+
+      try {
+        const { Chart } = window.astrochart
+        const chart = new Chart(chartId, chartHeight, chartHeight)
+
+        if (chartMode === 'radix') {
+          chart.radix(radixData)
+        } else if (chartMode === 'transit') {
+          chart.radix(radixData).transit(transitData)
+        } else if (chartMode === 'animate') {
+          const transit = chart.radix(radixData).transit(transitData)
+
+          const animateBtn = document.getElementById(chartId + '-animate-btn')
+          if (animateBtn) {
+            animateBtn.addEventListener('click', function () {
+              transit.animate()
+            })
+          }
+        }
+      } catch (err) {
+        console.error('ChartDemo [' + chartId + '] error:', err)
+      }
+    }
+
+    if (window.astrochart) {
+      // Library already loaded — init immediately
+      initChart()
+    } else if (document.querySelector('script[src="/astrochart.js"]')) {
+      // Another instance is already loading the bundle — queue up
+      window.__astrochartQueue = window.__astrochartQueue || []
+      window.__astrochartQueue.push(initChart)
+    } else {
+      // First instance — load the bundle and flush the queue on load
+      window.__astrochartQueue = window.__astrochartQueue || []
+      window.__astrochartQueue.push(initChart)
+
+      var script = document.createElement('script')
+      script.src = '/astrochart.js'
+      script.onload = function () {
+        var queue = window.__astrochartQueue || []
+        window.__astrochartQueue = []
+        queue.forEach(function (fn) { fn() })
+      }
+      document.head.appendChild(script)
+    }
+  })()
+</script>
+
+<style>
+  .chart-demo-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 100%;
+  }
+
+  .chart-demo-wrapper > div:first-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f9f9f9;
+    border-radius: 0.5rem;
+    border: 1px solid #e5e5e5;
+  }
+
+  .animate-button {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--sl-color-accent);
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .animate-button:hover {
+    opacity: 0.9;
+  }
+
+  .code-snippet {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .code-snippet summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--sl-color-accent);
+    padding: 0.5rem;
+  }
+
+  .code-snippet pre {
+    background: #f5f5f5;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .code-snippet code {
+    font-family: 'Courier New', monospace;
+  }
+</style>

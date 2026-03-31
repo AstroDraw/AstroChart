@@ -1,0 +1,24 @@
+{
+  "name": "astrochart-website",
+  "version": "1.0.0",
+  "description": "AstroChart documentation website built with Astro + Starlight",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^6.0.0",
+    "@astrojs/starlight": "^0.38.0",
+    "@astrojs/sitemap": "^3.1.0",
+    "sharp": "^0.33.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.14.1"
+  }
+}

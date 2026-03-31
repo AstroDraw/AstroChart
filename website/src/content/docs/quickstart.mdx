@@ -1,0 +1,150 @@
+---
+title: Quick Start
+description: Get up and running with AstroChart in 5 minutes.
+---
+
+import ChartDemo from '../../components/ChartDemo.astro'
+
+# Quick Start
+
+This guide will show you how to render your first AstroChart in just a few lines of code.
+
+## 1. Install
+
+```bash
+npm install @astrodraw/astrochart
+```
+
+## 2. Create a Container
+
+Add a `<div>` to your HTML where the chart will be rendered:
+
+```html
+<div id="chart"></div>
+```
+
+## 3. Provide Data
+
+AstroChart needs an `AstroData` object with planets (as a key-value record of degree positions) and exactly 12 cusp values:
+
+```javascript
+const data = {
+  planets: {
+    Sun:  [12.45, 0],      // [degrees, velocity]
+    Moon: [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus: [35.12, 0],
+    Mars: [162.34, 0]
+  },
+  cusps: [
+    315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+    135.45, 215.67, 245.23, 272.45, 305.67, 335.89
+  ]
+}
+```
+
+### Data Format Explained
+
+- **`planets`** — Object where each key is a planet/point name and value is an array:
+  - First element: degree position (0–360)
+  - Second element (optional): astrological velocity — negative value means the planet is retrograde, positive (or omitted) means direct
+  - Valid planet names: `Sun`, `Moon`, `Mercury`, `Venus`, `Mars`, `Jupiter`, `Saturn`, `Uranus`, `Neptune`, `Pluto`, `Chiron`, `Lilith`, `NNode`, `SNode`, `Fortune`
+
+- **`cusps`** — Array of exactly **12 degree values** (0–360) representing the start of houses 1–12 in order.
+
+## 4. Render the Chart
+
+Import the `Chart` class and call the `.radix()` method:
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+const data = {
+  planets: {
+    Sun:  [12.45, 0],
+    Moon: [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus: [35.12, 0],
+    Mars: [162.34, 0]
+  },
+  cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+          135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
+}
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data)
+```
+
+That's it! The chart is now rendered as an SVG inside the `#chart` container.
+
+## Complete HTML Example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroChart Quick Start</title>
+</head>
+<body>
+  <h1>My First Astrology Chart</h1>
+  <div id="chart"></div>
+
+  <script type="module">
+    import { Chart } from 'https://unpkg.com/@astrodraw/astrochart/dist/astrochart.js'
+
+    const data = {
+      planets: {
+        Sun:     [12.45, 0],
+        Moon:    [145.67, 0],
+        Mercury: [8.23, 0],
+        Venus:   [35.12, 0],
+        Mars:    [162.34, 0],
+        Jupiter: [298.56, 0],
+        Saturn:  [245.78, 0]
+      },
+      cusps: [
+        315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+        135.45, 215.67, 245.23, 272.45, 305.67, 335.89
+      ]
+    }
+
+    const chart = new Chart('chart', 600, 600)
+    chart.radix(data)
+  </script>
+</body>
+</html>
+```
+
+Copy this into an HTML file, open it in your browser, and you'll see a fully rendered radix chart!
+
+## Interactive Demo
+
+Here's a live example you can interact with:
+
+<ChartDemo id="quickstart-demo" height={400} mode="radix" showCode={false} />
+
+## Next Steps
+
+- **[Radix Chart Guide](/docs/guides/radix-chart)** — Learn more about radix charts and all available planets
+- **[Transit Charts](/docs/guides/transit-chart)** — Add a transit ring to overlay current positions
+- **[Animation](/docs/guides/animation)** — Animate chart transitions
+- **[Custom Settings](/docs/guides/custom-settings)** — Customize colors, fonts, and more
+- **[API Reference](/docs/api/chart)** — See all available methods and options
+
+## Troubleshooting
+
+**Chart doesn't appear?**
+- Check the browser console for errors (F12 → Console tab)
+- Make sure the container element exists: `document.getElementById('chart')`
+- Verify the data object has `planets` and `cusps` properties with correct structure
+- Cusps must have exactly 12 values
+
+**Getting type errors in TypeScript?**
+- Import types from `@astrodraw/astrochart`: `import type { Chart, AstroData } from '@astrodraw/astrochart'`
+
+**Need help?**
+- [Open an issue on GitHub](https://github.com/AstroDraw/AstroChart/issues)
+- Check the [API Reference](/docs/api/chart)
+- See [Common Guides](/docs/guides/radix-chart)

@@ -1,0 +1,29 @@
+---
+/**
+ * SinceBadge Component
+ * Displays a "Since vX.Y" badge inline with documentation.
+ * 
+ * @param version - Semantic version string (e.g., "3.1.0")
+ */
+
+export interface Props {
+  version: string
+}
+
+const { version } = Astro.props
+---
+
+<span class="since-badge">Since v{version}</span>
+
+<style>
+  .since-badge {
+    display: inline-block;
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    padding: 0.2rem 0.6rem;
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+  }
+</style>

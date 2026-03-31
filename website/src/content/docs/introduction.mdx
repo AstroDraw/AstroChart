@@ -1,0 +1,112 @@
+---
+title: Introduction
+description: Learn what AstroChart is and how it can help you render astrology charts on the web.
+---
+
+import ChartDemo from '../../components/ChartDemo.astro'
+
+# Welcome to AstroChart
+
+AstroChart is a **pure SVG, zero-dependency library** for rendering interactive astrology charts directly in web browsers.
+
+## What is AstroChart?
+
+AstroChart specializes in visualizing astrological data as beautiful, interactive SVG charts. It can render:
+
+- **Radix Charts** — A snapshot of the sky at a specific time and location
+- **Transit Charts** — Real-time planetary positions overlaid on a radix chart
+- **Aspects** — Angular relationships between planets with customizable lines and colors
+- **Animations** — Smooth transitions between chart states
+- **Custom Symbols** — Replace default symbols with your own SVG designs
+
+All of this happens **client-side in the browser**, with no external API calls or backend dependencies.
+
+## What AstroChart is NOT
+
+AstroChart is **not** an ephemeris calculator. It does not compute planetary positions, house cusps, or aspects — it only **renders them**. You must provide the planetary data (coordinates, house positions, aspects) from another source.
+
+For calculating planetary positions, consider:
+- [Swiss Ephemeris](https://www.astro.com/swisseph/)
+- [Skyfield](https://rhodesmill.org/skyfield/)
+- [pymeeus](https://pymeeus.readthedocs.io/)
+- [astro-charts](https://github.com/AstroDraw/astro-charts) (Python)
+
+## Key Features
+
+| Feature | Details |
+|---------|---------|
+| **Pure SVG** | All charts render as scalable vector graphics, perfect for any screen size |
+| **Zero Dependencies** | No jQuery, React, Vue, or other libraries required |
+| **Framework Agnostic** | Use with vanilla JavaScript, React, Vue, Angular, or any framework |
+| **Fully Customizable** | Control colors, fonts, symbol styles, and rendering modes |
+| **TypeScript Ready** | Complete type definitions included for type-safe code |
+| **Interactive** | Add click handlers to zodiac signs, houses, and planets |
+| **Lightweight** | Small bundle size (~50 KB minified, ~15 KB gzipped) |
+
+## Quick Start
+
+### 1. Install
+
+```bash
+npm install @astrodraw/astrochart
+```
+
+### 2. Add a Container
+
+```html
+<div id="chart"></div>
+```
+
+### 3. Render a Chart
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+const data = {
+  planets: {
+    Sun:  [12.45, 0],
+    Moon: [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus: [35.12, 0],
+    Mars: [162.34, 0]
+  },
+  cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+          135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
+}
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data)
+```
+
+That's it! You now have a fully rendered astrology chart.
+
+## See It In Action
+
+Here's a basic radix chart rendered with AstroChart:
+
+<ChartDemo id="intro-demo" height={400} mode="radix" showCode={false} />
+
+## Next Steps
+
+- **[Installation Guide](/docs/installation)** — Detailed setup instructions for npm, CDN, and more
+- **[Quick Start Guide](/docs/quickstart)** — A step-by-step walkthrough with examples
+- **[Radix Chart Guide](/docs/guides/radix-chart)** — Learn how to render complete natal charts
+- **[API Reference](/docs/api/chart)** — Complete documentation of all classes and methods
+
+## Browser Support
+
+AstroChart requires:
+- Modern browsers with SVG support (IE11+ with polyfills)
+- ES2015+ JavaScript support
+
+## License
+
+AstroChart is released under the **MIT License**. See the [GitHub repository](https://github.com/AstroDraw/AstroChart) for details.
+
+## Contributing
+
+Found a bug? Have a feature request? We'd love your help! See the [Contributing Guide](/docs/contributing) for instructions.
+
+---
+
+Ready to dive in? [Get started now](/docs/quickstart).

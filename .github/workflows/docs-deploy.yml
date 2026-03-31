@@ -1,0 +1,64 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'website/**'
+      - 'project/src/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install root dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build
+
+      - name: Copy bundle to website
+        run: cp dist/astrochart.js website/public/astrochart.js
+
+      - name: Install website dependencies
+        run: npm ci
+        working-directory: website
+
+      - name: Build Astro site
+        run: npm run build
+        working-directory: website
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
