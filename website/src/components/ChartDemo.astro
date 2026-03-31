@@ -78,7 +78,8 @@ const codeSnippet = getCodeSnippet()
     chartMode: mode,
     chartHeight: height,
     radixData: defaultRadixData,
-    transitData: defaultTransitData
+    transitData: defaultTransitData,
+    baseUrl: import.meta.env.BASE_URL
   }}
 >
   ;(function () {
@@ -112,7 +113,7 @@ const codeSnippet = getCodeSnippet()
     if (window.astrochart) {
       // Library already loaded — init immediately
       initChart()
-    } else if (document.querySelector('script[src="/astrochart.js"]')) {
+    } else if (document.querySelector('script[src="' + baseUrl + 'astrochart.js"]')) {
       // Another instance is already loading the bundle — queue up
       window.__astrochartQueue = window.__astrochartQueue || []
       window.__astrochartQueue.push(initChart)
@@ -122,7 +123,7 @@ const codeSnippet = getCodeSnippet()
       window.__astrochartQueue.push(initChart)
 
       var script = document.createElement('script')
-      script.src = '/astrochart.js'
+      script.src = baseUrl + 'astrochart.js'
       script.onload = function () {
         var queue = window.__astrochartQueue || []
         window.__astrochartQueue = []
