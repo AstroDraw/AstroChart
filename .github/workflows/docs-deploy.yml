@@ -9,8 +9,17 @@ on:
       - 'project/src/**'
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout
@@ -38,13 +47,18 @@ jobs:
         run: npm run build
         working-directory: website
 
-      - name: Deploy to astrodraw.github.io
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          deploy_key: ${{ secrets.DOCS_DEPLOY_KEY }}
-          external_repository: AstroDraw/astrodraw.github.io
-          publish_branch: main
-          publish_dir: website/dist
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'docs: deploy from AstroChart@${{ github.sha }}'
+          path: website/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-22.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

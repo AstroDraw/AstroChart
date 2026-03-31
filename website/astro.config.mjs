@@ -3,7 +3,8 @@ import starlight from '@astrojs/starlight'
 import sitemap from '@astrojs/sitemap'
 
 export default defineConfig({
-  site: 'https://astrodraw.github.io/',
+  site: 'https://astrodraw.github.io/AstroChart',
+  base: '/AstroChart',
   integrations: [
     starlight({
       title: 'AstroChart',

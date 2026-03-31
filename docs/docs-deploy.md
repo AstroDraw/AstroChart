@@ -1,6 +1,8 @@
 # Docs Deployment Guide
 
-This document explains how the AstroChart documentation site is built and deployed to [astrodraw.github.io](https://astrodraw.github.io/).
+This document explains how the AstroChart documentation site is built and deployed to GitHub Pages directly from this repository.
+
+The live site is served at **https://astrodraw.github.io/AstroChart/**.
 
 ---
 
@@ -10,7 +12,9 @@ The workflow file is located at `.github/workflows/docs-deploy.yml`.
 
 It runs on every push to `main` that touches either `website/**` or `project/src/**`, and can also be triggered manually.
 
-**Steps (in order):**
+The workflow has two jobs:
+
+### Job 1: `build`
 
 1. **Checkout** — checks out the `AstroChart` repository.
 2. **Set up Node.js 20** — installs Node using `actions/setup-node`.
@@ -19,52 +23,26 @@ It runs on every push to `main` that touches either `website/**` or `project/src
 5. **Copy bundle to website** — copies `dist/astrochart.js` → `website/public/astrochart.js` so the live demos can load it.
 6. **Install website dependencies** — runs `npm ci` inside `website/`.
 7. **Build Astro site** — runs `npm run build` inside `website/`, outputting the static site to `website/dist/`.
-8. **Deploy to astrodraw.github.io** — uses [`peaceiris/actions-gh-pages@v3`](https://github.com/peaceiris/actions-gh-pages) to push `website/dist/` to the `main` branch of `AstroDraw/astrodraw.github.io` via SSH deploy key.
+8. **Upload Pages artifact** — uploads `website/dist/` as a GitHub Pages artifact using the official `actions/upload-pages-artifact` action.
 
-The resulting site is served at **https://astrodraw.github.io/**.
+### Job 2: `deploy`
+
+1. **Deploy to GitHub Pages** — deploys the uploaded artifact using the official `actions/deploy-pages` action. Uses GitHub's OIDC token — no secrets or SSH keys needed.
 
 ---
 
-## One-Time Setup (SSH Deploy Key)
+## One-Time Setup (GitHub Pages source)
 
-This is a one-time setup per environment. Once done, the secret persists and no further action is needed.
+This only needs to be done once per repository.
 
-### 1. Generate an SSH key pair
+1. Go to the repository **Settings → Pages**:  
+   `https://github.com/AstroDraw/AstroChart/settings/pages`
+2. Under **Source**, select **GitHub Actions** (not a branch).
+3. Click **Save**.
 
-Run this locally (no passphrase):
+That's it. The workflow handles everything else automatically.
 
-```bash
-ssh-keygen -t ed25519 -C "docs-deploy" -f docs_deploy_key -N ""
-```
-
-This creates two files:
-- `docs_deploy_key` — **private key** (never share or commit)
-- `docs_deploy_key.pub` — **public key**
-
-### 2. Add the public key as a Deploy Key on astrodraw.github.io
-
-1. Go to `https://github.com/AstroDraw/astrodraw.github.io/settings/keys`
-2. Click **Add deploy key**
-3. Title: `AstroChart CI`
-4. Key: paste the contents of `docs_deploy_key.pub`
-5. Check **Allow write access**
-6. Click **Add key**
-
-### 3. Add the private key as a Secret in AstroChart
-
-1. Go to `https://github.com/AstroDraw/AstroChart/settings/secrets/actions`
-2. Click **New repository secret**
-3. Name: `DOCS_DEPLOY_KEY`
-4. Value: paste the entire contents of `docs_deploy_key` (including the `-----BEGIN...` and `-----END...` lines)
-5. Click **Add secret**
-
-### 4. Delete the local key files
-
-```bash
-rm docs_deploy_key docs_deploy_key.pub
-```
-
-> ⚠️ Never commit these files. They are not needed locally after setup.
+> **Note:** GitHub automatically creates a `github-pages` environment on the first successful deploy. You can see it under **Settings → Environments**.
 
 ---
 
@@ -92,23 +70,39 @@ Go to `https://github.com/AstroDraw/AstroChart/actions` and click the failed run
 |---|---|
 | Build library | TypeScript compile error or missing dep — run `npm run build` locally |
 | Build Astro site | MDX/Astro error — run `cd website && npm run build` locally |
-| Deploy to astrodraw.github.io | SSH key problem (see below) |
+| Upload Pages artifact | `website/dist/` is empty or missing — check the Astro build step above it |
+| Deploy to GitHub Pages | Pages source not set to "GitHub Actions" — see one-time setup above |
 
-### Step 2 — SSH key issues
+### Step 2 — Permissions error on deploy
 
-If the deploy step fails with an authentication or permission error:
+If the deploy job fails with a permissions error:
 
-- **"Permission denied (publickey)"** — the deploy key is wrong or missing. Re-do the one-time setup steps above.
-- **"Key is not in correct format"** — the secret was pasted with extra whitespace or is missing the header/footer lines. Delete the secret and re-paste the raw key file content.
-- **"Remote: Permission to AstroDraw/astrodraw.github.io denied"** — the deploy key on `astrodraw.github.io` does not have write access. Go to the deploy key settings and verify **Allow write access** is checked.
+- Verify the repository **Settings → Pages → Source** is set to **GitHub Actions**, not a branch.
+- Verify the workflow has the correct top-level permissions (`pages: write`, `id-token: write`).
+- Check that the `deploy` job declares `environment: name: github-pages`.
 
 ### Step 3 — Verify the deployed site
 
 After a successful run:
 
-1. Visit `https://astrodraw.github.io/` — homepage should load.
-2. Open browser DevTools → Network tab — no 404s for `/astrochart.js`.
+1. Visit `https://astrodraw.github.io/AstroChart/` — homepage should load.
+2. Open browser DevTools → Network tab — no 404s for `/AstroChart/astrochart.js`.
 3. Click through the sidebar — navigation should work.
 4. Open the browser console — no JS errors.
 
 If the site shows stale content, GitHub Pages may have a CDN cache delay of up to 10 minutes after deployment.
+
+---
+
+## Astro base path configuration
+
+The `website/astro.config.mjs` file is configured with:
+
+```js
+site: 'https://astrodraw.github.io/AstroChart',
+base: '/AstroChart',
+```
+
+The `base` option tells Astro to prefix all internal links and asset URLs with `/AstroChart`, which is required for a project repository deployed to a sub-path.
+
+If the site is ever moved to the root URL (`https://astrodraw.github.io/`), remove the `base` option and update `site` accordingly.
