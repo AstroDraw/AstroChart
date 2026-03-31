@@ -59,7 +59,7 @@ Feature requests are welcome! Please describe:
 ## Questions?
 
 - Open an issue on [GitHub](https://github.com/AstroDraw/AstroChart/issues)
-- Check the [Documentation](/docs/introduction)
+- Check the [Documentation](./introduction)
 - Review existing issues for similar questions
 
 ## License

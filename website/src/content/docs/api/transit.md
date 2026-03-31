@@ -40,5 +40,5 @@ transit.animate(newTransitData, 1500)
 
 ## Next Steps
 
-- **[Transit Chart Guide](/docs/guides/transit-chart)** — Learn more
-- **[Animation Guide](/docs/guides/animation)** — Learn about animations
+- **[Transit Chart Guide](../guides/transit-chart)** — Learn more
+- **[Animation Guide](../guides/animation)** — Learn about animations

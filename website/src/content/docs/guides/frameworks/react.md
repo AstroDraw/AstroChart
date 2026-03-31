@@ -52,5 +52,5 @@ export default function Page() {
 
 ## Next Steps
 
-- **[Vue Integration](/docs/guides/frameworks/vue)** — Use with Vue
-- **[Angular Integration](/docs/guides/frameworks/angular)** — Use with Angular
+- **[Vue Integration](./vue)** — Use with Vue
+- **[Angular Integration](./angular)** — Use with Angular

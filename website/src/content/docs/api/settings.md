@@ -44,5 +44,5 @@ chart.radix(data)
 
 ## Next Steps
 
-- **[Custom Settings Guide](/docs/guides/custom-settings)** — Learn more
-- **[Types Reference](/docs/api/types)** — See all type definitions
+- **[Custom Settings Guide](../guides/custom-settings)** — Learn more
+- **[Types Reference](./types)** — See all type definitions

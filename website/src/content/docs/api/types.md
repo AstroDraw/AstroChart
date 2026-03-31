@@ -92,7 +92,7 @@ const data = {
 ## Settings
 
 Partial settings object passed as an optional fourth argument to `new Chart()`.
-See the [Settings reference](/api/settings) for all available keys.
+See the [Settings reference](./settings) for all available keys.
 
 ```typescript
 interface Settings {
@@ -107,6 +107,6 @@ interface Settings {
 
 ## Next Steps
 
-- [Settings Reference](/api/settings) — all configurable settings
-- [Chart API](/api/chart) — `Chart` class methods
-- [Radix Chart guide](/guides/radix-chart) — practical walkthrough
+- [Settings Reference](./settings) — all configurable settings
+- [Chart API](./chart) — `Chart` class methods
+- [Radix Chart guide](../guides/radix-chart) — practical walkthrough

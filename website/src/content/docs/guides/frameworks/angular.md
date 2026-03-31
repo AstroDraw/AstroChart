@@ -52,5 +52,5 @@ export class AstroChartComponent {
 
 ## Next Steps
 
-- **[React Integration](/docs/guides/frameworks/react)** — Use with React
-- **[Vue Integration](/docs/guides/frameworks/vue)** — Use with Vue
+- **[React Integration](./react)** — Use with React
+- **[Vue Integration](./vue)** — Use with Vue

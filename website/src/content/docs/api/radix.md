@@ -59,7 +59,7 @@ const transit = radix.transit(transitData)
 transit.aspects()
 ```
 
-See the [Transit API](/api/transit) for full details.
+See the [Transit API](./transit) for full details.
 
 ### `radix.addPointsOfInterest(points: Points): Radix`
 
@@ -77,13 +77,13 @@ radix.aspects()
 
 | Field | Type | Constraint |
 |-------|------|------------|
-| `planets` | `Record<string, number[]>` | Keys must be [valid planet names](/api/types#valid-planet-keys) |
+| `planets` | `Record<string, number[]>` | Keys must be [valid planet names](./types#valid-planet-keys) |
 | `cusps` | `number[]` | Exactly **12** degree values |
 
 Planet array: `[degrees, velocity]` — the second element is the astrological velocity; a negative value means the planet is retrograde.
 
 ## Next Steps
 
-- [Types reference](/api/types) — `AstroData`, valid planet keys, full example
-- [Transit API](/api/transit) — transit ring methods
-- [Radix Chart guide](/guides/radix-chart) — practical walkthrough
+- [Types reference](./types) — `AstroData`, valid planet keys, full example
+- [Transit API](./transit) — transit ring methods
+- [Radix Chart guide](../guides/radix-chart) — practical walkthrough

@@ -34,5 +34,5 @@ Use these helper functions to identify clicked elements:
 
 ## Next Steps
 
-- **[Framework Integrations](/docs/guides/frameworks/react)** — Use with React, Vue, etc.
-- **[API Reference](/docs/api/chart)** — See all methods
+- **[Framework Integrations](./frameworks/react)** — Use with React, Vue, etc.
+- **[API Reference](../api/chart)** — See all methods

@@ -53,5 +53,5 @@ const chartData = ref({})
 
 ## Next Steps
 
-- **[React Integration](/docs/guides/frameworks/react)** — Use with React
-- **[Angular Integration](/docs/guides/frameworks/angular)** — Use with Angular
+- **[React Integration](./react)** — Use with React
+- **[Angular Integration](./angular)** — Use with Angular

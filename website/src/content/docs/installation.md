@@ -81,9 +81,9 @@ No additional `@types/` package needed.
 | Browsers (modern) | ✅ Supported |
 | IE11 | ⚠️ Requires polyfills |
 | Mobile browsers | ✅ Supported |
-| React | ✅ See [React guide](/docs/guides/frameworks/react) |
-| Vue | ✅ See [Vue guide](/docs/guides/frameworks/vue) |
-| Angular | ✅ See [Angular guide](/docs/guides/frameworks/angular) |
+| React | ✅ See [React guide](./guides/frameworks/react) |
+| Vue | ✅ See [Vue guide](./guides/frameworks/vue) |
+| Angular | ✅ See [Angular guide](./guides/frameworks/angular) |
 
 ## Verification
 
@@ -98,6 +98,6 @@ console.log('AstroChart version:', version)
 
 ## Next Steps
 
-- **[Quick Start](/docs/quickstart)** — Render your first chart
-- **[API Reference](/docs/api/chart)** — Learn all available methods
-- **[Guides](/docs/guides/radix-chart)** — Explore common use cases
+- **[Quick Start](./quickstart)** — Render your first chart
+- **[API Reference](./api/chart)** — Learn all available methods
+- **[Guides](./guides/radix-chart)** — Explore common use cases

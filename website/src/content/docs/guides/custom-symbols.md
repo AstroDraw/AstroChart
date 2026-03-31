@@ -28,5 +28,5 @@ chart.radix(data)
 
 ## Next Steps
 
-- **[Custom Settings](/docs/guides/custom-settings)** — Explore more settings
-- **[API Reference](/docs/api/chart)** — See all methods
+- **[Custom Settings](./custom-settings)** — Explore more settings
+- **[API Reference](../api/chart)** — See all methods

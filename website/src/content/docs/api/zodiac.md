@@ -38,5 +38,5 @@ const degrees = getZodiacDegrees('Aries') // 0
 
 ## Next Steps
 
-- **[Guides](/docs/guides/radix-chart)** — See zodiac in action
-- **[API Reference](/docs/api/chart)** — See all methods
+- **[Guides](../guides/radix-chart)** — See zodiac in action
+- **[API Reference](./chart)** — See all methods

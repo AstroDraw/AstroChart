@@ -30,5 +30,5 @@ console.log(angle) // Aspect angle in degrees
 
 ## Next Steps
 
-- **[Radix Chart Guide](/docs/guides/radix-chart)** — See aspects in action
-- **[API Reference](/docs/api/chart)** — See all methods
+- **[Radix Chart Guide](../guides/radix-chart)** — See aspects in action
+- **[API Reference](./chart)** — See all methods

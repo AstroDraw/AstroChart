@@ -30,5 +30,5 @@ HTML:
 
 ## Next Steps
 
-- **[Click Events](/docs/guides/click-events)** — Add interactivity
-- **[Framework Integrations](/docs/guides/frameworks/react)** — Use with React, Vue, etc.
+- **[Click Events](./click-events)** — Add interactivity
+- **[Framework Integrations](./frameworks/react)** — Use with React, Vue, etc.

@@ -66,6 +66,6 @@ chart.animate(newTransitData, 1000, false, () => {
 
 ## Next Steps
 
-- **[Radix Guide](/docs/guides/radix-chart)** — Learn about radix charts
-- **[Transit Guide](/docs/guides/transit-chart)** — Learn about transit charts
-- **[Settings Reference](/docs/api/settings)** — Customize chart appearance
+- **[Radix Guide](../guides/radix-chart)** — Learn about radix charts
+- **[Transit Guide](../guides/transit-chart)** — Learn about transit charts
+- **[Settings Reference](./settings)** — Customize chart appearance

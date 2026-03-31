@@ -6,6 +6,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
 import ChartDemo from '../components/ChartDemo.astro'
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { withBase } from '../utils/url'
 
 // Read version from package.json at build time
 const packageJsonPath = resolve(process.cwd(), '../package.json')
@@ -20,7 +21,7 @@ const version = packageJson.version
   hero: {
     tagline: 'A free and open-source JavaScript library for generating SVG astrology charts',
     actions: [
-      { text: 'Get Started', link: '/installation', icon: 'right-arrow', variant: 'primary' },
+      { text: 'Get Started', link: withBase('/installation'), icon: 'right-arrow', variant: 'primary' },
       { text: 'View on GitHub', link: 'https://github.com/AstroDraw/AstroChart', icon: 'external', variant: 'secondary' }
     ]
   }
@@ -35,7 +36,7 @@ const version = packageJson.version
 
     <!-- Version Badge -->
     <div class="version-badge">
-      <a href="/changelog">v{version}</a>
+      <a href={withBase('/changelog')}>v{version}</a>
     </div>
 
     <!-- Live Demo Section -->
@@ -118,7 +119,7 @@ chart.transit(transitData)</code></pre>
     <!-- CTA Footer -->
     <section class="cta-footer">
       <h2>Ready to get started?</h2>
-      <p>Check out the <a href="/installation">Installation guide</a> to add AstroChart to your project, or explore the <a href="/quickstart">Quick Start</a> to render your first chart in minutes.</p>
+      <p>Check out the <a href={withBase('/installation')}>Installation guide</a> to add AstroChart to your project, or explore the <a href={withBase('/quickstart')}>Quick Start</a> to render your first chart in minutes.</p>
     </section>
 
   </div>

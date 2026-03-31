@@ -23,5 +23,5 @@ chart.radix(data)
 
 ## Next Steps
 
-- **[Types Reference](/docs/api/types)** — See all available settings
-- **[Custom Symbols](/docs/guides/custom-symbols)** — Create custom symbols
+- **[Types Reference](../api/types)** — See all available settings
+- **[Custom Symbols](./custom-symbols)** — Create custom symbols
