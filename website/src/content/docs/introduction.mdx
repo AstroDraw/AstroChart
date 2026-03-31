@@ -3,6 +3,8 @@ title: Introduction
 description: Learn what AstroChart is and how it can help you render astrology charts on the web.
 ---
 
+import ChartDemo from '../../components/ChartDemo.astro'
+
 # Welcome to AstroChart
 
 AstroChart is a **pure SVG, zero-dependency library** for rendering interactive astrology charts directly in web browsers.
@@ -61,19 +63,15 @@ npm install @astrodraw/astrochart
 import { Chart } from '@astrodraw/astrochart'
 
 const data = {
-  planets: [
-    { name: 'Sun', x: 120, y: 45, type: 'personal' },
-    { name: 'Moon', x: 220, y: 75, type: 'personal' },
-    // ... more planets
-  ],
-  cusps: [
-    { name: 'Asc', x: 150, y: 0 },
-    { name: 'MC', x: 150, y: 300 },
-    // ... more cusps
-  ],
-  aspects: [
-    { planet1: 'Sun', planet2: 'Moon', type: 'conjunction', value: 12 }
-  ]
+  planets: {
+    Sun:  [12.45, 0],
+    Moon: [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus: [35.12, 0],
+    Mars: [162.34, 0]
+  },
+  cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+          135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
 }
 
 const chart = new Chart('chart', 600, 600)
@@ -82,12 +80,18 @@ chart.radix(data)
 
 That's it! You now have a fully rendered astrology chart.
 
+## See It In Action
+
+Here's a basic radix chart rendered with AstroChart:
+
+<ChartDemo id="intro-demo" height={400} mode="radix" showCode={false} />
+
 ## Next Steps
 
 - **[Installation Guide](/docs/installation)** — Detailed setup instructions for npm, CDN, and more
 - **[Quick Start Guide](/docs/quickstart)** — A step-by-step walkthrough with examples
+- **[Radix Chart Guide](/docs/guides/radix-chart)** — Learn how to render complete natal charts
 - **[API Reference](/docs/api/chart)** — Complete documentation of all classes and methods
-- **[Gallery](/gallery)** — See what's possible with AstroChart
 
 ## Browser Support
 

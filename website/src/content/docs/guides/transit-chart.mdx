@@ -1,0 +1,182 @@
+---
+title: Transit Chart
+description: Learn how to render transit charts by layering current planetary positions over a natal chart.
+---
+
+import ChartDemo from '../../../components/ChartDemo.astro'
+
+# Transit Chart
+
+A **transit chart** overlays the **current** positions of planets over your **natal (radix) chart**. This shows how transiting planets are affecting your birth chart right now.
+
+Transit charts are useful for:
+- Seeing current planetary activity relative to your birth chart
+- Identifying aspects between transit and natal planets
+- Tracking planetary transits over time
+- Understanding how cosmic events may affect you
+
+## Basic Transit Chart
+
+To render a transit chart, provide **both** radix (natal) data and transit data to the same chart:
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+// Your natal chart data
+const radixData = {
+  planets: {
+    Sun:  [12.45, 0],
+    Moon: [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus: [35.12, 0],
+    Mars: [162.34, 0]
+  },
+  cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+          135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
+}
+
+// Current planetary positions (transit data)
+const transitData = {
+  planets: {
+    Sun:  [155.67, 0],   // current Sun position
+    Moon: [245.23, 0],   // current Moon position
+    Mercury: [122.34, 0],
+    Venus: [198.56, 0],
+    Mars: [310.78, 0]
+  }
+}
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(radixData).transit(transitData)
+```
+
+## How Transits Are Rendered
+
+When you call `.transit()`, AstroChart renders:
+- The **inner ring** shows your natal (radix) planets
+- The **outer ring** shows the transit planets
+- The **houses** and **aspects** remain from the natal chart
+- Transit-to-natal aspects can be calculated automatically
+
+## Full Example with Multiple Planets
+
+Here's a complete example with more planets:
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+const radixData = {
+  planets: {
+    Sun:     [12.45, 0],
+    Moon:    [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus:   [35.12, 0],
+    Mars:    [162.34, 0],
+    Jupiter: [298.56, 0],
+    Saturn:  [245.78, 0],
+    Uranus:  [178.90, 0],
+    Neptune: [210.12, 0],
+    Pluto:   [238.34, 0],
+    NNode:   [95.45, 0]
+  },
+  cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+          135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
+}
+
+const transitData = {
+  planets: {
+    Sun:     [155.67, 0],   // Sun has moved 143.22°
+    Moon:    [245.23, 0],   // Moon has moved 99.56°
+    Mercury: [122.34, 0],
+    Venus:   [198.56, 0],
+    Mars:    [310.78, 0],
+    Jupiter: [15.67, 0],
+    Saturn:  [288.90, 0],
+    Uranus:  [205.12, 0],
+    Neptune: [245.34, 0],
+    Pluto:   [275.67, 0],
+    NNode:   [85.45, 0]
+  }
+}
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(radixData).transit(transitData)
+```
+
+## Retrograde Transits
+
+Transit planets can also be retrograde — use a negative second value:
+
+```javascript
+const transitData = {
+  planets: {
+    Mercury: [122.34, -1],  // retrograde transit
+    Venus:   [198.56, 0],   // direct transit
+    Mars:    [310.78, -1]   // retrograde transit
+  }
+}
+```
+
+## Adding Aspects
+
+You can draw transit-to-natal aspects on the chart:
+
+```javascript
+const chart = new Chart('chart', 600, 600)
+const transit = chart.radix(radixData).transit(transitData)
+transit.aspects()  // Shows aspects between transit and natal planets
+```
+
+## Interactive Demo
+
+See a live transit chart with both natal and transit planets:
+
+<ChartDemo id="transit-demo" height={400} mode="transit" showCode={false} />
+
+## Updating Transit Data
+
+To update the transit planets (e.g., for a different date/time), call `.transit()` again with new data:
+
+```javascript
+// Initial transit
+const transit = radix.transit(transitData)
+
+// Later, update to a different date
+transit = radix.transit(newTransitData)
+```
+
+Or use `.animate()` for a smooth animation between transit states (see [Animation Guide](/docs/guides/animation)).
+
+## API Reference
+
+### `radix.transit(data: AstroData): Transit`
+
+Renders a transit ring and returns a `Transit` instance.
+
+**Parameters:**
+- `data` — `AstroData` object with transit planets. **Note:** Transit data only needs `planets`; `cusps` are taken from the radix.
+
+**Returns:** `Transit` instance
+
+**Methods on Transit:**
+- `aspects()` — Calculate and draw transit-to-natal aspects
+- `animate(data, duration, callback)` — Animate to new transit positions
+- `on(eventName, callback)` — Add click/hover listeners
+
+## Common Questions
+
+**Do I need to recalculate aspects?**
+Yes, aspects are calculated between transit and natal planets. Call `.aspects()` after rendering the transit.
+
+**Can I have multiple transit rings?**
+Currently, one radix supports one transit ring. For multiple overlays, consider rendering separate charts or using custom SVG rendering.
+
+**How do I get current planetary positions?**
+You need an ephemeris calculator (Swiss Ephemeris, Skyfield, etc.). AstroChart only renders positions; it does not calculate them.
+
+## Next Steps
+
+- **[Animation](/docs/guides/animation)** — Animate transits over time
+- **[Radix Chart Guide](/docs/guides/radix-chart)** — Learn more about natal charts
+- **[Custom Settings](/docs/guides/custom-settings)** — Customize colors and appearance
+- **[API Reference](/docs/api/transit)** — Full Transit API documentation

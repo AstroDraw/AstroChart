@@ -1,0 +1,271 @@
+---
+title: Animation
+description: Animate transitions between chart states to create smooth, interactive visualizations.
+---
+
+import ChartDemo from '../../../components/ChartDemo.astro'
+
+# Animation
+
+AstroChart supports smooth animations when transitioning between chart states. This is particularly useful for:
+- Animating transit planets over time
+- Creating interactive date range selectors
+- Showing planetary movement across a time period
+- Building engaging educational tools
+
+## Basic Animation
+
+Use the `.animate()` method on a `Transit` instance to smoothly transition to new transit data:
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+const radixData = {
+  planets: { /* ... */ },
+  cusps: [ /* 12 values */ ]
+}
+
+const transitData1 = {
+  planets: { /* initial positions */ }
+}
+
+const transitData2 = {
+  planets: { /* new positions */ }
+}
+
+// Render the chart with initial transit
+const chart = new Chart('chart', 600, 600)
+const transit = chart.radix(radixData).transit(transitData1)
+
+// Later, animate to new positions over 1000 milliseconds
+transit.animate(transitData2, 1000)
+```
+
+## Animation Method Signature
+
+```typescript
+transit.animate(
+  data: AstroData,
+  duration: number,
+  options?: {
+    reverse?: boolean
+    onComplete?: () => void
+  }
+): Promise<void>
+```
+
+### Parameters
+
+- **`data`** — The target `AstroData` object with new transit positions
+- **`duration`** — Animation duration in milliseconds (e.g., 1000 for 1 second)
+- **`options`** (optional):
+  - **`reverse`** — If `true`, animate backward from current to target (default: `false`)
+  - **`onComplete`** — Callback function called when animation finishes
+
+## Complete Example
+
+Here's a complete example with an interactive date range slider:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transit Animation</title>
+</head>
+<body>
+  <h1>Animate Transits Over Time</h1>
+  
+  <div id="chart"></div>
+  
+  <div style="margin-top: 20px;">
+    <label>
+      Animate to: 
+      <input type="date" id="dateInput" value="2025-01-15">
+    </label>
+    <button id="animateBtn">Animate</button>
+    <button id="reverseBtn">Reverse</button>
+  </div>
+
+  <script type="module">
+    import { Chart } from 'https://unpkg.com/@astrodraw/astrochart/dist/astrochart.js'
+
+    // Natal chart
+    const radixData = {
+      planets: {
+        Sun:     [12.45, 0],
+        Moon:    [145.67, 0],
+        Mercury: [8.23, 0],
+        Venus:   [35.12, 0],
+        Mars:    [162.34, 0],
+        Jupiter: [298.56, 0],
+        Saturn:  [245.78, 0]
+      },
+      cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+              135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
+    }
+
+    // Initial transit data (today)
+    const transitData1 = {
+      planets: {
+        Sun:     [155.67, 0],
+        Moon:    [245.23, 0],
+        Mercury: [122.34, 0],
+        Venus:   [198.56, 0],
+        Mars:    [310.78, 0],
+        Jupiter: [15.67, 0],
+        Saturn:  [288.90, 0]
+      }
+    }
+
+    // Alternative transit data (future date)
+    const transitData2 = {
+      planets: {
+        Sun:     [165.23, 0],    // Sun moved 9.56°
+        Moon:    [125.45, 0],    // Moon moved -119.78°
+        Mercury: [135.67, 0],
+        Venus:   [210.12, 0],
+        Mars:    [325.34, 0],
+        Jupiter: [25.12, 0],
+        Saturn:  [295.45, 0]
+      }
+    }
+
+    const chart = new Chart('chart', 600, 600)
+    let transit = chart.radix(radixData).transit(transitData1)
+
+    // Animate button
+    document.getElementById('animateBtn').addEventListener('click', async () => {
+      await transit.animate(transitData2, 2000, {
+        onComplete: () => console.log('Animation complete!')
+      })
+    })
+
+    // Reverse button
+    document.getElementById('reverseBtn').addEventListener('click', async () => {
+      await transit.animate(transitData1, 2000, { reverse: true })
+    })
+  </script>
+</body>
+</html>
+```
+
+## Animation with Callbacks
+
+Run custom code when an animation completes:
+
+```javascript
+const transit = chart.radix(radixData).transit(initialTransit)
+
+transit.animate(newTransit, 1000, {
+  onComplete: () => {
+    console.log('Animation finished!')
+    // Update UI, fetch new data, etc.
+  }
+})
+```
+
+## Chaining Animations
+
+Use async/await to chain multiple animations:
+
+```javascript
+const transit = chart.radix(radixData).transit(data1)
+
+// Animate from data1 → data2
+await transit.animate(data2, 1000)
+
+// Then animate from data2 → data3
+await transit.animate(data3, 1000)
+
+// Then back to data1
+await transit.animate(data1, 1000)
+```
+
+## Duration Best Practices
+
+- **Fast animations** (300–500 milliseconds): Quick UI updates, responsive feedback
+- **Medium animations** (1000–2000 milliseconds): Watching planetary movement, default duration
+- **Slow animations** (3000+ milliseconds): Educational, contemplative viewing
+- **Very fast** (less than 300ms): Can feel jarring; not recommended for planetary movement
+
+```javascript
+// Fast movement update
+transit.animate(newData, 500)
+
+// Smooth, visible movement
+transit.animate(newData, 2000)
+
+// Slow, educational animation
+transit.animate(newData, 5000)
+```
+
+## Performance Considerations
+
+- Animations are GPU-accelerated via SVG transforms
+- Rendering is smooth even for 15+ planets
+- Duration and animation type don't significantly impact performance
+- For slower devices, use shorter durations (500–1000ms)
+
+## Interactive Demo
+
+Try the animated demo below. Click "Start Animation" to see transits move smoothly:
+
+<ChartDemo id="animation-demo" height={400} mode="animate" showCode={false} />
+
+## Common Patterns
+
+### Animate on Date Input
+
+```javascript
+const dateInput = document.getElementById('dateInput')
+const transit = chart.radix(radixData).transit(initialTransit)
+
+dateInput.addEventListener('change', async (e) => {
+  const selectedDate = new Date(e.target.value)
+  
+  // Calculate new transit positions for selectedDate
+  // (you'll need an ephemeris calculator for this)
+  const newTransit = calculateTransit(selectedDate)
+  
+  await transit.animate(newTransit, 1500)
+})
+```
+
+### Continuous Animation Loop
+
+```javascript
+const transit = chart.radix(radixData).transit(data1)
+const allTransitData = [ data1, data2, data3, data4 ]
+let currentIndex = 0
+
+async function loop() {
+  currentIndex = (currentIndex + 1) % allTransitData.length
+  await transit.animate(allTransitData[currentIndex], 2000)
+  loop()  // Continue forever
+}
+
+loop()
+```
+
+## Troubleshooting
+
+**Animation is choppy or stutters**
+- Check if your browser supports SVG animations (all modern browsers do)
+- Reduce the number of planets or aspects
+- Increase duration slightly (jerky motion often means too-fast animation)
+
+**Animation doesn't start**
+- Ensure the transit data format matches the expected structure
+- Check browser console for errors
+- Verify the `transit` object was properly created
+
+**Callback never fires**
+- Ensure you're using `.animate()` on a `Transit` instance (not `Radix`)
+- Check that duration is reasonable (not 0 or negative)
+
+## Next Steps
+
+- **[Transit Charts](/docs/guides/transit-chart)** — Learn about transit rendering
+- **[Custom Settings](/docs/guides/custom-settings)** — Customize animation appearance
+- **[API Reference](/docs/api/transit)** — Full Transit API documentation

@@ -1,0 +1,175 @@
+---
+title: Radix Chart
+description: Learn how to render a complete radix (natal) chart with AstroChart.
+---
+
+import ChartDemo from '../../../components/ChartDemo.astro'
+
+# Radix Chart
+
+A **radix chart** (also called a natal or birth chart) is a snapshot of the sky at a specific moment in time. It shows the positions of planets and house cusps for a particular birth location.
+
+AstroChart renders radix charts from an `AstroData` object containing:
+- **Planets** — Positions as degrees (0–360), keyed by planet name
+- **House Cusps** — Exactly 12 degree values representing houses 1–12
+
+## Basic Radix Chart
+
+Here's the simplest example:
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+const data = {
+  planets: {
+    Sun:  [12.45, 0],
+    Moon: [145.67, 0]
+  },
+  cusps: [315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+          135.45, 215.67, 245.23, 272.45, 305.67, 335.89]
+}
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data)
+```
+
+## Data Format
+
+### Planets
+
+Planets are stored in a key-value object (`Record<string, number[]>`):
+
+```javascript
+planets: {
+  Sun: [degrees, retrogradeFlag]
+  //    ^^^^^^^ 0–360
+  //           ^^^^^^^^^^^^^^ optional: negative = retrograde, 0 or omitted = direct
+}
+```
+
+**Valid planet names:**
+- Personal: `Sun`, `Moon`, `Mercury`, `Venus`, `Mars`
+- Social: `Jupiter`, `Saturn`
+- Generational: `Uranus`, `Neptune`, `Pluto`
+- Points: `Chiron`, `Lilith`, `NNode` (North Node), `SNode` (South Node), `Fortune`
+
+### House Cusps
+
+Cusps must be an **array of exactly 12 degree values**:
+
+```javascript
+cusps: [
+  315.45,  // 1st house cusp (Ascendant)
+  35.67,   // 2nd house cusp
+  65.23,   // 3rd house cusp
+  92.45,   // 4th house cusp (IC)
+  125.67,  // 5th house cusp
+  155.89,  // 6th house cusp
+  135.45,  // 7th house cusp (Descendant)
+  215.67,  // 8th house cusp
+  245.23,  // 9th house cusp
+  272.45,  // 10th house cusp (MC)
+  305.67,  // 11th house cusp
+  335.89   // 12th house cusp
+]
+```
+
+Passing fewer or more than 12 cusps will throw a validation error.
+
+## Full Example with All Planets
+
+Here's a complete example with all 15 standard planets and points:
+
+```javascript
+import { Chart } from '@astrodraw/astrochart'
+
+const data = {
+  planets: {
+    Sun:     [12.45, 0],    // direct
+    Moon:    [145.67, 0],
+    Mercury: [8.23, 0],
+    Venus:   [35.12, 0],
+    Mars:    [162.34, 0],
+    Jupiter: [298.56, 0],
+    Saturn:  [245.78, 0],
+    Uranus:  [178.90, 0],
+    Neptune: [210.12, 0],
+    Pluto:   [238.34, 0],
+    Chiron:  [125.67, 0],
+    Lilith:  [145.23, 0],
+    NNode:   [95.45, 0],    // North Node
+    SNode:   [275.45, 0],   // South Node
+    Fortune: [325.67, 0]
+  },
+  cusps: [
+    315.45, 35.67, 65.23, 92.45, 125.67, 155.89,
+    135.45, 215.67, 245.23, 272.45, 305.67, 335.89
+  ]
+}
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data)
+```
+
+## Retrograde Planets
+
+Mark a planet as retrograde by setting the second array element to a **negative value**. The library automatically renders an **R** symbol next to retrograde planets:
+
+```javascript
+const data = {
+  planets: {
+    Mercury: [8.23, -1],    // retrograde (negative value)
+    Venus:   [35.12, 0],    // direct
+    Jupiter: [298.56, -1],  // retrograde
+  },
+  cusps: [ /* 12 values */ ]
+}
+```
+
+## Adding Aspects
+
+Call `.aspects()` on the returned `Radix` instance to draw aspect lines between planets:
+
+```javascript
+const chart = new Chart('chart', 600, 600)
+const radix = chart.radix(data)
+radix.aspects()  // draws conjunction, square, trine, opposition lines
+```
+
+Aspects are calculated automatically using default orbs:
+- Conjunction: 10°
+- Square: 8°
+- Trine: 8°
+- Opposition: 10°
+
+You can customize orbs via [Settings](/docs/api/settings).
+
+## Interactive Demo
+
+See a complete radix chart in action:
+
+<ChartDemo id="radix-demo" height={400} mode="radix" showCode={false} />
+
+## API Reference
+
+### `chart.radix(data: AstroData): Radix`
+
+Renders a radix chart and returns a `Radix` instance for further operations.
+
+**Parameters:**
+- `data` — `AstroData` object with `planets` (object) and `cusps` (array of 12 numbers)
+
+**Returns:** `Radix` instance
+
+**Methods on Radix:**
+- `aspects()` — Draw aspect lines between planets
+- `transit(data)` — Overlay a transit ring
+- `on(eventName, callback)` — Add click/hover listeners
+
+## Next Steps
+
+- **[Transit Charts](/docs/guides/transit-chart)** — Layer a transit ring over your radix
+- **[Animation](/docs/guides/animation)** — Animate transitions between states
+- **[Custom Settings](/docs/guides/custom-settings)** — Customize colors, fonts, and appearance
+- **[Custom Symbols](/docs/guides/custom-symbols)** — Replace symbols with custom SVG
+- **[Types Reference](/docs/api/types)** — Full type definitions
