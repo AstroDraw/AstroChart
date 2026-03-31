@@ -1,10 +1,19 @@
 /* AstroChart Custom Styles */
 
+/* Light mode — indigo accent palette */
 :root {
-  /* Override Starlight theme colors if needed */
-  --sl-color-accent-low: hsl(var(--sl-hue), 100%, 97%);
-  --sl-color-accent: hsl(var(--sl-hue), 100%, 50%);
-  --sl-color-accent-high: hsl(var(--sl-hue), 100%, 20%);
+  --sl-color-accent-low: hsl(240, 60%, 95%);
+  --sl-color-accent: hsl(240, 60%, 50%);
+  --sl-color-accent-high: hsl(240, 60%, 20%);
+}
+
+/* Dark mode — richer indigo with higher contrast */
+:root[data-theme="dark"] {
+  --sl-color-accent-low: hsl(240, 40%, 20%);
+  --sl-color-accent: hsl(240, 70%, 65%);
+  --sl-color-accent-high: hsl(240, 70%, 90%);
+  /* Subtle radial gradient atmosphere via background-color override */
+  --sl-color-bg: hsl(240, 15%, 10%);
 }
 
 /* Chart demo containers */
@@ -12,6 +21,17 @@
   display: flex;
   justify-content: center;
   margin: 2rem 0;
+  background: #ffffff;
+  border: 1px solid hsl(240, 20%, 88%);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 12px 0 hsl(240, 30%, 80%, 0.35);
+  padding: 1.5rem;
+}
+
+:root[data-theme="dark"] .chart-demo {
+  background: hsl(240, 15%, 14%);
+  border-color: hsl(240, 20%, 25%);
+  box-shadow: 0 2px 16px 0 hsl(240, 40%, 5%, 0.6);
 }
 
 .chart-demo svg {

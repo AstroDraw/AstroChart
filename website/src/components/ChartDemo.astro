@@ -12,7 +12,7 @@
 export interface Props {
   id: string
   height?: number
-  mode?: 'radix' | 'transit' | 'animate'
+  mode?: 'radix' | 'transit' | 'animate' | 'aspects'
   showCode?: boolean
 }
 
@@ -37,6 +37,11 @@ chart.radix(data)`
 
 const chart = new Chart('chart', 600, 600)
 chart.radix(radixData).transit(transitData)`
+  } else if (mode === 'aspects') {
+    return `import { Chart } from 'astrochart'
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data).aspects()`
   } else {
     return `import { Chart } from 'astrochart'
 
@@ -95,6 +100,8 @@ const codeSnippet = getCodeSnippet()
           chart.radix(radixData)
         } else if (chartMode === 'transit') {
           chart.radix(radixData).transit(transitData)
+        } else if (chartMode === 'aspects') {
+          chart.radix(radixData).aspects()
         } else if (chartMode === 'animate') {
           const transit = chart.radix(radixData).transit(transitData)
 
