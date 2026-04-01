@@ -5,11 +5,11 @@ import sitemap from '@astrojs/sitemap'
 export default defineConfig({
   site: 'https://astrodraw.github.io/AstroChart',
   base: '/AstroChart',
+  trailingSlash: 'always',
   integrations: [
     starlight({
       title: 'AstroChart',
       description: 'Pure SVG astrology charts for the web',
-      favicon: '/favicon.svg',
       logo: {
         src: './public/img/logo.svg',
         alt: 'AstroChart Logo'

@@ -53,7 +53,7 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Changed
 - **Breaking:** Package renamed to `@astrodraw/astrochart`
-- **Breaking:** `AstroData` shape changed to `{ planets: Record<string, number[]>, cusps: number[] }` — see the [Getting Started guide](./guides/getting-started)
+- **Breaking:** `AstroData` shape changed to `{ planets: Record<string, number[]>, cusps: number[] }` — see the [Introduction](../introduction)
 - Cusps array must contain exactly 12 values; validation throws a descriptive error on mismatch
 - `SHIFT_IN_DEGREES` default changed to `180` (0° on the West / Ascendant side)
 
