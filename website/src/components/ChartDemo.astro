@@ -28,26 +28,30 @@ const {
 // Generate code snippet based on mode
 const getCodeSnippet = () => {
   if (mode === 'radix') {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 chart.radix(data)`
   } else if (mode === 'transit') {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 chart.radix(radixData).transit(transitData)`
   } else if (mode === 'aspects') {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 chart.radix(data).aspects()`
   } else {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 const transit = chart.radix(radixData).transit(transitData)
-transit.animate()`
+
+// animate(targetData, durationSeconds, isReverse, onComplete)
+transit.animate(newTransitData, 2, false, () => {
+  console.log('animation complete')
+})`
   }
 }
 

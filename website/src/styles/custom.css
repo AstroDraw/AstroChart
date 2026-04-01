@@ -17,7 +17,7 @@
 }
 
 /* Chart demo containers */
-.chart-demo {
+.chart-demo-wrapper {
   display: flex;
   justify-content: center;
   margin: 2rem 0;
@@ -28,13 +28,13 @@
   padding: 1.5rem;
 }
 
-:root[data-theme="dark"] .chart-demo {
+:root[data-theme="dark"] .chart-demo-wrapper {
   background: hsl(240, 15%, 14%);
   border-color: hsl(240, 20%, 25%);
   box-shadow: 0 2px 16px 0 hsl(240, 40%, 5%, 0.6);
 }
 
-.chart-demo svg {
+.chart-demo-wrapper svg {
   max-width: 100%;
   height: auto;
 }

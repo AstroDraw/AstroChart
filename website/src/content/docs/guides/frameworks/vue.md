@@ -17,7 +17,8 @@ Use a template ref and `onMounted`/`onUnmounted` to manage the chart lifecycle:
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 import { Chart } from '@astrodraw/astrochart'
-import type { AstroData } from '@astrodraw/astrochart'
+
+type AstroData = Parameters<InstanceType<typeof Chart>['radix']>[0]
 
 interface Props {
   data: AstroData

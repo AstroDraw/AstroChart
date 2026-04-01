@@ -12,20 +12,17 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ---
 
-## [3.0.2] — Current
+## [3.0.2] — 2023-08-17
 
 ### Fixed
 - Corrected planet collision-avoidance logic when `SYMBOL_SCALE` is set to a value other than `1`
 - Resolved an edge case where `DIGNITIES_EXACT_EXALTATION_DEFAULT` positions were not applied when custom dignity data was provided
 - Minor SVG attribute type-coercion fixes for strict browser environments
-
-### Changed
-- Improved TypeScript type exports — `AstroData`, `AspectData`, `Dignity`, and `Settings` interfaces are now all publicly exported from the package entry point
-- Internal SVG group IDs (`ID_*` settings) are now overridable without side-effects
+- Fixed `SNode` and `Fortune` symbol positions being rendered at incorrect ecliptic angles
 
 ---
 
-## [3.0.1]
+## [3.0.1] — 2023-07-20
 
 ### Fixed
 - Transit chart rendering when cusps array contains boundary values at 0° or 360°
@@ -38,12 +35,12 @@ This project adheres to [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ---
 
-## [3.0.0]
+## [3.0.0] — 2023-07-10
 
 ### Added
 - Full TypeScript rewrite — all public APIs are typed; ships with `.d.ts` declaration files
 - `CUSTOM_SYMBOL_FN` setting for replacing any planet or sign symbol with a custom SVG element
-- `ADD_CLICK_AREA` setting plus `radix.on('click:planet', ...)` and `radix.on('click:cusp', ...)` event API
+- `ADD_CLICK_AREA` setting — adds transparent `<rect>` hit areas around planet and cusp symbols, enabling external DOM `click` event listeners
 - `STROKE_ONLY` rendering mode for monochrome / print output
 - `SHOW_DIGNITIES_TEXT` setting and configurable dignity label characters (`r`, `d`, `e`, `E`, `f`)
 - `ANIMATION_CUSPS_ROTATION_SPEED` setting for transit rotation animation
