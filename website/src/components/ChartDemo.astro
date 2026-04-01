@@ -115,7 +115,7 @@ const codeSnippet = getCodeSnippet()
           if (animateBtn) {
             animateBtn.addEventListener('click', function () {
               var target = isForward ? animateTargetData : transitData
-              transit.animate(target, 2, false, function () {
+              transit.animate(target, 2, !isForward, function () {
                 isForward = !isForward
               })
             })

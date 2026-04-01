@@ -20,6 +20,8 @@ import { Chart } from '@astrodraw/astrochart'
 
 type AstroData = Parameters<InstanceType<typeof Chart>['radix']>[0]
 
+const chartId = `astrochart-${Math.random().toString(36).slice(2, 9)}`
+
 interface Props {
   data: AstroData
   width?: number
@@ -61,7 +63,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div id="astrochart-root" ref="containerRef" />
+  <div :id="chartId" ref="containerRef" />
 </template>
 ```
 
@@ -86,6 +88,7 @@ const props = defineProps({
 })
 
 const containerRef = ref<HTMLDivElement | null>(null)
+const chartId = `astrochart-${Math.random().toString(36).slice(2, 9)}`
 
 onMounted(() => {
   if (!containerRef.value) return
@@ -99,7 +102,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div id="astrochart-instance" ref="containerRef" />
+  <div :id="chartId" ref="containerRef" />
 </template>
 ```
 
@@ -122,7 +125,7 @@ For Vue 2, use `mounted` and `beforeDestroy`:
 
 ```vue
 <template>
-  <div id="astrochart-root" ref="container" />
+  <div :id="chartId" ref="container" />
 </template>
 
 <script>
@@ -134,6 +137,11 @@ export default {
     data: { type: Object, required: true },
     width: { type: Number, default: 600 },
     height: { type: Number, default: 600 },
+  },
+  data() {
+    return {
+      chartId: `astrochart-${Math.random().toString(36).slice(2, 9)}`,
+    }
   },
   mounted() {
     const el = this.$refs.container

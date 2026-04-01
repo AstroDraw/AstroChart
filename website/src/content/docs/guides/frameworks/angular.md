@@ -21,8 +21,6 @@ import {
   AfterViewInit,
   OnDestroy,
   Input,
-  OnChanges,
-  SimpleChanges,
 } from '@angular/core'
 import { Chart } from '@astrodraw/astrochart'
 
