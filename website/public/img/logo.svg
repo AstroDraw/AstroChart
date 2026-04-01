@@ -1,7 +1,32 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
-  <!-- Placeholder: Minimal zodiac circle -->
-  <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="2" fill="none" />
-  <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5" />
+  <!-- Outer zodiac ring -->
+  <circle cx="50" cy="50" r="46" stroke="currentColor" stroke-width="2" fill="none" />
+  <!-- Inner ring -->
+  <circle cx="50" cy="50" r="32" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7" />
   <!-- Center circle -->
-  <circle cx="50" cy="50" r="5" fill="currentColor" />
+  <circle cx="50" cy="50" r="6" stroke="currentColor" stroke-width="1.2" fill="none" />
+
+  <!-- 12 zodiac division tick marks (every 30°) -->
+  <!-- 0° (right)  --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(0,50,50)" />
+  <!-- 30°         --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(30,50,50)" />
+  <!-- 60°         --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(60,50,50)" />
+  <!-- 90° (bottom)--> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(90,50,50)" />
+  <!-- 120°        --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(120,50,50)" />
+  <!-- 150°        --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(150,50,50)" />
+  <!-- 180° (left) --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(180,50,50)" />
+  <!-- 210°        --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(210,50,50)" />
+  <!-- 240°        --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(240,50,50)" />
+  <!-- 270° (top)  --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(270,50,50)" />
+  <!-- 300°        --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(300,50,50)" />
+  <!-- 330°        --> <line x1="46" y1="50" x2="32" y2="50" stroke="currentColor" stroke-width="1" transform="rotate(330,50,50)" />
+
+  <!-- Crosshair: Ascendant/Descendant axis (horizontal) -->
+  <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" stroke-width="1.2" opacity="0.5" />
+  <!-- Crosshair: MC/IC axis (vertical) -->
+  <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" stroke-width="1.2" opacity="0.5" />
+
+  <!-- Small planet dot at top (MC position) -->
+  <circle cx="50" cy="14" r="2.5" fill="currentColor" />
+  <!-- Small dot at Ascendant (left horizon) -->
+  <circle cx="14" cy="50" r="1.8" fill="currentColor" opacity="0.7" />
 </svg>

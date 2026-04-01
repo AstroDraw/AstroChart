@@ -12,11 +12,11 @@
 export interface Props {
   id: string
   height?: number
-  mode?: 'radix' | 'transit' | 'animate'
+  mode?: 'radix' | 'transit' | 'animate' | 'aspects'
   showCode?: boolean
 }
 
-import { defaultRadixData, defaultTransitData } from '../data/demoData'
+import { defaultRadixData, defaultTransitData, animateTargetData } from '../data/demoData'
 
 const {
   id,
@@ -28,21 +28,30 @@ const {
 // Generate code snippet based on mode
 const getCodeSnippet = () => {
   if (mode === 'radix') {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 chart.radix(data)`
   } else if (mode === 'transit') {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 chart.radix(radixData).transit(transitData)`
+  } else if (mode === 'aspects') {
+    return `import { Chart } from '@astrodraw/astrochart'
+
+const chart = new Chart('chart', 600, 600)
+chart.radix(data).aspects()`
   } else {
-    return `import { Chart } from 'astrochart'
+    return `import { Chart } from '@astrodraw/astrochart'
 
 const chart = new Chart('chart', 600, 600)
 const transit = chart.radix(radixData).transit(transitData)
-transit.animate()`
+
+// animate(targetData, durationSeconds, isReverse, onComplete)
+transit.animate(newTransitData, 2, false, () => {
+  console.log('animation complete')
+})`
   }
 }
 
@@ -79,6 +88,7 @@ const codeSnippet = getCodeSnippet()
     chartHeight: height,
     radixData: defaultRadixData,
     transitData: defaultTransitData,
+    animateTargetData: animateTargetData,
     baseUrl: import.meta.env.BASE_URL
   }}
 >
@@ -95,13 +105,19 @@ const codeSnippet = getCodeSnippet()
           chart.radix(radixData)
         } else if (chartMode === 'transit') {
           chart.radix(radixData).transit(transitData)
+        } else if (chartMode === 'aspects') {
+          chart.radix(radixData).aspects()
         } else if (chartMode === 'animate') {
           const transit = chart.radix(radixData).transit(transitData)
+          var isForward = true
 
           const animateBtn = document.getElementById(chartId + '-animate-btn')
           if (animateBtn) {
             animateBtn.addEventListener('click', function () {
-              transit.animate()
+              var target = isForward ? animateTargetData : transitData
+              transit.animate(target, 2, !isForward, function () {
+                isForward = !isForward
+              })
             })
           }
         }
@@ -183,16 +199,18 @@ const codeSnippet = getCodeSnippet()
   }
 
   .code-snippet pre {
-    background: #f5f5f5;
+    background: #1e1e2e;
     padding: 1rem;
     border-radius: 0.5rem;
     overflow-x: auto;
     margin-top: 0.5rem;
     font-size: 0.875rem;
     line-height: 1.5;
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .code-snippet code {
     font-family: 'Courier New', monospace;
+    color: #cdd6f4;
   }
 </style>

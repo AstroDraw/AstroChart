@@ -14,6 +14,7 @@ export default defineConfig({
         src: './public/img/logo.svg',
         alt: 'AstroChart Logo'
       },
+      customCss: ['./src/styles/custom.css'],
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/AstroDraw/AstroChart' }
       ],
@@ -44,6 +45,12 @@ export default defineConfig({
                 { label: 'Angular', slug: 'guides/frameworks/angular' }
               ]
             }
+          ]
+        },
+        {
+          label: 'Examples',
+          items: [
+            { label: 'Gallery', slug: 'gallery' }
           ]
         },
         {

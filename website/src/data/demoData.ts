@@ -94,3 +94,41 @@ export const animationData = {
   radix: defaultRadixData,
   transit: defaultTransitData
 }
+
+/**
+ * Target transit data for animation demo.
+ * Planets are shifted ~30–90° from defaultTransitData so the animation is visible.
+ */
+export const animateTargetData: AstroData = {
+  planets: {
+    Sun: [55.34, 0],        // moved ~30°
+    Moon: [242.45, 0],      // Moon moves fast
+    Mercury: [82.67, 0],
+    Venus: [98.12, 0],
+    Mars: [228.34, 0],
+    Jupiter: [358.56, 0],
+    Saturn: [318.78, 0],
+    Uranus: [328.90, 0],
+    Neptune: [355.12, 0],
+    Pluto: [330.34, 0],
+    Chiron: [198.67, 0],
+    NNode: [92.45, 0],
+    SNode: [272.45, 0],
+    Lilith: [245.23, 0],
+    Fortune: [75.67, 0]
+  },
+  cusps: [
+    345.45,
+    65.67,
+    95.23,
+    122.45,
+    155.67,
+    185.89,
+    165.45,
+    245.67,
+    275.23,
+    302.45,
+    335.67,
+    5.89
+  ]
+}
