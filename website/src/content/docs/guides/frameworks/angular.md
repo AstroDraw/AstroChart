@@ -160,4 +160,4 @@ export class AstroChartComponent implements AfterViewInit, OnDestroy {
 
 - **[React Integration](./react)** — Use with React
 - **[Vue Integration](./vue)** — Use with Vue
-- **[Multiple Charts](../multiple-charts)** — Render several instances on one page
+- **[Multiple Charts](../../multiple-charts)** — Render several instances on one page

@@ -34,6 +34,41 @@
 - Any new sub-project directory **must** be added to the root `tsconfig.json` `exclude` list AND to the `exclude` regex in `webpack.config.js` before committing
 - After adding a sub-project, always run `npm run build` and `npm test` from the **root** to verify isolation
 
+## Website / Astro link strategy
+
+**The trailing-slash rule:** GitHub Pages serves every page at a URL ending in `/`
+(e.g. `/AstroChart/quickstart/`). The browser resolves `./` relative to that directory,
+so `./guides/foo` from a root page resolves to `/AstroChart/quickstart/guides/foo` — **broken**.
+
+Use this rule for all links inside `src/content/docs/`:
+
+| From page depth | Link target | Correct prefix | Example |
+|---|---|---|---|
+| Root page (`quickstart.md`) | Any other page (sibling OR subdir) | `../` | `../installation`, `../guides/radix-chart` |
+| Subdir page (`guides/radix-chart.mdx`) | Sibling in same subdir | `./` | `./transit-chart` |
+| Subdir page (`guides/radix-chart.mdx`) | Root page or other subdir | `../` | `../api/settings` |
+| Nested subdir (`guides/frameworks/react.md`) | Sibling in same nested subdir | `./` | `./vue` |
+| Nested subdir (`guides/frameworks/react.md`) | Parent subdir | `../` | `../radix-chart` |
+| Nested subdir (`guides/frameworks/react.md`) | Root or other top-level subdir | `../../` | `../../api/chart` |
+
+> **Why root pages always use `../`:** GitHub Pages (and `trailingSlash: 'always'`) serves
+> every page at a URL ending in `/` (e.g. `/AstroChart/installation/`). The browser treats
+> that as a directory, so `./quickstart` resolves to `/AstroChart/installation/quickstart` —
+> **wrong even for siblings**. Use `../` to escape to `/AstroChart/` first.
+
+- **In `.astro` templates:** use `import.meta.env.BASE_URL + '/path'` (already correct in `index.astro`).
+- **In Starlight config (`astro.config.mjs`):** use `slug:` values — never `link:` with absolute paths.
+- **Never** use root-absolute paths like `/guides/foo` inside `.md`/`.mdx` — they ignore the `base` setting.
+- **Future domain migration** (`astrochart.dev`): change only `site` and `base` in `astro.config.mjs` — no content files change.
+
+> **⚠️ Do not set `trailingSlash: 'always'`** in `astro.config.mjs`.
+> Astro's markdown pipeline emits relative link hrefs verbatim (`../guides/foo`, no trailing
+> slash). Setting `'always'` makes the dev server 404 every one of the ~50 relative links in
+> the content tree. GitHub Pages issues a silent 301 for slash-less URLs in production, so
+> links work correctly without the strict setting. The default (`'ignore'`) is correct here.
+
+**⚠️ Link audit rule:** Any task that adds/edits content files OR changes `base` config **must** end with a full grep audit of all `./` links across the entire `src/content/docs/` tree to confirm no root-level page has a `./` prefix remaining.
+
 ## Website / Astro content rules
 - **MDX required for component imports:** Starlight content files that use `import` and JSX component tags **must** have a `.mdx` extension. A `.md` file will print the import statement as plain text and silently ignore all component tags.
 - **Multi-instance inline script loading:** When an Astro `is:inline` script dynamically loads an external JS bundle, multiple component instances on the same page will all run simultaneously. Use a shared queue pattern to avoid race conditions:

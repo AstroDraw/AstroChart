@@ -203,4 +203,4 @@ const chartData = { planets: { Sun: [120.5] }, cusps: [0,30,60,90,120,150,180,21
 
 - **[React Integration](./react)** — Use with React
 - **[Angular Integration](./angular)** — Use with Angular
-- **[Multiple Charts](../multiple-charts)** — Render several instances on one page
+- **[Multiple Charts](../../multiple-charts)** — Render several instances on one page
