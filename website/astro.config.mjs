@@ -5,7 +5,6 @@ import sitemap from '@astrojs/sitemap'
 export default defineConfig({
   site: 'https://astrodraw.github.io/AstroChart',
   base: '/AstroChart',
-  trailingSlash: 'always',
   integrations: [
     starlight({
       title: 'AstroChart',

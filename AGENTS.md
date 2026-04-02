@@ -61,7 +61,13 @@ Use this rule for all links inside `src/content/docs/`:
 - **Never** use root-absolute paths like `/guides/foo` inside `.md`/`.mdx` — they ignore the `base` setting.
 - **Future domain migration** (`astrochart.dev`): change only `site` and `base` in `astro.config.mjs` — no content files change.
 
-**⚠️ Link audit rule:** Any task that adds/edits content files OR changes `trailingSlash`/`base` config **must** end with a full grep audit of all `./` links across the entire `src/content/docs/` tree to confirm no root-level page has a `./` prefix remaining.
+> **⚠️ Do not set `trailingSlash: 'always'`** in `astro.config.mjs`.
+> Astro's markdown pipeline emits relative link hrefs verbatim (`../guides/foo`, no trailing
+> slash). Setting `'always'` makes the dev server 404 every one of the ~50 relative links in
+> the content tree. GitHub Pages issues a silent 301 for slash-less URLs in production, so
+> links work correctly without the strict setting. The default (`'ignore'`) is correct here.
+
+**⚠️ Link audit rule:** Any task that adds/edits content files OR changes `base` config **must** end with a full grep audit of all `./` links across the entire `src/content/docs/` tree to confirm no root-level page has a `./` prefix remaining.
 
 ## Website / Astro content rules
 - **MDX required for component imports:** Starlight content files that use `import` and JSX component tags **must** have a `.mdx` extension. A `.md` file will print the import statement as plain text and silently ignore all component tags.
