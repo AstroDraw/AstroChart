@@ -1,12 +1,16 @@
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
 import sitemap from '@astrojs/sitemap'
+import starlightLinksValidator from 'starlight-links-validator'
+
+const isDev = process.env.NODE_ENV === 'development'
 
 export default defineConfig({
   site: 'https://astrodraw.github.io/AstroChart',
   base: '/AstroChart',
   integrations: [
     starlight({
+      plugins: [...(isDev ? [] : [starlightLinksValidator({ errorOnRelativeLinks: false })])],
       title: 'AstroChart',
       description: 'Pure SVG astrology charts for the web',
       logo: {
