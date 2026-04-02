@@ -98,6 +98,6 @@ console.log('AstroChart version:', version)
 
 ## Next Steps
 
-- **[Quick Start](./quickstart)** — Render your first chart
+- **[Quick Start](../quickstart)** — Render your first chart
 - **[API Reference](../api/chart)** — Learn all available methods
 - **[Guides](../guides/radix-chart)** — Explore common use cases
