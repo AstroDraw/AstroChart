@@ -44,18 +44,24 @@ Use this rule for all links inside `src/content/docs/`:
 
 | From page depth | Link target | Correct prefix | Example |
 |---|---|---|---|
-| Root page (`quickstart.md`) | Sibling root page | `./` | `./installation` |
-| Root page (`quickstart.md`) | Any subdirectory page | `../` | `../guides/radix-chart` |
+| Root page (`quickstart.md`) | Any other page (sibling OR subdir) | `../` | `../installation`, `../guides/radix-chart` |
 | Subdir page (`guides/radix-chart.mdx`) | Sibling in same subdir | `./` | `./transit-chart` |
-| Subdir page (`guides/radix-chart.mdx`) | Parent or other subdir | `../` | `../api/settings` |
+| Subdir page (`guides/radix-chart.mdx`) | Root page or other subdir | `../` | `../api/settings` |
 | Nested subdir (`guides/frameworks/react.md`) | Sibling in same nested subdir | `./` | `./vue` |
 | Nested subdir (`guides/frameworks/react.md`) | Parent subdir | `../` | `../radix-chart` |
 | Nested subdir (`guides/frameworks/react.md`) | Root or other top-level subdir | `../../` | `../../api/chart` |
+
+> **Why root pages always use `../`:** GitHub Pages (and `trailingSlash: 'always'`) serves
+> every page at a URL ending in `/` (e.g. `/AstroChart/installation/`). The browser treats
+> that as a directory, so `./quickstart` resolves to `/AstroChart/installation/quickstart` —
+> **wrong even for siblings**. Use `../` to escape to `/AstroChart/` first.
 
 - **In `.astro` templates:** use `import.meta.env.BASE_URL + '/path'` (already correct in `index.astro`).
 - **In Starlight config (`astro.config.mjs`):** use `slug:` values — never `link:` with absolute paths.
 - **Never** use root-absolute paths like `/guides/foo` inside `.md`/`.mdx` — they ignore the `base` setting.
 - **Future domain migration** (`astrochart.dev`): change only `site` and `base` in `astro.config.mjs` — no content files change.
+
+**⚠️ Link audit rule:** Any task that adds/edits content files OR changes `trailingSlash`/`base` config **must** end with a full grep audit of all `./` links across the entire `src/content/docs/` tree to confirm no root-level page has a `./` prefix remaining.
 
 ## Website / Astro content rules
 - **MDX required for component imports:** Starlight content files that use `import` and JSX component tags **must** have a `.mdx` extension. A `.md` file will print the import statement as plain text and silently ignore all component tags.
